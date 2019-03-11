@@ -6,39 +6,61 @@
 <%@taglib prefix="display" uri="http://displaytag.sf.net"%>
 <%@ taglib prefix="acme" tagdir="/WEB-INF/tags" %>
 
-<form:form action="member/edit.do" modelAttribute="member">
-
-	<%-- Hidden properties from member--%>
-	<form:hidden path="id" />
-	<form:hidden path="version" />
+<form:form action="chapter/create.do" modelAttribute="chapterForm">
 	
+	
+	<%-- UserAccount--%>
+	<%-- username--%>
+	<acme:textbox code="chapter.username" path="userAccount.username" />
+	<br>
+
+	<%-- password--%>
+	<acme:password code="chapter.password" path="userAccount.password" />
+	<br>
+	
+	<%-- Title --%>
+	<acme:textbox code="chapter.title" path="title" />
+	<br>
+
 	<%-- Name --%>
-	<acme:textbox code="member.name" path="name" />
+	<acme:textbox code="chapter.name" path="name" />
 	<br>
 
 	<%-- Middlename --%>
-	<acme:textbox code="member.middleName" path="middleName" />
+	<acme:textbox code="chapter.middleName" path="middlename" />
 	<br>
 
 	<%-- Surname --%>
-	<acme:textbox code="member.surname" path="surname" />
+	<acme:textbox code="chapter.surname" path="surname" />
 	<br>
 
 	<%-- Photo --%>
-	<acme:textbox code="member.photo" path="photo" />
+	<acme:textbox code="chapter.photo" path="photo" />
 	<br>
 
 	<%-- Phone --%>
-	<acme:textbox code="member.phone" path="phoneNumber" />
+	<acme:textbox code="chapter.phone" path="phoneNumber" />
 	<br>
 
 	<%-- email --%>
-	<acme:textbox code="member.email" path="email" />
+	<acme:textbox code="chapter.email" path="email" />
 	<br>
 
 	<%-- Address --%>
-	<acme:textbox code="member.address" path="address" />
+	<acme:textbox code="chapter.address" path="address" />
 	<br>
+	
+	<!-- Select Area -->
+	<acme:select items="${ area }" itemLabel="name" code="chapter.area" path="area"/>
+	<br>
+	
+	<%-- Accept Legal term --%>
+	<form:label path="accepted">
+		<spring:message code="register.terms.accept" />
+	</form:label>
+	<form:checkbox path="accepted"/>
+	<form:errors path="accepted" cssClass="error" />
+	<br><br>
 
 	<script type="text/javascript">
 		function phoneNumberValidator() {
@@ -59,13 +81,16 @@
 			else if (patternPN.test(phoneNumber))
 				return true;
 			else
-				return confirm('<spring:message code="brotherhood.confirm"/>');
+				return confirm('<spring:message code="chapter.confirm"/>');
 		}
 	</script>
 	<%-- Buttons --%>
 	<input type="submit" name="save"
-		value="<spring:message code="member.save"/>"
+		value="<spring:message code="chapter.save"/>"
 		onClick="javascript: return phoneNumberValidator()" />
 	
-	<acme:cancel code="member.cancel" url="/" />
+	<acme:cancel code="chapter.cancel" url="/" />
 </form:form>
+
+
+

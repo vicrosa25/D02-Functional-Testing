@@ -7,9 +7,12 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 import org.springframework.util.Assert;
+import org.springframework.validation.BindingResult;
+import org.springframework.validation.Validator;
 
 import domain.Chapter;
 import domain.MessageBox;
+import forms.ChapterForm;
 import repositories.ChapterRepository;
 import security.Authority;
 import security.LoginService;
@@ -30,6 +33,9 @@ public class ChapterService {
 	
 	@Autowired
 	private ConfigurationsService 	configurationsService;
+	
+	@Autowired
+	private Validator				validator;
 	
 	
 	/*************************************
@@ -103,6 +109,79 @@ public class ChapterService {
 		Assert.isTrue(chapter.getId() != 0);
 		this.chapterRepository.delete(chapter);
 	}
+	
+	
+	
+	/****************************************************************** 
+	 * Reconstruct form object, check validity and update binding 
+	 * ***************************************************************/
+	public Chapter reconstruct(ChapterForm form, BindingResult binding) {
+		Chapter chapter = this.create();
+
+		chapter.getUserAccount().setPassword(form.getUserAccount().getPassword());
+		chapter.getUserAccount().setUsername(form.getUserAccount().getUsername());
+
+		chapter.setAddress(form.getAddress());
+		chapter.setEmail(form.getEmail());
+		chapter.setMiddleName(form.getMiddlename());
+		chapter.setName(form.getName());
+		chapter.setPhoneNumber(form.getPhoneNumber());
+		chapter.setPhoto(form.getPhoto());
+		chapter.setSurname(form.getSurname());
+		chapter.setTitle(form.getTitle());
+		chapter.setArea(form.getArea());
+
+
+		// Default attributes from Actor
+		chapter.setUsername(form.getUserAccount().getUsername());
+
+		chapter.setIsBanned(false);
+
+		this.validator.validate(chapter, binding);
+
+		return chapter;
+	}
+	
+	/****************************************************************** 
+	 * Reconstruct pruned object, check validity and update binding 
+	 * ***************************************************************/
+	public Chapter reconstruct(Chapter chapter, BindingResult binding) {
+		Chapter result = this.create();
+		Chapter temp = this.findOne(chapter.getId());
+
+		Assert.isTrue(this.findByPrincipal().getId() == chapter.getId());
+
+		// Updated attributes
+		result.setAddress(chapter.getAddress());
+		result.setEmail(chapter.getEmail());
+		result.setMiddleName(chapter.getMiddleName());
+		result.setName(chapter.getName());
+		result.setPhoneNumber(chapter.getPhoneNumber());
+		result.setPhoto(chapter.getPhoto());
+		result.setSurname(chapter.getSurname());
+		result.setTitle(chapter.getTitle());
+
+		// Not updated attributes
+		result.setId(temp.getId());
+		result.setVersion(temp.getVersion());
+		result.setUsername(temp.getUsername());
+		result.setIsSpammer(temp.getIsSpammer());
+		result.setIsBanned(temp.getIsBanned());
+		result.setScore(temp.getScore());
+		
+
+		// Relantionships
+		result.setArea(temp.getArea());
+		result.setUserAccount(temp.getUserAccount());
+		result.setArea(temp.getArea());
+		result.setSocialIdentities(temp.getSocialIdentities());
+
+		
+		this.validator.validate(result, binding);
+
+		return result;
+	}
+		
 
 	/*************************************
 	 * Other business methods

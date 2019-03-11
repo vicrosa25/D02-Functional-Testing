@@ -5,6 +5,8 @@ import javax.persistence.AccessType;
 import javax.persistence.Entity;
 import javax.persistence.OneToOne;
 
+import org.hibernate.validator.constraints.NotBlank;
+
 @Entity
 @Access(AccessType.PROPERTY)
 public class Chapter extends Actor {
@@ -12,7 +14,7 @@ public class Chapter extends Actor {
 	// Attributes ------------------------------------------------------------------------------------------
 	private String title;
 
-	
+	@NotBlank
 	public String getTitle() {
 		return this.title;
 	}

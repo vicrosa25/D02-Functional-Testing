@@ -6,39 +6,44 @@
 <%@taglib prefix="display" uri="http://displaytag.sf.net"%>
 <%@ taglib prefix="acme" tagdir="/WEB-INF/tags" %>
 
-<form:form action="member/edit.do" modelAttribute="member">
+<form:form action="chapter/edit.do" modelAttribute="chapter">
 
-	<%-- Hidden properties from member--%>
+	<%-- Hidden properties --%>
 	<form:hidden path="id" />
 	<form:hidden path="version" />
 	
+	<%-- Title --%>
+	<acme:textbox code="chapter.title" path="title" />
+	<br>
+	
 	<%-- Name --%>
-	<acme:textbox code="member.name" path="name" />
+	<acme:textbox code="chapter.name" path="name" />
 	<br>
 
 	<%-- Middlename --%>
-	<acme:textbox code="member.middleName" path="middleName" />
+	<acme:textbox code="chapter.middleName" path="middleName" />
 	<br>
 
 	<%-- Surname --%>
-	<acme:textbox code="member.surname" path="surname" />
+	<acme:textbox code="chapter.surname" path="surname" />
 	<br>
 
 	<%-- Photo --%>
-	<acme:textbox code="member.photo" path="photo" />
+	<acme:textbox code="chapter.photo" path="photo" />
 	<br>
 
 	<%-- Phone --%>
-	<acme:textbox code="member.phone" path="phoneNumber" />
+	<acme:textbox code="chapter.phone" path="phoneNumber" />
 	<br>
 
 	<%-- email --%>
-	<acme:textbox code="member.email" path="email" />
+	<acme:textbox code="chapter.email" path="email" />
 	<br>
 
 	<%-- Address --%>
-	<acme:textbox code="member.address" path="address" />
+	<acme:textbox code="chapter.address" path="address" />
 	<br>
+	
 
 	<script type="text/javascript">
 		function phoneNumberValidator() {
@@ -59,13 +64,20 @@
 			else if (patternPN.test(phoneNumber))
 				return true;
 			else
-				return confirm('<spring:message code="brotherhood.confirm"/>');
+				return confirm('<spring:message code="chapter.confirm"/>');
 		}
 	</script>
 	<%-- Buttons --%>
 	<input type="submit" name="save"
-		value="<spring:message code="member.save"/>"
+		value="<spring:message code="chapter.save"/>"
 		onClick="javascript: return phoneNumberValidator()" />
 	
-	<acme:cancel code="member.cancel" url="/" />
+	<acme:cancel code="chapter.cancel" url="/" />
 </form:form>
+
+
+
+
+
+
+

@@ -103,6 +103,7 @@
 		</security:authorize>
 		
 		
+		
 		<!-- An actor who is NOT authenticated -->
 		<security:authorize access="isAnonymous()">
 			<li><a class="fNiv"><spring:message	code="master.page.brotherhood" /></a>
@@ -115,7 +116,8 @@
 				<ul>
 					<li class="arrow"></li>
 					<li><a href="brotherhood/create.do"><spring:message code="master.page.brotherhood.register" /></a></li>	
-					<li><a href="member/create.do"><spring:message code="master.page.member.register" /></a></li>				
+					<li><a href="member/create.do"><spring:message code="master.page.member.register" /></a></li>
+					<li><a href="chapter/create.do"><spring:message code="master.page.chapter.register" /></a></li>					
 				</ul>
 			</li>
 			<li><a class="fNiv" href="security/login.do"><spring:message code="master.page.login" /></a></li>
@@ -152,6 +154,9 @@
 					</security:authorize>
 					<security:authorize access="hasRole('MEMBER')">
 						<li><a href="member/edit.do"><spring:message code="master.page.member.edit" /></a></li>
+					</security:authorize>
+					<security:authorize access="hasRole('CHAPTER')">
+						<li><a href="chapter/edit.do"><spring:message code="master.page.chapter.edit" /></a></li>
 					</security:authorize>
 					
 					<!-- MessageBox -->
