@@ -1,6 +1,7 @@
 
 package controllers;
 
+import java.util.Collection;
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -11,6 +12,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.servlet.ModelAndView;
 
+import domain.Area;
 import domain.Chapter;
 import forms.ChapterForm;
 import services.AreaService;
@@ -137,9 +139,53 @@ public class ChapterController extends AbstractController {
 			}
 		return result;
 	}
-	
-	
-	
+
+	// Self-assign an area ------------------------------------------------------------------------------------
+	@RequestMapping(value = "/area", method = RequestMethod.GET)
+	public ModelAndView assignArea(Chapter prune, BindingResult binding) {
+		ModelAndView result;
+		Collection<Area> areas;
+
+		areas = this.areaService.findAll();
+
+		result = new ModelAndView("chapter/area");
+		result.addObject("areas", areas);
+
+		return result;
+	}
+
+	@RequestMapping(value = "/area", method = RequestMethod.POST, params = "save")
+	public ModelAndView saveArea() {
+		ModelAndView result;
+		Chapter chapter;
+
+		chapter = this.chapterService.findByPrincipal();
+
+		if (chapter.getArea() != null) {
+			result = this.displayArea();
+		} else {
+			result = new ModelAndView("chapter/area");
+			result.addObject("chapter", chapter);
+		}
+
+		return result;
+	}
+
+	// Assigned area ------------------------------------------------------------------------------------
+	@RequestMapping(value = "/area/display", method = RequestMethod.GET)
+	public ModelAndView displayArea() {
+		ModelAndView result;
+		Chapter chapter;
+		Area area;
+		
+		chapter = this.chapterService.findByPrincipal();
+		area = chapter.getArea();
+
+		result = new ModelAndView("chapter/area/display");
+		result.addObject("area", area);
+
+		return result;
+	}
 
 	// Ancillary methods -----------------------------------------------------------------------
 	protected ModelAndView createEditModelAndView(ChapterForm chapterForm) {
