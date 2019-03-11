@@ -38,6 +38,9 @@ public class BrotherhoodService {
 	private MessageBoxService		messageBoxService;
 
 	@Autowired
+	private HistoryService			historyService;
+
+	@Autowired
 	@Qualifier("validator")
 	private Validator				validator;
 
@@ -61,6 +64,7 @@ public class BrotherhoodService {
 		result.setCoaches(new ArrayList<Coach>());
 		result.setProcessions(new ArrayList<Procession>());
 		result.setMessageBoxes(boxes);
+		result.setHistory(this.historyService.create());
 
 		return result;
 	}
@@ -110,6 +114,7 @@ public class BrotherhoodService {
 		bro.setTitle(form.getTitle());
 		bro.setArea(form.getArea());
 		bro.getEstablishment().setTime(bro.getEstablishment().getTime() - 1000);
+		bro.setHistory(bro.getHistory());
 
 		// Default attributes from Actor
 		bro.setUsername(form.getUserAccount().getUsername());
@@ -155,6 +160,7 @@ public class BrotherhoodService {
 		result.setUserAccount(temp.getUserAccount());
 		result.setArea(temp.getArea());
 		result.setSocialIdentities(temp.getSocialIdentities());
+		result.setHistory(temp.getHistory());
 		
 		this.validator.validate(result, binding);
 

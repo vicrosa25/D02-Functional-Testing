@@ -16,7 +16,6 @@ import javax.validation.constraints.NotNull;
 public class History extends DomainEntity {
 
 	// Attributes -------------------------------------------------------------
-
 	// Relationships ----------------------------------------------------------
 	private InceptionRecord					inceptionRecord;
 	private Collection<PeriodRecord>		periodRecords;

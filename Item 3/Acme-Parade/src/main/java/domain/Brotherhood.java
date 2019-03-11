@@ -10,6 +10,7 @@ import javax.persistence.ElementCollection;
 import javax.persistence.Entity;
 import javax.persistence.ManyToOne;
 import javax.persistence.OneToMany;
+import javax.persistence.OneToOne;
 import javax.persistence.Temporal;
 import javax.persistence.TemporalType;
 import javax.validation.Valid;
@@ -33,6 +34,7 @@ public class Brotherhood extends Actor {
 	private Collection<Procession>	processions;
 	private Area					area;
 	private Collection<Coach>		coaches;
+	private History					history;
 
 
 	@NotBlank
@@ -107,6 +109,17 @@ public class Brotherhood extends Actor {
 
 	public void setArea(final Area area) {
 		this.area = area;
+	}
+
+	@Valid
+	@NotNull
+	@OneToOne(optional = false)
+	public History getHistory() {
+		return this.history;
+	}
+
+	public void setHistory(final History history) {
+		this.history = history;
 	}
 
 	@Override
