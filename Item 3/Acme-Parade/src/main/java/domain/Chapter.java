@@ -26,7 +26,7 @@ public class Chapter extends Actor {
 	private Area area;
 
 
-	@OneToOne(optional = false)
+	@OneToOne(optional = true)
 	public Area getArea() {
 		return this.area;
 	}

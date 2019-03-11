@@ -58,7 +58,7 @@ public class Area extends DomainEntity {
 		this.brotherhoods = brotherhoods;
 	}
 
-	@OneToOne(optional = false)
+	@OneToOne(optional = true)
 	public Chapter getChapter() {
 		return this.chapter;
 	}

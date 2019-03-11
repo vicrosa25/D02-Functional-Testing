@@ -83,6 +83,30 @@
 			</list>
 		</property>
 	</bean>
+	
+	<bean id="userAccount7" class="security.UserAccount">
+		<property name="username" value="chapter1" />
+		<property name="password" value="178494d73a41f7d68e80f685324d3662" />
+		<property name="authorities">
+			<list>
+				<bean class="security.Authority">
+					<property name="authority" value="CHAPTER" />
+				</bean>
+			</list>
+		</property>
+	</bean>
+	
+	<bean id="userAccount8" class="security.UserAccount">
+		<property name="username" value="chapter2" />
+		<property name="password" value="07a29f2348d728fad16c5260823f93ef" />
+		<property name="authorities">
+			<list>
+				<bean class="security.Authority">
+					<property name="authority" value="CHAPTER" />
+				</bean>
+			</list>
+		</property>
+	</bean>
 
 
 	<!-- Administrators *************************************************************************** -->
@@ -259,7 +283,54 @@
 		</property>
 	</bean>
 	
-	<!--  HISTORIES AND RECORDS -->
+	
+	<!-- Chapers *************************************************************************** -->
+	<bean id="chapter1" class="domain.Chapter">
+		<property name="name" value="chapter1" />
+		<property name="title" value="chapter1" />
+		<property name="username" value="chapter1" />
+		<property name="middleName" value="chapter1" />
+		<property name="surname" value="chapter1" />
+		<property name="email" value="chapter1@gmail.com" />
+		<property name="phoneNumber" value="+34656256697" />
+		<property name="address" value="chapter1 18" />
+		<property name="UserAccount" ref="userAccount7" />
+		<property name="messageBoxes">
+			<list>
+				<ref bean="chapter1-spam" />
+				<ref bean="chapter1-in" />
+				<ref bean="chapter1-out" />
+				<ref bean="chapter1-trash" />
+				<ref bean="chapter1-notification" />
+			</list>
+		</property>
+	</bean>
+	
+	<bean id="chapter2" class="domain.Chapter">
+		<property name="name" value="chapter2" />
+		<property name="title" value="chapter2" />
+		<property name="username" value="chapter2" />
+		<property name="middleName" value="chapter2" />
+		<property name="surname" value="chapter2" />
+		<property name="email" value="chapter2@gmail.com" />
+		<property name="phoneNumber" value="+34656256697" />
+		<property name="address" value="chapter2 18" />
+		<property name="UserAccount" ref="userAccount8" />
+		<property name="messageBoxes">
+			<list>
+				<ref bean="chapter2-spam" />
+				<ref bean="chapter2-in" />
+				<ref bean="chapter2-out" />
+				<ref bean="chapter2-trash" />
+				<ref bean="chapter2-notification" />
+			</list>
+		</property>
+	</bean>
+	
+	
+	
+	
+	<!--  HISTORIES AND RECORDS ******************************************************************* -->
 	<bean id="history1" class="domain.History">
 		<property name="inceptionRecord" ref="inceptionRecord1" />
 	</bean>
@@ -280,6 +351,9 @@
 		<property name="description" value="Inception record" />
 		<property name="pictures"><list></list></property>
 	</bean>
+	
+	
+	
 	<!-- SocialIdentities *************************************************************************** -->
 	<bean id="socialIdentity1" class="domain.SocialIdentity">
 		<property name="nick" value="admin" />
@@ -553,6 +627,102 @@
 	</bean>
 
 	<bean id="brotherhood2-trash" class="domain.MessageBox">
+		<property name="name" value="trash" />
+		<property name="isSystemBox" value="true" />
+		<property name="messages">
+			<list>
+			</list>
+		</property>
+	</bean>
+	
+	
+	<!-- Chapter1 MessageBoxes -->
+	<bean id="chapter1-in" class="domain.MessageBox">
+		<property name="name" value="in" />
+		<property name="isSystemBox" value="true" />
+		<property name="messages">
+			<list>
+				<ref bean="message1" />
+			</list>
+		</property>
+	</bean>
+
+	<bean id="chapter1-out" class="domain.MessageBox">
+		<property name="name" value="out" />
+		<property name="isSystemBox" value="true" />
+		<property name="messages">
+			<list>
+			</list>
+		</property>
+	</bean>
+
+	<bean id="chapter1-spam" class="domain.MessageBox">
+		<property name="name" value="spam" />
+		<property name="isSystemBox" value="true" />
+		<property name="messages">
+			<list>
+			</list>
+		</property>
+	</bean>
+
+	<bean id="chapter1-notification" class="domain.MessageBox">
+		<property name="name" value="notification" />
+		<property name="isSystemBox" value="true" />
+		<property name="messages">
+			<list>
+			</list>
+		</property>
+	</bean>
+
+	<bean id="chapter1-trash" class="domain.MessageBox">
+		<property name="name" value="trash" />
+		<property name="isSystemBox" value="true" />
+		<property name="messages">
+			<list>
+			</list>
+		</property>
+	</bean>
+	
+	
+	<!-- Chapter2 MessageBoxes -->
+	<bean id="chapter2-in" class="domain.MessageBox">
+		<property name="name" value="in" />
+		<property name="isSystemBox" value="true" />
+		<property name="messages">
+			<list>
+				<ref bean="message1" />
+			</list>
+		</property>
+	</bean>
+
+	<bean id="chapter2-out" class="domain.MessageBox">
+		<property name="name" value="out" />
+		<property name="isSystemBox" value="true" />
+		<property name="messages">
+			<list>
+			</list>
+		</property>
+	</bean>
+
+	<bean id="chapter2-spam" class="domain.MessageBox">
+		<property name="name" value="spam" />
+		<property name="isSystemBox" value="true" />
+		<property name="messages">
+			<list>
+			</list>
+		</property>
+	</bean>
+
+	<bean id="chapter2-notification" class="domain.MessageBox">
+		<property name="name" value="notification" />
+		<property name="isSystemBox" value="true" />
+		<property name="messages">
+			<list>
+			</list>
+		</property>
+	</bean>
+
+	<bean id="chapter2-trash" class="domain.MessageBox">
 		<property name="name" value="trash" />
 		<property name="isSystemBox" value="true" />
 		<property name="messages">
