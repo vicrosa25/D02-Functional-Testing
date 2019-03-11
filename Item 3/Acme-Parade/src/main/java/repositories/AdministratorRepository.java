@@ -16,10 +16,11 @@ import domain.Procession;
 public interface AdministratorRepository extends JpaRepository<Administrator, Integer> {
 
 	
-	// Queries level C
+	
 	@Query("select admin from Administrator admin where admin.userAccount.id = ?1")
 	Administrator findByUserAccountId(int id);
 
+	// Queries level C
 	@Query("select avg(b.enrols.size), min(b.enrols.size), max(b.enrols.size), stddev(b.enrols.size) from Brotherhood b")
 	Object[] query1();
 

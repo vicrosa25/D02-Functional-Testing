@@ -8,6 +8,7 @@ import javax.persistence.AccessType;
 import javax.persistence.ElementCollection;
 import javax.persistence.Entity;
 import javax.persistence.OneToMany;
+import javax.persistence.OneToOne;
 import javax.validation.Valid;
 
 import org.hibernate.validator.constraints.NotBlank;
@@ -45,19 +46,31 @@ public class Area extends DomainEntity {
 	
 	// Relationships ----------------------------------------------------------------------
 	private Collection<Brotherhood> brotherhoods;
+	private Chapter					chapter;
 
 	
 	@OneToMany(mappedBy = "area")
 	public Collection<Brotherhood> getBrotherhoods() {
-		return brotherhoods;
+		return this.brotherhoods;
 	}
 
 	public void setBrotherhoods(Collection<Brotherhood> brotherhoods) {
 		this.brotherhoods = brotherhoods;
 	}
 
+	@OneToOne(optional = false)
+	public Chapter getChapter() {
+		return this.chapter;
+	}
+
+	
+	public void setChapter(Chapter chapter) {
+		this.chapter = chapter;
+	}
+
+	// Other methods ------------------------------------------------------------------------
 	@Override
 	public String toString() {
-		return "Area [name=" + name + ", brotherhoods=" + brotherhoods + "]";
+		return "Area [name=" + this.name + ", pictures=" + this.pictures + ", brotherhoods=" + this.brotherhoods + ", chapter=" + this.chapter + "]";
 	}
 }
