@@ -194,6 +194,7 @@
 		<property name="establishment" value="2019/01/30" />
 		<property name="UserAccount" ref="userAccount2" />
 		<property name="area" ref="area1" />
+		<property name="history" ref="history1" />
 <!-- 		<property name="isSpammer" value="false" /> -->
 		<property name="socialIdentities">
 			<list>
@@ -230,6 +231,7 @@
 		<property name="establishment" value="2019/02/10" />
 		<property name="UserAccount" ref="userAccount4" />
 		<property name="area" ref="area2" />
+		<property name="history" ref="history2" />
 <!-- 		<property name="isSpammer" value="false" /> -->
 		<property name="socialIdentities">
 			<list>
@@ -256,7 +258,28 @@
 			</list>
 		</property>
 	</bean>
+	
+	<!--  HISTORIES AND RECORDS -->
+	<bean id="history1" class="domain.History">
+		<property name="inceptionRecord" ref="inceptionRecord1" />
+	</bean>
+	
+	<bean id="history2" class="domain.History">
+		<property name="inceptionRecord" ref="inceptionRecord2" />
+	</bean>
+	
+	<!--  Inception Records -->
+	<bean id="inceptionRecord1" class="domain.InceptionRecord">
+		<property name="title" value="Inception bro 1" />
+		<property name="description" value="Inception record" />
+		<property name="pictures"><list></list></property>
+	</bean>
 
+	<bean id="inceptionRecord2" class="domain.InceptionRecord">
+		<property name="title" value="Inception bro 2" />
+		<property name="description" value="Inception record" />
+		<property name="pictures"><list></list></property>
+	</bean>
 	<!-- SocialIdentities *************************************************************************** -->
 	<bean id="socialIdentity1" class="domain.SocialIdentity">
 		<property name="nick" value="admin" />
