@@ -9,7 +9,7 @@ import org.hibernate.validator.constraints.NotBlank;
 
 @Entity
 @Access(AccessType.PROPERTY)
-public class LegalRecord extends MiscellaneousRecord {
+public class LegalRecord extends Record {
 
 	// Attributes -------------------------------------------------------------
 	private String	legalName;

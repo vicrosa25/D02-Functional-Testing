@@ -8,7 +8,7 @@ import javax.persistence.OneToOne;
 
 @Entity
 @Access(AccessType.PROPERTY)
-public class LinkRecord extends MiscellaneousRecord {
+public class LinkRecord extends Record {
 
 	// Attributes -------------------------------------------------------------
 	private Brotherhood link;

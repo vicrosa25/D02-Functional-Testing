@@ -13,7 +13,7 @@ import javax.validation.constraints.NotNull;
 
 @Entity
 @Access(AccessType.PROPERTY)
-public class PeriodRecord extends MiscellaneousRecord {
+public class PeriodRecord extends Record {
 
 	// Attributes -------------------------------------------------------------
 	private Integer			startYear;

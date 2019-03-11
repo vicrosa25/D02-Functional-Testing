@@ -12,7 +12,7 @@ import javax.validation.constraints.NotNull;
 
 @Entity
 @Access(AccessType.PROPERTY)
-public class InceptionRecord extends MiscellaneousRecord {
+public class InceptionRecord extends Record {
 
 	// Attributes -------------------------------------------------------------
 	private Collection<Url> pictures;
