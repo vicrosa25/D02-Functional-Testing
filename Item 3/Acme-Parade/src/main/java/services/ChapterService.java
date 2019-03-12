@@ -152,6 +152,7 @@ public class ChapterService {
 		Assert.isTrue(this.findByPrincipal().getId() == chapter.getId());
 
 		// Updated attributes
+		result.setTitle(chapter.getTitle());
 		result.setAddress(chapter.getAddress());
 		result.setEmail(chapter.getEmail());
 		result.setMiddleName(chapter.getMiddleName());
@@ -159,7 +160,7 @@ public class ChapterService {
 		result.setPhoneNumber(chapter.getPhoneNumber());
 		result.setPhoto(chapter.getPhoto());
 		result.setSurname(chapter.getSurname());
-		result.setTitle(chapter.getTitle());
+		
 
 		// Not updated attributes
 		result.setId(temp.getId());
@@ -168,12 +169,10 @@ public class ChapterService {
 		result.setIsSpammer(temp.getIsSpammer());
 		result.setIsBanned(temp.getIsBanned());
 		result.setScore(temp.getScore());
-		
 
 		// Relantionships
 		result.setArea(temp.getArea());
 		result.setUserAccount(temp.getUserAccount());
-		result.setArea(temp.getArea());
 		result.setSocialIdentities(temp.getSocialIdentities());
 
 		

@@ -6,11 +6,11 @@
 <%@taglib prefix="display" uri="http://displaytag.sf.net"%>
 <%@ taglib prefix="acme" tagdir="/WEB-INF/tags" %>
 
-<form:form action="chapter/area.do" modelAttribute="chapter">
+<form:form action="chapter/area/assign.do" modelAttribute="chapter">
 	
 	
 	<!-- Select Area -->
-	<acme:select items="${ area }" itemLabel="name" code="chapter.area" path="area"/>
+	<acme:select items="${areas}" itemLabel="name" code="chapter.area" path="area"/>
 	<br>
 	
 	<%-- Buttons --%>

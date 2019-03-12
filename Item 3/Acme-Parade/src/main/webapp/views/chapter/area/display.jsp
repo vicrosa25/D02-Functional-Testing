@@ -15,9 +15,11 @@
 	
 	<!-- Chapter -->
 	<spring:message code="area.chapter" var="chapterHeader" />
-	<display:column property="chapter.title" title="${nameHeader}" />
+	<display:column property="chapter.title" title="${chapterHeader}" />
 	
 </display:table>
+<br>
+<br>
 
 <display:table name="brotherhoods" id="row" requestURI="chapter/area/display.do" class="displaytag">	
 	
@@ -26,7 +28,8 @@
 	<display:column property="title" title="${broHeader}" />
 	
 </display:table>
-
+<br>
+<br>
 
 <display:table name="pictures" id="row" requestURI="chapter/area/display.do" class="displaytag">	
 	

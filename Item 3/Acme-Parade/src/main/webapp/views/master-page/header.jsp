@@ -102,6 +102,17 @@
 			</li>
 		</security:authorize>
 		
+		<!-- An actor who is authenticated as a CHAPTER -->
+		<security:authorize access="hasRole('CHAPTER')">
+			<li><a class="fNiv"><spring:message	code="master.page.area" /></a>
+				<ul>
+					<li class="arrow"></li>
+					<li><a href="chapter/area/assign.do"><spring:message code="master.page.area.assign" /></a></li>
+<%-- 					<li><a href="chapter/area/diplay.do"><spring:message code="master.page.area.display" /></a></li> --%>
+				</ul>
+			</li>
+		</security:authorize>
+		
 		
 		
 		<!-- An actor who is NOT authenticated -->

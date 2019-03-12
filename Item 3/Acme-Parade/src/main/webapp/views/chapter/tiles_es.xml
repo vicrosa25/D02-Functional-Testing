@@ -16,14 +16,14 @@
 		<put-attribute name="body" value="/views/chapter/edit.jsp" />
 	</definition>
 	
-	<definition name="chapter/area" extends="master.page">	
+	<definition name="chapter/area/assign" extends="master.page">	
 		<put-attribute name="title" value="Elije un área" />
-		<put-attribute name="body" value="/views/chapter/area.jsp" />
+		<put-attribute name="body" value="/views/chapter/area/assign.jsp" />
 	</definition>
 	
 	<definition name="chapter/area/display" extends="master.page">	
 		<put-attribute name="title" value="Esta es tu área" />
-		<put-attribute name="body" value="/views/chapter/displayArea.jsp" />
+		<put-attribute name="body" value="/views/chapter/area/display.jsp" />
 	</definition>
 	
 </tiles-definitions>

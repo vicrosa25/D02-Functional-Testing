@@ -141,33 +141,53 @@ public class ChapterController extends AbstractController {
 	}
 
 	// Self-assign an area ------------------------------------------------------------------------------------
-	@RequestMapping(value = "/area", method = RequestMethod.GET)
-	public ModelAndView assignArea(Chapter prune, BindingResult binding) {
-		ModelAndView result;
-		Collection<Area> areas;
-
-		areas = this.areaService.findAll();
-
-		result = new ModelAndView("chapter/area");
-		result.addObject("areas", areas);
-
-		return result;
-	}
-
-	@RequestMapping(value = "/area", method = RequestMethod.POST, params = "save")
-	public ModelAndView saveArea() {
+	@RequestMapping(value = "/area/assign", method = RequestMethod.GET)
+	public ModelAndView assignArea() {
 		ModelAndView result;
 		Chapter chapter;
+		Collection<Area> areas;
 
 		chapter = this.chapterService.findByPrincipal();
 
 		if (chapter.getArea() != null) {
 			result = this.displayArea();
 		} else {
-			result = new ModelAndView("chapter/area");
+			areas = this.areaService.findAll();
+			result = new ModelAndView("chapter/area/assign");
+			result.addObject("areas", areas);
 			result.addObject("chapter", chapter);
 		}
 
+		return result;
+	}
+
+	@RequestMapping(value = "/area/assign", method = RequestMethod.POST, params = "save")
+	public ModelAndView assignArea(Chapter prune, BindingResult binding) {
+		ModelAndView result;
+		Chapter chapter;
+
+		chapter = this.chapterService.reconstruct(prune, binding);
+
+		if (binding.hasErrors()) {
+			List<ObjectError> errors = binding.getAllErrors();
+			for (final ObjectError e : errors)
+				System.out.println(e.toString());
+
+			result = new ModelAndView("chapter/area/assign");
+			result.addObject("chapter", prune);
+		}
+
+		else
+			try {
+				this.chapterService.save(chapter);
+				result = new ModelAndView("redirect:/");
+			} catch (final Throwable oops) {
+				System.out.println(chapter);
+				System.out.println(oops.getMessage());
+				System.out.println(oops.getClass());
+				System.out.println(oops.getCause());
+				result = this.editModelAndView(chapter, "chapter.registration.error");
+			}
 		return result;
 	}
 

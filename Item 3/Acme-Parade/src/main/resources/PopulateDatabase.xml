@@ -295,6 +295,7 @@
 		<property name="phoneNumber" value="+34656256697" />
 		<property name="address" value="chapter1 18" />
 		<property name="UserAccount" ref="userAccount7" />
+		<property name="area" ref="area1" />
 		<property name="messageBoxes">
 			<list>
 				<ref bean="chapter1-spam" />
