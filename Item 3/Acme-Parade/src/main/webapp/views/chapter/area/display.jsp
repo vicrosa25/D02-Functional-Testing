@@ -25,7 +25,7 @@
 </display:table>
 <br>
 
-
+<jstl:if test="${not empty area.pictures}">
 <display:table name="pictures" id="row" requestURI="chapter/area/display.do" class="displaytag">	
 	
 	<!-- Picture -->
@@ -35,6 +35,7 @@
 	</display:column>
 	
 </display:table>
+</jstl:if>
 
 
 

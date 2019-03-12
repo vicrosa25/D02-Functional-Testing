@@ -1,7 +1,6 @@
 
 package controllers;
 
-import java.util.Collection;
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -140,33 +139,32 @@ public class ChapterController extends AbstractController {
 		return result;
 	}
 
-	// Self-assign an area ------------------------------------------------------------------------------------
+	// Self-assign an area GET ------------------------------------------------------------------------------------
 	@RequestMapping(value = "/area/assign", method = RequestMethod.GET)
 	public ModelAndView assignArea() {
 		ModelAndView result;
 		Chapter chapter;
-		Collection<Area> areas;
 
 		chapter = this.chapterService.findByPrincipal();
 
 		if (chapter.getArea() != null) {
 			result = this.displayArea();
 		} else {
-			areas = this.areaService.findFreeAreas();
 			result = new ModelAndView("chapter/area/assign");
-			result.addObject("areas", areas);
+			result.addObject("areas", this.areaService.findFreeAreas());
 			result.addObject("chapter", chapter);
 		}
 
 		return result;
 	}
 
+	// Self-assign an area POST ------------------------------------------------------------------------------------
 	@RequestMapping(value = "/area/assign", method = RequestMethod.POST, params = "save")
 	public ModelAndView assignArea(Chapter prune, BindingResult binding) {
 		ModelAndView result;
 		Chapter chapter;
 
-		chapter = this.chapterService.reconstruct(prune, binding);
+		chapter = this.chapterService.addArea(prune, binding);
 
 		if (binding.hasErrors()) {
 			List<ObjectError> errors = binding.getAllErrors();
@@ -179,14 +177,22 @@ public class ChapterController extends AbstractController {
 
 		else
 			try {
+				Area area = chapter.getArea();
+				if(area == null) {
+					result = this.assignArea();
+					result.addObject("message", "chapter.area.null");
+					return result;
+				}
+				area.setChapter(chapter);
+				this.areaService.save(area);
 				this.chapterService.save(chapter);
-				result = new ModelAndView("redirect:/");
+				result = this.displayArea();
 			} catch (final Throwable oops) {
 				System.out.println(chapter);
 				System.out.println(oops.getMessage());
 				System.out.println(oops.getClass());
 				System.out.println(oops.getCause());
-				result = this.editModelAndView(chapter, "chapter.registration.error");
+				result = new ModelAndView("chapter/area/assign");
 			}
 		return result;
 	}
@@ -209,6 +215,12 @@ public class ChapterController extends AbstractController {
 
 		return result;
 	}
+	
+	
+	
+	
+	
+	
 
 	// Ancillary methods -----------------------------------------------------------------------
 	protected ModelAndView createEditModelAndView(ChapterForm chapterForm) {

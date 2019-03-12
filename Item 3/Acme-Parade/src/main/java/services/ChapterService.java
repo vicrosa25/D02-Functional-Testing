@@ -180,6 +180,45 @@ public class ChapterService {
 
 		return result;
 	}
+	
+	
+	/****************************************************************** 
+	 * Reconstruct pruned object, Add Area
+	 * ***************************************************************/
+	public Chapter addArea(Chapter prune, BindingResult binding) {
+		Chapter result = this.create();
+		Chapter temp = this.findOne(prune.getId());
+
+		Assert.isTrue(this.findByPrincipal().getId() == prune.getId());
+
+		// Updated attributes
+		result.setArea(prune.getArea());
+
+		// Not updated attributes
+		result.setId(temp.getId());
+		result.setVersion(temp.getVersion());
+		result.setUsername(temp.getUsername());
+		result.setTitle(temp.getTitle());
+		result.setAddress(temp.getAddress());
+		result.setEmail(temp.getEmail());
+		result.setMiddleName(temp.getMiddleName());
+		result.setName(temp.getName());
+		result.setPhoneNumber(temp.getPhoneNumber());
+		result.setPhoto(temp.getPhoto());
+		result.setSurname(temp.getSurname());
+		result.setIsSpammer(temp.getIsSpammer());
+		result.setIsBanned(temp.getIsBanned());
+		result.setScore(temp.getScore());
+
+		// Relantionships
+		result.setUserAccount(temp.getUserAccount());
+		result.setSocialIdentities(temp.getSocialIdentities());
+
+		
+		this.validator.validate(result, binding);
+
+		return result;
+	}
 		
 
 	/*************************************

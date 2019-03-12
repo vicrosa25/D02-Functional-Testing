@@ -14,6 +14,9 @@ import domain.Administrator;
 import domain.Area;
 import domain.Url;
 import repositories.AreaRepository;
+import security.Authority;
+import security.LoginService;
+import security.UserAccount;
 
 @Service
 @Transactional
@@ -59,12 +62,20 @@ public class AreaService {
 
 	public Area save(Area area) {
 		Assert.notNull(area);
-		Actor principal;
 		Area result;
 
-		// Principal must be an Admin
-		principal = this.actorService.findByPrincipal();
-		Assert.isInstanceOf(Administrator.class, principal);
+		//Principal must be an Admin or Chapter
+		UserAccount userAccount = LoginService.getPrincipal();
+		Assert.notNull(userAccount);
+
+		Authority adminAuthority = new Authority();
+		adminAuthority.setAuthority("ADMIN");
+
+		Authority chapterAuthority = new Authority();
+		chapterAuthority.setAuthority("CHAPTER");
+		
+		Assert.isTrue(userAccount.getAuthorities().contains(adminAuthority) || userAccount.getAuthorities().contains(chapterAuthority));
+		
 
 		result = this.areaRepository.save(area);
 		return result;

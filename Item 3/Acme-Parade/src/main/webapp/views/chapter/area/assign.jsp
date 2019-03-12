@@ -8,9 +8,19 @@
 
 <form:form action="chapter/area/assign.do" modelAttribute="chapter">
 	
+	<%-- Hidden properties from member--%>
+	<form:hidden path="id" />
 	
 	<!-- Select Area -->
-	<acme:select items="${areas}" itemLabel="name" code="chapter.area" path="area"/>
+<%-- 	<acme:select items="${areas}" itemLabel="name" code="chapter.area" path="area"/> --%>
+<!-- 	<br> -->
+	<form:label path="area"><spring:message code="procession.draftMode" /></form:label>
+	<form:select id="areaDropdown" path="area">
+		<form:option value="">--</form:option>
+		<form:options items="${areas}" itemLabel="name" itemValue="id" />
+	</form:select>
+	<form:errors class="error" path="area" />
+	<br>
 	<br>
 	
 	<%-- Buttons --%>
