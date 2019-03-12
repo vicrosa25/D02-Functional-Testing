@@ -142,6 +142,17 @@
 		<security:intercept-url pattern="/socialIdentity/create.do" access="isAuthenticated()" />
 		<security:intercept-url pattern="/socialIdentity/edit.do" access="isAuthenticated()" />
 		<security:intercept-url pattern="/socialIdentity/remove.do" access="isAuthenticated()" />
+		
+		<!-- HISTORY -->
+		<security:intercept-url pattern="/history/display.do" access="permitAll()" />
+		<security:intercept-url pattern="/history/brotherhood/display.do" access="hasRole('BROTHERHOOD')" />
+		<security:intercept-url pattern="/history/brotherhood/inceptionRecord/edit.do" access="hasRole('BROTHERHOOD')" />
+		<security:intercept-url pattern="/history/brotherhood/miscellaneousRecord/edit.do" access="hasRole('BROTHERHOOD')" />
+		<security:intercept-url pattern="/history/brotherhood/periodRecord/edit.do" access="hasRole('BROTHERHOOD')" />
+		<security:intercept-url pattern="/history/brotherhood/legalRecord/edit.do" access="hasRole('BROTHERHOOD')" />
+		<security:intercept-url pattern="/history/brotherhood/linkRecord/edit.do" access="hasRole('BROTHERHOOD')" />
+		<security:intercept-url pattern="/history/brotherhood/inceptionRecord/addPicture.do" access="hasRole('BROTHERHOOD')" />
+		<security:intercept-url pattern="/history/brotherhood/periodRecord/addPicture.do" access="hasRole('BROTHERHOOD')" />
 
 
 		<security:intercept-url pattern="/**" access="hasRole('NONE')" />

@@ -152,7 +152,7 @@ public class ChapterController extends AbstractController {
 		if (chapter.getArea() != null) {
 			result = this.displayArea();
 		} else {
-			areas = this.areaService.findAll();
+			areas = this.areaService.findFreeAreas();
 			result = new ModelAndView("chapter/area/assign");
 			result.addObject("areas", areas);
 			result.addObject("chapter", chapter);
@@ -191,7 +191,7 @@ public class ChapterController extends AbstractController {
 		return result;
 	}
 
-	// Assigned area ------------------------------------------------------------------------------------
+	// Display area ------------------------------------------------------------------------------------
 	@RequestMapping(value = "/area/display", method = RequestMethod.GET)
 	public ModelAndView displayArea() {
 		ModelAndView result;
@@ -201,8 +201,11 @@ public class ChapterController extends AbstractController {
 		chapter = this.chapterService.findByPrincipal();
 		area = chapter.getArea();
 
+
 		result = new ModelAndView("chapter/area/display");
 		result.addObject("area", area);
+		result.addObject("brotherhoods", area.getBrotherhoods());
+		result.addObject("pictures", area.getPictures());
 
 		return result;
 	}

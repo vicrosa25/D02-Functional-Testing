@@ -71,6 +71,6 @@ public class Area extends DomainEntity {
 	// Other methods ------------------------------------------------------------------------
 	@Override
 	public String toString() {
-		return "Area [name=" + this.name + ", pictures=" + this.pictures + ", brotherhoods=" + this.brotherhoods + ", chapter=" + this.chapter + "]";
+		return "Area [name=" + this.name + ", pictures=" + this.pictures + ", brotherhoods=" + this.brotherhoods + "]";
 	}
 }

@@ -948,6 +948,7 @@
 				<ref bean="picture3" />
 			</list>
 		</property>
+		<property name="chapter" ref="chapter1" />
 	</bean>
 
 	<bean id="area2" class="domain.Area">

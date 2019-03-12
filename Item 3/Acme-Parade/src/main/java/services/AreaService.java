@@ -84,5 +84,12 @@ public class AreaService {
 
 		this.areaRepository.delete(area);
 	}
-
+	
+	/**
+	 * Ancillary methods
+	 */
+	public Collection<Area> findFreeAreas() {
+		
+		return this.areaRepository.findAllFreeAreas();
+	}
 }

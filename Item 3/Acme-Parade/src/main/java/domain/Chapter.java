@@ -28,7 +28,7 @@ public class Chapter extends Actor {
 	private Area area;
 
 
-	@OneToOne(optional = true)
+	@OneToOne(optional = true, mappedBy = "chapter")
 	public Area getArea() {
 		return this.area;
 	}
@@ -40,6 +40,6 @@ public class Chapter extends Actor {
 	// Other Methods -------------------------------------------------------------------------------------------
 	@Override
 	public String toString() {
-		return "Chapter [title=" + this.title + ", area=" + this.area + "]";
+		return "Chapter [title=" + this.title + "]";
 	}
 }

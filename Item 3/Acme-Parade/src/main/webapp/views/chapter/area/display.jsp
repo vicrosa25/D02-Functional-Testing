@@ -13,12 +13,7 @@
 	<spring:message code="area.name" var="nameHeader" />
 	<display:column property="name" title="${nameHeader}" />
 	
-	<!-- Chapter -->
-	<spring:message code="area.chapter" var="chapterHeader" />
-	<display:column property="chapter.title" title="${chapterHeader}" />
-	
 </display:table>
-<br>
 <br>
 
 <display:table name="brotherhoods" id="row" requestURI="chapter/area/display.do" class="displaytag">	
@@ -29,13 +24,15 @@
 	
 </display:table>
 <br>
-<br>
+
 
 <display:table name="pictures" id="row" requestURI="chapter/area/display.do" class="displaytag">	
 	
 	<!-- Picture -->
 	<spring:message code="area.picture" var="pictureHeader" />
-	<display:column property="link" title="${pictureHeader}" />
+	<display:column title="${pictureHeader}" >
+		<img src="${row.link}" width="50%" height="200"/>
+	</display:column>
 	
 </display:table>
 
