@@ -6,7 +6,7 @@
 <%@taglib prefix="display" uri="http://displaytag.sf.net"%>
 <%@ taglib prefix="acme" tagdir="/WEB-INF/tags" %>
 
-<form:form action="brotherhood/addPicture.do" modelAttribute="url">	
+<form:form action="history/brotherhood/addPicture.do" modelAttribute="url">	
 		<%-- Hidden properties--%>
 		<form:hidden path="targetId" />
 
@@ -17,6 +17,6 @@
 		<%-- Buttons --%>
 
 		<input type="submit" name="save" value="<spring:message code="brotherhood.save"/>" />
-		<acme:cancel code="brotherhood.cancel" url="brotherhood/edit.do" />
+		<acme:cancel code="brotherhood.cancel" url="history/brotherhood/display.do" />
 	<br><br>
 </form:form>

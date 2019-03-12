@@ -88,4 +88,14 @@
 	</security:authorize>
 
 
+	<!-- History -->
+	<security:authorize access="isAnonymous()">
+		<display:column>
+			<a href="history/display.do?brotherhoodId=${row.id}">
+				<spring:message code="brotherhood.history" />
+			</a>
+		</display:column>
+	</security:authorize>
+
+
 </display:table>
