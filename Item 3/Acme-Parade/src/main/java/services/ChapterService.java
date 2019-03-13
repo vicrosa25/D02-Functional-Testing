@@ -230,7 +230,7 @@ public class ChapterService {
 		
 
 	/*************************************
-	 * Other business methods
+	 * Aprove/Reject Parade
 	 *************************************/
 	
 	public Procession aproveProcession(Procession procession) {
@@ -239,20 +239,33 @@ public class ChapterService {
 		Actor principal = this.actorService.findByPrincipal();
 		Assert.isInstanceOf(Chapter.class, principal);
 		
-		Chapter chapter = (Chapter) principal;
-		
-		// Check principal manage Area where is Brotherhood
-		Assert.isTrue(chapter.getArea().getBrotherhoods().contains(procession.getBrotherhood()), "The chapter don't manage this procession");
-		
 		
 		procession.setStatus("APPROVED");
-		procession.setDraftMode(false);
+		
+		return this.processionService.save(procession);
+	}
+	
+	public Procession rejectParade(Procession procession) {
+		
+		// Check principal is a Chapter
+		Actor principal = this.actorService.findByPrincipal();
+		Assert.isInstanceOf(Chapter.class, principal);
+		
+		
+		procession.setStatus("REJECTED");
 		
 		return this.processionService.save(procession);
 	}
 	
 	
 	
+
+
+
+
+	/*************************************
+	 * Other business methods
+	*************************************/
 	public Chapter findByPrincipal() {
 		Chapter result;
 		UserAccount userAccount;

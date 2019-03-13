@@ -102,17 +102,17 @@ public class ProcessionService {
 			Brotherhood brotherhood = (Brotherhood) principal;
 			procession.setBrotherhood(brotherhood);
 			this.automaticNotification(procession);
+			if (procession.getDraftMode() == false)
+				Assert.isTrue(procession.getStatus() == "SUBMITTED");
 		} else {
 			if (principal.getClass().equals(Brotherhood.class)){
 				Brotherhood brotherhood = (Brotherhood) principal;
 				Assert.isTrue(brotherhood.getProcessions().contains(procession));
+				if (procession.getDraftMode() == false)
+					Assert.isTrue(procession.getStatus() == "SUBMITTED");
 			}
 		}
 		
-		if (procession.getStatus() == "APROVED")
-			Assert.isTrue(procession.getDraftMode() == false);
-			
-
 		return this.processionRepository.save(procession);
 	}
 

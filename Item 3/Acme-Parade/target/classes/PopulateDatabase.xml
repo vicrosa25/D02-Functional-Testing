@@ -814,7 +814,7 @@
 		<property name="title" value="procession1" />
 		<property name="description" value="procession1 description" />
 		<property name="moment" value="2019/04/01" />
-		<property name="draftMode" value="true" />
+		<property name="draftMode" value="false" />
 		<property name="status" value="SUBMITTED" />
 		<property name="brotherhood" ref="brotherhood1" />
 		<property name="requests">

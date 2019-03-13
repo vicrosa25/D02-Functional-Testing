@@ -22,7 +22,7 @@
 	</definition>
 	
 	<definition name="chapter/area/display" extends="master.page">	
-		<put-attribute name="title" value="This is your area" />
+		<put-attribute name="title" value="You has an Area allready" />
 		<put-attribute name="body" value="/views/chapter/area/display.jsp" />
 	</definition>
 	
