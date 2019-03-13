@@ -34,12 +34,12 @@
 	</display:table>
 	</jstl:if>
 	
-	<jstl:if test="${not empty bro}">
-		<a href="history/brotherhood/inceptionRecord.do">
-			<spring:message code="history.record.edit"/>
-		</a>
-	</jstl:if>
-	
+<jstl:if test="${not empty bro}">
+	<a href="history/brotherhood/inceptionRecord/edit.do">
+		<spring:message code="history.record.edit"/>
+	</a>
+	<br>
+</jstl:if>
 	
 <!-- Period Records -->	
 <br>
@@ -57,7 +57,7 @@
 	
 	<jstl:if test="${not empty row.pictures}">
 	<display:column  title="${viewPicturesHeader}" sortable="false">
-			<a href="history/viewPictures.do?recordId=${row.id}">
+			<a href="history/periodRecord/viewPictures.do?periodRecordId=${row.id}">
 				<spring:message code="history.pictures.view" />
 			</a>
 	</display:column>
@@ -77,8 +77,9 @@
 	
 <jstl:if test="${not empty bro}">
 	<a href="history/brotherhood/periodRecord/create.do">
-		<spring:message code="history.record.edit"/>
+		<spring:message code="history.periodRecord.create"/>
 	</a>
+	<br>
 </jstl:if>
 	
 	
@@ -113,8 +114,9 @@
 	
 <jstl:if test="${not empty bro}">
 	<a href="history/brotherhood/legalRecord/create.do">
-		<spring:message code="history.record.edit"/>
+		<spring:message code="history.legalRecord.create"/>
 	</a>
+	<br>
 </jstl:if>
 	
 	
@@ -148,8 +150,9 @@
 	
 <jstl:if test="${not empty bro}">
 	<a href="history/brotherhood/linkRecord/create.do">
-		<spring:message code="history.record.edit"/>
+		<spring:message code="history.linkRecord.create"/>
 	</a>
+	<br>
 </jstl:if>
 	
 	
@@ -175,6 +178,7 @@
 	
 <jstl:if test="${not empty bro}">
 	<a href="history/brotherhood/miscellaneousRecord/create.do">
-		<spring:message code="history.record.edit"/>
+		<spring:message code="history.miscRecord.create"/>
 	</a>
+	<br>
 </jstl:if>

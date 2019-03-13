@@ -17,6 +17,15 @@
 		var="establishmentHeader" />
 	<display:column property="establishment" title="${establishmentHeader}"
 		format="{0,date,dd/MM/yyyy}" />
+
+
+	<!-- History -->
+	<spring:message code="brotherhood.history" var="historyHeader" />
+	<display:column title="${historyHeader}">
+		<a href="history/display.do?brotherhoodId=${row.id}">
+			<spring:message code="brotherhood.history" />
+		</a>
+	</display:column>
 	
 	<!-- Spammer -->
 	<security:authorize access="hasRole('ADMIN')">
@@ -85,16 +94,6 @@
 				</a>
 			</display:column>
 		</jstl:if>
-	</security:authorize>
-
-
-	<!-- History -->
-	<security:authorize access="isAnonymous()">
-		<display:column>
-			<a href="history/display.do?brotherhoodId=${row.id}">
-				<spring:message code="brotherhood.history" />
-			</a>
-		</display:column>
 	</security:authorize>
 
 

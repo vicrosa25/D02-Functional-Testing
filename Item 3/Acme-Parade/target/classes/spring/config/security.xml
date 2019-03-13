@@ -155,6 +155,10 @@
 		<security:intercept-url pattern="/history/brotherhood/legalRecord/edit.do" access="hasRole('BROTHERHOOD')" />
 		<security:intercept-url pattern="/history/brotherhood/linkRecord/edit.do" access="hasRole('BROTHERHOOD')" />
 		<security:intercept-url pattern="/history/brotherhood/inceptionRecord/addPicture.do" access="hasRole('BROTHERHOOD')" />
+		<security:intercept-url pattern="/history/brotherhood/miscellaneousRecord/create.do" access="hasRole('BROTHERHOOD')" />
+		<security:intercept-url pattern="/history/brotherhood/periodRecord/create.do" access="hasRole('BROTHERHOOD')" />
+		<security:intercept-url pattern="/history/brotherhood/legalRecord/create.do" access="hasRole('BROTHERHOOD')" />
+		<security:intercept-url pattern="/history/brotherhood/linkRecord/create.do" access="hasRole('BROTHERHOOD')" />
 		<security:intercept-url pattern="/history/brotherhood/periodRecord/addPicture.do" access="hasRole('BROTHERHOOD')" />
 
 

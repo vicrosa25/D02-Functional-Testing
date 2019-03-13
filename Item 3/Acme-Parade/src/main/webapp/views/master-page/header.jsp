@@ -75,6 +75,7 @@
 					<li><a href="member/brotherhood/list.do"><spring:message code="master.page.member.list" /></a></li>				
 				</ul>
 			</li>
+			<li><a href="history/brotherhood/display.do"><spring:message	code="master.page.history.brotherhood" /></a></li>
 		</security:authorize>
 		
 		

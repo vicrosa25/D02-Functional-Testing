@@ -6,11 +6,12 @@
 <%@taglib prefix="display" uri="http://displaytag.sf.net"%>
 <%@ taglib prefix="acme" tagdir="/WEB-INF/tags" %>
 
-<form:form action="history/inceptionRecord/edit.do" modelAttribute="inceptionRecord">
+<form:form action="history/brotherhood/inceptionRecord/edit.do" modelAttribute="inceptionRecord">
 	
 	<%-- Hidden properties from inceptionRecord--%>
 	<form:hidden path="id" />
 	<form:hidden path="version" />
+	<form:hidden path="pictures" />
 
 	<%-- Title --%>
 	<acme:textbox code="history.title" path="title" />
