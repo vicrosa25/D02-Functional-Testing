@@ -6,7 +6,7 @@
 <%@taglib prefix="display" uri="http://displaytag.sf.net"%>
 <%@ taglib prefix="acme" tagdir="/WEB-INF/tags" %>
 
-<form:form action="history/brotherhood/addPicture.do" modelAttribute="url">	
+<form:form action="${uri}" modelAttribute="url">	
 		<%-- Hidden properties--%>
 		<form:hidden path="targetId" />
 

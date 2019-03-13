@@ -10,6 +10,7 @@ import org.springframework.util.Assert;
 
 import repositories.PeriodRecordRepository;
 import domain.Brotherhood;
+import domain.History;
 import domain.PeriodRecord;
 import domain.Url;
 
@@ -49,12 +50,20 @@ public class PeriodRecordService {
 	}
 
 	public PeriodRecord save(final PeriodRecord periodRecord) {
+		boolean nuevo = false;
 		Assert.notNull(periodRecord);
-		final Brotherhood principal = this.brotherhoodService.findByPrincipal();
-		Assert.isTrue(principal.getHistory().getPeriodRecords().contains(periodRecord));
-
+		final History principal = this.brotherhoodService.findByPrincipal().getHistory();
+		if(periodRecord.getId() == 0){
+			nuevo = true;
+		}else{
+			Assert.isTrue(principal.getPeriodRecords().contains(periodRecord));
+		}
 		final PeriodRecord result = this.periodRecordRepository.save(periodRecord);
-
+		
+		if(nuevo){
+			principal.getPeriodRecords().add(result);
+		}
+		
 		return result;
 	}
 

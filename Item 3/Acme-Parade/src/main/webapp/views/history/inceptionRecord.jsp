@@ -6,7 +6,7 @@
 <%@taglib prefix="display" uri="http://displaytag.sf.net"%>
 <%@ taglib prefix="acme" tagdir="/WEB-INF/tags" %>
 
-<form:form action="history/brotherhood/inceptionRecord/edit.do" modelAttribute="inceptionRecord">
+<form:form action="history/inceptionRecord/brotherhood/edit.do" modelAttribute="inceptionRecord">
 	
 	<%-- Hidden properties from inceptionRecord--%>
 	<form:hidden path="id" />
@@ -19,12 +19,6 @@
 
 	<%-- Description --%>
 	<acme:textbox code="history.description" path="description" />
-	<br>
-	
-	<%-- Añadir Foto --%>
-	<a href="history/inceptionRecord/brotherhood/addPicture.do?recordId=${row.id }">
-			<spring:message code="brotherhood.picture.create"/>
-	</a>
 	<br>
 
 	<%-- Buttons --%>

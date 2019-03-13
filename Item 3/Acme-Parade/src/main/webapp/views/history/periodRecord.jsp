@@ -6,12 +6,13 @@
 <%@taglib prefix="display" uri="http://displaytag.sf.net"%>
 <%@ taglib prefix="acme" tagdir="/WEB-INF/tags" %>
 
-<form:form action="history/periodRecord/edit.do" modelAttribute="periodRecord">
+<form:form action="history/periodRecord/brotherhood/edit.do" modelAttribute="periodRecord">
 	
 	<%-- Hidden properties from periodRecord--%>
 	<form:hidden path="id" />
 	<form:hidden path="version" />
-
+	<form:hidden path="pictures" />
+	
 	<%-- Title --%>
 	<acme:textbox code="history.title" path="title" />
 	<br>
@@ -28,11 +29,11 @@
 	<acme:numberbox code="history.endYear" path="endYear" />
 	<br>
 	
-	<%-- Añadir Foto --%>
+ 	<%-- Añadir Foto --%><%--
 	<a href="history/periodRecord/brotherhood/addPicture.do?recordId=${row.id }">
 			<spring:message code="brotherhood.picture.create"/>
 	</a>
-	<br>
+	<br> --%>
 
 	<%-- Buttons --%>
 	<input type="submit" name="save" value="<spring:message code="history.save"/>" />

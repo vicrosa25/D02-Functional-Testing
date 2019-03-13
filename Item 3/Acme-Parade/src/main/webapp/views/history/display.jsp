@@ -12,6 +12,7 @@
 <spring:message code="brotherhood.picture" var="pictureNameHeader" />
 <spring:message code="history.pictures.view" var="viewPicturesHeader" />
 <spring:message code="history.edit" var="editHeader" />
+<spring:message code="coach.pictures.delete" var="deleteHeader" />
 
 <!-- Inception Record -->
 	<display:table name="history.inceptionRecord"  id="row" >
@@ -24,19 +25,30 @@
 	
 <!-- Inception Pictures -->
 	<jstl:if test="${not empty history.inceptionRecord.pictures}">
-	<display:table name="history.pictures"  id="row" >
+	<display:table name="history.inceptionRecord.pictures"  id="row" >
 		
 		<display:column title="${pictureNameHeader}" sortable="false" >
-			<img src="${row.link}" width="50%" height="200"/>
+			<img src="${row.link}" width="25%" height="100"/>
 		</display:column>
-				
+
+		<jstl:if test="${not empty bro}">	
+		<display:column title="${deleteHeader}">
+			<a href="history/inceptionRecord/brotherhood/deletePicture.do?link=${row.link}"><spring:message code="coach.picture.delete"/></a>
+		</display:column>
+		</jstl:if>
+			
 	<display:caption><spring:message code="brotherhood.pictures"/></display:caption>
 	</display:table>
 	</jstl:if>
 	
 <jstl:if test="${not empty bro}">
-	<a href="history/brotherhood/inceptionRecord/edit.do">
-		<spring:message code="history.record.edit"/>
+	<a href="history/inceptionRecord/brotherhood/edit.do">
+		<spring:message code="history.inceptionRecord.edit"/>
+	</a>
+	|
+	<%-- Añadir Foto --%>
+	<a href="history/inceptionRecord/brotherhood/addPicture.do">
+			<spring:message code="brotherhood.picture.create"/>
 	</a>
 	<br>
 </jstl:if>
@@ -50,22 +62,30 @@
 	<display:column property="description" title="${desscriptionHeader}" sortable="false" />
 	
 	<spring:message code="history.startYear" var="startYearHeader" />
-	<display:column property="startDate" title="${startDateHeader}" sortable="false" />
+	<display:column property="startYear" title="${startYearHeader}" sortable="false" />
 
 	<spring:message code="history.endYear" var="endYearHeader" />
-	<display:column property="endDate" title="${endDateHeader}" sortable="false" />
+	<display:column property="endYear" title="${endYearHeader}" sortable="false" />
 	
 	<jstl:if test="${not empty row.pictures}">
 	<display:column  title="${viewPicturesHeader}" sortable="false">
-			<a href="history/periodRecord/viewPictures.do?periodRecordId=${row.id}">
+			<a href="history/periodRecord/pictures.do?periodRecordId=${row.id}">
 				<spring:message code="history.pictures.view" />
 			</a>
 	</display:column>
 	</jstl:if>
 	
 	<jstl:if test="${not empty bro}">
+	<display:column  title="${viewPicturesHeader}" sortable="false">
+			<a href="history/periodRecord/pictures.do?periodRecordId=${row.id}">
+				<spring:message code="history.pictures.manage" />
+			</a>
+	</display:column>
+	</jstl:if>
+	
+	<jstl:if test="${not empty bro}">
 	<display:column title="${editHeader}">
-		<a href="history/brotherhood/periodRecord/edit.do?periodRecordId=${row.id}">
+		<a href="history/periodRecord/brotherhood/edit.do?periodId=${row.id}">
 			<spring:message code="history.edit"/>
 		</a>
 	</display:column>
@@ -76,7 +96,7 @@
 </jstl:if>
 	
 <jstl:if test="${not empty bro}">
-	<a href="history/brotherhood/periodRecord/create.do">
+	<a href="history/periodRecord/brotherhood/create.do">
 		<spring:message code="history.periodRecord.create"/>
 	</a>
 	<br>
@@ -102,7 +122,7 @@
 	
 	<jstl:if test="${not empty bro}">
 	<display:column title="${editHeader}">
-		<a href="history/brotherhood/legalRecord/edit.do?legalRecordId=${row.id}">
+		<a href="history/legalRecord/brotherhood/edit.do?legalRecordId=${row.id}">
 			<spring:message code="history.edit"/>
 		</a>
 	</display:column>
@@ -113,7 +133,7 @@
 </jstl:if>
 	
 <jstl:if test="${not empty bro}">
-	<a href="history/brotherhood/legalRecord/create.do">
+	<a href="history/legalRecord/brotherhood/create.do">
 		<spring:message code="history.legalRecord.create"/>
 	</a>
 	<br>
@@ -139,7 +159,7 @@
 	
 	<jstl:if test="${not empty bro}">
 	<display:column title="${editHeader}">
-		<a href="history/brotherhood/linkRecord/edit.do?linkRecordId=${row.id}">
+		<a href="history/linkRecord/brotherhood/edit.do?linkRecordId=${row.id}">
 			<spring:message code="history.edit"/>
 		</a>
 	</display:column>
@@ -149,7 +169,7 @@
 </jstl:if>
 	
 <jstl:if test="${not empty bro}">
-	<a href="history/brotherhood/linkRecord/create.do">
+	<a href="history/linkRecord/brotherhood/create.do">
 		<spring:message code="history.linkRecord.create"/>
 	</a>
 	<br>
@@ -166,7 +186,7 @@
 	
 	<jstl:if test="${not empty bro}">
 	<display:column title="${editHeader}">
-		<a href="history/brotherhood/miscellaneousRecord/edit.do?miscellaneousRecordId=${row.id}">
+		<a href="history/miscellaneousRecord/brotherhood/edit.do?miscellaneousRecordId=${row.id}">
 			<spring:message code="history.edit"/>
 		</a>
 	</display:column>
@@ -177,7 +197,7 @@
 </jstl:if>
 	
 <jstl:if test="${not empty bro}">
-	<a href="history/brotherhood/miscellaneousRecord/create.do">
+	<a href="history/miscellaneousRecord/brotherhood/create.do">
 		<spring:message code="history.miscRecord.create"/>
 	</a>
 	<br>

@@ -33,7 +33,7 @@ public class PeriodRecord extends Record {
 	}
 
 	@NotNull
-	@Min(0)
+	@Min(1800)
 	public Integer getStartYear() {
 		return this.startYear;
 	}
@@ -43,7 +43,7 @@ public class PeriodRecord extends Record {
 	}
 
 	@NotNull
-	@Min(0)
+	@Min(1800)
 	public Integer getEndYear() {
 		return this.endYear;
 	}
