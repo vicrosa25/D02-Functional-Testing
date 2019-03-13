@@ -6,10 +6,12 @@ import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
+import org.springframework.util.Assert;
 import org.springframework.validation.BindingResult;
 import org.springframework.validation.ObjectError;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
+import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.servlet.ModelAndView;
 
 import domain.Area;
@@ -18,6 +20,7 @@ import domain.Procession;
 import forms.ChapterForm;
 import services.AreaService;
 import services.ChapterService;
+import services.ProcessionService;
 import utilities.Md5;
 
 @Controller
@@ -25,10 +28,13 @@ import utilities.Md5;
 public class ChapterController extends AbstractController {
 
 	@Autowired
-	private ChapterService	chapterService;
+	private ChapterService		chapterService;
 
 	@Autowired
-	private AreaService		areaService;
+	private AreaService			areaService;
+	
+	@Autowired
+	private ProcessionService	processionService;
 
 
 	// Register formObject ------------------------------------------------------------------------------------
@@ -247,10 +253,34 @@ public class ChapterController extends AbstractController {
 		return result;
 	}
 	
+	// Accepting parade
+	@RequestMapping(value = "parade/aprove", method = RequestMethod.GET)
+	public ModelAndView aproveParade(@RequestParam int processionId) {
+		ModelAndView result = null;
+		Procession procession;
+
+		procession = this.processionService.findOne(processionId);
+		Assert.notNull(procession);
+		
+		
+		try {
+			this.chapterService.aproveProcession(procession);
+			result = this.list();
+		} catch (final Throwable oops) {
+			System.out.println(oops.getMessage());
+			System.out.println(oops.getClass());
+			System.out.println(oops.getCause());
+			result = this.forbiddenOpperation();
+			return result;
+		}
+
+		return result;
+	}
 	
 	
 	
 	
+
 
 	// Ancillary methods -----------------------------------------------------------------------
 	protected ModelAndView createEditModelAndView(ChapterForm chapterForm) {

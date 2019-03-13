@@ -23,6 +23,9 @@ import domain.Message;
 import domain.Procession;
 import domain.Request;
 import repositories.ProcessionRepository;
+import security.Authority;
+import security.LoginService;
+import security.UserAccount;
 
 @Service
 @Transactional
@@ -78,22 +81,36 @@ public class ProcessionService {
 	public Procession save(final Procession procession) {
 		Assert.notNull(procession);
 		Actor principal;
+		
+		principal = this.actorService.findByPrincipal();
 
 		// Principal must be a Brotherhood
-		principal = this.actorService.findByPrincipal();
-		Assert.isInstanceOf(Brotherhood.class, principal);
+		UserAccount userAccount = LoginService.getPrincipal();
+		Assert.notNull(userAccount);
+		
+		Authority broAuthority = new Authority();
+		broAuthority.setAuthority("BROTHERHOOD");
 
-		final Brotherhood brotherhood = (Brotherhood) principal;
+		Authority chapterAuthority = new Authority();
+		chapterAuthority.setAuthority("CHAPTER");
+		
+		Assert.isTrue(userAccount.getAuthorities().contains(broAuthority) || userAccount.getAuthorities().contains(chapterAuthority));
+
 
 		if (procession.getId() == 0) {
+			Assert.isInstanceOf(Brotherhood.class, principal);
+			Brotherhood brotherhood = (Brotherhood) principal;
 			procession.setBrotherhood(brotherhood);
 			this.automaticNotification(procession);
 		} else {
-			Assert.isTrue(brotherhood.getProcessions().contains(procession));
+			if (principal.getClass().equals(Brotherhood.class)){
+				Brotherhood brotherhood = (Brotherhood) principal;
+				Assert.isTrue(brotherhood.getProcessions().contains(procession));
+			}
 		}
 		
-		if (procession.getDraftMode() == false) 
-			procession.setStatus("SUBMITTED");
+		if (procession.getStatus() == "APROVED")
+			Assert.isTrue(procession.getDraftMode() == false);
 			
 
 		return this.processionRepository.save(procession);

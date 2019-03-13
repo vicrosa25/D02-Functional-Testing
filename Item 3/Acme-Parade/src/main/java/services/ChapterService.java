@@ -10,6 +10,7 @@ import org.springframework.util.Assert;
 import org.springframework.validation.BindingResult;
 import org.springframework.validation.Validator;
 
+import domain.Actor;
 import domain.Chapter;
 import domain.MessageBox;
 import domain.Procession;
@@ -37,6 +38,12 @@ public class ChapterService {
 	
 	@Autowired
 	private Validator				validator;
+	
+	@Autowired
+	private ProcessionService		processionService;
+	
+	@Autowired
+	private ActorService			actorService;
 	
 	
 	/*************************************
@@ -225,6 +232,27 @@ public class ChapterService {
 	/*************************************
 	 * Other business methods
 	 *************************************/
+	
+	public Procession aproveProcession(Procession procession) {
+		
+		// Check principal is a Chapter
+		Actor principal = this.actorService.findByPrincipal();
+		Assert.isInstanceOf(Chapter.class, principal);
+		
+		Chapter chapter = (Chapter) principal;
+		
+		// Check principal manage Area where is Brotherhood
+		Assert.isTrue(chapter.getArea().getBrotherhoods().contains(procession.getBrotherhood()), "The chapter don't manage this procession");
+		
+		
+		procession.setStatus("APPROVED");
+		procession.setDraftMode(false);
+		
+		return this.processionService.save(procession);
+	}
+	
+	
+	
 	public Chapter findByPrincipal() {
 		Chapter result;
 		UserAccount userAccount;

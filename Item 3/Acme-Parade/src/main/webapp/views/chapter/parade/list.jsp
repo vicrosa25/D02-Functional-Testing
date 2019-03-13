@@ -32,16 +32,15 @@
 	<spring:message code="procession.status" var="statusHeader" />
 	<display:column property="status" title="${statusHeader}" />
 	
-	<security:authorize access="hasRole('CHAPTER')">
-		<display:column>
-			<a href="chapter/parade/accept.do?processionId=${row.id}"> <spring:message code="chapter.parade.accept" /></a>
-		</display:column>
-	</security:authorize>
 	
-	<security:authorize access="hasRole('CHAPTER')">
+	<!-- manage status -->
+	<jstl:if test="${ row.status == 'SUBMITTED' }">
 		<display:column>
-			<a href="chapter/parade/reject.do?processionId=${row.id}"> <spring:message code="chapter.parade.reject" /></a>
+			<a href="chapter/parade/aprove.do?processionId=${row.id}"><spring:message code="chapter.parade.accept" /></a>
 		</display:column>
-	</security:authorize>
-
+		<display:column>
+			<a href="chapter/parade/reject.do?processionId=${row.id}"><spring:message code="chapter.parade.reject" /></a>
+		</display:column>
+	</jstl:if>
+	
 </display:table>
