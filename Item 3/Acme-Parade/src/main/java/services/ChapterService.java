@@ -12,6 +12,7 @@ import org.springframework.validation.Validator;
 
 import domain.Chapter;
 import domain.MessageBox;
+import domain.Procession;
 import forms.ChapterForm;
 import repositories.ChapterRepository;
 import security.Authority;
@@ -245,6 +246,10 @@ public class ChapterService {
 		result = this.chapterRepository.findByUserAccountId(userAccount.getId());
 
 		return result;
+	}
+	
+	public Collection<Procession> findAllProcessionByChapter(int chapterId) {
+		return this.chapterRepository.findProccesionsByChapter(chapterId);
 	}
 
 }

@@ -1,6 +1,7 @@
 
 package controllers;
 
+import java.util.Collection;
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -13,6 +14,7 @@ import org.springframework.web.servlet.ModelAndView;
 
 import domain.Area;
 import domain.Chapter;
+import domain.Procession;
 import forms.ChapterForm;
 import services.AreaService;
 import services.ChapterService;
@@ -216,6 +218,34 @@ public class ChapterController extends AbstractController {
 		return result;
 	}
 	
+	
+	/*************************************
+	 * Parades methods
+	 *************************************/
+	// Listing Parades
+	@RequestMapping(value = "/parade/list", method = RequestMethod.GET)
+	public ModelAndView list() {
+		ModelAndView result;
+		Chapter principal;
+		Collection<Procession> parades;
+
+		principal = this.chapterService.findByPrincipal();
+
+		try {
+			parades = this.chapterService.findAllProcessionByChapter(principal.getId());
+			result = new ModelAndView("chapter/parade/list");
+			result.addObject("uri", "chapter/parade/list");
+			result.addObject("parades", parades);
+			
+		} catch (final Throwable oops) {
+			System.out.println(oops.getMessage());
+			System.out.println(oops.getClass());
+			System.out.println(oops.getCause());
+			result = this.forbiddenOpperation();
+		}
+
+		return result;
+	}
 	
 	
 	

@@ -15,7 +15,6 @@ import org.springframework.util.Assert;
 import org.springframework.validation.BindingResult;
 import org.springframework.validation.Validator;
 
-import repositories.ProcessionRepository;
 import domain.Actor;
 import domain.Brotherhood;
 import domain.Enrol;
@@ -23,6 +22,7 @@ import domain.Member;
 import domain.Message;
 import domain.Procession;
 import domain.Request;
+import repositories.ProcessionRepository;
 
 @Service
 @Transactional
@@ -91,6 +91,10 @@ public class ProcessionService {
 		} else {
 			Assert.isTrue(brotherhood.getProcessions().contains(procession));
 		}
+		
+		if (procession.getDraftMode() == false) 
+			procession.setStatus("SUBMITTED");
+			
 
 		return this.processionRepository.save(procession);
 	}

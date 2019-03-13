@@ -817,6 +817,7 @@
 		<property name="moment" value="2019/04/01" />
 
 		<property name="draftMode" value="false" />
+		<property name="status" value="SUBMITTED" />
 		<property name="brotherhood" ref="brotherhood1" />
 		<property name="requests">
 			<list>
@@ -1004,10 +1005,10 @@
 		<property name="cacheTime" value="1" />
 		<property name="finderMaxResult" value="10" />
 		<property name="countryCode" value="+34" />
-		<property name="title" value="Acme Parade Co., Inc." />
+		<property name="title" value="Acme Madruga Co., Inc." />
 		<property name="logo" value="https://tinyurl.com/acme-madruga" />
-		<property name="spanishMessage" value="¡Bienvenidos a Acme Parade! Tu sitio para organizar procesiones." />
-		<property name="englishMessage" value="Welcome to Acme Parade, the site to organise your processions." />
+		<property name="spanishMessage" value="¡Bienvenidos a Acme Parade! Tu sitio para organizar desfiles." />
+		<property name="englishMessage" value="Welcome to Acme Parade, the site to organise your parades." />
 		<property name="spamWords">
 			<list>
 				<value>sex</value>

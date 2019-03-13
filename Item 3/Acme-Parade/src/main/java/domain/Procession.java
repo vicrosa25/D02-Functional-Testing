@@ -25,18 +25,29 @@ public class Procession extends DomainEntity {
 	
 	
 	// Attributes -------------------------------------------------------------
-	private String ticker;
-	private String title;
-	private String description;
-	private Date moment;
+	private String 	ticker;
+	private String 	title;
+	private String 	description;
+	private Date 	moment;
 	private Boolean draftMode;
+	private String 	status;
+	
+	
+	@Pattern(regexp = "^(SUBMITTED|APPROVED|REJECTED)$")
+	public String getStatus() {
+		return this.status;
+	}
+
+	public void setStatus(final String status) {
+		this.status = status;
+	}
 	
 	
 	@NotBlank
 	@Column(unique = true)
 	@Pattern(regexp = "^([0-9]{2})(0[1-9]|1[012])(0[1-9]|[12]\\d|3[01])(-)([A-Z0-9]{5})$")
 	public String getTicker() {
-		return ticker;
+		return this.ticker;
 	}
 	
 	
@@ -47,7 +58,7 @@ public class Procession extends DomainEntity {
 	
 	@NotBlank
 	public String getTitle() {
-		return title;
+		return this.title;
 	}
 	
 	
@@ -58,7 +69,7 @@ public class Procession extends DomainEntity {
 	
 	@NotBlank
 	public String getDescription() {
-		return description;
+		return this.description;
 	}
 	
 	
@@ -72,7 +83,7 @@ public class Procession extends DomainEntity {
 	@Temporal(TemporalType.TIMESTAMP)
 	@DateTimeFormat(pattern = "dd/MM/yyyy")
 	public Date getMoment() {
-		return moment;
+		return this.moment;
 	}
 	
 	
@@ -83,7 +94,7 @@ public class Procession extends DomainEntity {
 	
 	@NotNull
 	public Boolean getDraftMode() {
-		return draftMode;
+		return this.draftMode;
 	}
 
 
@@ -103,7 +114,7 @@ public class Procession extends DomainEntity {
 
 	@ManyToOne(optional = false)
 	public Brotherhood getBrotherhood() {
-		return brotherhood;
+		return this.brotherhood;
 	}
 
 
@@ -114,7 +125,7 @@ public class Procession extends DomainEntity {
 
 	@OneToMany(cascade = CascadeType.ALL, mappedBy="procession")
 	public Collection<Request> getRequests() {
-		return requests;
+		return this.requests;
 	}
 
 
@@ -125,7 +136,7 @@ public class Procession extends DomainEntity {
 
 	@Override
 	public String toString() {
-		return "Procession [ticker=" + ticker + ", title=" + title + ", description=" + description + ", moment="
-				+ moment + ", draftMode=" + draftMode + ", brotherhood=" + brotherhood + ", requests=" + requests + "]";
+		return "Procession [ticker=" + this.ticker + ", title=" + this.title + ", description=" + this.description + ", moment="
+				+ this.moment + ", draftMode=" + this.draftMode + ", brotherhood=" + this.brotherhood + ", requests=" + this.requests + "]";
 	}
 }

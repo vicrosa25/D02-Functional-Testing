@@ -108,7 +108,12 @@
 				<ul>
 					<li class="arrow"></li>
 					<li><a href="chapter/area/assign.do"><spring:message code="master.page.area.assign" /></a></li>
-<%-- 					<li><a href="chapter/area/diplay.do"><spring:message code="master.page.area.display" /></a></li> --%>
+				</ul>
+			</li>
+			<li><a class="fNiv"><spring:message	code="master.page.chapter.parades" /></a>
+				<ul>
+					<li class="arrow"></li>
+					<li><a href="chapter/parade/list.do"><spring:message code="master.page.chapter.myParades" /></a></li>
 				</ul>
 			</li>
 		</security:authorize>
