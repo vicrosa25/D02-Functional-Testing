@@ -68,7 +68,7 @@ public class ProcessionController extends AbstractController {
 		Collection<Procession> processions;
 
 		try {
-			processions = this.processionService.findByBrotherhoodNotDraft(brotherhoodId);
+			processions = this.processionService.findByBrotherhoodNotDraftAndApproved(brotherhoodId);
 
 			result = new ModelAndView("procession/list");
 			result.addObject("processions", processions);

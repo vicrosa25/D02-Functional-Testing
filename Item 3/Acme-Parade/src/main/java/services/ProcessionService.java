@@ -187,6 +187,12 @@ public class ProcessionService {
 			this.messageService.save(message);
 		}
 	}
+	
+	public Collection<Procession> findByBrotherhoodNotDraftAndApproved(int brotherhoodId) {
+		Collection<Procession> result = this.processionRepository.findByBrotherhoodNotDraftAndApproved(brotherhoodId);
+		Assert.notNull(result);
+		return result;
+	}
 
 	public Collection<Procession> findByBrotherhoodNotDraft(int brotherhoodId) {
 		Collection<Procession> result = this.processionRepository.findByBrotherhoodNotDraft(brotherhoodId);
