@@ -16,6 +16,7 @@ import javax.validation.constraints.NotNull;
 public class History extends DomainEntity {
 
 	// Attributes -------------------------------------------------------------
+	private Integer							recordNumber;
 	// Relationships ----------------------------------------------------------
 	private InceptionRecord					inceptionRecord;
 	private Collection<PeriodRecord>		periodRecords;
@@ -24,6 +25,12 @@ public class History extends DomainEntity {
 	private Collection<MiscellaneousRecord>	miscellaneousRecords;
 
 
+	public Integer getRecordNumber(){
+		return this.recordNumber;
+	}
+	public void setRecordNumber(Integer recordNumber){
+		this.recordNumber = recordNumber;
+	}
 	@Valid
 	@NotNull
 	@OneToOne(optional = false)
@@ -73,5 +80,12 @@ public class History extends DomainEntity {
 
 	public void setMiscellaneousRecords(final Collection<MiscellaneousRecord> miscellaneousRecords) {
 		this.miscellaneousRecords = miscellaneousRecords;
+	}
+	
+	public Integer updateRecordNumber(){
+		Integer total = this.getLegalRecords().size()+this.getLinkRecords().size()+this.getMiscellaneousRecords().size()+
+			this.getMiscellaneousRecords().size()+1;
+		this.setRecordNumber(total);
+		return total;
 	}
 }

@@ -59,6 +59,7 @@ public class LegalRecordService {
 		
 		if(nuevo){
 			principal.getLegalRecords().add(result);
+			principal.updateRecordNumber();
 		}
 		
 		return result;
@@ -70,6 +71,7 @@ public class LegalRecordService {
 		Assert.isTrue(principal.getHistory().getLegalRecords().contains(legalRecord));
 		
 		principal.getHistory().getLegalRecords().remove(legalRecord);
+		principal.getHistory().updateRecordNumber();
 
 		this.legalRecordRepository.delete(legalRecord);
 	}

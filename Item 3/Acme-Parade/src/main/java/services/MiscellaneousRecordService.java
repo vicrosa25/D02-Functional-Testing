@@ -59,6 +59,7 @@ public class MiscellaneousRecordService {
 		
 		if(nuevo){
 			principal.getMiscellaneousRecords().add(result);
+			principal.updateRecordNumber();
 		}
 		
 		return result;
@@ -70,7 +71,8 @@ public class MiscellaneousRecordService {
 		Assert.isTrue(principal.getHistory().getMiscellaneousRecords().contains(miscellaneousRecord));
 		
 		principal.getHistory().getMiscellaneousRecords().remove(miscellaneousRecord);
-
+		principal.getHistory().updateRecordNumber();
+		
 		this.miscellaneousRecordRepository.delete(miscellaneousRecord);
 	}
 	/*** Other methods ***/

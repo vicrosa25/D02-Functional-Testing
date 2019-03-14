@@ -59,6 +59,7 @@ public class LinkRecordService {
 		
 		if(nuevo){
 			principal.getLinkRecords().add(result);
+			principal.updateRecordNumber();
 		}
 		
 		return result;
