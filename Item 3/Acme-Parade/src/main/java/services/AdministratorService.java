@@ -223,6 +223,10 @@ public class AdministratorService {
 		return this.adminRepository.query18();
 	}
 	
+	public Object[] query19() {
+		return this.adminRepository.query19();
+	}
+	
 	
 	// Chart Queries
 	public int[] querySpammersGetValues(){

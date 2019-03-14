@@ -80,6 +80,9 @@ public interface AdministratorRepository extends JpaRepository<Administrator, In
 	@Query("select count(p)*1.0 / (select count(p1)*1.0 from Procession p1 where p1.draftMode = false) from Procession p where p.draftMode = true")
 	Double query18();
 	
+	@Query("select count(p)*1.0 / (select count(p1)*1.0 from Procession p1), p.status from Procession p where p.draftMode = false group by p.status")
+	Object[] query19();
+	
 	
 	
 	

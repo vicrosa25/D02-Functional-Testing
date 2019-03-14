@@ -121,7 +121,7 @@
 </table>
 
 
-<!-- Query 15  -->
+<!-- Query 18  -->
 <table>
 	<caption>
 		<jstl:out value="${query18Header}"></jstl:out>
@@ -131,6 +131,22 @@
 	</tr>
 	<tr>
 		<td><jstl:out value="${query18}"></jstl:out></td>
+	</tr>
+</table>
+<br />
+
+<!-- Query 19  -->
+<table>
+	<caption>
+		<jstl:out value="${query19Header}"></jstl:out>
+	</caption>
+	<tr>
+		<th><jstl:out value="${ratioHeader}"></jstl:out></th>
+		<th><jstl:out value="${statusHeader}"></jstl:out></th>
+	</tr>
+	<tr>
+		<td><jstl:out value="${query19[0]}"></jstl:out></td>
+		<td><jstl:out value="${query19[1]}"></jstl:out></td>
 	</tr>
 </table>
 <br />
