@@ -210,6 +210,10 @@ public class AdministratorService {
 		return this.adminRepository.query15();
 	}
 	
+	public Object[] query16() {
+		return this.adminRepository.query16();
+	}
+	
 	
 	// Chart Queries
 	public int[] querySpammersGetValues(){

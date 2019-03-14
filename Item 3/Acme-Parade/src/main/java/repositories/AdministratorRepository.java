@@ -70,6 +70,9 @@ public interface AdministratorRepository extends JpaRepository<Administrator, In
 	@Query("select count(a)*1.0 / (select count(a1)*1.0 from Area a1) from Area a where a.chapter = null")
 	Double query15();
 	
+	@Query("select avg(b.processions.size), min(b.processions.size), max(b.processions.size),  stddev(b.processions.size) from Brotherhood b where b.area.chapter != null")
+	Object[] query16();
+	
 	
 	
 	

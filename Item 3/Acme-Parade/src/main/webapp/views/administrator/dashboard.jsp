@@ -47,6 +47,10 @@
 <spring:message code="administrator.dashboard.query11" var="query11Header" />
 
 <spring:message code="administrator.dashboard.query15" var="query15Header" />
+<spring:message code="administrator.dashboard.query16" var="query16Header" />
+<spring:message code="administrator.dashboard.query17" var="query17Header" />
+<spring:message code="administrator.dashboard.query18" var="query18Header" />
+<spring:message code="administrator.dashboard.query19" var="query19Header" />
 
 
 <!--  Custom table style -->
@@ -69,6 +73,26 @@
 	</tr>
 	<tr>
 		<td><jstl:out value="${query15}"></jstl:out></td>
+	</tr>
+</table>
+<br />
+
+<!-- Query 16 -->
+<table>
+	<caption>
+		<jstl:out value="${query16Header}"></jstl:out>
+	</caption>
+	<tr>
+		<th><jstl:out value="${avgHeader}"></jstl:out></th>
+		<th><jstl:out value="${minHeader}"></jstl:out></th>
+		<th><jstl:out value="${maxHeader}"></jstl:out></th>
+		<th><jstl:out value="${stdHeader}"></jstl:out></th>
+	</tr>
+	<tr>
+		<td><jstl:out value="${query16[0]}"></jstl:out></td>
+		<td><jstl:out value="${query16[1]}"></jstl:out></td>
+		<td><jstl:out value="${query16[2]}"></jstl:out></td>
+		<td><jstl:out value="${query16[3]}"></jstl:out></td>
 	</tr>
 </table>
 <br />
