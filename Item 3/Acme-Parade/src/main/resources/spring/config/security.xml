@@ -162,7 +162,7 @@
 		<security:intercept-url pattern="/history/periodRecord/brotherhood/addPicture.do" access="hasRole('BROTHERHOOD')" />
 		<security:intercept-url pattern="/history/inceptionRecord/brotherhood/deletePicture.do" access="hasRole('BROTHERHOOD')" />
 		<security:intercept-url pattern="/history/periodRecord/brotherhood/deletePicture.do" access="hasRole('BROTHERHOOD')" />
-		<security:intercept-url pattern="/history/periodRecord/pìctures.do" access="permitAll()" />
+		<security:intercept-url pattern="/history/periodRecord/pictures.do" access="permitAll()" />
 
 
 		<security:intercept-url pattern="/**" access="hasRole('NONE')" />

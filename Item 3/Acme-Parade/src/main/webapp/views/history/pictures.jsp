@@ -14,7 +14,7 @@
 <spring:message code="history.edit" var="editHeader" />
 <spring:message code="coach.pictures.delete" var="deleteHeader" />
 
-${title}: <spring:message code="periodRecord.picturesFrom"/>${periodRecord.startYear}
+<spring:message code="periodRecord.picturesFrom"/>${periodRecord.startYear}
 <spring:message code="periodRecord.picturesTo"/>${periodRecord.endYear}
 
 <display:table name="periodRecord.pictures"  id="row" requestURI="history/periodRecord/pictures.do" pagesize="5" class="displaytag">
@@ -25,7 +25,7 @@ ${title}: <spring:message code="periodRecord.picturesFrom"/>${periodRecord.start
 
 	<jstl:if test="${not empty bro}">	
 	<display:column title="${deleteHeader}">
-		<a href="history/inceptionRecord/brotherhood/deletePicture.do?link=${row.link}&periodId=${row.id}"><spring:message code="coach.picture.delete"/></a>
+		<a href="history/periodRecord/brotherhood/deletePicture.do?link=${row.link}&periodId=${row.targetId}"><spring:message code="coach.picture.delete"/></a>
 	</display:column>
 	</jstl:if>
 			
@@ -33,7 +33,7 @@ ${title}: <spring:message code="periodRecord.picturesFrom"/>${periodRecord.start
 </display:table>
 
 <jstl:if test="${not empty bro}">
-	<a href="history/inceptionRecord/brotherhood/addPicture.do">
+	<a href="history/periodRecord/brotherhood/addPicture.do?periodId=${periodRecord.id }">
 			<spring:message code="brotherhood.picture.create"/>
 	</a>
 </jstl:if>

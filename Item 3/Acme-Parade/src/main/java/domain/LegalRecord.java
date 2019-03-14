@@ -4,6 +4,7 @@ package domain;
 import javax.persistence.Access;
 import javax.persistence.AccessType;
 import javax.persistence.Entity;
+import javax.validation.constraints.Min;
 
 import org.hibernate.validator.constraints.NotBlank;
 
@@ -33,7 +34,8 @@ public class LegalRecord extends Record {
 	public void setLegalName(final String legalName) {
 		this.legalName = legalName;
 	}
-
+	
+	@Min(0)
 	public double getVat() {
 		return this.vat;
 	}

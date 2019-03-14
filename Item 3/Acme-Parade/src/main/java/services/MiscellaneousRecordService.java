@@ -9,6 +9,7 @@ import org.springframework.util.Assert;
 
 import repositories.MiscellaneousRecordRepository;
 import domain.Brotherhood;
+import domain.History;
 import domain.MiscellaneousRecord;
 
 @Service
@@ -46,12 +47,20 @@ public class MiscellaneousRecordService {
 	}
 
 	public MiscellaneousRecord save(final MiscellaneousRecord miscellaneousRecord) {
+		boolean nuevo = false;
 		Assert.notNull(miscellaneousRecord);
-		final Brotherhood principal = this.brotherhoodService.findByPrincipal();
-		Assert.isTrue(principal.getHistory().getMiscellaneousRecords().contains(miscellaneousRecord));
-
+		final History principal = this.brotherhoodService.findByPrincipal().getHistory();
+		if(miscellaneousRecord.getId() == 0){
+			nuevo = true;
+		}else{
+			Assert.isTrue(principal.getMiscellaneousRecords().contains(miscellaneousRecord));
+		}
 		final MiscellaneousRecord result = this.miscellaneousRecordRepository.save(miscellaneousRecord);
-
+		
+		if(nuevo){
+			principal.getMiscellaneousRecords().add(result);
+		}
+		
 		return result;
 	}
 

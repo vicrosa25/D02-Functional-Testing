@@ -67,24 +67,26 @@
 	<spring:message code="history.endYear" var="endYearHeader" />
 	<display:column property="endYear" title="${endYearHeader}" sortable="false" />
 	
-	<jstl:if test="${not empty row.pictures}">
+
 	<display:column  title="${viewPicturesHeader}" sortable="false">
-			<a href="history/periodRecord/pictures.do?periodRecordId=${row.id}">
+			<jstl:if test="${not empty row.pictures}">
+			<a href="history/periodRecord/pictures.do?periodId=${row.id}">
 				<spring:message code="history.pictures.view" />
 			</a>
+			</jstl:if>
 	</display:column>
-	</jstl:if>
+
 	
 	<jstl:if test="${not empty bro}">
-	<display:column  title="${viewPicturesHeader}" sortable="false">
-			<a href="history/periodRecord/pictures.do?periodRecordId=${row.id}">
+	<display:column  sortable="false">
+			<a href="history/periodRecord/pictures.do?periodId=${row.id}">
 				<spring:message code="history.pictures.manage" />
 			</a>
 	</display:column>
 	</jstl:if>
 	
 	<jstl:if test="${not empty bro}">
-	<display:column title="${editHeader}">
+	<display:column >
 		<a href="history/periodRecord/brotherhood/edit.do?periodId=${row.id}">
 			<spring:message code="history.edit"/>
 		</a>
@@ -122,7 +124,7 @@
 	
 	<jstl:if test="${not empty bro}">
 	<display:column title="${editHeader}">
-		<a href="history/legalRecord/brotherhood/edit.do?legalRecordId=${row.id}">
+		<a href="history/legalRecord/brotherhood/edit.do?legalId=${row.id}">
 			<spring:message code="history.edit"/>
 		</a>
 	</display:column>
@@ -159,7 +161,7 @@
 	
 	<jstl:if test="${not empty bro}">
 	<display:column title="${editHeader}">
-		<a href="history/linkRecord/brotherhood/edit.do?linkRecordId=${row.id}">
+		<a href="history/linkRecord/brotherhood/edit.do?linkId=${row.id}">
 			<spring:message code="history.edit"/>
 		</a>
 	</display:column>
@@ -186,7 +188,7 @@
 	
 	<jstl:if test="${not empty bro}">
 	<display:column title="${editHeader}">
-		<a href="history/miscellaneousRecord/brotherhood/edit.do?miscellaneousRecordId=${row.id}">
+		<a href="history/miscellaneousRecord/brotherhood/edit.do?miscellaneousId=${row.id}">
 			<spring:message code="history.edit"/>
 		</a>
 	</display:column>

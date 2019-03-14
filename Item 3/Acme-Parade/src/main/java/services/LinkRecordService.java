@@ -7,9 +7,10 @@ import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 import org.springframework.util.Assert;
 
-import repositories.LegalRecordRepository;
+import repositories.LinkRecordRepository;
 import domain.Brotherhood;
-import domain.LegalRecord;
+import domain.History;
+import domain.LinkRecord;
 
 @Service
 @Transactional
@@ -17,7 +18,7 @@ public class LinkRecordService {
 
 	// Manage Repository
 	@Autowired
-	private LegalRecordRepository	legalRecordRepository;
+	private LinkRecordRepository	linkRecordRepository;
 
 	// Supporting services
 	@Autowired
@@ -25,42 +26,50 @@ public class LinkRecordService {
 
 
 	// CRUD methods
-	public LegalRecord create() {
-		final LegalRecord result = new LegalRecord();
+	public LinkRecord create() {
+		final LinkRecord result = new LinkRecord();
 
 		return result;
 	}
 
-	public LegalRecord findOne(final int legalRecordID) {
-		final LegalRecord result = this.legalRecordRepository.findOne(legalRecordID);
+	public LinkRecord findOne(final int linkRecordID) {
+		final LinkRecord result = this.linkRecordRepository.findOne(linkRecordID);
 		Assert.notNull(result);
 
 		return result;
 	}
 
-	public Collection<LegalRecord> findAll() {
-		final Collection<LegalRecord> result = this.legalRecordRepository.findAll();
+	public Collection<LinkRecord> findAll() {
+		final Collection<LinkRecord> result = this.linkRecordRepository.findAll();
 		Assert.notNull(result);
 
 		return result;
 	}
 
-	public LegalRecord save(final LegalRecord legalRecord) {
-		Assert.notNull(legalRecord);
-		final Brotherhood principal = this.brotherhoodService.findByPrincipal();
-		Assert.isTrue(principal.getHistory().getLegalRecords().contains(legalRecord));
-
-		final LegalRecord result = this.legalRecordRepository.save(legalRecord);
-
+	public LinkRecord save(final LinkRecord linkRecord) {
+		boolean nuevo = false;
+		Assert.notNull(linkRecord);
+		final History principal = this.brotherhoodService.findByPrincipal().getHistory();
+		if(linkRecord.getId() == 0){
+			nuevo = true;
+		}else{
+			Assert.isTrue(principal.getLinkRecords().contains(linkRecord));
+		}
+		final LinkRecord result = this.linkRecordRepository.save(linkRecord);
+		
+		if(nuevo){
+			principal.getLinkRecords().add(result);
+		}
+		
 		return result;
 	}
 
-	public void delete(final LegalRecord legalRecord) {
-		Assert.notNull(legalRecord);
+	public void delete(final LinkRecord linkRecord) {
+		Assert.notNull(linkRecord);
 		final Brotherhood principal = this.brotherhoodService.findByPrincipal();
-		Assert.isTrue(principal.getHistory().getLegalRecords().contains(legalRecord));
+		Assert.isTrue(principal.getHistory().getLinkRecords().contains(linkRecord));
 
-		this.legalRecordRepository.delete(legalRecord);
+		this.linkRecordRepository.delete(linkRecord);
 	}
 	/*** Other methods ***/
 	
