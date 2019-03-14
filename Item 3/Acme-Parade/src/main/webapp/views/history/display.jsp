@@ -13,6 +13,7 @@
 <spring:message code="history.pictures.view" var="viewPicturesHeader" />
 <spring:message code="history.edit" var="editHeader" />
 <spring:message code="coach.pictures.delete" var="deleteHeader" />
+<spring:message code="procession.delete" var="deleteHeader" />
 
 <!-- Inception Record -->
 	<display:table name="history.inceptionRecord"  id="row" >
@@ -67,27 +68,32 @@
 	<spring:message code="history.endYear" var="endYearHeader" />
 	<display:column property="endYear" title="${endYearHeader}" sortable="false" />
 	
-	<jstl:if test="${not empty row.pictures}">
+
 	<display:column  title="${viewPicturesHeader}" sortable="false">
-			<a href="history/periodRecord/pictures.do?periodRecordId=${row.id}">
+			<jstl:if test="${not empty row.pictures}">
+			<a href="history/periodRecord/pictures.do?periodId=${row.id}">
 				<spring:message code="history.pictures.view" />
 			</a>
+			</jstl:if>
 	</display:column>
-	</jstl:if>
+
 	
 	<jstl:if test="${not empty bro}">
-	<display:column  title="${viewPicturesHeader}" sortable="false">
-			<a href="history/periodRecord/pictures.do?periodRecordId=${row.id}">
+	<display:column  sortable="false">
+			<a href="history/periodRecord/pictures.do?periodId=${row.id}">
 				<spring:message code="history.pictures.manage" />
 			</a>
 	</display:column>
 	</jstl:if>
 	
 	<jstl:if test="${not empty bro}">
-	<display:column title="${editHeader}">
+	<display:column >
 		<a href="history/periodRecord/brotherhood/edit.do?periodId=${row.id}">
 			<spring:message code="history.edit"/>
 		</a>
+	</display:column>
+	<display:column title="${deleteHeader}">
+		<a href="history/periodRecord/brotherhood/delete.do?periodId=${row.id}"><spring:message code="record.delete"/></a>
 	</display:column>
 	</jstl:if>
 	
@@ -122,9 +128,12 @@
 	
 	<jstl:if test="${not empty bro}">
 	<display:column title="${editHeader}">
-		<a href="history/legalRecord/brotherhood/edit.do?legalRecordId=${row.id}">
+		<a href="history/legalRecord/brotherhood/edit.do?legalId=${row.id}">
 			<spring:message code="history.edit"/>
 		</a>
+	</display:column>
+	<display:column title="${deleteHeader}">
+		<a href="history/legalRecord/brotherhood/delete.do?legalId=${row.id}"><spring:message code="record.delete"/></a>
 	</display:column>
 	</jstl:if>
 	
@@ -159,12 +168,15 @@
 	
 	<jstl:if test="${not empty bro}">
 	<display:column title="${editHeader}">
-		<a href="history/linkRecord/brotherhood/edit.do?linkRecordId=${row.id}">
+		<a href="history/linkRecord/brotherhood/edit.do?linkId=${row.id}">
 			<spring:message code="history.edit"/>
 		</a>
 	</display:column>
+	<display:column title="${deleteHeader}">
+		<a href="history/linkRecord/brotherhood/delete.do?linkId=${row.id}"><spring:message code="record.delete"/></a>
+	</display:column>
 	</jstl:if>
-<display:caption><spring:message code="history.legalRecords"/></display:caption>
+<display:caption><spring:message code="history.linkRecords"/></display:caption>
 </display:table>
 </jstl:if>
 	
@@ -186,9 +198,12 @@
 	
 	<jstl:if test="${not empty bro}">
 	<display:column title="${editHeader}">
-		<a href="history/miscellaneousRecord/brotherhood/edit.do?miscellaneousRecordId=${row.id}">
+		<a href="history/miscellaneousRecord/brotherhood/edit.do?miscellaneousId=${row.id}">
 			<spring:message code="history.edit"/>
 		</a>
+	</display:column>
+	<display:column title="${deleteHeader}">
+		<a href="history/miscellaneousRecord/brotherhood/delete.do?miscellaneousId=${row.id}"><spring:message code="record.delete"/></a>
 	</display:column>
 	</jstl:if>
 		

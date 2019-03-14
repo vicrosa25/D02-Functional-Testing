@@ -6,7 +6,7 @@
 <%@taglib prefix="display" uri="http://displaytag.sf.net"%>
 <%@ taglib prefix="acme" tagdir="/WEB-INF/tags" %>
 
-<form:form action="history/miscellaneousRecord/edit.do" modelAttribute="miscellaneousRecord">
+<form:form action="history/miscellaneousRecord/brotherhood/edit.do" modelAttribute="miscellaneousRecord">
 	
 	<%-- Hidden properties from miscellaneousRecord--%>
 	<form:hidden path="id" />

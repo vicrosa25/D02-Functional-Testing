@@ -9,6 +9,7 @@ import org.springframework.util.Assert;
 
 import repositories.LegalRecordRepository;
 import domain.Brotherhood;
+import domain.History;
 import domain.LegalRecord;
 
 @Service
@@ -46,12 +47,21 @@ public class LegalRecordService {
 	}
 
 	public LegalRecord save(final LegalRecord legalRecord) {
+		boolean nuevo = false;
 		Assert.notNull(legalRecord);
-		final Brotherhood principal = this.brotherhoodService.findByPrincipal();
-		Assert.isTrue(principal.getHistory().getLegalRecords().contains(legalRecord));
-
+		final History principal = this.brotherhoodService.findByPrincipal().getHistory();
+		if(legalRecord.getId() == 0){
+			nuevo = true;
+		}else{
+			Assert.isTrue(principal.getLegalRecords().contains(legalRecord));
+		}
 		final LegalRecord result = this.legalRecordRepository.save(legalRecord);
-
+		
+		if(nuevo){
+			principal.getLegalRecords().add(result);
+			principal.updateRecordNumber();
+		}
+		
 		return result;
 	}
 
@@ -59,6 +69,9 @@ public class LegalRecordService {
 		Assert.notNull(legalRecord);
 		final Brotherhood principal = this.brotherhoodService.findByPrincipal();
 		Assert.isTrue(principal.getHistory().getLegalRecords().contains(legalRecord));
+		
+		principal.getHistory().getLegalRecords().remove(legalRecord);
+		principal.getHistory().updateRecordNumber();
 
 		this.legalRecordRepository.delete(legalRecord);
 	}

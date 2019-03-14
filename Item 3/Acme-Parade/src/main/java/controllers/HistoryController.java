@@ -1,6 +1,7 @@
 
 package controllers;
 
+import java.util.Collection;
 import java.util.List;
 
 import javax.validation.Valid;
@@ -17,15 +18,19 @@ import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.servlet.ModelAndView;
 
+import services.ActorService;
 import services.BrotherhoodService;
-import services.HistoryService;
 import services.InceptionRecordService;
 import services.LegalRecordService;
 import services.LinkRecordService;
 import services.MiscellaneousRecordService;
 import services.PeriodRecordService;
+import domain.Actor;
 import domain.Brotherhood;
 import domain.InceptionRecord;
+import domain.LegalRecord;
+import domain.LinkRecord;
+import domain.MiscellaneousRecord;
 import domain.PeriodRecord;
 import domain.Url;
 
@@ -34,7 +39,7 @@ import domain.Url;
 public class HistoryController extends AbstractController {
 
 	@Autowired
-	private HistoryService				historyService;
+	private ActorService				actorService;
 
 	@Autowired
 	private BrotherhoodService			brotherhoodService;
@@ -314,22 +319,52 @@ public class HistoryController extends AbstractController {
 		}
 		return result;
 	}
-	// Edit inception record ------------------------------------------------------------------------------------
+	// Period pictures ------------------------------------------------------------------------------------
 	@RequestMapping(value = "/periodRecord/pictures", method = RequestMethod.GET)
 	public ModelAndView pictures(@RequestParam final int periodId) {
+		ModelAndView result;
+		Brotherhood brotherhood;
+		Actor principal;
+
+		try {
+			PeriodRecord period = this.periodService.findOne(periodId);
+			result = new ModelAndView("history/periodRecord/pictures");
+			result.addObject("periodRecord", period);
+			
+			principal = this.actorService.findByPrincipal();
+			if(principal instanceof Brotherhood){
+				brotherhood = (Brotherhood) principal;
+				if(brotherhood.getHistory().getPeriodRecords().contains(period)){
+					result.addObject("bro", 1);
+				}
+			}
+		} catch (final Throwable oops) {
+			System.out.println(oops.getMessage());
+			System.out.println(oops.getClass());
+			System.out.println(oops.getCause());
+			oops.printStackTrace();
+			result = this.forbiddenOpperation();
+			
+		}
+
+		return result;
+	}
+	
+	
+	// Delete period record ------------------------------------------------------------------------------------
+	@RequestMapping(value = "/periodRecord/brotherhood/delete", method = RequestMethod.GET)
+	public ModelAndView periodRecordDelete(@RequestParam final int periodId) {
 		ModelAndView result;
 		Brotherhood brotherhood;
 
 		try {
 			brotherhood = this.brotherhoodService.findByPrincipal();
 			PeriodRecord period = this.periodService.findOne(periodId);
+			Assert.isTrue(brotherhood.getHistory().getPeriodRecords().contains(period));
 			
-			result = new ModelAndView("history/periodRecord/pictures");
-			result.addObject("periodRecord", period);
-			result.addObject("title", brotherhood.getTitle());
-			if(brotherhood.getHistory().getPeriodRecords().contains(period)){
-				result.addObject("bro", 1);
-			}
+			this.periodService.delete(period);
+
+			result = new ModelAndView("redirect:/history/brotherhood/display.do");
 		} catch (final Throwable oops) {
 			System.out.println(oops.getMessage());
 			System.out.println(oops.getClass());
@@ -389,7 +424,7 @@ public class HistoryController extends AbstractController {
 				
 				period.getPictures().add(url);
 				this.periodService.save(period);
-				result = new ModelAndView("redirect:/history/brotherhood/display.do");
+				result = new ModelAndView("redirect:/history/periodRecord/pictures.do?periodId="+url.getTargetId());
 			} catch (final Throwable oops) {
 				System.out.println(url);
 				System.out.println(oops.getMessage());
@@ -419,12 +454,338 @@ public class HistoryController extends AbstractController {
 					break;
 				}
 			}
+			result = new ModelAndView("redirect:/history/periodRecord/pictures.do?periodId="+periodId);
+		} catch (final Throwable oops) {
+			System.out.println(oops.getMessage());
+			System.out.println(oops.getClass());
+			System.out.println(oops.getCause());
+			result = this.forbiddenOpperation();
+		}
+
+		return result;
+	}
+	
+	/*** LEGAL METHODS ***/
+	// Edit legal record ------------------------------------------------------------------------------------
+	@RequestMapping(value = "/legalRecord/brotherhood/create", method = RequestMethod.GET)
+	public ModelAndView createLegalRecord() {
+		ModelAndView result;
+
+		try {
+			LegalRecord legal = this.legalService.create();
+			
+			result = new ModelAndView("history/legalRecord/brotherhood/edit");
+			result.addObject("legalRecord", legal);
+		} catch (final Throwable oops) {
+			System.out.println(oops.getMessage());
+			System.out.println(oops.getClass());
+			System.out.println(oops.getCause());
+			result = this.forbiddenOpperation();
+			
+		}
+
+		return result;
+	}
+	
+	
+	// Edit legal record ------------------------------------------------------------------------------------
+	@RequestMapping(value = "/legalRecord/brotherhood/edit", method = RequestMethod.GET)
+	public ModelAndView legalRecord(@RequestParam final int legalId) {
+		ModelAndView result;
+		Brotherhood brotherhood;
+
+		try {
+			brotherhood = this.brotherhoodService.findByPrincipal();
+			LegalRecord legal = this.legalService.findOne(legalId);
+			Assert.isTrue(brotherhood.getHistory().getLegalRecords().contains(legal));
+			
+			result = new ModelAndView("history/legalRecord/brotherhood/edit");
+			result.addObject("legalRecord", legal);
+		} catch (final Throwable oops) {
+			System.out.println(oops.getMessage());
+			System.out.println(oops.getClass());
+			System.out.println(oops.getCause());
+			result = this.forbiddenOpperation();
+			
+		}
+
+		return result;
+	}
+	
+	// Save legal ------------------------------------------------------------------------------------
+	@RequestMapping(value = "/legalRecord/brotherhood/edit", method = RequestMethod.POST, params = "save")
+	public ModelAndView saveLegal(@Valid final LegalRecord legal, final BindingResult binding) {
+		ModelAndView result;
+
+		if (binding.hasErrors()) {
+			final List<ObjectError> errors = binding.getAllErrors();
+			for (final ObjectError e : errors) {
+				System.out.println(e.toString());
+			}
+			result = new ModelAndView("history/legalRecord/brotherhood/edit");
+			result.addObject("legalRecord", legal);
+		
+		} else {
+			try {
+				this.legalService.save(legal);
+				result = new ModelAndView("redirect:/history/brotherhood/display.do");
+			} catch (final Throwable oops) {
+				System.out.println(oops.getMessage());
+				System.out.println(oops.getClass());
+				System.out.println(oops.getCause());
+				result = new ModelAndView("history/legalRecord/brotherhood/edit");
+				result.addObject("legalRecord", legal);
+			}
+		}
+		return result;
+	}
+	
+	
+	// Delete legal record ------------------------------------------------------------------------------------
+	@RequestMapping(value = "/legalRecord/brotherhood/delete", method = RequestMethod.GET)
+	public ModelAndView legalRecordDelete(@RequestParam final int legalId) {
+		ModelAndView result;
+		Brotherhood brotherhood;
+
+		try {
+			brotherhood = this.brotherhoodService.findByPrincipal();
+			LegalRecord legal = this.legalService.findOne(legalId);
+			Assert.isTrue(brotherhood.getHistory().getLegalRecords().contains(legal));
+			
+			this.legalService.delete(legal);
+
 			result = new ModelAndView("redirect:/history/brotherhood/display.do");
 		} catch (final Throwable oops) {
 			System.out.println(oops.getMessage());
 			System.out.println(oops.getClass());
 			System.out.println(oops.getCause());
 			result = this.forbiddenOpperation();
+			
+		}
+
+		return result;
+	}
+	
+	/*** LINK METHODS ***/
+	// Edit link record ------------------------------------------------------------------------------------
+	@RequestMapping(value = "/linkRecord/brotherhood/create", method = RequestMethod.GET)
+	public ModelAndView createLinkRecord() {
+		ModelAndView result;
+
+		try {
+			LinkRecord link = this.linkService.create();
+			Brotherhood brotherhood = this.brotherhoodService.findByPrincipal();
+			Collection<Brotherhood> brotherhoods = this.brotherhoodService.findAll();
+			brotherhoods.remove(brotherhood);
+			
+			result = new ModelAndView("history/linkRecord/brotherhood/edit");
+			result.addObject("linkRecord", link);
+			result.addObject("brotherhoods", brotherhoods);
+		} catch (final Throwable oops) {
+			System.out.println(oops.getMessage());
+			System.out.println(oops.getClass());
+			System.out.println(oops.getCause());
+			result = this.forbiddenOpperation();
+			
+		}
+
+		return result;
+	}
+	
+	
+	// Edit link record ------------------------------------------------------------------------------------
+	@RequestMapping(value = "/linkRecord/brotherhood/edit", method = RequestMethod.GET)
+	public ModelAndView linkRecord(@RequestParam final int linkId) {
+		ModelAndView result;
+		Brotherhood brotherhood;
+
+		try {
+			brotherhood = this.brotherhoodService.findByPrincipal();
+			Collection<Brotherhood> brotherhoods = this.brotherhoodService.findAll();
+			brotherhoods.remove(brotherhood);
+			LinkRecord link = this.linkService.findOne(linkId);
+			
+			Assert.isTrue(brotherhood.getHistory().getLinkRecords().contains(link));
+			
+			result = new ModelAndView("history/linkRecord/brotherhood/edit");
+			result.addObject("linkRecord", link);
+			result.addObject("brotherhoods", brotherhoods);
+		} catch (final Throwable oops) {
+			System.out.println(oops.getMessage());
+			System.out.println(oops.getClass());
+			System.out.println(oops.getCause());
+			result = this.forbiddenOpperation();
+			
+		}
+
+		return result;
+	}
+	
+	// Save link ------------------------------------------------------------------------------------
+	@RequestMapping(value = "/linkRecord/brotherhood/edit", method = RequestMethod.POST, params = "save")
+	public ModelAndView saveLink(@Valid final LinkRecord link, final BindingResult binding) {
+		ModelAndView result;
+		Brotherhood brotherhood = this.brotherhoodService.findByPrincipal();
+		Collection<Brotherhood> brotherhoods = this.brotherhoodService.findAll();
+		brotherhoods.remove(brotherhood);
+
+		if (binding.hasErrors()) {
+			final List<ObjectError> errors = binding.getAllErrors();
+			for (final ObjectError e : errors) {
+				System.out.println(e.toString());
+			}
+			result = new ModelAndView("history/linkRecord/brotherhood/edit");
+			result.addObject("linkRecord", link);
+			result.addObject("brotherhoods", brotherhoods);
+		
+		} else {
+			try {
+				this.linkService.save(link);
+				result = new ModelAndView("redirect:/history/brotherhood/display.do");
+			} catch (final Throwable oops) {
+				System.out.println(oops.getMessage());
+				System.out.println(oops.getClass());
+				System.out.println(oops.getCause());
+				oops.printStackTrace();
+				result = new ModelAndView("history/linkRecord/brotherhood/edit");
+				result.addObject("brotherhoods", brotherhoods);
+				result.addObject("linkRecord", link);
+			}
+		}
+		return result;
+	}
+	
+	
+	// Delete link record ------------------------------------------------------------------------------------
+	@RequestMapping(value = "/linkRecord/brotherhood/delete", method = RequestMethod.GET)
+	public ModelAndView linkRecordDelete(@RequestParam final int linkId) {
+		ModelAndView result;
+		Brotherhood brotherhood;
+
+		try {
+			brotherhood = this.brotherhoodService.findByPrincipal();
+			LinkRecord link = this.linkService.findOne(linkId);
+			Assert.isTrue(brotherhood.getHistory().getLinkRecords().contains(link));
+			
+			this.linkService.delete(link);
+
+			result = new ModelAndView("redirect:/history/brotherhood/display.do");
+		} catch (final Throwable oops) {
+			System.out.println(oops.getMessage());
+			System.out.println(oops.getClass());
+			System.out.println(oops.getCause());
+			result = this.forbiddenOpperation();
+			
+		}
+
+		return result;
+	}
+	
+	/*** MISCELLANEOUS METHODS ***/
+	// Edit miscellaneous record ------------------------------------------------------------------------------------
+	@RequestMapping(value = "/miscellaneousRecord/brotherhood/create", method = RequestMethod.GET)
+	public ModelAndView createMiscellaneousRecord() {
+		ModelAndView result;
+
+		try {
+			MiscellaneousRecord miscellaneous = this.miscService.create();
+			
+			result = new ModelAndView("history/miscellaneousRecord/brotherhood/edit");
+			result.addObject("miscellaneousRecord", miscellaneous);
+		} catch (final Throwable oops) {
+			System.out.println(oops.getMessage());
+			System.out.println(oops.getClass());
+			System.out.println(oops.getCause());
+			result = this.forbiddenOpperation();
+			
+		}
+
+		return result;
+	}
+	
+	
+	// Edit miscellaneous record ------------------------------------------------------------------------------------
+	@RequestMapping(value = "/miscellaneousRecord/brotherhood/edit", method = RequestMethod.GET)
+	public ModelAndView miscellaneousRecord(@RequestParam final int miscellaneousId) {
+		ModelAndView result;
+		Brotherhood brotherhood;
+
+		try {
+			brotherhood = this.brotherhoodService.findByPrincipal();
+			Collection<Brotherhood> brotherhoods = this.brotherhoodService.findAll();
+			brotherhoods.remove(brotherhood);
+			MiscellaneousRecord miscellaneous = this.miscService.findOne(miscellaneousId);
+			
+			Assert.isTrue(brotherhood.getHistory().getMiscellaneousRecords().contains(miscellaneous));
+			
+			result = new ModelAndView("history/miscellaneousRecord/brotherhood/edit");
+			result.addObject("miscellaneousRecord", miscellaneous);
+			result.addObject("brotherhoods", brotherhoods);
+		} catch (final Throwable oops) {
+			System.out.println(oops.getMessage());
+			System.out.println(oops.getClass());
+			System.out.println(oops.getCause());
+			result = this.forbiddenOpperation();
+			
+		}
+
+		return result;
+	}
+	
+	// Save miscellaneous ------------------------------------------------------------------------------------
+	@RequestMapping(value = "/miscellaneousRecord/brotherhood/edit", method = RequestMethod.POST, params = "save")
+	public ModelAndView saveMiscellaneous(@Valid final MiscellaneousRecord miscellaneous, final BindingResult binding) {
+		ModelAndView result;
+		Brotherhood brotherhood = this.brotherhoodService.findByPrincipal();
+		Collection<Brotherhood> brotherhoods = this.brotherhoodService.findAll();
+		brotherhoods.remove(brotherhood);
+
+		if (binding.hasErrors()) {
+			final List<ObjectError> errors = binding.getAllErrors();
+			for (final ObjectError e : errors) {
+				System.out.println(e.toString());
+			}
+			result = new ModelAndView("history/miscellaneousRecord/brotherhood/edit");
+			result.addObject("miscellaneousRecord", miscellaneous);
+			result.addObject("brotherhoods", brotherhoods);
+		
+		} else {
+			try {
+				this.miscService.save(miscellaneous);
+				result = new ModelAndView("redirect:/history/brotherhood/display.do");
+			} catch (final Throwable oops) {
+				System.out.println(oops.getMessage());
+				System.out.println(oops.getClass());
+				System.out.println(oops.getCause());
+				result = new ModelAndView("history/miscellaneousRecord/brotherhood/edit");
+				result.addObject("brotherhoods", brotherhoods);
+				result.addObject("miscellaneousRecord", miscellaneous);
+			}
+		}
+		return result;
+	}
+	
+	
+	// Delete miscellaneous record ------------------------------------------------------------------------------------
+	@RequestMapping(value = "/miscellaneousRecord/brotherhood/delete", method = RequestMethod.GET)
+	public ModelAndView miscellaneousRecordDelete(@RequestParam final int miscellaneousId) {
+		ModelAndView result;
+		Brotherhood brotherhood;
+
+		try {
+			brotherhood = this.brotherhoodService.findByPrincipal();
+			MiscellaneousRecord miscellaneous = this.miscService.findOne(miscellaneousId);
+			Assert.isTrue(brotherhood.getHistory().getMiscellaneousRecords().contains(miscellaneous));
+			
+			this.miscService.delete(miscellaneous);
+
+			result = new ModelAndView("redirect:/history/brotherhood/display.do");
+		} catch (final Throwable oops) {
+			System.out.println(oops.getMessage());
+			System.out.println(oops.getClass());
+			System.out.println(oops.getCause());
+			result = this.forbiddenOpperation();
+			
 		}
 
 		return result;
