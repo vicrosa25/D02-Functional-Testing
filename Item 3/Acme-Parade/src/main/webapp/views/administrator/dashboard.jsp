@@ -34,6 +34,7 @@
 <spring:message code="administrator.enrols" 		  var="enrolsHeader" />
 <spring:message code="administrator.approved.request" var="aprovedRequestHeader" />
 <spring:message code="administrator.total.request"    var="totalRequestHeader" />
+<spring:message code="administrator.chapter"    	  var="chapterHeader" />
 
 <spring:message code="administrator.dashboard.query1" var="query1Header" />
 <spring:message code="administrator.dashboard.query2" var="query2Header" />
@@ -96,6 +97,28 @@
 	</tr>
 </table>
 <br />
+
+<!-- Query 17  -->
+<table>
+	<caption>
+		<jstl:out value="${query17Header}"></jstl:out>
+	</caption>
+	<tr>
+		<th><jstl:out value="${chapterHeader}"></jstl:out></th>
+	</tr>
+	<jstl:if test="${ empty query17 }">
+		<tr>
+        	<td>There are not Chapters in this conditions</td>
+      </tr>
+	</jstl:if>
+	<jstl:if test="${ empty query17 }">
+		<jstl:forEach items="${query17}" var="row">
+      		<tr>
+        		<td>${row.title}</td>
+      		</tr>
+    </jstl:forEach>
+	</jstl:if>
+</table>
 
 
 

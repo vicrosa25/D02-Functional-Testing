@@ -15,6 +15,7 @@ import org.springframework.util.Assert;
 import domain.Actor;
 import domain.Administrator;
 import domain.Brotherhood;
+import domain.Chapter;
 import domain.Message;
 import domain.MessageBox;
 import domain.Procession;
@@ -212,6 +213,10 @@ public class AdministratorService {
 	
 	public Object[] query16() {
 		return this.adminRepository.query16();
+	}
+	
+	public Collection<Chapter> query17() {
+		return this.adminRepository.query17();
 	}
 	
 	

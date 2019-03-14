@@ -10,6 +10,7 @@ import org.springframework.stereotype.Repository;
 
 import domain.Administrator;
 import domain.Brotherhood;
+import domain.Chapter;
 import domain.Procession;
 
 @Repository
@@ -70,8 +71,11 @@ public interface AdministratorRepository extends JpaRepository<Administrator, In
 	@Query("select count(a)*1.0 / (select count(a1)*1.0 from Area a1) from Area a where a.chapter = null")
 	Double query15();
 	
-	@Query("select avg(b.processions.size), min(b.processions.size), max(b.processions.size),  stddev(b.processions.size) from Brotherhood b where b.area.chapter != null")
+	@Query("select count(a)*1.0 / (select count(a1)*1.0 from Area a1) from Area a where a.chapter = null")
 	Object[] query16();
+	
+	@Query("select c from Chapter c join c.area a join a.brotherhoods b where b.processions.size >= (select  avg(b1.processions.size)*0.1 + avg(b1.processions.size) from Chapter c1 join c1.area a1 join a1.brotherhoods b1)")
+	Collection<Chapter> query17();
 	
 	
 	

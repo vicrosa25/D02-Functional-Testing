@@ -31,6 +31,7 @@ import org.springframework.web.servlet.ModelAndView;
 import domain.Actor;
 import domain.Administrator;
 import domain.Brotherhood;
+import domain.Chapter;
 import domain.Configurations;
 import domain.Procession;
 import services.ActorService;
@@ -184,6 +185,7 @@ public class AdministratorController extends AbstractController {
 		// ACME PARADE level B
 		Double query15				   = this.administratorService.query15();
 		Object[] query16			   = this.administratorService.query16();
+		Collection<Chapter> query17	   = this.administratorService.query17();
 
 		result = new ModelAndView("administrator/dashboard");
 
@@ -201,6 +203,7 @@ public class AdministratorController extends AbstractController {
 		
 		result.addObject("query15", query15);
 		result.addObject("query16", query16);
+		result.addObject("query17", query17);
 		
 		
 
