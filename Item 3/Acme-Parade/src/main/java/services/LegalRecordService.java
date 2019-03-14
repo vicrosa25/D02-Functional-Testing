@@ -68,6 +68,8 @@ public class LegalRecordService {
 		Assert.notNull(legalRecord);
 		final Brotherhood principal = this.brotherhoodService.findByPrincipal();
 		Assert.isTrue(principal.getHistory().getLegalRecords().contains(legalRecord));
+		
+		principal.getHistory().getLegalRecords().remove(legalRecord);
 
 		this.legalRecordRepository.delete(legalRecord);
 	}

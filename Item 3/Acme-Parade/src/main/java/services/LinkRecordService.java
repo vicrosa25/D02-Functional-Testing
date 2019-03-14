@@ -68,6 +68,8 @@ public class LinkRecordService {
 		Assert.notNull(linkRecord);
 		final Brotherhood principal = this.brotherhoodService.findByPrincipal();
 		Assert.isTrue(principal.getHistory().getLinkRecords().contains(linkRecord));
+		
+		principal.getHistory().getLinkRecords().remove(linkRecord);
 
 		this.linkRecordRepository.delete(linkRecord);
 	}

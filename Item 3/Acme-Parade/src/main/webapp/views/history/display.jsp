@@ -93,7 +93,7 @@
 		</a>
 	</display:column>
 	<display:column title="${deleteHeader}">
-		<a href="history/periodRecord/delete.do?periodId=${row.id}"><spring:message code="record.delete"/></a>
+		<a href="history/periodRecord/brotherhood/delete.do?periodId=${row.id}"><spring:message code="record.delete"/></a>
 	</display:column>
 	</jstl:if>
 	
@@ -133,7 +133,7 @@
 		</a>
 	</display:column>
 	<display:column title="${deleteHeader}">
-		<a href="history/legalRecord/delete.do?legalId=${row.id}"><spring:message code="record.delete"/></a>
+		<a href="history/legalRecord/brotherhood/delete.do?legalId=${row.id}"><spring:message code="record.delete"/></a>
 	</display:column>
 	</jstl:if>
 	
@@ -173,7 +173,7 @@
 		</a>
 	</display:column>
 	<display:column title="${deleteHeader}">
-		<a href="history/linkRecord/delete.do?linkId=${row.id}"><spring:message code="record.delete"/></a>
+		<a href="history/linkRecord/brotherhood/delete.do?linkId=${row.id}"><spring:message code="record.delete"/></a>
 	</display:column>
 	</jstl:if>
 <display:caption><spring:message code="history.linkRecords"/></display:caption>
@@ -203,7 +203,7 @@
 		</a>
 	</display:column>
 	<display:column title="${deleteHeader}">
-		<a href="history/miscellaneousRecord/delete.do?miscellaneousId=${row.id}"><spring:message code="record.delete"/></a>
+		<a href="history/miscellaneousRecord/brotherhood/delete.do?miscellaneousId=${row.id}"><spring:message code="record.delete"/></a>
 	</display:column>
 	</jstl:if>
 		

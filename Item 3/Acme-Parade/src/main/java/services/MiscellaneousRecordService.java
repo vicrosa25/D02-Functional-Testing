@@ -68,6 +68,8 @@ public class MiscellaneousRecordService {
 		Assert.notNull(miscellaneousRecord);
 		final Brotherhood principal = this.brotherhoodService.findByPrincipal();
 		Assert.isTrue(principal.getHistory().getMiscellaneousRecords().contains(miscellaneousRecord));
+		
+		principal.getHistory().getMiscellaneousRecords().remove(miscellaneousRecord);
 
 		this.miscellaneousRecordRepository.delete(miscellaneousRecord);
 	}

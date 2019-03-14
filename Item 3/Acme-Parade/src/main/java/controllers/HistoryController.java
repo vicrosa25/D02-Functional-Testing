@@ -350,6 +350,32 @@ public class HistoryController extends AbstractController {
 		return result;
 	}
 	
+	
+	// Delete period record ------------------------------------------------------------------------------------
+	@RequestMapping(value = "/periodRecord/brotherhood/delete", method = RequestMethod.GET)
+	public ModelAndView periodRecordDelete(@RequestParam final int periodId) {
+		ModelAndView result;
+		Brotherhood brotherhood;
+
+		try {
+			brotherhood = this.brotherhoodService.findByPrincipal();
+			PeriodRecord period = this.periodService.findOne(periodId);
+			Assert.isTrue(brotherhood.getHistory().getPeriodRecords().contains(period));
+			
+			this.periodService.delete(period);
+
+			result = new ModelAndView("redirect:/history/brotherhood/display.do");
+		} catch (final Throwable oops) {
+			System.out.println(oops.getMessage());
+			System.out.println(oops.getClass());
+			System.out.println(oops.getCause());
+			result = this.forbiddenOpperation();
+			
+		}
+
+		return result;
+	}
+	
 	// addPicture period ------------------------------------------------------------------------------------
 	@RequestMapping(value = "/periodRecord/brotherhood/addPicture", method = RequestMethod.GET)
 	public ModelAndView addPicturePeriod(@RequestParam final int periodId) {
@@ -514,6 +540,32 @@ public class HistoryController extends AbstractController {
 		return result;
 	}
 	
+	
+	// Delete legal record ------------------------------------------------------------------------------------
+	@RequestMapping(value = "/legalRecord/brotherhood/delete", method = RequestMethod.GET)
+	public ModelAndView legalRecordDelete(@RequestParam final int legalId) {
+		ModelAndView result;
+		Brotherhood brotherhood;
+
+		try {
+			brotherhood = this.brotherhoodService.findByPrincipal();
+			LegalRecord legal = this.legalService.findOne(legalId);
+			Assert.isTrue(brotherhood.getHistory().getLegalRecords().contains(legal));
+			
+			this.legalService.delete(legal);
+
+			result = new ModelAndView("redirect:/history/brotherhood/display.do");
+		} catch (final Throwable oops) {
+			System.out.println(oops.getMessage());
+			System.out.println(oops.getClass());
+			System.out.println(oops.getCause());
+			result = this.forbiddenOpperation();
+			
+		}
+
+		return result;
+	}
+	
 	/*** LINK METHODS ***/
 	// Edit link record ------------------------------------------------------------------------------------
 	@RequestMapping(value = "/linkRecord/brotherhood/create", method = RequestMethod.GET)
@@ -603,6 +655,32 @@ public class HistoryController extends AbstractController {
 		return result;
 	}
 	
+	
+	// Delete link record ------------------------------------------------------------------------------------
+	@RequestMapping(value = "/linkRecord/brotherhood/delete", method = RequestMethod.GET)
+	public ModelAndView linkRecordDelete(@RequestParam final int linkId) {
+		ModelAndView result;
+		Brotherhood brotherhood;
+
+		try {
+			brotherhood = this.brotherhoodService.findByPrincipal();
+			LinkRecord link = this.linkService.findOne(linkId);
+			Assert.isTrue(brotherhood.getHistory().getLinkRecords().contains(link));
+			
+			this.linkService.delete(link);
+
+			result = new ModelAndView("redirect:/history/brotherhood/display.do");
+		} catch (final Throwable oops) {
+			System.out.println(oops.getMessage());
+			System.out.println(oops.getClass());
+			System.out.println(oops.getCause());
+			result = this.forbiddenOpperation();
+			
+		}
+
+		return result;
+	}
+	
 	/*** MISCELLANEOUS METHODS ***/
 	// Edit miscellaneous record ------------------------------------------------------------------------------------
 	@RequestMapping(value = "/miscellaneousRecord/brotherhood/create", method = RequestMethod.GET)
@@ -684,6 +762,32 @@ public class HistoryController extends AbstractController {
 				result.addObject("miscellaneousRecord", miscellaneous);
 			}
 		}
+		return result;
+	}
+	
+	
+	// Delete miscellaneous record ------------------------------------------------------------------------------------
+	@RequestMapping(value = "/miscellaneousRecord/brotherhood/delete", method = RequestMethod.GET)
+	public ModelAndView miscellaneousRecordDelete(@RequestParam final int miscellaneousId) {
+		ModelAndView result;
+		Brotherhood brotherhood;
+
+		try {
+			brotherhood = this.brotherhoodService.findByPrincipal();
+			MiscellaneousRecord miscellaneous = this.miscService.findOne(miscellaneousId);
+			Assert.isTrue(brotherhood.getHistory().getMiscellaneousRecords().contains(miscellaneous));
+			
+			this.miscService.delete(miscellaneous);
+
+			result = new ModelAndView("redirect:/history/brotherhood/display.do");
+		} catch (final Throwable oops) {
+			System.out.println(oops.getMessage());
+			System.out.println(oops.getClass());
+			System.out.println(oops.getCause());
+			result = this.forbiddenOpperation();
+			
+		}
+
 		return result;
 	}
 

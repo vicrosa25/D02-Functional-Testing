@@ -71,6 +71,8 @@ public class PeriodRecordService {
 		Assert.notNull(periodRecord);
 		final Brotherhood principal = this.brotherhoodService.findByPrincipal();
 		Assert.isTrue(principal.getHistory().getPeriodRecords().contains(periodRecord));
+		
+		principal.getHistory().getPeriodRecords().remove(periodRecord);
 
 		this.periodRecordRepository.delete(periodRecord);
 	}
