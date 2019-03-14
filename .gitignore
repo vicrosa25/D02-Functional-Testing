@@ -27,4 +27,4 @@ hs_err_pid*
 "Item 3/Acme-Parade/.classpath"
 "Item 3/Acme-Parade/.settings"
 "Item 3/Acme-Parade/.idea"
-"Item 3/Acme-Parade/src/main/resources/Entities.map"
+*.map
