@@ -62,6 +62,7 @@ public class PeriodRecordService {
 		
 		if(nuevo){
 			principal.getPeriodRecords().add(result);
+			principal.updateRecordNumber();
 		}
 		
 		return result;
@@ -71,6 +72,9 @@ public class PeriodRecordService {
 		Assert.notNull(periodRecord);
 		final Brotherhood principal = this.brotherhoodService.findByPrincipal();
 		Assert.isTrue(principal.getHistory().getPeriodRecords().contains(periodRecord));
+		
+		principal.getHistory().getPeriodRecords().remove(periodRecord);
+		principal.getHistory().updateRecordNumber();
 
 		this.periodRecordRepository.delete(periodRecord);
 	}

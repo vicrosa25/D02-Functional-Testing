@@ -6,7 +6,7 @@
 <%@taglib prefix="display" uri="http://displaytag.sf.net"%>
 <%@ taglib prefix="acme" tagdir="/WEB-INF/tags" %>
 
-<form:form action="history/linkRecord/edit.do" modelAttribute="linkRecord">
+<form:form action="history/linkRecord/brotherhood/edit.do" modelAttribute="linkRecord">
 	
 	<%-- Hidden properties from periodRecord--%>
 	<form:hidden path="id" />
@@ -21,7 +21,7 @@
 	<br>
 
 	<%-- Brotherhood --%>
-	<acme:select2 code="enrol.brotherhood" path="brotherhood" items="${brotherhoods}" itemLabel="title" />
+	<acme:select code="enrol.brotherhood" path="link" items="${brotherhoods}" itemLabel="title" />
 	<br>
 
 	<%-- Buttons --%>

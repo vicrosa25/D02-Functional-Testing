@@ -6,7 +6,7 @@
 <%@taglib prefix="display" uri="http://displaytag.sf.net"%>
 <%@ taglib prefix="acme" tagdir="/WEB-INF/tags" %>
 
-<form:form action="history/legalRecord/edit.do" modelAttribute="legalRecord">
+<form:form action="history/legalRecord/brotherhood/edit.do" modelAttribute="legalRecord">
 	
 	<%-- Hidden properties from periodRecord--%>
 	<form:hidden path="id" />
@@ -25,7 +25,7 @@
 	<br>
 
 	<%-- VAT --%>
-	<acme:numberbox code="history.vat" path="vat" />
+	<acme:numberbox code="history.vat" step="0.1" path="vat" />
 	<br>
 
 	<%-- Laws --%>
