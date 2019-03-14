@@ -252,7 +252,7 @@ public class ChapterController extends AbstractController {
 	}
 
 	// Accepting parade --------------------------------------------------------------------------------------
-	@RequestMapping(value = "parade/aprove", method = RequestMethod.GET)
+	@RequestMapping(value = "/parade/aprove", method = RequestMethod.GET)
 	public ModelAndView aproveParade(@RequestParam int processionId) {
 		ModelAndView result = null;
 		Procession procession;
@@ -267,7 +267,7 @@ public class ChapterController extends AbstractController {
 			Assert.isTrue(principal.getArea().getBrotherhoods().contains(procession.getBrotherhood()), "The chapter don't manage this procession");
 
 			this.chapterService.aproveProcession(procession);
-			result = this.list();
+			result = new ModelAndView("chapter/parade/reason");
 		} catch (final Throwable oops) {
 			System.out.println(oops.getMessage());
 			System.out.println(oops.getClass());
@@ -279,21 +279,71 @@ public class ChapterController extends AbstractController {
 		return result;
 	}
 
-	// Accepting parade --------------------------------------------------------------------------------------
-	@RequestMapping(value = "parade/reject", method = RequestMethod.GET)
-	public ModelAndView rejectParade(@RequestParam int processionId) {
-		ModelAndView result = null;
+	// Rejecting parade GET --------------------------------------------------------------------------------------
+//	@RequestMapping(value = "/parade/reject", method = RequestMethod.GET)
+//	public ModelAndView rejectParade(@RequestParam int processionId) {
+//		ModelAndView result = null;
+//		Procession procession;
+//		Chapter principal;
+//
+//		procession = this.processionService.findOne(processionId);
+//		Assert.notNull(procession);
+//
+//		try {
+//			// Check principal manage Area where is Brotherhood
+//			principal = this.chapterService.findByPrincipal();
+//			Assert.isTrue(principal.getArea().getBrotherhoods().contains(procession.getBrotherhood()), "The chapter don't manage this procession");
+//
+//			this.chapterService.rejectParade(procession);
+//			result = this.list();
+//		} catch (final Throwable oops) {
+//			System.out.println(oops.getMessage());
+//			System.out.println(oops.getClass());
+//			System.out.println(oops.getCause());
+//			result = this.forbiddenOpperation();
+//			return result;
+//		}
+//
+//		return result;
+//	}
+
+	// Self-assign an area GET ------------------------------------------------------------------------------------
+	@RequestMapping(value = "/parade/reject/reasson", method = RequestMethod.GET)
+	public ModelAndView reason(@RequestParam int processionId) {
+		ModelAndView result;
 		Procession procession;
-		Chapter principal;
 
 		procession = this.processionService.findOne(processionId);
 		Assert.notNull(procession);
 
+		result = new ModelAndView("chapter/parade/reject/reasson");
+		result.addObject("procession", procession);
+		return result;
+	}
+
+	// Rejecting parade POST  --------------------------------------------------------------------------------------
+	@RequestMapping(value = "parade/reject/reasson", method = RequestMethod.POST)
+	public ModelAndView reason(Procession prune, BindingResult binding) {
+		ModelAndView result = null;
+		Procession procession;
+		Chapter principal;
+
 		try {
+			// Reconstruct rejected parade
+			procession = this.processionService.reconstructRejected(prune, binding);
+			
+			// Check reasson is not empty
+			if (procession.getReasson().isEmpty()) {
+				result = this.reason(prune.getId());
+				result.addObject("message", "chapter.parade.reasson.null");
+				return result;
+			}
+			
 			// Check principal manage Area where is Brotherhood
 			principal = this.chapterService.findByPrincipal();
 			Assert.isTrue(principal.getArea().getBrotherhoods().contains(procession.getBrotherhood()), "The chapter don't manage this procession");
-
+		
+			// Set status rejected
 			this.chapterService.rejectParade(procession);
 			result = this.list();
 		} catch (final Throwable oops) {

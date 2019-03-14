@@ -31,6 +31,7 @@ public class Procession extends DomainEntity {
 	private Date 	moment;
 	private Boolean draftMode;
 	private String 	status;
+	private String  reasson;
 	
 	
 	@Pattern(regexp = "^(SUBMITTED|APPROVED|REJECTED)$")
@@ -101,11 +102,18 @@ public class Procession extends DomainEntity {
 	public void setDraftMode(Boolean finalMode) {
 		this.draftMode = finalMode;
 	}
+	
+	
+	public String getReasson() {
+		return this.reasson;
+	}
 
+	
+	public void setReasson(String reasson) {
+		this.reasson = reasson;
+	}
 
-
-
-
+	
 
 	// Relationships ----------------------------------------------------------
 	private Brotherhood brotherhood;

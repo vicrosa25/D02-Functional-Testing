@@ -86,6 +86,7 @@
 		<security:intercept-url pattern="/chapter/parade/list.do" access="hasRole('CHAPTER')" />
 		<security:intercept-url pattern="/chapter/parade/aprove.do" access="hasRole('CHAPTER')" />
 		<security:intercept-url pattern="/chapter/parade/reject.do" access="hasRole('CHAPTER')" />
+		<security:intercept-url pattern="/chapter/parade/reject/reasson.do" access="hasRole('CHAPTER')" />
 		
 		<!-- PROCESSION -->
 		<security:intercept-url pattern="/procession/list.do" access="hasAnyRole('BROTHERHOOD','MEMBER')" />

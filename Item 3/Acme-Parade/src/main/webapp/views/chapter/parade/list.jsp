@@ -32,6 +32,12 @@
 	<spring:message code="procession.status" var="statusHeader" />
 	<display:column property="status" title="${statusHeader}" />
 	
+	<!-- reasson -->
+	<jstl:if test="${ row.status == 'REJECTED' }">
+		<spring:message code="procession.reasson" var="reassonHeader" />
+		<display:column property="reasson" title="${reassonHeader}" />
+	</jstl:if>
+		
 	
 	<!-- manage status -->
 	<jstl:if test="${ row.status == 'SUBMITTED' }">
@@ -39,7 +45,7 @@
 			<a href="chapter/parade/aprove.do?processionId=${row.id}"><spring:message code="chapter.parade.accept" /></a>
 		</display:column>
 		<display:column>
-			<a href="chapter/parade/reject.do?processionId=${row.id}"><spring:message code="chapter.parade.reject" /></a>
+			<a href="chapter/parade/reject/reasson.do?processionId=${row.id}"><spring:message code="chapter.parade.reject" /></a>
 		</display:column>
 	</jstl:if>
 	

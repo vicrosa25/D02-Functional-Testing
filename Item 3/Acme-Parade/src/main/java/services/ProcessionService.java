@@ -159,6 +159,34 @@ public class ProcessionService {
 
 		return result;
 	}
+	
+	// Reconstruct for rejected parades
+	public Procession reconstructRejected(Procession pruned, BindingResult binding) {
+		Procession result = this.create();
+		Procession temp;
+
+		if (pruned.getId() == 0) {
+			this.validator.validate(pruned, binding);
+			result = pruned;
+		} else {
+			temp = this.findOne(pruned.getId());
+			result.setId(temp.getId());
+			result.setVersion(temp.getVersion());
+			result.setBrotherhood(temp.getBrotherhood());
+			result.setTicker(temp.getTicker());
+			result.setTitle(temp.getTitle());
+			result.setDescription(temp.getDescription());
+			result.setMoment(temp.getMoment());
+			result.setDraftMode(temp.getDraftMode());
+			
+			// Edit attributes
+			result.setReasson(pruned.getReasson());
+
+			this.validator.validate(result, binding);
+		}
+
+		return result;
+	}
 
 	/************************************* Other business methods ********************************/
 	public String generateTicker() {
