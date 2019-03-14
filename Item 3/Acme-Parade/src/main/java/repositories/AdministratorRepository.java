@@ -64,4 +64,35 @@ public interface AdministratorRepository extends JpaRepository<Administrator, In
 	
 	@Query("select avg(a.score) from Actor a")
 	Double getAveragePolarity();
+	
+	
+	// ACME PARADE Queries level B
+	@Query("select count(a)*1.0 / (select count(a1)*1.0 from Area a1) from Area a where a.chapter = null")
+	Double query15();
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
 }

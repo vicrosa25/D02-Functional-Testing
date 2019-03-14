@@ -46,12 +46,35 @@
 <spring:message code="administrator.dashboard.query10" var="query10Header" />
 <spring:message code="administrator.dashboard.query11" var="query11Header" />
 
+<spring:message code="administrator.dashboard.query15" var="query15Header" />
+
 
 <!--  Custom table style -->
 <head>
 	<link rel="stylesheet" href="styles/tablas.css" type="text/css">
 	<link rel="stylesheet" href="styles/charts.css" type="text/css">
 </head>
+
+
+
+<!--  ACME PARADE Queries level B -->
+
+<!-- Query 15  -->
+<table>
+	<caption>
+		<jstl:out value="${query15Header}"></jstl:out>
+	</caption>
+	<tr>
+		<th><jstl:out value="${ratioHeader}"></jstl:out></th>
+	</tr>
+	<tr>
+		<td><jstl:out value="${query15}"></jstl:out></td>
+	</tr>
+</table>
+<br />
+
+
+
 
 
 

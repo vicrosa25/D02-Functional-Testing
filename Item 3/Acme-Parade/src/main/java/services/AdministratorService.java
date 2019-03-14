@@ -205,6 +205,11 @@ public class AdministratorService {
 	}
 	
 	
+	// ACME PARADE queries level B -------------------------------------------------------------
+	public Double query15() {
+		return this.adminRepository.query15();
+	}
+	
 	
 	// Chart Queries
 	public int[] querySpammersGetValues(){
