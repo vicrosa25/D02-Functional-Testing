@@ -32,6 +32,6 @@
 	<form:label path="${path}">
 		<spring:message code="${code}" />
 	</form:label>	
-	<form:input path="${path}" type="number" step="${step} readonly="${readonly}" />	
+	<form:input path="${path}" type="number" step="${step}" readonly="${readonly}" />	
 	<form:errors path="${path}" cssClass="error" />
 </div>	

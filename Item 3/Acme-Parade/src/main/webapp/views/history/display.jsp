@@ -13,6 +13,7 @@
 <spring:message code="history.pictures.view" var="viewPicturesHeader" />
 <spring:message code="history.edit" var="editHeader" />
 <spring:message code="coach.pictures.delete" var="deleteHeader" />
+<spring:message code="procession.delete" var="deleteHeader" />
 
 <!-- Inception Record -->
 	<display:table name="history.inceptionRecord"  id="row" >
@@ -91,6 +92,9 @@
 			<spring:message code="history.edit"/>
 		</a>
 	</display:column>
+	<display:column title="${deleteHeader}">
+		<a href="history/periodRecord/delete.do?periodId=${row.id}"><spring:message code="record.delete"/></a>
+	</display:column>
 	</jstl:if>
 	
 <display:caption><spring:message code="history.periodRecords"/></display:caption>
@@ -127,6 +131,9 @@
 		<a href="history/legalRecord/brotherhood/edit.do?legalId=${row.id}">
 			<spring:message code="history.edit"/>
 		</a>
+	</display:column>
+	<display:column title="${deleteHeader}">
+		<a href="history/legalRecord/delete.do?legalId=${row.id}"><spring:message code="record.delete"/></a>
 	</display:column>
 	</jstl:if>
 	
@@ -165,8 +172,11 @@
 			<spring:message code="history.edit"/>
 		</a>
 	</display:column>
+	<display:column title="${deleteHeader}">
+		<a href="history/linkRecord/delete.do?linkId=${row.id}"><spring:message code="record.delete"/></a>
+	</display:column>
 	</jstl:if>
-<display:caption><spring:message code="history.legalRecords"/></display:caption>
+<display:caption><spring:message code="history.linkRecords"/></display:caption>
 </display:table>
 </jstl:if>
 	
@@ -191,6 +201,9 @@
 		<a href="history/miscellaneousRecord/brotherhood/edit.do?miscellaneousId=${row.id}">
 			<spring:message code="history.edit"/>
 		</a>
+	</display:column>
+	<display:column title="${deleteHeader}">
+		<a href="history/miscellaneousRecord/delete.do?miscellaneousId=${row.id}"><spring:message code="record.delete"/></a>
 	</display:column>
 	</jstl:if>
 		

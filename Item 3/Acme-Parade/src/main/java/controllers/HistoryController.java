@@ -428,7 +428,7 @@ public class HistoryController extends AbstractController {
 					break;
 				}
 			}
-			result = new ModelAndView("redirect:/history/brotherhood/display.do");
+			result = new ModelAndView("redirect:/history/periodRecord/pictures.do?periodId="+periodId);
 		} catch (final Throwable oops) {
 			System.out.println(oops.getMessage());
 			System.out.println(oops.getClass());
