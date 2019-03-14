@@ -121,6 +121,21 @@
 </table>
 
 
+<!-- Query 15  -->
+<table>
+	<caption>
+		<jstl:out value="${query18Header}"></jstl:out>
+	</caption>
+	<tr>
+		<th><jstl:out value="${ratioHeader}"></jstl:out></th>
+	</tr>
+	<tr>
+		<td><jstl:out value="${query18}"></jstl:out></td>
+	</tr>
+</table>
+<br />
+
+
 
 
 

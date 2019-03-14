@@ -77,6 +77,9 @@ public interface AdministratorRepository extends JpaRepository<Administrator, In
 	@Query("select c from Chapter c join c.area a join a.brotherhoods b where b.processions.size >= (select  avg(b1.processions.size)*0.1 + avg(b1.processions.size) from Chapter c1 join c1.area a1 join a1.brotherhoods b1)")
 	Collection<Chapter> query17();
 	
+	@Query("select count(p)*1.0 / (select count(p1)*1.0 from Procession p1 where p1.draftMode = false) from Procession p where p.draftMode = true")
+	Double query18();
+	
 	
 	
 	

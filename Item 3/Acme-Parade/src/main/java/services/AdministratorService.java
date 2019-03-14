@@ -219,6 +219,10 @@ public class AdministratorService {
 		return this.adminRepository.query17();
 	}
 	
+	public Double query18() {
+		return this.adminRepository.query18();
+	}
+	
 	
 	// Chart Queries
 	public int[] querySpammersGetValues(){
