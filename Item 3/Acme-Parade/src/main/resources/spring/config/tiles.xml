@@ -32,6 +32,8 @@
 		<value>/views/message/tiles.xml</value>
 		<value>/views/socialIdentity/tiles.xml</value>
 		<value>/views/history/tiles.xml</value>
+		<value>/views/path/tiles.xml</value>
+		<value>/views/segment/tiles.xml</value>
 	</util:list>
 
 </beans>

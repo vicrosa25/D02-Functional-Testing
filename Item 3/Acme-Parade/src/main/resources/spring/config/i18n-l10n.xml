@@ -32,6 +32,8 @@
 		<value>/views/message/messages</value>
 		<value>/views/socialIdentity/messages</value>
 		<value>/views/history/messages</value>
+		<value>/views/path/messages</value>
+		<value>/views/segment/messages</value>
 	</util:list>
 
 </beans>

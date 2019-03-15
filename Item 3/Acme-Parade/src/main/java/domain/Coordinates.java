@@ -34,4 +34,9 @@ public class Coordinates {
 	public void setLongitude(Double longitude) {
 		this.longitude = longitude;
 	}
+
+	@Override
+	public String toString() {
+		return this.getLatitude().toString()+" - "+this.getLongitude();
+	}
 }
