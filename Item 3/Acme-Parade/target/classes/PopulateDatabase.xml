@@ -334,25 +334,13 @@
 	<!--  HISTORIES AND RECORDS ******************************************************************* -->
 	<bean id="history1" class="domain.History">
 		<property name="inceptionRecord" ref="inceptionRecord1" />
-		<property name="pictures">
-			<list>
-				<ref bean="legalRecord1" />
-			</list>
-		</property>
-		<property name="recordNumber" value="2" />
 	</bean>
 	
 	<bean id="history2" class="domain.History">
 		<property name="inceptionRecord" ref="inceptionRecord2" />
-		<property name="pictures">
-			<list>
-				<ref bean="legalRecord2" />
-			</list>
-		</property>
-		<property name="recordNumber" value="2" />
 	</bean>
 	
-	<!--  Inception Records  **************************************************************************-->
+	<!--  Inception Records -->
 	<bean id="inceptionRecord1" class="domain.InceptionRecord">
 		<property name="title" value="Inception bro 1" />
 		<property name="description" value="Inception record" />
@@ -363,19 +351,6 @@
 		<property name="title" value="Inception bro 2" />
 		<property name="description" value="Inception record" />
 		<property name="pictures"><list></list></property>
-	</bean>
-	
-	<!--  Legal Records  **************************************************************************-->
-	<bean id="legalRecord1" class="domain.LegalRecord">
-		<property name="legalName" value="Legal bro 1" />
-		<property name="vat" value="Inception record" />
-		<property name="laws" value="Law4, law5, law6..."/>
-	</bean>
-
-	<bean id="legalRecord2" class="domain.LegalRecord">
-		<property name="legalName" value="Legal bro 2" />
-		<property name="description" value="Inception record" />
-		<property name="laws" value="Law1, law2, law3..."/>
 	</bean>
 	
 	
