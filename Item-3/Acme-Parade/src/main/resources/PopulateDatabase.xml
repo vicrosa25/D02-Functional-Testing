@@ -340,7 +340,7 @@
 		<property name="inceptionRecord" ref="inceptionRecord2" />
 	</bean>
 	
-	<!--  Inception Records -->
+	<!--  Inception Records ************************************************************************ -->
 	<bean id="inceptionRecord1" class="domain.InceptionRecord">
 		<property name="title" value="Inception bro 1" />
 		<property name="description" value="Inception record" />
@@ -353,6 +353,22 @@
 		<property name="pictures"><list></list></property>
 	</bean>
 	
+	<!--  Legal Records ************************************************************************* -->
+	<bean id="legalRecord1" class="domain.LegalRecord">
+		<property name="title" value="Legal bro 1" />
+		<property name="description" value="Legal record" />
+		<property name="legalName" value="Legal name 1" />
+		<property name="vat" value="0.21" />
+		<property name="laws" value="Laws" />
+	</bean>
+
+	<bean id="legalRecord2" class="domain.LegalRecord">
+		<property name="title" value="Legal bro 2" />
+		<property name="description" value="Legal record" />
+		<property name="legalName" value="Legal name 2" />
+		<property name="vat" value="0.21" />
+		<property name="laws" value="Laws" />
+	</bean>
 	
 	
 	<!-- SocialIdentities *************************************************************************** -->
