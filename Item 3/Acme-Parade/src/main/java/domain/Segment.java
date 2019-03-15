@@ -9,7 +9,8 @@ import javax.persistence.Entity;
 import javax.persistence.ManyToOne;
 import javax.persistence.Temporal;
 import javax.persistence.TemporalType;
-import javax.validation.Valid;
+import javax.validation.constraints.DecimalMax;
+import javax.validation.constraints.DecimalMin;
 import javax.validation.constraints.NotNull;
 
 import org.springframework.format.annotation.DateTimeFormat;
@@ -19,26 +20,55 @@ import org.springframework.format.annotation.DateTimeFormat;
 public class Segment extends DomainEntity {
 
 	// Attributes -------------------------------------------------------------
-	private Coordinates	origin;
-	private Coordinates	destination;
-	private Date		originTime;
-	private Date		destinationTime;
+	private Double 	originLatitude;
+	private Double 	destinationLongitude;
+	private Double 	destinationLatitude;
+	private Double 	originLongitude;
+	private Date	originTime;
+	private Date	destinationTime;
 
 
-	@Valid
-	public Coordinates getOrigin() {
-		return this.origin;
-	}
-	public void setOrigin(final Coordinates origin) {
-		this.origin = origin;
+	@DecimalMin("-90.0")
+	@DecimalMax("90.0")
+	@NotNull
+	public Double getOriginLatitude() {
+		return this.originLatitude;
 	}
 
-	@Valid
-	public Coordinates getDestination() {
-		return this.destination;
+	public void setOriginLatitude(final Double originLatitude) {
+		this.originLatitude = originLatitude;
 	}
-	public void setDestination(final Coordinates destination) {
-		this.destination = destination;
+	
+	@DecimalMin("-180.0")
+	@DecimalMax("180.0")
+	@NotNull
+	public Double getOriginLongitude() {
+		return this.originLongitude;
+	}
+	public void setOriginLongitude(Double originLongitude) {
+		this.originLongitude = originLongitude;
+	}
+
+
+	@DecimalMin("-90.0")
+	@DecimalMax("90.0")
+	@NotNull
+	public Double getDestinationLatitude() {
+		return this.destinationLatitude;
+	}
+
+	public void setDestinationLatitude(final Double destinationLatitude) {
+		this.destinationLatitude = destinationLatitude;
+	}
+	
+	@DecimalMin("-180.0")
+	@DecimalMax("180.0")
+	@NotNull
+	public Double getDestinationLongitude() {
+		return this.destinationLongitude;
+	}
+	public void setDestinationLongitude(Double destinationLongitude) {
+		this.destinationLongitude = destinationLongitude;
 	}
 
 	@NotNull

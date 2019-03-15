@@ -4,14 +4,18 @@ import java.util.ArrayList;
 import java.util.Collection;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 import org.springframework.util.Assert;
+import org.springframework.validation.BindingResult;
+import org.springframework.validation.Validator;
 
 import repositories.PathRepository;
 import domain.Brotherhood;
 import domain.Path;
 import domain.Segment;
+import forms.PathForm;
 
 @Service
 @Transactional
@@ -24,6 +28,13 @@ public class PathService {
 	// Supporting services
 	@Autowired
 	private BrotherhoodService		brotherhoodService;
+	
+	@Autowired
+	private SegmentService			segmentService;
+
+	@Autowired
+	@Qualifier("validator")
+	private Validator				validator;
 
 
 	// CRUD methods
@@ -78,5 +89,26 @@ public class PathService {
 		this.pathRepository.delete(path);
 	}
 	/*** Other methods ***/
+
+
+
+	/*** Reconstruct object, check validity and update binding ***/
+	public Path reconstruct(final PathForm form, final BindingResult binding) {
+		final Path path = this.create();
+		final Segment segment = this.segmentService.create();
+		
+		segment.setDestinationLatitude(form.getDestinationLatitude());
+		segment.setDestinationLongitude(form.getDestinationLongitude());
+		segment.setOriginLatitude(form.getOriginLatitude());
+		segment.setOriginLongitude(form.getOriginLongitude());
+		segment.setDestinationTime(form.getDestinationTime());
+		segment.setOriginTime(form.getOriginTime());
+
+		path.setProcession(form.getProcession());
+		path.getSegments().add(segment);
+
+		this.validator.validate(segment, binding);
+		return path;
+	}
 	
 }

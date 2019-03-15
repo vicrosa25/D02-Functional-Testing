@@ -16,7 +16,7 @@
 		<put-attribute name="body" value="/views/path/display.jsp" />
 	</definition>
 	
-	<definition name="path/brotherhood/" extends="master.page">	
+	<definition name="path/brotherhood/create" extends="master.page">	
 		<put-attribute name="title" value="New path" />
 		<put-attribute name="body" value="/views/path/create.jsp" />
 	</definition>

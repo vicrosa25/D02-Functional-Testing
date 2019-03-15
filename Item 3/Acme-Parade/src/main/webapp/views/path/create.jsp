@@ -8,38 +8,35 @@
 
 <form:form action="path/brotherhood/create.do" modelAttribute="pathForm">
 	<%-- parade--%>
-	<acme:select code="path.parade" path="parade" items="${parades}" itemLabel="title" />
+	<acme:select code="path.parade" path="procession" items="${parades}" itemLabel="title" />
 	<br>
 
 	<%-- Origin--%>
-	<spring:message code="segment.origin.form"/>
-	<acme:numberbox code="segment.latitude" path="originLatitude" />
+	<spring:message code="segment.origin.form"/>:<br><br>
+	<acme:numberbox code="segment.latitude" path="originLatitude" step="0.5"/>
 	<br>
 	
-	<acme:numberbox code="segment.longitude" path="originLongitude" />
-	<br>
-	
-	<acme:numberbox code="segment.longitude" path="originLongitude" />
+	<acme:numberbox code="segment.longitude" path="originLongitude" step="0.5"/>
 	<br>
 
 		<%-- time --%>
 	<form:label path="originTime"><spring:message code="segment.origin.time" /></form:label>
 	<form:input path="originTime" placeholder="dd/mm/yyyy HH:mm" format="{0,date,dd/MM/yyyy HH:mm}" />	
 	<form:errors class="error" path="originTime" />
-	<br><br>
+	<br><br><br>
 
 	<%-- Destination--%>
-	<spring:message code="segment.destination.form"/>
-	<acme:numberbox code="segment.latitude" path="destinationLatitude" />
+	<spring:message code="segment.destination.form"/>:<br><br>
+	<acme:numberbox code="segment.latitude" path="destinationLatitude" step="0.5"/>
 	<br>
 	
-	<acme:numberbox code="segment.longitude" path="destinationLongitude" />
+	<acme:numberbox code="segment.longitude" path="destinationLongitude" step="0.5"/>
 	<br>
 
 		<%-- time --%>
-	<form:label path="destinationTime"><spring:message code="segment.time" /></form:label>
-	<form:input path="originTime" placeholder="dd/mm/yyyy HH:mm" format="{0,date,dd/MM/yyyy HH:mm}" />	
-	<form:errors class="error" path="originTime" />
+	<form:label path="destinationTime"><spring:message code="segment.destination.time" /></form:label>
+	<form:input path="destinationTime" placeholder="dd/mm/yyyy HH:mm" format="{0,date,dd/MM/yyyy HH:mm}" />	
+	<form:errors class="error" path="destinationTime" />
 	<br><br>
 	
 	<input type="submit" name="save" value="<spring:message code="path.save"/>" />	

@@ -6,8 +6,8 @@ import java.util.Collection;
 import javax.persistence.Access;
 import javax.persistence.AccessType;
 import javax.persistence.Entity;
+import javax.persistence.ManyToOne;
 import javax.persistence.OneToMany;
-import javax.persistence.OneToOne;
 import javax.validation.Valid;
 import javax.validation.constraints.NotNull;
 
@@ -22,7 +22,7 @@ public class Path extends DomainEntity {
 
 	@NotNull
 	@Valid
-	@OneToOne(optional = false)
+	@ManyToOne(optional = false)
 	public Procession getProcession() {
 		return this.procession;
 	}
@@ -33,7 +33,7 @@ public class Path extends DomainEntity {
 
 	@NotNull
 	@Valid
-	@OneToMany(mappedBy = "workPlan")
+	@OneToMany(mappedBy = "path")
 	public Collection<Segment> getSegments() {
 		return this.segments;
 	}
