@@ -33,7 +33,7 @@ public class Path extends DomainEntity {
 
 	@NotNull
 	@Valid
-	@OneToMany(mappedBy = "workPlan")
+	@OneToMany(mappedBy = "path")
 	public Collection<Segment> getSegments() {
 		return this.segments;
 	}
