@@ -168,6 +168,15 @@
 		<security:intercept-url pattern="/history/periodRecord/brotherhood/delete.do" access="hasRole('BROTHERHOOD')" />
 		<security:intercept-url pattern="/history/legalRecord/brotherhood/delete.do" access="hasRole('BROTHERHOOD')" />
 		<security:intercept-url pattern="/history/linkRecord/brotherhood/delete.do" access="hasRole('BROTHERHOOD')" />
+		
+		<!-- Path -->
+		<security:intercept-url pattern="/path/brotherhood/display.do" access="hasRole('BROTHERHOOD')" />
+		<security:intercept-url pattern="/path/brotherhood/create.do" access="hasRole('BROTHERHOOD')" />
+		<security:intercept-url pattern="/path/brotherhood/list.do" access="hasRole('BROTHERHOOD')" />
+		
+		<!-- Segment -->
+		<security:intercept-url pattern="/segment/brotherhood/create.do" access="hasRole('BROTHERHOOD')" />
+		<security:intercept-url pattern="/segment/brotherhood/edit.do" access="hasRole('BROTHERHOOD')" />
 
 
 		<security:intercept-url pattern="/**" access="hasRole('NONE')" />

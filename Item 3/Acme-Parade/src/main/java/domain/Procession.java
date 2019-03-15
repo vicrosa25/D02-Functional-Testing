@@ -12,6 +12,7 @@ import javax.persistence.ManyToOne;
 import javax.persistence.OneToMany;
 import javax.persistence.Temporal;
 import javax.persistence.TemporalType;
+import javax.validation.Valid;
 import javax.validation.constraints.Future;
 import javax.validation.constraints.NotNull;
 import javax.validation.constraints.Pattern;
@@ -116,8 +117,9 @@ public class Procession extends DomainEntity {
 	
 
 	// Relationships ----------------------------------------------------------
-	private Brotherhood brotherhood;
+	private Brotherhood 		brotherhood;
 	private Collection<Request> requests;
+	private Collection<Path>	paths;
 
 
 	@ManyToOne(optional = false)
@@ -141,10 +143,13 @@ public class Procession extends DomainEntity {
 		this.requests = requests;
 	}
 
+	@Valid
+	@OneToMany
+	public Collection<Path> getPaths() {
+		return this.paths;
+	}
 
-	@Override
-	public String toString() {
-		return "Procession [ticker=" + this.ticker + ", title=" + this.title + ", description=" + this.description + ", moment="
-				+ this.moment + ", draftMode=" + this.draftMode + ", brotherhood=" + this.brotherhood + ", requests=" + this.requests + "]";
+	public void setPaths(final Collection<Path> paths) {
+		this.paths = paths;
 	}
 }
