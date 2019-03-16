@@ -107,6 +107,30 @@
 			</list>
 		</property>
 	</bean>
+	
+	<bean id="userAccount9" class="security.UserAccount">
+		<property name="username" value="sponsor1" />
+		<property name="password" value="42c63ad66d4dc07ed17753772bef96d6" />
+		<property name="authorities">
+			<list>
+				<bean class="security.Authority">
+					<property name="authority" value="SPONSOR" />
+				</bean>
+			</list>
+		</property>
+	</bean>
+	
+	<bean id="userAccount10" class="security.UserAccount">
+		<property name="username" value="sponsor2" />
+		<property name="password" value="3dc67f80a03324e01b1640f45d107485" />
+		<property name="authorities">
+			<list>
+				<bean class="security.Authority">
+					<property name="authority" value="SPONSOR" />
+				</bean>
+			</list>
+		</property>
+	</bean>
 
 
 	<!-- Administrators *************************************************************************** -->
@@ -324,6 +348,55 @@
 				<ref bean="chapter2-out" />
 				<ref bean="chapter2-trash" />
 				<ref bean="chapter2-notification" />
+			</list>
+		</property>
+	</bean>
+	
+	
+	<!-- Sponsor *************************************************************************** -->
+	<bean id="sponsor1" class="domain.Sponsor">
+		<property name="name" value="sponsor1" />
+		<property name="username" value="sponsor1" />
+		<property name="middleName" value="middlename1" />
+		<property name="surname" value="surname1" />
+		<property name="email" value="sponsor1@gmail.com" />
+		<property name="phoneNumber" value="656278997" />
+		<property name="address" value="sponsor1 7474" />
+		<property name="UserAccount" ref="userAccount9" />
+		<property name="messageBoxes">
+			<list>
+				<ref bean="sponsor1-spam" />
+				<ref bean="sponsor1-in" />
+				<ref bean="sponsor1-out" />
+				<ref bean="sponsor1-trash" />
+			</list>
+		</property>
+		<property name="sponsorships">
+			<list>
+				<ref bean="sponsorship1" />
+			</list>
+		</property>
+	</bean>
+
+	<bean id="sponsor2" class="domain.Sponsor">
+		<property name="name" value="sponsor2" />
+		<property name="middleName" value="mddlnm2" />
+		<property name="surname" value="surname2" />
+		<property name="email" value="sponsor2@gmail.com" />
+		<property name="phoneNumber" value="656274521" />
+		<property name="address" value="sponsor2 7474" />
+		<property name="UserAccount" ref="userAccount10" />
+		<property name="messageBoxes">
+			<list>
+				<ref bean="sponsor2-spam" />
+				<ref bean="sponsor2-in" />
+				<ref bean="sponsor2-out" />
+				<ref bean="sponsor2-trash" />
+			</list>
+		</property>
+		<property name="sponsorships">
+			<list>
+				<ref bean="sponsorship2" />
 			</list>
 		</property>
 	</bean>
@@ -755,6 +828,102 @@
 			</list>
 		</property>
 	</bean>
+	
+	
+	<!-- Sponsor1 MessageBoxes -->
+	<bean id="sponsor1-in" class="domain.MessageBox">
+		<property name="name" value="in" />
+		<property name="isSystemBox" value="true" />
+		<property name="messages">
+			<list>
+			</list>
+		</property>
+	</bean>
+
+	<bean id="sponsor1-out" class="domain.MessageBox">
+		<property name="name" value="out" />
+		<property name="isSystemBox" value="true" />
+		<property name="messages">
+			<list>
+			</list>
+		</property>
+	</bean>
+
+	<bean id="sponsor1-spam" class="domain.MessageBox">
+		<property name="name" value="spam" />
+		<property name="isSystemBox" value="true" />
+		<property name="messages">
+			<list>
+			</list>
+		</property>
+	</bean>
+
+	<bean id="sponsor1-notification" class="domain.MessageBox">
+		<property name="name" value="notification" />
+		<property name="isSystemBox" value="true" />
+		<property name="messages">
+			<list>
+			</list>
+		</property>
+	</bean>
+
+	<bean id="sponsor1-trash" class="domain.MessageBox">
+		<property name="name" value="trash" />
+		<property name="isSystemBox" value="true" />
+		<property name="messages">
+			<list>
+			</list>
+		</property>
+	</bean>
+	
+	
+	
+	<!-- Sponsor2 MessageBoxes -->
+	<bean id="sponsor2-in" class="domain.MessageBox">
+		<property name="name" value="in" />
+		<property name="isSystemBox" value="true" />
+		<property name="messages">
+			<list>
+			</list>
+		</property>
+	</bean>
+
+	<bean id="sponsor2-out" class="domain.MessageBox">
+		<property name="name" value="out" />
+		<property name="isSystemBox" value="true" />
+		<property name="messages">
+			<list>
+			</list>
+		</property>
+	</bean>
+
+	<bean id="sponsor2-spam" class="domain.MessageBox">
+		<property name="name" value="spam" />
+		<property name="isSystemBox" value="true" />
+		<property name="messages">
+			<list>
+			</list>
+		</property>
+	</bean>
+
+	<bean id="sponsor2-notification" class="domain.MessageBox">
+		<property name="name" value="notification" />
+		<property name="isSystemBox" value="true" />
+		<property name="messages">
+			<list>
+			</list>
+		</property>
+	</bean>
+
+	<bean id="sponsor2-trash" class="domain.MessageBox">
+		<property name="name" value="trash" />
+		<property name="isSystemBox" value="true" />
+		<property name="messages">
+			<list>
+			</list>
+		</property>
+	</bean>
+	
 
 
 	<!-- Messages *************************************************************************** -->
@@ -839,7 +1008,7 @@
 		<property name="description" value="procession1 description" />
 		<property name="moment" value="2019/04/01" />
 		<property name="draftMode" value="false" />
-		<property name="status" value="SUBMITTED" />
+		<property name="status" value="APPROVED" />
 		<property name="brotherhood" ref="brotherhood1" />
 		<property name="requests">
 			<list>
@@ -855,7 +1024,8 @@
 		<property name="description" value="procession2 description" />
 		<property name="moment" value="2019/06/15" />
 		<property name="brotherhood" ref="brotherhood2" />
-		<property name="draftMode" value="true" />
+		<property name="draftMode" value="false" />
+		<property name="status" value="SUBMITTED" />
 		<property name="requests">
 			<list>
 				<ref bean="request2" />
@@ -989,6 +1159,44 @@
 			</list>
 		</property>
 	</bean>
+	
+	
+	<!-- sponsorship *************************************************************************** -->
+	<bean id="sponsorship1" class="domain.Sponsorship">
+		<property name="banner" value="https://goo.gl/mR1tJ6" />
+		<property name="targetPage" value="http://www.targetPage.com" />
+		<property name="creditCard" ref="creditCard1" />
+		<property name="sponsor" ref="sponsor1" />
+		<property name="procession" ref="procession1" />
+	</bean>
+
+	<bean id="sponsorship2" class="domain.Sponsorship">
+		<property name="banner" value="https://goo.gl/IrU3gD" />
+		<property name="targetPage" value="http://www.targetPage.com" />
+		<property name="creditCard" ref="creditCard2" />
+		<property name="sponsor" ref="sponsor2" />
+		<property name="procession" ref="procession1" />
+	</bean>
+	
+	
+	<!-- Credit Cards *************************************************************************** -->
+	<bean id="creditCard1" class="domain.CreditCard">
+		<property name="holderName" value="sponsor1" />
+		<property name="brandName" value="VISA" />
+		<property name="number" value="4414856614566419" />
+		<property name="expiration" value="02/02/23" />
+		<property name="cvvCode" value="123" />
+	</bean>
+	
+	<bean id="creditCard2" class="domain.CreditCard">
+		<property name="holderName" value="sponsor2" />
+		<property name="brandName" value="VISA" />
+		<property name="number" value="4877161530824285" />
+		<property name="expiration" value="01/01/23" />
+		<property name="cvvCode" value="123" />
+	</bean>
+	
+	
 
 	<!-- pictures *************************************************************************** -->
 	<bean id="picture1" class="domain.Url">
