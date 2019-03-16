@@ -46,7 +46,9 @@
 <spring:message code="administrator.dashboard.query9" var="query9Header" />
 <spring:message code="administrator.dashboard.query10" var="query10Header" />
 <spring:message code="administrator.dashboard.query11" var="query11Header" />
-
+<spring:message code="administrator.dashboard.query12" var="query12Header" />
+<spring:message code="administrator.dashboard.query13" var="query13Header" />
+<spring:message code="administrator.dashboard.query14" var="query14Header" />
 <spring:message code="administrator.dashboard.query15" var="query15Header" />
 <spring:message code="administrator.dashboard.query16" var="query16Header" />
 <spring:message code="administrator.dashboard.query17" var="query17Header" />
@@ -59,6 +61,30 @@
 	<link rel="stylesheet" href="styles/tablas.css" type="text/css">
 	<link rel="stylesheet" href="styles/charts.css" type="text/css">
 </head>
+
+
+
+<!--  ACME PARADE Queries level C -->
+
+<!-- Query 12 -->
+<table>
+	<caption>
+		<jstl:out value="${query12Header}"></jstl:out>
+	</caption>
+	<tr>
+		<th><jstl:out value="${avgHeader}"></jstl:out></th>
+		<th><jstl:out value="${minHeader}"></jstl:out></th>
+		<th><jstl:out value="${maxHeader}"></jstl:out></th>
+		<th><jstl:out value="${stdHeader}"></jstl:out></th>
+	</tr>
+	<tr>
+		<td><jstl:out value="${query12[0]}"></jstl:out></td>
+		<td><jstl:out value="${query12[1]}"></jstl:out></td>
+		<td><jstl:out value="${query12[2]}"></jstl:out></td>
+		<td><jstl:out value="${query12[3]}"></jstl:out></td>
+	</tr>
+</table>
+<br />
 
 
 

@@ -67,6 +67,11 @@ public interface AdministratorRepository extends JpaRepository<Administrator, In
 	Double getAveragePolarity();
 	
 	
+	// ACME PARADE Queries level C
+	@Query("select avg(h.recordNumber), min(h.recordNumber), max(h.recordNumber), stddev(h.recordNumber) from History h")
+	Object[] query12();
+	
+	
 	// ACME PARADE Queries level B
 	@Query("select count(a)*1.0 / (select count(a1)*1.0 from Area a1) from Area a where a.chapter = null")
 	Double query15();

@@ -154,6 +154,13 @@ public class AdministratorService {
 	// 12.2 Manage the catalogue of positions
 	// ---------------------------------------------------
 
+	
+	
+	/**
+	 * 
+	 * Admin Dashboard Queries ****************************************************************************
+	 */
+	
 	// 12.3 Display a dashboard with the following information-------------------------------
 	public Object[] query1() {
 		return this.adminRepository.query1();
@@ -182,78 +189,77 @@ public class AdministratorService {
 		result = this.adminRepository.query5(date);
 		return result;
 	}
-	
+
 	public Collection<Object> query7() {
 		return this.adminRepository.query7();
 	}
-	
+
 	public Collection<Object> query8() {
 		return this.adminRepository.query8();
 	}
-	
-	
+
 	// 22.2 Display a dashboard with the following information-----------------------------
 	public Object[] query9() {
 		return this.adminRepository.query9();
 	}
-	
+
 	public Object[] query10() {
 		return this.adminRepository.query10();
 	}
-	
+
 	public Double query11() {
 		return this.adminRepository.query11();
 	}
-	
-	
-	// ACME PARADE queries level B -------------------------------------------------------------
-	public Double query15() {
-		return this.adminRepository.query15();
-	}
-	
-	public Object[] query16() {
-		return this.adminRepository.query16();
-	}
-	
-	public Collection<Chapter> query17() {
-		return this.adminRepository.query17();
-	}
-	
-	public Double query18() {
-		return this.adminRepository.query18();
-	}
-	
-	public Object[] query19() {
-		return this.adminRepository.query19();
-	}
-	
-	
+
 	// Chart Queries
-	public int[] querySpammersGetValues(){
+	public int[] querySpammersGetValues() {
 		int[] values = new int[2];
-		
+
 		values[0] = this.adminRepository.getAllSpammers();
 		values[1] = this.adminRepository.getAllNotSpammers();
 		return values;
 	}
-	
-	public int queryGetSpammers(){
+
+	public int queryGetSpammers() {
 		return this.adminRepository.getAllSpammers();
 	}
-	
-	public int queryGetNotSpammers(){
+
+	public int queryGetNotSpammers() {
 		return this.adminRepository.getAllNotSpammers();
 	}
-	
-	public Double getAveragePolarity(){
+
+	public Double getAveragePolarity() {
 		return this.adminRepository.getAveragePolarity();
 	}
+	
+	
+	
+	// ACME PARADE queries level C, requeriment 4 ----------------------------------------------
+	public Object[] query12() {
+		return this.adminRepository.query12();
+	}
+	
 
+	// ACME PARADE queries level B -------------------------------------------------------------
+	public Double query15() {
+		return this.adminRepository.query15();
+	}
 
+	public Object[] query16() {
+		return this.adminRepository.query16();
+	}
 
-//	public Integer query8(final Integer id) {
-//		return this.adminRepository.query8(id);
-//	}
+	public Collection<Chapter> query17() {
+		return this.adminRepository.query17();
+	}
+
+	public Double query18() {
+		return this.adminRepository.query18();
+	}
+
+	public Object[] query19() {
+		return this.adminRepository.query19();
+	}
 
 	// 28.2 Spammers procedure--------------------------------------------------------------------
 	public void computeSpammers() {
@@ -497,7 +503,7 @@ public class AdministratorService {
 		this.configurationsService.getConfiguration().getNegativeWords().remove(word);
 		this.configurationsService.update(this.configurationsService.getConfiguration());
 	}
-	
+
 	/**
 	 * 
 	 * Manage Spam Word ****************************************************************************

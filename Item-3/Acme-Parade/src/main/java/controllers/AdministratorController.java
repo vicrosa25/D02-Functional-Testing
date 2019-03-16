@@ -182,6 +182,9 @@ public class AdministratorController extends AbstractController {
 		Object[] query10 	  		   = this.administratorService.query10();
 		Double query11	 	   		   = this.administratorService.query11();
 		
+		// ACME PARADE level C
+		Object[] query12			   = this.administratorService.query12();
+		
 		// ACME PARADE level B
 		Double query15				   = this.administratorService.query15();
 		Object[] query16			   = this.administratorService.query16();
@@ -202,6 +205,7 @@ public class AdministratorController extends AbstractController {
 		result.addObject("query9", query9);
 		result.addObject("query10", query10);
 		result.addObject("query11", query11);
+		result.addObject("query12", query12);
 		
 		result.addObject("query15", query15);
 		result.addObject("query16", query16);
@@ -209,29 +213,6 @@ public class AdministratorController extends AbstractController {
 		result.addObject("query18", query18);
 		result.addObject("query19", query19);
 		
-		
-
-		
-		
-		// Charts
-		
-//		int[] values = this.administratorService.querySpammersGetValues();
-//		
-//		PieOptions options = new PieOptions();
-//		options.setResponsive(true).setTitle(new Title()
-//								   .setText("Spammers Pie")
-//								   .setDisplay(true));
-//		
-//		PieDataset dataset = new PieDataset().setData(values)
-//											 .addBackgroundColors(Color.RED, Color.BLUE)
-//											 .setBorderWidth(4)
-//											 .setBorderColor(Color.BLACK);
-//		
-//		PieData data = new PieData().addLabels("Spammers", "Not Spammers")
-//									.addDataset(dataset);
-//		String pieChart = new PieChart(data, options).toJson();
-//		
-//		result.addObject("pieChart", pieChart);
 		
 		int spammers = this.administratorService.queryGetSpammers();
 		int notSpammers = this.administratorService.queryGetNotSpammers();
@@ -244,6 +225,12 @@ public class AdministratorController extends AbstractController {
 
 		return result;
 	}
+	
+	
+	
+	
+	
+	
 	/**
 	 * 
 	 * SPAM

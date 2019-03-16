@@ -334,10 +334,18 @@
 	<!--  HISTORIES AND RECORDS ******************************************************************* -->
 	<bean id="history1" class="domain.History">
 		<property name="inceptionRecord" ref="inceptionRecord1" />
+		<property name="legalRecords">
+			<list>
+				<ref bean="legalRecord1" />
+				<ref bean="legalRecord2" />
+			</list>
+		</property>
+		<property name="recordNumber" value="3" />
 	</bean>
 	
 	<bean id="history2" class="domain.History">
 		<property name="inceptionRecord" ref="inceptionRecord2" />
+		<property name="recordNumber" value="1" />
 	</bean>
 	
 	<!--  Inception Records ************************************************************************ -->
