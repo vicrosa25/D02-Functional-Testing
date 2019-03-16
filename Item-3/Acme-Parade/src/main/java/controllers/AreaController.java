@@ -29,6 +29,7 @@ public class AreaController extends AbstractController {
 	@Autowired
 	private AreaService areaService;
 
+
 	@ExceptionHandler(TypeMismatchException.class)
 	public ModelAndView handleMismatchException(final TypeMismatchException oops) {
 		return new ModelAndView("redirect:/");
@@ -127,7 +128,7 @@ public class AreaController extends AbstractController {
 			final List<ObjectError> errors = binding.getAllErrors();
 			for (final ObjectError e : errors)
 				System.out.println(e.toString());
-			
+
 			result = this.createEditModelAndView(area);
 		}
 
@@ -182,15 +183,13 @@ public class AreaController extends AbstractController {
 
 		return result;
 	}
-	
 
 	// SAVE -------------------------------------------------------------------------
 	@RequestMapping(value = "/addPicture", method = RequestMethod.POST, params = "save")
 	public ModelAndView savePicture(@Valid Url url, BindingResult binding, @RequestParam int areaId) {
 		ModelAndView result;
 		Area area;
-		
-		
+
 		if (binding.hasErrors()) {
 			final List<ObjectError> errors = binding.getAllErrors();
 			for (final ObjectError e : errors)

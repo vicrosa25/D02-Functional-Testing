@@ -129,6 +129,12 @@
 					<li><a href="brotherhood/list.do"><spring:message code="master.page.brotherhood.list" /></a></li>				
 				</ul>
 			</li>
+			<li><a class="fNiv"><spring:message	code="master.page.chapter" /></a>
+				<ul>
+					<li class="arrow"></li>
+					<li><a href="chapter/list.do"><spring:message code="master.page.chapter.list" /></a></li>				
+				</ul>
+			</li>
 			<li><a class="fNiv"><spring:message	code="master.page.register" /></a>
 				<ul>
 					<li class="arrow"></li>

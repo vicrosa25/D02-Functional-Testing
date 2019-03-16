@@ -82,11 +82,13 @@
 		<security:intercept-url pattern="/chapter/create.do" access="isAnonymous()" />
 		<security:intercept-url pattern="/chapter/edit.do" access="hasRole('CHAPTER')" />
 		<security:intercept-url pattern="/chapter/area/assign.do" access="hasRole('CHAPTER')" />
-		<security:intercept-url pattern="/chapter/area/display.do" access="hasRole('CHAPTER')" />
+		<security:intercept-url pattern="/chapter/area/display.do" access="permitAll" />
 		<security:intercept-url pattern="/chapter/parade/list.do" access="hasRole('CHAPTER')" />
 		<security:intercept-url pattern="/chapter/parade/aprove.do" access="hasRole('CHAPTER')" />
 		<security:intercept-url pattern="/chapter/parade/reject.do" access="hasRole('CHAPTER')" />
 		<security:intercept-url pattern="/chapter/parade/reject/reasson.do" access="hasRole('CHAPTER')" />
+		<security:intercept-url pattern="/chapter/list.do" access="permitAll" />
+		<security:intercept-url pattern="/chapter/area/list.do" access="permitAll" />
 		
 		<!-- PROCESSION -->
 		<security:intercept-url pattern="/procession/list.do" access="hasAnyRole('BROTHERHOOD','MEMBER')" />

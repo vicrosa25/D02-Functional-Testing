@@ -28,9 +28,6 @@
 		</jstl:forEach>
 	</display:column>
 	
-	<!-- Picture -->
-<%-- 	<spring:message code="area.pictures" var="picturesHeader" /> --%>
-<%-- 	<display:column property="pictures" title="${pictureHeader}" /> --%>
 	
 	<!-- Delete -->
 	<security:authorize access="hasRole('ADMIN')">
@@ -52,21 +49,3 @@
 <security:authorize access="hasRole('ADMIN')">
 	<a href=area/administrator/create.do><spring:message code="area.create" /></a>
 </security:authorize>
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-

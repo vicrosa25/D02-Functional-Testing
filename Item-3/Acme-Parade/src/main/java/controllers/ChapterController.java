@@ -1,6 +1,7 @@
 
 package controllers;
 
+import java.util.ArrayList;
 import java.util.Collection;
 import java.util.List;
 
@@ -36,6 +37,21 @@ public class ChapterController extends AbstractController {
 	@Autowired
 	private ProcessionService	processionService;
 
+
+	// List ------------------------------------------------------------------------------------
+	@RequestMapping(value = "/list", method = RequestMethod.GET)
+	public ModelAndView chahpterList() {
+		ModelAndView result;
+		Collection<Chapter> chapters;
+
+		chapters = this.chapterService.findAll();
+
+		result = new ModelAndView("chapter/list");
+		result.addObject("chapters", chapters);
+		result.addObject("requestURI", "chapter/list.do");
+
+		return result;
+	}
 
 	// Register formObject ------------------------------------------------------------------------------------
 	@RequestMapping(value = "/create", method = RequestMethod.GET)
@@ -205,6 +221,25 @@ public class ChapterController extends AbstractController {
 		return result;
 	}
 
+	
+	// list area ------------------------------------------------------------------------------------
+	@RequestMapping(value = "/area/list", method = RequestMethod.GET)
+	public ModelAndView areaList(@RequestParam int areaId) {
+		ModelAndView result;
+		Area area;
+
+		area = this.areaService.findOne(areaId);
+		Collection<Area> areas = new ArrayList<Area>();
+		areas.add(area);
+
+		result = new ModelAndView("chapter/area/list");
+		result.addObject("requestURI", "chapter/area/list.do");
+		result.addObject("areas", areas);
+
+		return result;
+	}
+
+	
 	// Display area ------------------------------------------------------------------------------------
 	@RequestMapping(value = "/area/display", method = RequestMethod.GET)
 	public ModelAndView displayArea() {
@@ -280,32 +315,32 @@ public class ChapterController extends AbstractController {
 	}
 
 	// Rejecting parade GET --------------------------------------------------------------------------------------
-//	@RequestMapping(value = "/parade/reject", method = RequestMethod.GET)
-//	public ModelAndView rejectParade(@RequestParam int processionId) {
-//		ModelAndView result = null;
-//		Procession procession;
-//		Chapter principal;
-//
-//		procession = this.processionService.findOne(processionId);
-//		Assert.notNull(procession);
-//
-//		try {
-//			// Check principal manage Area where is Brotherhood
-//			principal = this.chapterService.findByPrincipal();
-//			Assert.isTrue(principal.getArea().getBrotherhoods().contains(procession.getBrotherhood()), "The chapter don't manage this procession");
-//
-//			this.chapterService.rejectParade(procession);
-//			result = this.list();
-//		} catch (final Throwable oops) {
-//			System.out.println(oops.getMessage());
-//			System.out.println(oops.getClass());
-//			System.out.println(oops.getCause());
-//			result = this.forbiddenOpperation();
-//			return result;
-//		}
-//
-//		return result;
-//	}
+	//	@RequestMapping(value = "/parade/reject", method = RequestMethod.GET)
+	//	public ModelAndView rejectParade(@RequestParam int processionId) {
+	//		ModelAndView result = null;
+	//		Procession procession;
+	//		Chapter principal;
+	//
+	//		procession = this.processionService.findOne(processionId);
+	//		Assert.notNull(procession);
+	//
+	//		try {
+	//			// Check principal manage Area where is Brotherhood
+	//			principal = this.chapterService.findByPrincipal();
+	//			Assert.isTrue(principal.getArea().getBrotherhoods().contains(procession.getBrotherhood()), "The chapter don't manage this procession");
+	//
+	//			this.chapterService.rejectParade(procession);
+	//			result = this.list();
+	//		} catch (final Throwable oops) {
+	//			System.out.println(oops.getMessage());
+	//			System.out.println(oops.getClass());
+	//			System.out.println(oops.getCause());
+	//			result = this.forbiddenOpperation();
+	//			return result;
+	//		}
+	//
+	//		return result;
+	//	}
 
 	// Self-assign an area GET ------------------------------------------------------------------------------------
 	@RequestMapping(value = "/parade/reject/reasson", method = RequestMethod.GET)
@@ -331,18 +366,18 @@ public class ChapterController extends AbstractController {
 		try {
 			// Reconstruct rejected parade
 			procession = this.processionService.reconstructRejected(prune, binding);
-			
+
 			// Check reasson is not empty
 			if (procession.getReasson().isEmpty()) {
 				result = this.reason(prune.getId());
 				result.addObject("message", "chapter.parade.reasson.null");
 				return result;
 			}
-			
+
 			// Check principal manage Area where is Brotherhood
 			principal = this.chapterService.findByPrincipal();
 			Assert.isTrue(principal.getArea().getBrotherhoods().contains(procession.getBrotherhood()), "The chapter don't manage this procession");
-		
+
 			// Set status rejected
 			this.chapterService.rejectParade(procession);
 			result = this.list();
