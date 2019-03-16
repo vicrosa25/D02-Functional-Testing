@@ -101,6 +101,22 @@
 <br />
 
 
+<!-- Query 14  -->
+<table>
+	<caption>
+		<jstl:out value="${query14Header}"></jstl:out>
+	</caption>
+	<tr>
+		<th><jstl:out value="${brotherhoodlHeader}"></jstl:out></th>
+	</tr>
+	<jstl:forEach items="${query14}" var="row">
+      <tr>
+        	<td>${row.title}</td>
+      </tr>
+   </jstl:forEach>
+</table>
+
+
 
 <!--  ACME PARADE Queries level B -->
 

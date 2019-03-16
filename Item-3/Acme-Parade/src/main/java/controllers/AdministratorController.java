@@ -169,29 +169,30 @@ public class AdministratorController extends AbstractController {
 		final ModelAndView result;
 
 		// Queries level C
-		Object[] query1 			   = this.administratorService.query1();
-		Collection<Brotherhood> query2 = this.administratorService.query2();
-		Collection<Brotherhood> query3 = this.administratorService.query3();
-		Collection<Double> query4 	   = this.administratorService.query4();
-		Collection<Procession> query5  = this.administratorService.query5();
-		Collection<Object> query7 	   = this.administratorService.query7();
-		Collection<Object> query8 	   = this.administratorService.query8();
+		Object[] query1 	     	   	 = this.administratorService.query1();
+		Collection<Brotherhood> query2	 = this.administratorService.query2();
+		Collection<Brotherhood> query3	 = this.administratorService.query3();
+		Collection<Double> query4 	  	 = this.administratorService.query4();
+		Collection<Procession> query5 	 = this.administratorService.query5();
+		Collection<Object> query7 	  	 = this.administratorService.query7();
+		Collection<Object> query8 	  	 = this.administratorService.query8();
 		
 		// Queries level B
-		Object[] query9 	   		   = this.administratorService.query9();
-		Object[] query10 	  		   = this.administratorService.query10();
-		Double query11	 	   		   = this.administratorService.query11();
+		Object[] query9 	   			 = this.administratorService.query9();
+		Object[] query10 	  		     = this.administratorService.query10();
+		Double query11	 	   		     = this.administratorService.query11();
 		
 		// ACME PARADE level C
-		Object[] query12			   = this.administratorService.query12();
-		Brotherhood query13			   = this.administratorService.query13();
+		Object[] query12			     = this.administratorService.query12();
+		Brotherhood query13			     = this.administratorService.query13();
+		Collection<Brotherhood> query14  = this.administratorService.query14();
 		
 		// ACME PARADE level B
-		Double query15				   = this.administratorService.query15();
-		Object[] query16			   = this.administratorService.query16();
-		Collection<Chapter> query17	   = this.administratorService.query17();
-		Double query18				   = this.administratorService.query18();
-		Object[] query19			   = this.administratorService.query19();
+		Double query15				     = this.administratorService.query15();
+		Object[] query16			     = this.administratorService.query16();
+		Collection<Chapter> query17	     = this.administratorService.query17();
+		Double query18				     = this.administratorService.query18();
+		Object[] query19			     = this.administratorService.query19();
 
 		result = new ModelAndView("administrator/dashboard");
 
@@ -208,7 +209,7 @@ public class AdministratorController extends AbstractController {
 		result.addObject("query11", query11);
 		result.addObject("query12", query12);
 		result.addObject("query13", query13);
-		
+		result.addObject("query14", query14);
 		result.addObject("query15", query15);
 		result.addObject("query16", query16);
 		result.addObject("query17", query17);
