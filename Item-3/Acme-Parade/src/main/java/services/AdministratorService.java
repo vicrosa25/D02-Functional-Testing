@@ -239,6 +239,10 @@ public class AdministratorService {
 		return this.adminRepository.query12();
 	}
 	
+	public Brotherhood query13() {
+		return this.adminRepository.query13();
+	}
+	
 
 	// ACME PARADE queries level B -------------------------------------------------------------
 	public Double query15() {

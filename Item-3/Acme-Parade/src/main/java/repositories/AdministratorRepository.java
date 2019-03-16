@@ -71,6 +71,9 @@ public interface AdministratorRepository extends JpaRepository<Administrator, In
 	@Query("select avg(h.recordNumber), min(h.recordNumber), max(h.recordNumber), stddev(h.recordNumber) from History h")
 	Object[] query12();
 	
+	@Query("select b from Brotherhood b where b.history.recordNumber = (select max(b1.history.recordNumber) from Brotherhood b1)")
+	Brotherhood query13();
+	
 	
 	// ACME PARADE Queries level B
 	@Query("select count(a)*1.0 / (select count(a1)*1.0 from Area a1) from Area a where a.chapter = null")

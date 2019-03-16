@@ -86,6 +86,20 @@
 </table>
 <br />
 
+<!-- Query 13  -->
+<table>
+	<caption>
+		<jstl:out value="${query13Header}"></jstl:out>
+	</caption>
+	<tr>
+		<th><jstl:out value="${brotherhoodlHeader}"></jstl:out></th>
+	</tr>
+	<tr>
+		<td><jstl:out value="${query13.title}"></jstl:out></td>
+	</tr>
+</table>
+<br />
+
 
 
 <!--  ACME PARADE Queries level B -->

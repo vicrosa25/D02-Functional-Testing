@@ -184,6 +184,7 @@ public class AdministratorController extends AbstractController {
 		
 		// ACME PARADE level C
 		Object[] query12			   = this.administratorService.query12();
+		Brotherhood query13			   = this.administratorService.query13();
 		
 		// ACME PARADE level B
 		Double query15				   = this.administratorService.query15();
@@ -206,6 +207,7 @@ public class AdministratorController extends AbstractController {
 		result.addObject("query10", query10);
 		result.addObject("query11", query11);
 		result.addObject("query12", query12);
+		result.addObject("query13", query13);
 		
 		result.addObject("query15", query15);
 		result.addObject("query16", query16);
