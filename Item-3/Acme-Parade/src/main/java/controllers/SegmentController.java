@@ -143,7 +143,7 @@ public class SegmentController extends AbstractController {
 			Assert.isTrue(this.brotherhoodService.findByPrincipal().getProcessions().contains(segment.getPath().getProcession()));
 
 			if (this.segmentService.delete(segment)) {
-				result = new ModelAndView("redirect:/procession/brotherhoodList.do");
+				result = new ModelAndView("redirect:/procession/list.do");
 			} else {
 				result = new ModelAndView("redirect:/path/brotherhood/display.do?pathId=" + path.getId());
 			}
