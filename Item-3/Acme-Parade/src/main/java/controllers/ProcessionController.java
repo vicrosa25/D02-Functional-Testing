@@ -14,10 +14,10 @@ import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.servlet.ModelAndView;
 
-import domain.Brotherhood;
-import domain.Procession;
 import services.BrotherhoodService;
 import services.ProcessionService;
+import domain.Brotherhood;
+import domain.Procession;
 
 @Controller
 @RequestMapping("/procession")
@@ -150,9 +150,8 @@ public class ProcessionController extends AbstractController {
 		ModelAndView result = null;
 		Procession procession;
 		
-		Brotherhood principal = this.brotherhoodService.findByPrincipal();
-
 		try {
+			Brotherhood principal = this.brotherhoodService.findByPrincipal();
 			procession = this.processionService.findOne(processionId);
 			Assert.notNull(procession);
 			Assert.isTrue(principal.getProcessions().contains(procession));
@@ -163,6 +162,36 @@ public class ProcessionController extends AbstractController {
 			return result;
 		}
 
+		return result;
+	}
+
+	// Copy ------------------------------------------------------------------------------------
+	@RequestMapping(value = "brotherhood/copy", method = RequestMethod.GET)
+	public ModelAndView copy(@RequestParam final int processionId) {
+		ModelAndView result;
+		Procession procession;
+		try {
+			procession = this.processionService.findOne(processionId);
+			Brotherhood principal = this.brotherhoodService.findByPrincipal();
+			
+			Assert.isTrue(principal.getProcessions().contains(procession));
+			
+			Procession copy = this.processionService.create();
+			copy.setBrotherhood(principal);
+			copy.setDescription(procession.getDescription());
+			copy.setDraftMode(true);
+			copy.setMoment(procession.getMoment());
+			copy.setStatus("SUBMITTED");
+			copy.setTitle(procession.getTitle());
+			
+			copy = this.processionService.save(copy);
+			principal.getProcessions().add(copy);
+			
+			result = new ModelAndView("redirect:../list.do");
+		} catch (final Throwable oops) {
+			oops.printStackTrace();
+			result = this.forbiddenOpperation();
+		}
 		return result;
 	}
 

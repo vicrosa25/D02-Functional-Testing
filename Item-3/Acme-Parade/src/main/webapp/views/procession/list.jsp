@@ -50,6 +50,10 @@
 			<a href="path/brotherhood/list.do?processionId=${row.id}"> <spring:message code="path.list" /></a>
 		</display:column>
 		
+		<display:column title="${copyHeader}">
+			<a href="procession/brotherhood/copy.do?processionId=${row.id}"> <spring:message code="procession.copy" /></a>
+		</display:column>
+		
 		<display:column title="${deleteHeader}">
 			<a href="procession/brotherhood/delete.do?processionId=${row.id}"> <spring:message code="procession.delete" /></a>
 		</display:column>
