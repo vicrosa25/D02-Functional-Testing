@@ -8,19 +8,18 @@
 
 <form:form action="segment/brotherhood/edit.do" modelAttribute="segment">
 	
-	<%-- Hidden properties from prune--%>
+	<%-- Hidden properties from segment--%>
 	<form:hidden path="id" />
 	<form:hidden path="version" />
+	<form:hidden path="path" />
+	<form:hidden path="number" />
 
 	<%-- Origin--%>
 	<spring:message code="segment.origin.form"/>
-	<acme:numberbox code="segment.latitude" path="originLatitude" />
+	<acme:numberbox code="segment.latitude" path="originLatitude" readonly="true"/>
 	<br>
 	
-	<acme:numberbox code="segment.longitude" path="originLongitude" />
-	<br>
-	
-	<acme:numberbox code="segment.longitude" path="originLongitude" />
+	<acme:numberbox code="segment.longitude" path="originLongitude"  readonly="true"/>
 	<br>
 
 		<%-- time --%>
@@ -31,15 +30,18 @@
 
 	<%-- Destination--%>
 	<spring:message code="segment.destination.form"/>
-	<acme:numberbox code="segment.latitude" path="destinationLatitude" />
+	<acme:numberbox code="segment.latitude" path="destinationLatitude"  step="0.5"/>
 	<br>
 	
-	<acme:numberbox code="segment.longitude" path="destinationLongitude" />
+	<acme:numberbox code="segment.longitude" path="destinationLongitude"  step="0.5"/>
 	<br>
 
 		<%-- time --%>
-	<form:label path="destinationTime"><spring:message code="segment.time" /></form:label>
-	<form:input path="originTime" placeholder="dd/mm/yyyy HH:mm" format="{0,date,dd/MM/yyyy HH:mm}" />	
-	<form:errors class="error" path="originTime" />
+	<form:label path="destinationTime"><spring:message code="segment.destination.time" /></form:label>
+	<form:input path="destinationTime" placeholder="dd/mm/yyyy HH:mm" format="{0,date,dd/MM/yyyy HH:mm}" />	
+	<form:errors class="error" path="destinationTime" />
 	<br><br>
+	
+	<input type="submit" name="save" value="<spring:message code="path.save"/>" />	
+	<acme:cancel code="path.cancel" url="/path/brotherhood/display.do?pathId=${segment.path.id}" />
 </form:form>

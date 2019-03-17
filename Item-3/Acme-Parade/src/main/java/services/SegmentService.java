@@ -1,5 +1,6 @@
 package services;
 
+import java.util.ArrayList;
 import java.util.Collection;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -9,6 +10,7 @@ import org.springframework.util.Assert;
 
 import repositories.SegmentRepository;
 import domain.Brotherhood;
+import domain.Path;
 import domain.Segment;
 
 @Service
@@ -21,7 +23,10 @@ public class SegmentService {
 
 	// Supporting services
 	@Autowired
-	private BrotherhoodService		brotherhoodService;
+	private BrotherhoodService	brotherhoodService;
+
+	@Autowired
+	private PathService			pathService;
 
 
 	// CRUD methods
@@ -65,15 +70,52 @@ public class SegmentService {
 		return result;
 	}
 
-	public void delete(final Segment segment) {
+	public boolean delete(final Segment segment) {
+		boolean result = false;
 		Assert.notNull(segment);
+		Path path = segment.getPath();
 		final Brotherhood principal = this.brotherhoodService.findByPrincipal();
-		Assert.isTrue(principal.getProcessions().contains(segment.getPath().getProcession()));
+		Assert.isTrue(principal.getProcessions().contains(path.getProcession()));
 		
-		segment.getPath().getSegments().remove(segment);
+		path.getSegments().remove(segment);
 
-		this.segmentRepository.delete(segment);
+		if (path.getSegments().isEmpty()) {
+			this.segmentRepository.delete(segment);
+			this.pathService.delete(path);
+			result = true;
+		} else {
+			for (Segment s : new ArrayList<Segment>(path.getSegments())) {
+				if (s.getNumber() - 1 == segment.getNumber()) {
+					s.setOriginLatitude(segment.getOriginLatitude());
+					s.setOriginLongitude(segment.getOriginLongitude());
+					s.setOriginTime(segment.getOriginTime());
+					s.setNumber(segment.getNumber());
+				} else if (s.getNumber() > segment.getNumber()) {
+					s.setNumber(s.getNumber() - 1);
+				}
+			}
+			this.segmentRepository.delete(segment);
+		}
+		return result;
 	}
 	/*** Other methods ***/
+
+	public Segment getLastSegment(Path path) {
+		Assert.notNull(path);
+		Segment result = null;
+		int i = -1;
+		for (Segment segment : path.getSegments()) {
+			if (segment.getNumber() > i) {
+				result = segment;
+			}
+		}
+		return result;
+	}
 	
+	public Segment findByNumber(Path path, int number) {
+		Segment result = this.segmentRepository.findByNumber(path.getId(), number);
+		Assert.notNull(result, "Not segment found with index " + number + " in path " + path.getId());
+		return result;
+	}
+
 }

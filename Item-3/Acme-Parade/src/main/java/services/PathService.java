@@ -105,6 +105,7 @@ public class PathService {
 
 	public Segment reconstructSegment(final PathForm form, final BindingResult binding) {
 		final Segment segment = this.segmentService.create();
+		segment.setNumber(0);
 
 		segment.setDestinationLatitude(form.getDestinationLatitude());
 		segment.setDestinationLongitude(form.getDestinationLongitude());
