@@ -1,3 +1,4 @@
+
 package services;
 
 import java.util.ArrayList;
@@ -23,25 +24,25 @@ public class PathService {
 
 	// Manage Repository
 	@Autowired
-	private PathRepository	pathRepository;
+	private PathRepository		pathRepository;
 
 	// Supporting services
 	@Autowired
-	private BrotherhoodService		brotherhoodService;
-	
+	private BrotherhoodService	brotherhoodService;
+
 	@Autowired
-	private SegmentService			segmentService;
+	private SegmentService		segmentService;
 
 	@Autowired
 	@Qualifier("validator")
-	private Validator				validator;
+	private Validator			validator;
 
 
 	// CRUD methods
 	public Path create() {
 		final Path result = new Path();
 		result.setSegments(new ArrayList<Segment>());
-		
+
 		return result;
 	}
 
@@ -60,22 +61,19 @@ public class PathService {
 	}
 
 	public Path save(final Path path) {
-		boolean nuevo = false;
-		Brotherhood principal = this.brotherhoodService.findByPrincipal();
+		final Brotherhood principal = this.brotherhoodService.findByPrincipal();
 		Assert.notNull(path);
-		
-		if(path.getId() == 0){
-			nuevo = true;
-		}else{
-			Assert.isTrue(principal.getProcessions().contains(path.getProcession()));
-		}
-		
+		Assert.isTrue(principal.getProcessions().contains(path.getProcession()));
+
 		final Path result = this.pathRepository.save(path);
-		
-		if(nuevo){
+
+		if (path.getId() == 0) {
+			if (result.getProcession().getPaths() == null) {
+				result.getProcession().setPaths(new ArrayList<Path>());
+			}
 			result.getProcession().getPaths().add(result);
 		}
-		
+
 		return result;
 	}
 
@@ -83,20 +81,31 @@ public class PathService {
 		Assert.notNull(path);
 		final Brotherhood principal = this.brotherhoodService.findByPrincipal();
 		Assert.isTrue(principal.getProcessions().contains(path.getProcession()));
-		
+
 		path.getProcession().getPaths().remove(path);
+		final ArrayList<Segment> segments = new ArrayList<Segment>(path.getSegments());
+		for (final Segment seg : segments) {
+			this.segmentService.delete(seg);
+		}
 
 		this.pathRepository.delete(path);
 	}
 	/*** Other methods ***/
 
-
-
 	/*** Reconstruct object, check validity and update binding ***/
 	public Path reconstruct(final PathForm form, final BindingResult binding) {
 		final Path path = this.create();
+		final Segment segment = this.reconstructSegment(form, binding);
+		path.setProcession(form.getProcession());
+		segment.setPath(path);
+
+		this.validator.validate(segment, binding);
+		return path;
+	}
+
+	public Segment reconstructSegment(final PathForm form, final BindingResult binding) {
 		final Segment segment = this.segmentService.create();
-		
+
 		segment.setDestinationLatitude(form.getDestinationLatitude());
 		segment.setDestinationLongitude(form.getDestinationLongitude());
 		segment.setOriginLatitude(form.getOriginLatitude());
@@ -104,11 +113,7 @@ public class PathService {
 		segment.setDestinationTime(form.getDestinationTime());
 		segment.setOriginTime(form.getOriginTime());
 
-		path.setProcession(form.getProcession());
-		path.getSegments().add(segment);
-
-		this.validator.validate(segment, binding);
-		return path;
+		return segment;
 	}
-	
+
 }

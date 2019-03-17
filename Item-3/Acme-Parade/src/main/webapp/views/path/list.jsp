@@ -6,7 +6,7 @@
 <%@taglib prefix="display" uri="http://displaytag.sf.net"%>
 
 
-<display:table name="procession.paths" id="row" requestURI="path/brotherhood/list.do" pagesize="5" class="displaytag">
+<display:table name="paths" id="row" requestURI="path/brotherhood/list.do" pagesize="5" class="displaytag">
 
 	<!-- Procession -->
 	<spring:message code="path.parade" var="processionHeader" />
