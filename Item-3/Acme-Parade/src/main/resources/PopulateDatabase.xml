@@ -1196,6 +1196,12 @@
 		<property name="cvvCode" value="123" />
 	</bean>
 	
+	<!-- proclaims *************************************************************************** -->
+	<bean id="proclcaim1" class="domain.Proclaim">
+		<property name="moment" value="2019/03/12 00:00" />
+		<property name="text" value="New proclaim1" />
+	</bean>
+	
 	
 
 	<!-- pictures *************************************************************************** -->

@@ -45,7 +45,6 @@ public class Chapter extends Actor {
 	public Collection<Proclaim> getProclaims() {
 		return this.proclaims;
 	}
-
 	
 	public void setProclaims(Collection<Proclaim> proclaims) {
 		this.proclaims = proclaims;

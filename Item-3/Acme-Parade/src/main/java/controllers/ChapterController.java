@@ -317,7 +317,7 @@ public class ChapterController extends AbstractController {
 			Assert.isTrue(principal.getArea().getBrotherhoods().contains(procession.getBrotherhood()), "The chapter don't manage this procession");
 
 			this.chapterService.aproveProcession(procession);
-			result = new ModelAndView("chapter/parade/reason");
+			result = this.list();
 		} catch (final Throwable oops) {
 			System.out.println(oops.getMessage());
 			System.out.println(oops.getClass());
@@ -329,33 +329,6 @@ public class ChapterController extends AbstractController {
 		return result;
 	}
 
-	// Rejecting parade GET --------------------------------------------------------------------------------------
-	//	@RequestMapping(value = "/parade/reject", method = RequestMethod.GET)
-	//	public ModelAndView rejectParade(@RequestParam int processionId) {
-	//		ModelAndView result = null;
-	//		Procession procession;
-	//		Chapter principal;
-	//
-	//		procession = this.processionService.findOne(processionId);
-	//		Assert.notNull(procession);
-	//
-	//		try {
-	//			// Check principal manage Area where is Brotherhood
-	//			principal = this.chapterService.findByPrincipal();
-	//			Assert.isTrue(principal.getArea().getBrotherhoods().contains(procession.getBrotherhood()), "The chapter don't manage this procession");
-	//
-	//			this.chapterService.rejectParade(procession);
-	//			result = this.list();
-	//		} catch (final Throwable oops) {
-	//			System.out.println(oops.getMessage());
-	//			System.out.println(oops.getClass());
-	//			System.out.println(oops.getCause());
-	//			result = this.forbiddenOpperation();
-	//			return result;
-	//		}
-	//
-	//		return result;
-	//	}
 
 	// Self-assign an area GET ------------------------------------------------------------------------------------
 	@RequestMapping(value = "/parade/reject/reasson", method = RequestMethod.GET)
