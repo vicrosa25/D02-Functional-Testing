@@ -5,12 +5,14 @@ import java.util.Date;
 
 import javax.persistence.Access;
 import javax.persistence.AccessType;
+import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.ManyToOne;
 import javax.persistence.Temporal;
 import javax.persistence.TemporalType;
 import javax.validation.constraints.DecimalMax;
 import javax.validation.constraints.DecimalMin;
+import javax.validation.constraints.Min;
 import javax.validation.constraints.NotNull;
 
 import org.springframework.format.annotation.DateTimeFormat;
@@ -26,6 +28,7 @@ public class Segment extends DomainEntity {
 	private Double 	originLongitude;
 	private Date	originTime;
 	private Date	destinationTime;
+	private int		number;
 
 
 	@DecimalMin("-90.0")
@@ -90,6 +93,16 @@ public class Segment extends DomainEntity {
 
 	public void setDestinationTime(final Date destinationTime) {
 		this.destinationTime = destinationTime;
+	}
+
+	@NotNull
+	@Min(0)
+	@Column(unique = true)
+	public int getNumber() {
+		return this.number;
+	}
+	public void setNumber(int number) {
+		this.number = number;
 	}
 
 
