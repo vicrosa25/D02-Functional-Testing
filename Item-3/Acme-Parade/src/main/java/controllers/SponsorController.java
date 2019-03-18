@@ -5,18 +5,15 @@ import java.util.Collection;
 import java.util.List;
 
 import javax.swing.JOptionPane;
-import javax.validation.Valid;
 
 import org.springframework.beans.TypeMismatchException;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
-import org.springframework.util.Assert;
 import org.springframework.validation.BindingResult;
 import org.springframework.validation.ObjectError;
 import org.springframework.web.bind.annotation.ExceptionHandler;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
-import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.servlet.ModelAndView;
 
 import domain.Sponsor;
@@ -108,51 +105,59 @@ public class SponsorController extends AbstractController {
 		return result;
 	}
 
-	// Edition -------------------------------------------------------------
+	// Edit Profile GET------------------------------------------------------------------------------------
 	@RequestMapping(value = "/edit", method = RequestMethod.GET)
-	public ModelAndView edit(@RequestParam final int sponsorId) {
+	public ModelAndView edit() {
 		ModelAndView result;
 		Sponsor sponsor;
 
-		sponsor = this.sponsorService.findOne(sponsorId);
-		Assert.notNull(sponsor);
-		result = this.createEditModelAndView(sponsor);
+		try {
+			sponsor = this.sponsorService.findByPrincipal();
+
+			// Set relations to null to use as a prune object
+			sponsor.setSponsorships(null);
+
+
+			result = new ModelAndView("sponsor/edit");
+			result.addObject("sponsor", sponsor);
+		} catch (final Throwable oops) {
+			System.out.println(oops.getMessage());
+			System.out.println(oops.getClass());
+			System.out.println(oops.getCause());
+			result = this.forbiddenOpperation();
+		}
 
 		return result;
 	}
 
-	// Update ------------------------------------------------------------------------------------
-	@RequestMapping(value = "/update", method = RequestMethod.GET)
-	public ModelAndView update() {
+	// Edit Profile POST  ------------------------------------------------------------------------------------
+	@RequestMapping(value = "/edit", method = RequestMethod.POST, params = "save")
+	public ModelAndView saveEdit(Sponsor prune, BindingResult binding) {
 		ModelAndView result;
 		Sponsor sponsor;
 
-		sponsor = this.sponsorService.findByPrincipal();
-		result = new ModelAndView("sponsor/update");
-		result.addObject("sponsor", sponsor);
-		return result;
-	}
-
-	// Save Update ----------------------------------------------------------
-	@RequestMapping(value = "/update", method = RequestMethod.POST, params = "save")
-	public ModelAndView edit(@Valid final Sponsor sponsor, final BindingResult binding) {
-		ModelAndView result;
+		sponsor = this.sponsorService.reconstruct(prune, binding);
 
 		if (binding.hasErrors()) {
 			final List<ObjectError> errors = binding.getAllErrors();
-			for (final ObjectError e : errors)
+			for (final ObjectError e : errors) {
 				System.out.println(e.toString());
-			result = new ModelAndView("sponsor/update");
-			result.addObject("sponsor", sponsor);
-		} else
+			}
+
+			result = new ModelAndView("sponsor/edit");
+			result.addObject("sponsor", prune);
+		} else {
 			try {
 				this.sponsorService.save(sponsor);
-				result = new ModelAndView("redirect:/welcome/index.do");
+				result = new ModelAndView("redirect:/");
 			} catch (final Throwable oops) {
-				result = new ModelAndView("sponsor/update");
-				result.addObject("sponsor", sponsor);
-				result.addObject("message", "administrator.commit.error");
+				System.out.println();
+				System.out.println(oops.getMessage());
+				System.out.println(oops.getClass());
+				System.out.println(oops.getCause());
+				result = this.editModelAndView(sponsor, "sponsor.registration.error");
 			}
+		}
 		return result;
 	}
 
@@ -165,7 +170,7 @@ public class SponsorController extends AbstractController {
 			this.sponsorService.delete(sponsor);
 			result = new ModelAndView("redirect:list.do");
 		} catch (final Throwable oops) {
-			result = this.createEditModelAndView(sponsor, "sponsor.commit.error");
+			result = this.editModelAndView(sponsor, "sponsor.commit.error");
 		}
 
 		return result;
@@ -190,15 +195,15 @@ public class SponsorController extends AbstractController {
 		return result;
 	}
 
-	protected ModelAndView createEditModelAndView(final Sponsor sponsor) {
+	protected ModelAndView editModelAndView(Sponsor sponsor) {
 		ModelAndView result;
 
-		result = this.createEditModelAndView(sponsor, null);
+		result = this.editModelAndView(sponsor, null);
 
 		return result;
 	}
 
-	protected ModelAndView createEditModelAndView(final Sponsor sponsor, final String message) {
+	protected ModelAndView editModelAndView(Sponsor sponsor, final String message) {
 		ModelAndView result;
 
 		result = new ModelAndView("sponsor/edit");

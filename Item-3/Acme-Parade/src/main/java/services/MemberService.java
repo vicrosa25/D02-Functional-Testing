@@ -168,12 +168,16 @@ public class MemberService {
 		result.setIsBanned(temp.getIsBanned());
 		result.setScore(temp.getScore());
 		
-		// Relantionships
+		// Relantionships from Member
 		result.setFinder(temp.getFinder());
 		result.setEnrols(temp.getEnrols());
 		result.setDropouts(temp.getDropouts());
 		result.setRequests(temp.getRequests());
+		
+		// Relatienships from Actor
 		result.setUserAccount(temp.getUserAccount());
+		result.setMessageBoxes(temp.getMessageBoxes());
+		result.setSocialIdentities(temp.getSocialIdentities());
 		
 
 		this.validator.validate(result, binding);

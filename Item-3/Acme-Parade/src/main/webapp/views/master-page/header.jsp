@@ -182,6 +182,9 @@
 					<security:authorize access="hasRole('CHAPTER')">
 						<li><a href="chapter/edit.do"><spring:message code="master.page.chapter.edit" /></a></li>
 					</security:authorize>
+					<security:authorize access="hasRole('SPONSOR')">
+						<li><a href="sponsor/edit.do"><spring:message code="master.page.sponsor.edit" /></a></li>
+					</security:authorize>
 					
 					<!-- MessageBox -->
 					<li><a href="messageBox/list.do"><spring:message code="master.page.messageBox.list" /></a></li>

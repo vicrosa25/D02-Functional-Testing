@@ -13,31 +13,31 @@
 	<form:hidden path="version" />
 	
 	<%-- Name --%>
-	<acme:textbox code="member.name" path="name" />
+	<acme:textbox code="sponsor.name" path="name" />
 	<br>
 
 	<%-- Middlename --%>
-	<acme:textbox code="member.middleName" path="middleName" />
+	<acme:textbox code="sponsor.middleName" path="middleName" />
 	<br>
 
 	<%-- Surname --%>
-	<acme:textbox code="member.surname" path="surname" />
+	<acme:textbox code="sponsor.surname" path="surname" />
 	<br>
 
 	<%-- Photo --%>
-	<acme:textbox code="member.photo" path="photo" />
+	<acme:textbox code="sponsor.photo" path="photo" />
 	<br>
 
 	<%-- Phone --%>
-	<acme:textbox code="member.phone" path="phoneNumber" />
+	<acme:textbox code="sponsor.phone" path="phoneNumber" />
 	<br>
 
 	<%-- email --%>
-	<acme:textbox code="member.email" path="email" />
+	<acme:textbox code="sponsor.email" path="email" />
 	<br>
 
 	<%-- Address --%>
-	<acme:textbox code="member.address" path="address" />
+	<acme:textbox code="sponsor.address" path="address" />
 	<br>
 
 	<script type="text/javascript">
@@ -64,8 +64,8 @@
 	</script>
 	<%-- Buttons --%>
 	<input type="submit" name="save"
-		value="<spring:message code="member.save"/>"
+		value="<spring:message code="sponsor.save"/>"
 		onClick="javascript: return phoneNumberValidator()" />
 	
-	<acme:cancel code="member.cancel" url="/" />
+	<acme:cancel code="sponsor.cancel" url="/" />
 </form:form>

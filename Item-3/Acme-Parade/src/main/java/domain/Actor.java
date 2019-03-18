@@ -134,11 +134,6 @@ public abstract class Actor extends DomainEntity {
 	}
 
 
-
-
-
-
-
 	// Relationships ----------------------------------------------------------
 	private UserAccount					userAccount;
 	private Collection<SocialIdentity>	socialIdentities;
