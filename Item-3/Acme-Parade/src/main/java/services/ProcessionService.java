@@ -243,4 +243,10 @@ public class ProcessionService {
 
 		return result;
 	}
+
+	public Collection<Procession> getProcessionsSortedByStatus(int brotherhoodId) {
+		Collection<Procession> result = this.processionRepository.getProcessionsSortedByStatus(brotherhoodId);
+		Assert.notNull(result);
+		return result;
+	}
 }

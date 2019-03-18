@@ -44,7 +44,10 @@
 	<security:authorize access="hasRole('BROTHERHOOD')">
 	<jstl:if test="${not empty bro}">
 		<spring:message code="procession.delete" var="deleteHeader" />
-		<spring:message code="path.list" var="pathHeader" />
+		<spring:message code="path.manage" var="pathHeader" />
+		<spring:message code="procession.status" var="statusHeader" />
+		
+		<display:column property="status" title="${statusHeader}"/>
 		
 		<display:column title="${pathHeader}">
 			<a href="path/brotherhood/list.do?processionId=${row.id}"> <spring:message code="path.list" /></a>

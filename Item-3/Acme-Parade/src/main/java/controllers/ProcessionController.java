@@ -43,10 +43,9 @@ public class ProcessionController extends AbstractController {
 		Brotherhood principal;
 		Collection<Procession> processions;
 
-		principal = this.brotherhoodService.findByPrincipal();
-
 		try {
-			processions = principal.getProcessions();
+			principal = this.brotherhoodService.findByPrincipal();
+			processions = this.processionService.getProcessionsSortedByStatus(principal.getId()); // TODO probar con mas processions
 			result = new ModelAndView("procession/list");
 			result.addObject("processions", processions);
 			result.addObject("uri", "procession/list");
