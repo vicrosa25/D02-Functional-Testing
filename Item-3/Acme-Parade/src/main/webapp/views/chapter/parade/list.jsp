@@ -6,7 +6,48 @@
 <%@taglib prefix="display" uri="http://displaytag.sf.net"%>
 <%@ taglib prefix="acme" tagdir="/WEB-INF/tags" %>
 
+<style type="text/css">
+.tableColumnSubmitted {
+	background-color: grey;
+	color: Black;
+}
+
+.tableColumnAccepted {
+	background-color: LimeGreen;
+	color: Black;
+}
+
+.tableColumnRejected {
+	background-color: FireBrick;
+	color: White;
+}
+
+.tableColumnBlack {
+	background-color: white;
+	color: black;
+}
+</style>
+
 <display:table name="parades" id="row" requestURI="${uri}" pagesize="5" class="displaytag">
+
+	<!-- Row color -->
+	<jstl:choose>
+		<jstl:when test="${row.status == 'SUBMITTED'}">
+			<jstl:set var="css" value="tableColumnSubmitted" />
+		</jstl:when>
+
+		<jstl:when test="${row.status == 'APPROVED'}">
+			<jstl:set var="css" value="tableColumnAccepted" />
+		</jstl:when>
+
+		<jstl:when test="${row.status == 'REJECTED'}">
+			<jstl:set var="css" value="tableColumnRejected" />
+		</jstl:when>
+
+		<jstl:otherwise>
+			<jstl:set var="css" value="tableColumnBlack" />
+		</jstl:otherwise>
+	</jstl:choose>
 
 	<!-- title -->
 	<spring:message code="procession.title" var="titleHeader" />
