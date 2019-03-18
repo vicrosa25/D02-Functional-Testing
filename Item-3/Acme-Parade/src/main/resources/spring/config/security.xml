@@ -92,6 +92,9 @@
 		<security:intercept-url pattern="/chapter/area/brotherhood/list.do" access="permitAll" />
 		<security:intercept-url pattern="/chapter/proclaim/list.do" access="permitAll" />
 		
+		<!-- SPONSOR -->
+		<security:intercept-url pattern="/sponsor/create.do" access="isAnonymous()" />
+		
 		<!-- PROCLAIM -->
 		<security:intercept-url pattern="/proclaim/list.do" access="isAnonymous()" />
 		<security:intercept-url pattern="/proclaim/chapter/create.do" access="hasRole('CHAPTER')" />

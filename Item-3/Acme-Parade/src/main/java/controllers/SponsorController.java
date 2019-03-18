@@ -9,7 +9,6 @@ import javax.validation.Valid;
 
 import org.springframework.beans.TypeMismatchException;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.dao.DataIntegrityViolationException;
 import org.springframework.stereotype.Controller;
 import org.springframework.util.Assert;
 import org.springframework.validation.BindingResult;
@@ -21,6 +20,7 @@ import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.servlet.ModelAndView;
 
 import domain.Sponsor;
+import forms.SponsorForm;
 import services.SponsorService;
 import utilities.Md5;
 
@@ -29,7 +29,7 @@ import utilities.Md5;
 public class SponsorController extends AbstractController {
 
 	@Autowired
-	private SponsorService	sponsorService;
+	private SponsorService sponsorService;
 
 
 	@ExceptionHandler(TypeMismatchException.class)
@@ -53,15 +53,58 @@ public class SponsorController extends AbstractController {
 		return result;
 	}
 
-	// Creation ---------------------------------------------------------------
+	// Register formObject ------------------------------------------------------------------------------------
 	@RequestMapping(value = "/create", method = RequestMethod.GET)
 	public ModelAndView create() {
 		ModelAndView result;
+		SponsorForm form;
+
+		try {
+			form = new SponsorForm();
+			result = this.createEditModelAndView(form);
+		} catch (final Throwable oops) {
+			System.out.println(oops.getMessage());
+			System.out.println(oops.getClass());
+			System.out.println(oops.getCause());
+			result = this.forbiddenOpperation();
+		}
+
+		return result;
+	}
+
+	// Save the new brotherhood from formObject -------------------------------------------------------------
+	@RequestMapping(value = "/create", method = RequestMethod.POST, params = "save")
+	public ModelAndView save(SponsorForm sponsorForm, BindingResult binding) {
+		ModelAndView result;
 		Sponsor sponsor;
+		String password;
 
-		sponsor = this.sponsorService.create();
-		result = this.createEditModelAndView(sponsor);
+		sponsor = this.sponsorService.reconstruct(sponsorForm, binding);
 
+		if (!sponsorForm.isAccepted()) {
+			binding.rejectValue("accepted", "register.terms.error", "Service terms must be accepted");
+		}
+		if (binding.hasErrors()) {
+			List<ObjectError> errors = binding.getAllErrors();
+			for (final ObjectError e : errors)
+				System.out.println(e.toString());
+
+			result = this.createEditModelAndView(sponsorForm);
+		}
+
+		else
+			try {
+				password = Md5.encodeMd5(sponsor.getUserAccount().getPassword());
+				sponsor.getUserAccount().setPassword(password);
+				this.sponsorService.save(sponsor);
+				result = new ModelAndView("redirect:../security/login.do");
+			} catch (final Throwable oops) {
+				System.out.println(sponsor);
+				System.out.println(oops.getMessage());
+				System.out.println(oops.getClass());
+				System.out.println(oops.getCause());
+				result = this.createEditModelAndView(sponsorForm);
+			}
 		return result;
 	}
 
@@ -74,37 +117,6 @@ public class SponsorController extends AbstractController {
 		sponsor = this.sponsorService.findOne(sponsorId);
 		Assert.notNull(sponsor);
 		result = this.createEditModelAndView(sponsor);
-
-		return result;
-	}
-
-	// Save -------------------------------------------------------------
-	@RequestMapping(value = "/edit", method = RequestMethod.POST, params = "save")
-	public ModelAndView save(@Valid final Sponsor sponsor, final BindingResult binding) {
-		ModelAndView result;
-		String password;
-
-		if (binding.hasErrors()) {
-			final List<ObjectError> errors = binding.getAllErrors();
-			for (final ObjectError e : errors)
-				System.out.println(e.toString());
-			result = this.createEditModelAndView(sponsor);
-		} else
-			try {
-				password = Md5.encodeMd5(sponsor.getUserAccount().getPassword());
-				sponsor.getUserAccount().setPassword(password);
-				this.sponsorService.save(sponsor);
-				result = new ModelAndView("redirect:../security/login.do");
-			} catch (final Throwable oops) {
-				result = new ModelAndView("sponsor/edit");
-				result.addObject("sponsor", sponsor);
-				if (oops instanceof DataIntegrityViolationException)
-					result.addObject("message", "admin.duplicated.username");
-				else {
-					System.out.println(oops.getCause().toString());
-					result.addObject("message", "admin.registration.error");
-				}
-			}
 
 		return result;
 	}
@@ -160,6 +172,24 @@ public class SponsorController extends AbstractController {
 	}
 
 	// Ancillary methods ------------------------------------------------------
+	protected ModelAndView createEditModelAndView(SponsorForm sponsorForm) {
+		ModelAndView result;
+
+		result = this.createEditModelAndView(sponsorForm, null);
+
+		return result;
+	}
+
+	protected ModelAndView createEditModelAndView(SponsorForm sponsorForm, String message) {
+		ModelAndView result;
+
+		result = new ModelAndView("sponsor/create");
+		result.addObject("sponsorForm", sponsorForm);
+		result.addObject("message", message);
+
+		return result;
+	}
+
 	protected ModelAndView createEditModelAndView(final Sponsor sponsor) {
 		ModelAndView result;
 
@@ -176,6 +206,10 @@ public class SponsorController extends AbstractController {
 		result.addObject("message", message);
 
 		return result;
+	}
+
+	private ModelAndView forbiddenOpperation() {
+		return new ModelAndView("redirect:/");
 	}
 
 }

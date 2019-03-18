@@ -8,11 +8,14 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 import org.springframework.util.Assert;
+import org.springframework.validation.BindingResult;
+import org.springframework.validation.Validator;
 
 import domain.MessageBox;
 import domain.SocialIdentity;
 import domain.Sponsor;
 import domain.Sponsorship;
+import forms.SponsorForm;
 import repositories.SponsorRepository;
 import security.Authority;
 import security.LoginService;
@@ -32,6 +35,9 @@ public class SponsorService {
 
 	@Autowired
 	private ConfigurationsService	configurationsService;
+	
+	@Autowired
+	private Validator				validator;
 
 
 	// CRUD methods
@@ -100,7 +106,43 @@ public class SponsorService {
 
 		this.sponsorRepository.delete(sponsor);
 	}
+	
+	
+	
+	/****************************************************************** 
+	 * Reconstruct form object, check validity and update binding 
+	 * ***************************************************************/
+	public Sponsor reconstruct(SponsorForm form, BindingResult binding) {
+		Sponsor sponsor = this.create();
 
+		sponsor.getUserAccount().setPassword(form.getUserAccount().getPassword());
+		sponsor.getUserAccount().setUsername(form.getUserAccount().getUsername());
+
+		sponsor.setAddress(form.getAddress());
+		sponsor.setEmail(form.getEmail());
+		sponsor.setMiddleName(form.getMiddleName());
+		sponsor.setName(form.getName());
+		sponsor.setPhoneNumber(form.getPhoneNumber());
+		sponsor.setPhoto(form.getPhoto());
+		sponsor.setSurname(form.getSurname());
+
+
+		// Default attributes from Actor
+		sponsor.setUsername(form.getUserAccount().getUsername());
+		sponsor.setIsBanned(false);
+
+		this.validator.validate(sponsor, binding);
+
+		return sponsor;
+	}
+	
+	
+	
+	
+	
+	
+	
+	
 	// Other business methods
 	public Sponsor findByPrincipal() {
 		Sponsor result;
