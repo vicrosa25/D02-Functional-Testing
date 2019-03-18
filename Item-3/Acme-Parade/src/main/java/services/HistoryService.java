@@ -61,8 +61,10 @@ public class HistoryService {
 	public History save(final History history) {
 		Assert.notNull(history);
 		
-		final Brotherhood principal = this.brotherhoodService.findByPrincipal();
-		Assert.isTrue(principal.getHistory().getId() == history.getId());
+		if (history.getId() != 0) {
+			final Brotherhood principal = this.brotherhoodService.findByPrincipal();
+			Assert.isTrue(principal.getHistory().getId() == history.getId());
+		}
 		
 		return this.historyRepository.save(history);
 	}

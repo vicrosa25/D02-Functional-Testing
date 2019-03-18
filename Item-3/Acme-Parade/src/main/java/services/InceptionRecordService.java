@@ -29,6 +29,8 @@ public class InceptionRecordService {
 	// CRUD methods
 	public InceptionRecord create() {
 		final InceptionRecord result = new InceptionRecord();
+		result.setDescription("Here goes the description of your inception");
+		result.setTitle("Here goes the title of your inception");
 		result.setPictures(new ArrayList<Url>());
 
 		return result;
