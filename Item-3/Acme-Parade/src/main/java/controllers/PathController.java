@@ -24,6 +24,7 @@ import services.SegmentService;
 import domain.Brotherhood;
 import domain.Path;
 import domain.Procession;
+import domain.Segment;
 import forms.PathForm;
 
 @Controller
@@ -47,7 +48,7 @@ public class PathController extends AbstractController {
 	public ModelAndView handleMismatchException(final TypeMismatchException oops) {
 		return this.forbiddenOpperation();
 	}
-	
+
 	// Display ------------------------------------------------------------------------------------
 	@RequestMapping(value = "/display", method = RequestMethod.GET)
 	public ModelAndView display(@RequestParam final int pathId) {
@@ -58,23 +59,23 @@ public class PathController extends AbstractController {
 		try {
 			brotherhood = this.brotherhoodService.findByPrincipal();
 			path = this.pathService.findOne(pathId);
-			
+
 			Assert.isTrue(brotherhood.getProcessions().contains(path.getProcession()));
-			
+
 			result = new ModelAndView("path/brotherhood/display");
 			result.addObject("path", path);
-			
+
 		} catch (final Throwable oops) {
 			System.out.println(oops.getMessage());
 			System.out.println(oops.getClass());
 			System.out.println(oops.getCause());
 			result = this.forbiddenOpperation();
-			
+
 		}
 
 		return result;
 	}
-	
+
 	// List ------------------------------------------------------------------------------------
 	@RequestMapping(value = "/list", method = RequestMethod.GET)
 	public ModelAndView list(@RequestParam final int processionId) {
@@ -85,56 +86,56 @@ public class PathController extends AbstractController {
 		try {
 			brotherhood = this.brotherhoodService.findByPrincipal();
 			procession = this.procesionService.findOne(processionId);
-			
+
 			Assert.isTrue(brotherhood.getProcessions().contains(procession));
-			
+
 			result = new ModelAndView("path/brotherhood/list");
 			result.addObject("paths", procession.getPaths());
-			
+
 		} catch (final Throwable oops) {
 			System.out.println(oops.getMessage());
 			System.out.println(oops.getClass());
 			System.out.println(oops.getCause());
 			result = this.forbiddenOpperation();
-			
+
 		}
 
 		return result;
 	}
-	
+
 	// Create ------------------------------------------------------------------------------------
 	@RequestMapping(value = "/create", method = RequestMethod.GET)
 	public ModelAndView create() {
 		ModelAndView result;
 
 		try {
-			PathForm pathForm = new PathForm();
-			
+			final PathForm pathForm = new PathForm();
+
 			result = new ModelAndView("path/brotherhood/create");
 			result.addObject("pathForm", pathForm);
 			result.addObject("parades", this.brotherhoodService.findByPrincipal().getProcessions());
-			
+
 		} catch (final Throwable oops) {
 			System.out.println(oops.getMessage());
 			System.out.println(oops.getClass());
 			System.out.println(oops.getCause());
 			result = this.forbiddenOpperation();
-			
+
 		}
 
 		return result;
 	}
-	
+
 	// Save path ------------------------------------------------------------------------------------
 	@RequestMapping(value = "/create", method = RequestMethod.POST, params = "save")
-	public ModelAndView saveInception(@Valid final PathForm pathForm, final BindingResult binding) {
+	public ModelAndView save(@Valid final PathForm pathForm, final BindingResult binding) {
 		ModelAndView result;
 		Path path;
-		
-		if(pathForm.getProcession() == null){
+
+		if (pathForm.getProcession() == null) {
 			binding.rejectValue("procession", "path.error.procession", "A procession must be selected");
 		}
-		
+
 		path = this.pathService.reconstruct(pathForm, binding);
 
 		if (binding.hasErrors()) {
@@ -145,15 +146,20 @@ public class PathController extends AbstractController {
 			result = new ModelAndView("path/brotherhood/create");
 			result.addObject("pathForm", pathForm);
 			result.addObject("parades", this.brotherhoodService.findByPrincipal().getProcessions());
-		
+
 		} else {
 			try {
-				this.pathService.save(path);
-				result = new ModelAndView("redirect:/path/brotherhood/list.do?processionId="+path.getProcession().getId());
+				path = this.pathService.save(path);
+				final Segment segment = this.pathService.reconstructSegment(pathForm, binding);
+				segment.setPath(path);
+				this.segmentService.save(segment);
+
+				result = new ModelAndView("redirect:/path/brotherhood/list.do?processionId=" + path.getProcession().getId());
 			} catch (final Throwable oops) {
 				System.out.println(oops.getMessage());
 				System.out.println(oops.getClass());
 				System.out.println(oops.getCause());
+				oops.printStackTrace();
 				result = new ModelAndView("path/brotherhood/create");
 				result.addObject("pathForm", pathForm);
 				result.addObject("parades", this.brotherhoodService.findByPrincipal().getProcessions());
@@ -161,31 +167,31 @@ public class PathController extends AbstractController {
 		}
 		return result;
 	}
-	
+
 	// Delete ------------------------------------------------------------------------------------
 	@RequestMapping(value = "/delete", method = RequestMethod.GET)
 	public ModelAndView delete(@RequestParam final int pathId) {
 		ModelAndView result;
 
 		try {
-			Path path = this.pathService.findOne(pathId);
-			
+			final Path path = this.pathService.findOne(pathId);
+
 			Assert.isTrue(this.brotherhoodService.findByPrincipal().getProcessions().contains(path.getProcession()));
-			
+
 			this.pathService.delete(path);
-			result = new ModelAndView("redirect:/path/brotherhood/list.do?processionId="+path.getProcession().getId());
-			
+			result = new ModelAndView("redirect:/path/brotherhood/list.do?processionId=" + path.getProcession().getId());
+
 		} catch (final Throwable oops) {
 			System.out.println(oops.getMessage());
 			System.out.println(oops.getClass());
 			System.out.println(oops.getCause());
+			oops.printStackTrace();
 			result = this.forbiddenOpperation();
-			
+
 		}
 
 		return result;
 	}
-	
 	// Ancillary methods ------------------------------------------------------
 	private ModelAndView forbiddenOpperation() {
 		return new ModelAndView("redirect:/");
