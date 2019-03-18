@@ -19,6 +19,7 @@ import domain.Area;
 import domain.Brotherhood;
 import domain.Chapter;
 import domain.Procession;
+import domain.Proclaim;
 import forms.ChapterForm;
 import services.AreaService;
 import services.ChapterService;
@@ -272,6 +273,29 @@ public class ChapterController extends AbstractController {
 
 		return result;
 	}
+	
+	
+	// Proclaims list ------------------------------------------------------------------------------------
+	@RequestMapping(value = "/proclaim/list", method = RequestMethod.GET)
+	public ModelAndView proclaimList(@RequestParam int chapterId) {
+		ModelAndView result;
+		Chapter chapter;
+		Collection<Proclaim> proclaims;
+		
+		
+		chapter = this.chapterService.findOne(chapterId);
+		proclaims = chapter.getProclaims();
+		
+
+		result = new ModelAndView("chapter/proclaim/list");
+		result.addObject("requestURI", "chapter/proclaim/list.do");
+		result.addObject("proclaims", proclaims);
+
+		return result;
+	}
+	
+	
+	
 
 	/*************************************
 	 * Parades methods

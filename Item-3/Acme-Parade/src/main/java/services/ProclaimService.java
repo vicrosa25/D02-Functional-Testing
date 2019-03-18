@@ -56,7 +56,7 @@ public class ProclaimService {
 	// Other methods
 	
 	public Collection<Proclaim> findByChapter(int chapterId) {
-		return this.proclaimRepository.findByCahpter(chapterId);
+		return this.proclaimRepository.findByChapter(chapterId);
 	}
 	
 	

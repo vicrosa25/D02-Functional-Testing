@@ -90,6 +90,7 @@
 		<security:intercept-url pattern="/chapter/list.do" access="permitAll" />
 		<security:intercept-url pattern="/chapter/area/list.do" access="permitAll" />
 		<security:intercept-url pattern="/chapter/area/brotherhood/list.do" access="permitAll" />
+		<security:intercept-url pattern="/chapter/proclaim/list.do" access="permitAll" />
 		
 		<!-- PROCLAIM -->
 		<security:intercept-url pattern="/proclaim/list.do" access="isAnonymous()" />

@@ -329,6 +329,12 @@
 				<ref bean="chapter1-notification" />
 			</list>
 		</property>
+		<property name="proclaims">
+			<list>
+				<ref bean="proclaim1" />
+				<ref bean="proclaim2" />
+			</list>
+		</property>
 	</bean>
 	
 	<bean id="chapter2" class="domain.Chapter">
@@ -348,6 +354,12 @@
 				<ref bean="chapter2-out" />
 				<ref bean="chapter2-trash" />
 				<ref bean="chapter2-notification" />
+			</list>
+		</property>
+		<property name="proclaims">
+			<list>
+				<ref bean="proclaim3" />
+				<ref bean="proclaim4" />
 			</list>
 		</property>
 	</bean>
@@ -1197,9 +1209,24 @@
 	</bean>
 	
 	<!-- proclaims *************************************************************************** -->
-	<bean id="proclcaim1" class="domain.Proclaim">
+	<bean id="proclaim1" class="domain.Proclaim">
 		<property name="moment" value="2019/03/12 00:00" />
 		<property name="text" value="New proclaim1" />
+	</bean>
+	
+	<bean id="proclaim2" class="domain.Proclaim">
+		<property name="moment" value="2019/01/12 00:00" />
+		<property name="text" value="New proclaim2" />
+	</bean>
+	
+	<bean id="proclaim3" class="domain.Proclaim">
+		<property name="moment" value="2019/02/20 00:00" />
+		<property name="text" value="New proclaim3" />
+	</bean>
+	
+	<bean id="proclaim4" class="domain.Proclaim">
+		<property name="moment" value="2019/01/09 00:00" />
+		<property name="text" value="New proclaim4" />
 	</bean>
 	
 	

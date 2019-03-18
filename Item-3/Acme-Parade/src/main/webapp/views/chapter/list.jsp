@@ -13,15 +13,26 @@
 	
 	
 	<!-- Area -->
-	<spring:message code="chapter.link.area" var="areaHeader" />
 	<display:column>
 		<jstl:if test="${ row.area != null }">
 			<a href="chapter/area/list.do?areaId=${row.area.id}"> <spring:message code="chapter.link.area" /></a>
 		</jstl:if>
 		<jstl:if test="${ row.area == null }">
-			N/A
+			Not Area
 		</jstl:if>
 	</display:column>
+	
+	<!-- Proclaims -->
+	<display:column>
+		<jstl:if test="${ not empty row.proclaims }">
+			<a href="chapter/proclaim/list.do?chapterId=${row.id}"> <spring:message code="chapter.link.proclaim" /></a>
+		</jstl:if>
+		<jstl:if test="${ empty row.proclaims }">
+			Not Proclaims
+		</jstl:if>
+	</display:column>
+	
+	
 
 </display:table>
 
