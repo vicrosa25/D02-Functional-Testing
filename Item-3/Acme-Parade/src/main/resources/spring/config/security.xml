@@ -193,6 +193,13 @@
 		<security:intercept-url pattern="/segment/brotherhood/create.do" access="hasRole('BROTHERHOOD')" />
 		<security:intercept-url pattern="/segment/brotherhood/edit.do" access="hasRole('BROTHERHOOD')" />
 		<security:intercept-url pattern="/segment/brotherhood/delete.do" access="hasRole('BROTHERHOOD')" />
+		
+		<!-- Sponsorship -->
+		<security:intercept-url pattern="/sponsorship/sponsor/create.do" access="hasRole('SPONSOR')" />
+		<security:intercept-url pattern="/sponsorship/sponsor/edit.do" access="hasRole('SPONSOR')" />
+		<security:intercept-url pattern="/sponsorship/sponsor/list.do" access="hasRole('SPONSOR')" />
+		<security:intercept-url pattern="/sponsorship/sponsor/activate.do" access="hasRole('SPONSOR')" />
+		<security:intercept-url pattern="/sponsorship/sponsor/deactivate.do" access="hasRole('SPONSOR')" />
 
 
 		<security:intercept-url pattern="/**" access="hasRole('NONE')" />
