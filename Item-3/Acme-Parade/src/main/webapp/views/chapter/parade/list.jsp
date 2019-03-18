@@ -51,41 +51,41 @@
 
 	<!-- title -->
 	<spring:message code="procession.title" var="titleHeader" />
-	<display:column property="title" title="${titleHeader}" />
+	<display:column property="title" title="${titleHeader}"  class="${css}"/>
 
 	<!-- ticker -->
 	<spring:message code="procession.ticker" var="tickerHeader" />
-	<display:column property="ticker" title="${tickerHeader}" />
+	<display:column property="ticker" title="${tickerHeader}"  class="${css}"/>
 
 	<!-- description -->
 	<spring:message code="procession.description" var="descriptionHeader" />
-	<display:column property="description" title="${ descriptionHeader }" />
+	<display:column property="description" title="${ descriptionHeader }"  class="${css}"/>
 
 	<!-- moment -->
 	<spring:message code="procession.moment" var="momentHeader" />
-	<display:column property="moment" title="${momentHeader}" format="{0,date,dd/MM/yyyy}" />
+	<display:column property="moment" title="${momentHeader}" format="{0,date,dd/MM/yyyy}"  class="${css}"/>
 
 	<!-- brotherhood -->
 	<spring:message code="procession.brotherhood" var="brotherhoodHeader" />
-	<display:column property="brotherhood.title" title="${brotherhoodHeader}" />
+	<display:column property="brotherhood.title" title="${brotherhoodHeader}"  class="${css}"/>
 	
 	<!-- status -->
 	<spring:message code="procession.status" var="statusHeader" />
-	<display:column property="status" title="${statusHeader}" />
+	<display:column property="status" title="${statusHeader}"  class="${css}"/>
 	
 	<!-- reasson -->
 	<jstl:if test="${ row.status == 'REJECTED' }">
 		<spring:message code="procession.reasson" var="reassonHeader" />
-		<display:column property="reasson" title="${reassonHeader}" />
+		<display:column property="reasson" title="${reassonHeader}"  class="${css}"/>
 	</jstl:if>
 		
 	
 	<!-- manage status -->
 	<jstl:if test="${ row.status == 'SUBMITTED' }">
-		<display:column>
+		<display:column  class="${css}">
 			<a href="chapter/parade/aprove.do?processionId=${row.id}"><spring:message code="chapter.parade.accept" /></a>
 		</display:column>
-		<display:column>
+		<display:column  class="${css}">
 			<a href="chapter/parade/reject/reasson.do?processionId=${row.id}"><spring:message code="chapter.parade.reject" /></a>
 		</display:column>
 	</jstl:if>
