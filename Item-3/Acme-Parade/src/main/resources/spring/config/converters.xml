@@ -87,6 +87,9 @@
 		
 		<bean class="converters.LinkRecordToStringConverter" />
 		<bean class="converters.StringToLinkRecordConverter" />
+		
+		<bean class="converters.ProclaimToStringConverter" />
+		<bean class="converters.StringToProclaimConverter" />
 
 	</util:list>
 
