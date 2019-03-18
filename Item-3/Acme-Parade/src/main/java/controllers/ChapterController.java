@@ -16,6 +16,7 @@ import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.servlet.ModelAndView;
 
 import domain.Area;
+import domain.Brotherhood;
 import domain.Chapter;
 import domain.Procession;
 import forms.ChapterForm;
@@ -221,7 +222,6 @@ public class ChapterController extends AbstractController {
 		return result;
 	}
 
-	
 	// list area ------------------------------------------------------------------------------------
 	@RequestMapping(value = "/area/list", method = RequestMethod.GET)
 	public ModelAndView areaList(@RequestParam int areaId) {
@@ -239,7 +239,22 @@ public class ChapterController extends AbstractController {
 		return result;
 	}
 
-	
+	// list area/brotherhoods  ------------------------------------------------------------------------
+	@RequestMapping(value = "/area/brotherhood/list", method = RequestMethod.GET)
+	public ModelAndView brotherhoodList(@RequestParam int areaId) {
+		ModelAndView result;
+		Area area;
+
+		area = this.areaService.findOne(areaId);
+		Collection<Brotherhood> brotherhoods = area.getBrotherhoods();
+
+		result = new ModelAndView("chapter/area/brotherhood/list");
+		result.addObject("requestURI", "chapter/area/brotherhood/list.do");
+		result.addObject("brotherhoods", brotherhoods);
+
+		return result;
+	}
+
 	// Display area ------------------------------------------------------------------------------------
 	@RequestMapping(value = "/area/display", method = RequestMethod.GET)
 	public ModelAndView displayArea() {

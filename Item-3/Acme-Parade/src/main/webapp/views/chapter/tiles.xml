@@ -15,6 +15,11 @@
 		<put-attribute name="title" value="Area list" />
 		<put-attribute name="body" value="/views/chapter/area/list.jsp" />
 	</definition>
+	
+	<definition name="chapter/area/brotherhood/list" extends="master.page">	
+		<put-attribute name="title" value="Brotherhoods list" />
+		<put-attribute name="body" value="/views/chapter/area/brotherhood/list.jsp" />
+	</definition>
 
 	<definition name="chapter/create" extends="master.page">	
 		<put-attribute name="title" value="Create Chapter" />

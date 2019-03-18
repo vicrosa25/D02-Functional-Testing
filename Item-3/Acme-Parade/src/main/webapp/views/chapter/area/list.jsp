@@ -5,6 +5,7 @@
 <%@taglib prefix="form" uri="http://www.springframework.org/tags/form"%>
 <%@taglib prefix="security" uri="http://www.springframework.org/security/tags"%>
 <%@taglib prefix="display" uri="http://displaytag.sf.net"%>
+<%@taglib prefix="acme" tagdir="/WEB-INF/tags" %>
 
 <display:table name="areas" id="row" requestURI="${ requestUri }" pagesize="5" class="displaytag">
 
@@ -13,15 +14,21 @@
 	<spring:message code="area.name" var="nameHeader" />
 	<display:column property="name" title="${nameHeader}" />
 	
+		
 	<!-- Brotherhoods -->
-	<spring:message code="area.bros" var="brosHeader" />
-	<display:column title="${brosHeader}">
-		<jstl:forEach var="bro" items="${row.brotherhoods}" varStatus="loop">
-			${bro.title}${!loop.last ? ',' : ''}&nbsp
-		</jstl:forEach>
+	<spring:message code="area.bros" var="broHeader" />
+	<display:column>
+		<jstl:if test="${ not empty row.brotherhoods }">
+			<a href="chapter/area/brotherhood/list.do?areaId=${row.id}"> <spring:message code="area.bros" /></a>
+		</jstl:if>
+		<jstl:if test="${ empty row.brotherhoods }">
+			N/A
+		</jstl:if>
 	</display:column>
      
 </display:table>
+
+<acme:back code="chapter.back"/>
 
 
 
