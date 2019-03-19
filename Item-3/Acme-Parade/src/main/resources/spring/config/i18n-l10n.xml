@@ -36,6 +36,7 @@
 		<value>/views/path/messages</value>
 		<value>/views/segment/messages</value>
 		<value>/views/sponsorship/messages</value>
+		<value>/views/proclaim/messages</value>
 	</util:list>
 
 </beans>
