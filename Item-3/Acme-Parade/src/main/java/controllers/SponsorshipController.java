@@ -101,6 +101,11 @@ public class SponsorshipController extends AbstractController {
 		Sponsorship sponsorship;
 
 		sponsorship = this.sponsorshipService.reconstruct(prune, binding);
+		// TODO credit card brand validation
+		//		if(sponsorship.getCreditCard().getBrandName() == null){	
+		//			binding.rejectValue("creditCard.brandName", "creditCard.error.brand",
+		//				"The credit bran is nor supported by the application, please use one of these: ");
+		//		}
 
 		if (binding.hasErrors()) {
 			final List<ObjectError> errors = binding.getAllErrors();
