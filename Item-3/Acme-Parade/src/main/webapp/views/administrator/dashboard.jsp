@@ -231,6 +231,26 @@
 </table>
 <br />
 
+<!-- Query 21 -->
+<table>
+	<caption>
+		<jstl:out value="${query21Header}"></jstl:out>
+	</caption>
+	<tr>
+		<th><jstl:out value="${avgHeader}"></jstl:out></th>
+		<th><jstl:out value="${minHeader}"></jstl:out></th>
+		<th><jstl:out value="${maxHeader}"></jstl:out></th>
+		<th><jstl:out value="${stdHeader}"></jstl:out></th>
+	</tr>
+	<tr>
+		<td><jstl:out value="${query21[0]}"></jstl:out></td>
+		<td><jstl:out value="${query21[1]}"></jstl:out></td>
+		<td><jstl:out value="${query21[2]}"></jstl:out></td>
+		<td><jstl:out value="${query21[3]}"></jstl:out></td>
+	</tr>
+</table>
+<br />
+
 
 
 

@@ -274,11 +274,16 @@ public class AdministratorService {
 		return this.adminRepository.query19();
 	}
 	
-	
 	// ACME PARADE queries level B -------------------------------------------------------------
 	public Double query20() {
 		return this.adminRepository.query20();
 	}
+	
+	public Object[] query21() {
+		return this.adminRepository.query21();
+	}
+	
+	
 
 	// 28.2 Spammers procedure--------------------------------------------------------------------
 	public void computeSpammers() {

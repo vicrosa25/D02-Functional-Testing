@@ -99,6 +99,9 @@ public interface AdministratorRepository extends JpaRepository<Administrator, In
 	@Query("select count(s)*1.0 / (select count(s1)*1.0 from Sponsorship s1) from Sponsorship s where s.active = true")
 	Double query20();
 	
+	@Query("select avg(s.sponsorships.size), min(s.sponsorships.size), max(s.sponsorships.size), stddev(s.sponsorships.size) from Sponsor s join s.sponsorships ss where ss.active = true")
+	Object[] query21();
+	
 	
 	
 	
