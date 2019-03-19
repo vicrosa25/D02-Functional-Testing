@@ -14,7 +14,7 @@
 <%@taglib prefix="security" uri="http://www.springframework.org/security/tags"%>
 
 <div>
-	<a href="#"><img src="${logo}" alt="${title}" width="1000" height="300" /></a>
+	<a href="#"><img src="${logo}" alt="${title}" width="1000" height="240" /></a>
 </div>
 
 <div>
@@ -118,6 +118,7 @@
 					<li><a href="chapter/parade/list.do"><spring:message code="master.page.chapter.myParades" /></a></li>
 				</ul>
 			</li>
+			<li><a href="proclaim/chapter/publish.do" class="fNiv"><spring:message	code="master.page.proclaim.publish" /></a></li>
 		</security:authorize>
 		
 		<!-- An actor who is authenticated as a SPONSOR -->

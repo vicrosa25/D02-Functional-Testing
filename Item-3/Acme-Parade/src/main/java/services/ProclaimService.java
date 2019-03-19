@@ -1,26 +1,34 @@
 package services;
 
 import java.util.Collection;
+import java.util.Date;
 
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 import org.springframework.util.Assert;
 
-import domain.Proclaim;
 import repositories.ProclaimRepository;
+import domain.Proclaim;
 
 @Service
 @Transactional
 public class ProclaimService {
 	
 	// Manage Repository
-	private ProclaimRepository		proclaimRepository;
+	@Autowired
+	private ProclaimRepository	proclaimRepository;
+	
+	@Autowired
+	private ChapterService		chapterService;
 	
 	
 	// CRUD methods
 	public Proclaim create() {
 		Proclaim result = new Proclaim();
 		
+		result.setMoment(new Date());
+
 		return result;
 	}
 	
@@ -40,16 +48,10 @@ public class ProclaimService {
 	
 	public Proclaim save(Proclaim proclaim) {
 		Assert.notNull(proclaim);
-		
+		Assert.isTrue(proclaim.getId() == 0);
+		this.chapterService.findByPrincipal();
+
 		return this.proclaimRepository.save(proclaim);
-		
-	}
-	
-	public void delete(Proclaim proclaim) {
-		Assert.notNull(proclaim);
-		Assert.isTrue(proclaim.getId() != 0);
-		
-		this.proclaimRepository.delete(proclaim);
 	}
 	
 	
@@ -58,7 +60,4 @@ public class ProclaimService {
 	public Collection<Proclaim> findByChapter(int chapterId) {
 		return this.proclaimRepository.findByChapter(chapterId);
 	}
-	
-	
-
 }
