@@ -29,7 +29,7 @@ public class Chapter extends Actor {
 	
 	// Relationships -----------------------------------------------------------------------------------------
 	private Area area;
-	private Collection<Proclaim> proclaims;
+	private Collection<Proclaim>	proclaims;	// TODO necesitamos esto?
 
 
 	@OneToOne(optional = true, mappedBy = "chapter")
