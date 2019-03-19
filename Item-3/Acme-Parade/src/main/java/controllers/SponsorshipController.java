@@ -123,18 +123,40 @@ public class SponsorshipController extends AbstractController {
 	}
 
 	// Deactivate ------------------------------------------------------
-	@RequestMapping(value = "/remove", method = RequestMethod.GET)
-	public ModelAndView delete(@RequestParam final int sponsorshipId) {
+	@RequestMapping(value = "/deactivate", method = RequestMethod.GET)
+	public ModelAndView deactivate(@RequestParam final int sponsorshipId) {
 		ModelAndView result;
 		Sponsorship sponsorship;
 
-		sponsorship = this.sponsorshipService.findOne(sponsorshipId);
+		try {
+			sponsorship = this.sponsorshipService.findOne(sponsorshipId);
+			Assert.isTrue(this.sponsorService.findByPrincipal() == sponsorship.getSponsor());
+			Assert.isTrue(sponsorship.getActive());
+			sponsorship.setActive(false);
+			this.sponsorshipService.save(sponsorship);
+			result = new ModelAndView("redirect:/sponsorship/sponsor/list.do");
+		} catch (final Throwable oops) {
+			result = this.forbiddenOpperation();
+		}
+
+		return result;
+	}
+
+	// Activate ------------------------------------------------------
+	@RequestMapping(value = "/activate", method = RequestMethod.GET)
+	public ModelAndView activate(@RequestParam final int sponsorshipId) {
+		ModelAndView result;
+		Sponsorship sponsorship;
 
 		try {
-			this.sponsorshipService.delete(sponsorship);
-			result = new ModelAndView("redirect:list.do");
+			sponsorship = this.sponsorshipService.findOne(sponsorshipId);
+			Assert.isTrue(this.sponsorService.findByPrincipal() == sponsorship.getSponsor());
+			Assert.isTrue(!sponsorship.getActive());
+			sponsorship.setActive(true);
+			this.sponsorshipService.save(sponsorship);
+			result = new ModelAndView("redirect:/sponsorship/sponsor/list.do");
 		} catch (final Throwable oops) {
-			result = this.createEditModelAndView(sponsorship, "profile.commit.error");
+			result = this.forbiddenOpperation();
 		}
 
 		return result;
@@ -161,8 +183,7 @@ public class SponsorshipController extends AbstractController {
 	}
 
 	private ModelAndView forbiddenOpperation() {
-		JOptionPane.showMessageDialog(null, "Forbidden operation");
-		return new ModelAndView("redirect:list.do");
+		return new ModelAndView("redirect:/");
 	}
 
 }

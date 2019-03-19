@@ -22,6 +22,17 @@
 	<!-- Procession -->
 	<spring:message code="sponsorship.procession" var="processionHeader" />
 	<display:column property="procession.title" title="${processionHeader}" sortable="false" />
+
+	<!-- Estado -->
+	<spring:message code="procession.status" var="statusHeader" />
+	<display:column title="${statusHeader}" sortable="false">
+	<jstl:if test="${not row.active}">
+		<spring:message code="sponsorship.inactive"/>
+	</jstl:if>
+	<jstl:if test="${row.active}">
+		<spring:message code="sponsorship.active"/>
+	</jstl:if>
+	</display:column>
 	
 								<!-- ACTIONS -->
 	<!-- Edit -->
@@ -33,18 +44,16 @@
 	
 	<!-- de/activate -->
 	<jstl:if test="${not row.active}">
-		<spring:message code="sponsorship.deactivate" var="deactivateHeader" />
-		<display:column title="${deactivateHeader}" >
-			<a href="sponsorship/sponsor/deactivate.do?sponsorshipId=${row.id}">
-				<spring:message code="sponsorship.deactivate" /></a>
+		<display:column>
+			<a href="sponsorship/sponsor/activate.do?sponsorshipId=${row.id}">
+				<spring:message code="sponsorship.activate" /></a>
 		</display:column>
 	</jstl:if>
 	
 	<jstl:if test="${row.active}">
-		<spring:message code="sponsorship.activate" var="activateHeader" />
-		<display:column title="${activateHeader}" >
-			<a href="sponsorship/sponsor/activate.do?sponsorshipId=${row.id}">
-				<spring:message code="sponsorship.activate" /></a>
+		<display:column>
+			<a href="sponsorship/sponsor/deactivate.do?sponsorshipId=${row.id}">
+				<spring:message code="sponsorship.deactivate" /></a>
 		</display:column>
 	</jstl:if>
 </display:table>
