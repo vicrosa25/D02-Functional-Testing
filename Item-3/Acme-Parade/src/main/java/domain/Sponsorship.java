@@ -50,7 +50,7 @@ public class Sponsorship extends DomainEntity {
 		this.creditCard = creditCard;
 	}
 	
-	
+	@NotNull
 	public Boolean getActive() {
 		return this.active;
 	}
@@ -66,6 +66,8 @@ public class Sponsorship extends DomainEntity {
 	private Sponsor 	sponsor;
 	private Procession 	procession;
 	
+
+	@NotNull
 	@ManyToOne(optional=false)
 	public Sponsor getSponsor() {
 		return this.sponsor;
@@ -75,7 +77,7 @@ public class Sponsorship extends DomainEntity {
 		this.sponsor = sponsor;
 	}
 	
-	
+	@NotNull
 	@ManyToOne(optional=false)
 	public Procession getProcession() {
 		return this.procession;
