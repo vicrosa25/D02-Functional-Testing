@@ -2,21 +2,23 @@
 package controllers;
 
 import java.util.Collection;
+import java.util.List;
 
 import javax.swing.JOptionPane;
-import javax.validation.Valid;
 
 import org.springframework.beans.TypeMismatchException;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.util.Assert;
 import org.springframework.validation.BindingResult;
+import org.springframework.validation.ObjectError;
 import org.springframework.web.bind.annotation.ExceptionHandler;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.servlet.ModelAndView;
 
+import services.ProcessionService;
 import services.SponsorService;
 import services.SponsorshipService;
 import domain.Sponsor;
@@ -32,6 +34,9 @@ public class SponsorshipController extends AbstractController {
 	@Autowired
 	private SponsorService		sponsorService;
 
+	@Autowired
+	private ProcessionService	processionService;
+
 
 	@ExceptionHandler(TypeMismatchException.class)
 	public ModelAndView handleMismatchException(final TypeMismatchException oops) {
@@ -44,15 +49,16 @@ public class SponsorshipController extends AbstractController {
 	public ModelAndView list() {
 		ModelAndView result;
 		Collection<Sponsorship> sponsorships;
+		try {
+			final Sponsor principal = this.sponsorService.findByPrincipal();
 
-		final Sponsor principal = this.sponsorService.findByPrincipal();
+			sponsorships = this.sponsorshipService.findBySponsor(principal.getId());
 
-		sponsorships = this.sponsorshipService.findBySponsor(principal.getId());
-
-		result = new ModelAndView("sponsorship/sponsor/list");
-		result.addObject("sponsorships", sponsorships);
-		result.addObject("requestURI", "sponsorship/sponsor/list.do");
-
+			result = new ModelAndView("sponsorship/sponsor/list");
+			result.addObject("sponsorships", sponsorships);
+		} catch (final Throwable oops) {
+			result = this.forbiddenOpperation();
+		}
 		return result;
 	}
 
@@ -61,9 +67,12 @@ public class SponsorshipController extends AbstractController {
 	public ModelAndView create() {
 		ModelAndView result;
 		Sponsorship sponsorship;
-
-		sponsorship = this.sponsorshipService.create();
-		result = this.createEditModelAndView(sponsorship);
+		try {
+			sponsorship = this.sponsorshipService.create();
+			result = this.createEditModelAndView(sponsorship);
+		} catch (final Throwable oops) {
+			result = this.forbiddenOpperation();
+		}
 
 		return result;
 	}
@@ -74,38 +83,46 @@ public class SponsorshipController extends AbstractController {
 		ModelAndView result;
 		Sponsorship sponsorship;
 
-		final Sponsor principal = this.sponsorService.findByPrincipal();
-
 		try {
+			final Sponsor principal = this.sponsorService.findByPrincipal();
 			sponsorship = this.sponsorshipService.findOne(sponsorshipId);
 			Assert.isTrue(this.sponsorshipService.findBySponsor(principal.getId()).contains(sponsorship));
+			result = this.createEditModelAndView(sponsorship);
 		} catch (final Throwable oops) {
-			return this.forbiddenOpperation();
+			result = this.forbiddenOpperation();
 		}
-
-		result = this.createEditModelAndView(sponsorship);
 		return result;
 	}
 
 	// Save -------------------------------------------------------------
 	@RequestMapping(value = "/edit", method = RequestMethod.POST, params = "save")
-	public ModelAndView save(@Valid final Sponsorship sponsorship, final BindingResult binding) {
+	public ModelAndView save(final Sponsorship prune, final BindingResult binding) {
 		ModelAndView result;
+		Sponsorship sponsorship;
 
-		if (binding.hasErrors())
-			result = this.createEditModelAndView(sponsorship);
+		sponsorship = this.sponsorshipService.reconstruct(prune, binding);
+
+		if (binding.hasErrors()) {
+			final List<ObjectError> errors = binding.getAllErrors();
+			for (final ObjectError e : errors)
+				System.out.println(e.toString());
+			result = this.createEditModelAndView(prune);
+		}
 		else
 			try {
 				this.sponsorshipService.save(sponsorship);
-				result = new ModelAndView("redirect:list.do");
+				result = new ModelAndView("redirect:/sponsorship/sponsor/list.do");
 			} catch (final Throwable oops) {
+				System.out.println(oops.getMessage());
+				System.out.println(oops.getClass());
+				System.out.println(oops.getCause());
 				oops.printStackTrace();
-				result = this.createEditModelAndView(sponsorship, "profile.commit.error");
+				result = this.createEditModelAndView(prune, "profile.commit.error");
 			}
 		return result;
 	}
 
-	// Delete ------------------------------------------------------
+	// Deactivate ------------------------------------------------------
 	@RequestMapping(value = "/remove", method = RequestMethod.GET)
 	public ModelAndView delete(@RequestParam final int sponsorshipId) {
 		ModelAndView result;
@@ -137,6 +154,7 @@ public class SponsorshipController extends AbstractController {
 
 		result = new ModelAndView("sponsorship/sponsor/edit");
 		result.addObject("sponsorship", sponsorship);
+		result.addObject("processions", this.processionService.findAllAccepted());
 		result.addObject("message", message);
 
 		return result;

@@ -249,4 +249,9 @@ public class ProcessionService {
 		Assert.notNull(result);
 		return result;
 	}
+
+	public Collection<Procession> findAllAccepted() {
+		Collection<Procession> result = this.processionRepository.findAllAccepted();
+		return result;
+	}
 }

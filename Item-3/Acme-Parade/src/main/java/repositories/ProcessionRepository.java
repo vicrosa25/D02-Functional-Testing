@@ -20,4 +20,7 @@ public interface ProcessionRepository extends JpaRepository<Procession, Integer>
 	@Query("select p from Procession p where p.brotherhood.id = ?1 order by p.status")
 	Collection<Procession> getProcessionsSortedByStatus(int brotherhoodId);
 
+	@Query("select p from Procession p where p.status = 'APPROVED'")
+	Collection<Procession> findAllAccepted();
+
 }

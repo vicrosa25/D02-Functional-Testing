@@ -4,13 +4,16 @@ package services;
 import java.util.Collection;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 import org.springframework.util.Assert;
+import org.springframework.validation.BindingResult;
+import org.springframework.validation.Validator;
 
+import repositories.SponsorshipRepository;
 import domain.Sponsor;
 import domain.Sponsorship;
-import repositories.SponsorshipRepository;
 
 @Service
 @Transactional
@@ -23,6 +26,10 @@ public class SponsorshipService {
 	@Autowired
 	private SponsorService		  sponsorService;
 
+	@Autowired
+	@Qualifier("validator")
+	private Validator				validator;
+
 	
 	// CRUD methods
 	public Sponsorship create() {
@@ -31,6 +38,7 @@ public class SponsorshipService {
 		Sponsor principal = this.sponsorService.findByPrincipal();
 		
 		result.setSponsor(principal);
+		result.setActive(true);
 		
 		return result;
 	}
@@ -52,7 +60,7 @@ public class SponsorshipService {
 	public Sponsorship save(Sponsorship sponsorship) {
 		Assert.notNull(sponsorship);
 		Assert.isTrue(sponsorship.getProcession().getStatus().equals("APPROVED"));
-		
+		Assert.isTrue(this.sponsorService.findByPrincipal() == sponsorship.getSponsor());
 		
 		Sponsorship result = this.sponsorshipRepository.save(sponsorship);
 
@@ -67,6 +75,30 @@ public class SponsorshipService {
 
 	// Other business methods
 	public Collection<Sponsorship> findBySponsor(int sponsorId) {
-		return this.sponsorshipRepository.findBySponsor(sponsorId);
+		Collection<Sponsorship> result = this.sponsorshipRepository.findBySponsor(sponsorId);
+		Assert.notNull(result);
+		return result;
+	}
+
+	public Sponsorship reconstruct(final Sponsorship sponsorship, final BindingResult binding) {
+		final Sponsorship result = this.create();
+		
+		// updated atributes
+		result.setBanner(sponsorship.getBanner());
+		result.setCreditCard(sponsorship.getCreditCard());
+		result.setProcession(sponsorship.getProcession());
+		result.setTargetPage(sponsorship.getTargetPage());
+
+		if (sponsorship.getId() != 0) {
+			//not updated atributes
+			result.setId(sponsorship.getId());
+			result.setVersion(sponsorship.getVersion());
+			result.setActive(sponsorship.getActive());
+			result.setSponsor(this.sponsorService.findByPrincipal());
+		}
+
+		this.validator.validate(result, binding);
+
+		return result;
 	}
 }
