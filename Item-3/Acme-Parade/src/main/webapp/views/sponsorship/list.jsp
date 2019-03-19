@@ -20,7 +20,7 @@
 	<display:column property="creditCard.number" title="${ creditCardHeader }" />
 
 	<!-- Procession -->
-	<spring:message code="sponsorship.parade" var="processionHeader" />
+	<spring:message code="sponsorship.procession" var="processionHeader" />
 	<display:column property="procession.title" title="${processionHeader}" sortable="false" />
 	
 								<!-- ACTIONS -->

@@ -119,6 +119,11 @@
 			</li>
 		</security:authorize>
 		
+		<!-- An actor who is authenticated as a SPONSOR -->
+		<security:authorize access="hasRole('SPONSOR')">
+			<li><a href="sponsorship/sponsor/list.do" class="fNiv"><spring:message	code="master.page.sponsorships" /></a></li>
+		</security:authorize>
+		
 		
 		
 		<!-- An actor who is NOT authenticated -->

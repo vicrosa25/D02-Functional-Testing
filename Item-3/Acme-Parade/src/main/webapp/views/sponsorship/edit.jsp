@@ -35,13 +35,24 @@
 	<br>
 
 	<%-- expiration--%>
-	<form:label path="expiration"><spring:message code="sponsorship.expiration" /></form:label>
-	<form:input path="expiration" placeholder="mm/yy" format="{0,date,MM/yy}" />	
-	<form:errors class="error" path="expiration" />
+	<form:label path="creditCard.expiration"><spring:message code="sponsorship.expiration" /></form:label>
+	<form:input path="creditCard.expiration" placeholder="mm/yy" format="{0,date,MM/yy}" />	
+	<form:errors class="error" path="creditCard.expiration" />
 	<br><br>
 
 	<%-- cvvCode--%>
 	<acme:numberbox code="sponsorship.cvvCode" path="creditCard.cvvCode" />
+	<br>
+	
+		
+	<!-- Select Procession -->
+	<acme:select items="${ processions }" itemLabel="title" code="request.procession" path="procession"/>
+	<br>
+	
+	<jstl:if test="${empty processions}">
+		<b><spring:message code="procession.empty.list"/></b>
+		<br>
+	</jstl:if>
 	<br>
 	
 	<input type="submit" name="save" value="<spring:message code="sponsorship.save"/>" />	
