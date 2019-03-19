@@ -92,7 +92,12 @@ public interface AdministratorRepository extends JpaRepository<Administrator, In
 	Double query18();
 	
 	@Query("select count(p)*1.0 / (select count(p1)*1.0 from Procession p1), p.status from Procession p where p.draftMode = false group by p.status")
-	Object[] query19();
+	Collection<Object> query19();
+	
+	
+	// ACME PARADE Queries level A
+	@Query("select count(s)*1.0 / (select count(s1)*1.0 from Sponsorship s1) from Sponsorship s where s.active = true")
+	Double query20();
 	
 	
 	

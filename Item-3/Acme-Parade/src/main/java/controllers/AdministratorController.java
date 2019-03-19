@@ -193,7 +193,10 @@ public class AdministratorController extends AbstractController {
 		Object[] query16 = this.administratorService.query16();
 		Collection<Chapter> query17 = this.administratorService.query17();
 		Double query18 = this.administratorService.query18();
-		Object[] query19 = this.administratorService.query19();
+		Collection<Object> query19 = this.administratorService.query19();
+		
+		// ACME PARADE level A
+		Double query20 = this.administratorService.query20();
 
 		result = new ModelAndView("administrator/dashboard");
 
@@ -215,6 +218,7 @@ public class AdministratorController extends AbstractController {
 		result.addObject("query17", query17);
 		result.addObject("query18", query18);
 		result.addObject("query19", query19);
+		result.addObject("query20", query20);
 
 		int spammers = this.administratorService.queryGetSpammers();
 		int notSpammers = this.administratorService.queryGetNotSpammers();

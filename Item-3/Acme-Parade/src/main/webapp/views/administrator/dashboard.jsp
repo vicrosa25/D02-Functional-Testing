@@ -54,6 +54,9 @@
 <spring:message code="administrator.dashboard.query17" var="query17Header" />
 <spring:message code="administrator.dashboard.query18" var="query18Header" />
 <spring:message code="administrator.dashboard.query19" var="query19Header" />
+<spring:message code="administrator.dashboard.query20" var="query20Header" />
+<spring:message code="administrator.dashboard.query21" var="query21Header" />
+<spring:message code="administrator.dashboard.query22" var="query22Header" />
 
 
 <!--  Custom table style -->
@@ -100,7 +103,6 @@
 </table>
 <br />
 
-
 <!-- Query 14  -->
 <table>
 	<caption>
@@ -115,7 +117,7 @@
       </tr>
    </jstl:forEach>
 </table>
-
+<br />
 
 
 <!--  ACME PARADE Queries level B -->
@@ -175,6 +177,7 @@
     </jstl:forEach>
 	</jstl:if>
 </table>
+<br />
 
 
 <!-- Query 18  -->
@@ -192,6 +195,7 @@
 <br />
 
 <!-- Query 19  -->
+
 <table>
 	<caption>
 		<jstl:out value="${query19Header}"></jstl:out>
@@ -200,9 +204,29 @@
 		<th><jstl:out value="${ratioHeader}"></jstl:out></th>
 		<th><jstl:out value="${statusHeader}"></jstl:out></th>
 	</tr>
+	<jstl:forEach items="${query19}" var="row">
+      <tr>
+        <td><jstl:out value="${row[0]}"></jstl:out></td>
+        <td><jstl:out value="${row[1]}"></jstl:out></td>
+      </tr>
+   </jstl:forEach>
+</table>
+<br />
+
+
+<!--  ACME PARADE Queries level A -->
+
+
+<!-- Query 20  -->
+<table>
+	<caption>
+		<jstl:out value="${query20Header}"></jstl:out>
+	</caption>
 	<tr>
-		<td><jstl:out value="${query19[0]}"></jstl:out></td>
-		<td><jstl:out value="${query19[1]}"></jstl:out></td>
+		<th><jstl:out value="${ratioHeader}"></jstl:out></th>
+	</tr>
+	<tr>
+		<td><jstl:out value="${query20}"></jstl:out></td>
 	</tr>
 </table>
 <br />
@@ -330,6 +354,7 @@
       </tr>
    </jstl:forEach>
 </table>
+<br />
 
 <!-- Query 7  -->
 <table>
