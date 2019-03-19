@@ -620,5 +620,60 @@ public class AdministratorService {
 			
 		}
 	}
+	
+	
+	/**
+	 * 
+	 * Manage Brands ****************************************************************************
+	 */
+
+	// Add Brand
+	public void addBrand(final String word) {
+
+		// Make sure that the principal is an Admin
+		final Object principal = this.findByPrincipal();
+		Assert.isInstanceOf(Administrator.class, principal);
+
+		Assert.notNull(word);
+		Assert.isTrue(word != "");
+		Assert.isTrue(this.configurationsService.getConfiguration().getBrandName().contains(word) != true);
+
+		this.configurationsService.getConfiguration().getBrandName().add(word);
+		this.configurationsService.update(this.configurationsService.getConfiguration());
+	}
+
+	// Edit Brand
+	public void editBrand(final String word, final Integer index) {
+
+		// Make sure that the principal is an Admin
+		final Object principal = this.findByPrincipal();
+		Assert.isInstanceOf(Administrator.class, principal);
+
+		Assert.notNull(word);
+		Assert.isTrue(word != "");
+		Assert.notNull(index);
+
+		Assert.isTrue(this.configurationsService.getConfiguration().getBrandName().contains(word) != true);
+
+		final ArrayList<String> words = new ArrayList<String>(this.configurationsService.getConfiguration().getBrandName());
+		words.set(index, word);
+
+		this.configurationsService.getConfiguration().setBrandName(words);
+		this.configurationsService.update(this.configurationsService.getConfiguration());
+	}
+
+	// Remove Brand
+	public void removeBrand(final String word) {
+
+		// Make sure that the principal is an Admin
+		final Object principal = this.findByPrincipal();
+		Assert.isInstanceOf(Administrator.class, principal);
+
+		Assert.notNull(word);
+		Assert.isTrue(this.configurationsService.getConfiguration().getBrandName().contains(word));
+
+		this.configurationsService.getConfiguration().getBrandName().remove(word);
+		this.configurationsService.update(this.configurationsService.getConfiguration());
+	}
 
 }

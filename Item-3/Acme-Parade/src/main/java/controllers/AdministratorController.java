@@ -756,5 +756,102 @@ public class AdministratorController extends AbstractController {
 		result = this.sponsorList();
 		return result;
 	}
+	
+	/**
+	 * 
+	 * BRANDS ****************************************************************************
+	 */
+
+	// List Brands-------------------------------------------------------------
+	@RequestMapping(value = "/config/brand/list", method = RequestMethod.GET)
+	public ModelAndView brandList() {
+		ModelAndView result;
+		Collection<String> brands;
+
+		brands = this.configurationsService.getConfiguration().getBrandName();
+
+		result = new ModelAndView("administrator/config/brand/list");
+		result.addObject("requestURI", "administrator/config/brand/list.do");
+		result.addObject("brands", brands);
+
+		return result;
+	}
+
+	// Add  Brand GET-------------------------------------------------------------
+	@RequestMapping(value = "/config/brand/add", method = RequestMethod.GET)
+	public ModelAndView addBrand() {
+		ModelAndView result;
+
+		result = new ModelAndView("administrator/config/brand/add");
+		result.addObject("action", "administrator/config/brand/add.do");
+		return result;
+	}
+
+	// Add  Brand POST-------------------------------------------------------------
+	@RequestMapping(value = "/config/brand/add", method = RequestMethod.POST, params = "save")
+	public ModelAndView addBrand(@RequestParam("brand") final String brand) {
+		ModelAndView result;
+
+		try {
+			// Add the word and update configurations
+			this.administratorService.addBrand(brand);
+		} catch (final Exception e) {
+			result = new ModelAndView("administrator/config/brand/add");
+			result.addObject("action", "administrator/config/brand/add.do");
+			result.addObject("message", "config.field.error");
+			return result;
+		}
+
+		result = this.brandList();
+
+		return result;
+	}
+
+	// Edit Brand GET ------------------------------------------------------------------
+	@RequestMapping(value = "/config/brand/edit", method = RequestMethod.GET)
+	public ModelAndView editBrand(@RequestParam("brand") final String brand, @RequestParam("index") final int index) {
+		ModelAndView result;
+
+		result = new ModelAndView("administrator/config/brand/edit");
+		result.addObject("action", "administrator/config/brand/edit.do");
+
+		result.addObject("brand", brand);
+		result.addObject("index", index);
+
+		return result;
+	}
+
+	// Edit Brand SAVE ------------------------------------------------------------------
+	@RequestMapping(value = "/config/brand/edit", method = RequestMethod.POST, params = "save")
+	public ModelAndView editBrandPost(@RequestParam("brand") final String brand, @RequestParam("index") final int index) {
+		ModelAndView result;
+
+		try {
+			// Add the word and update configurations
+			this.administratorService.editBrand(brand, index - 1);
+		} catch (final Exception e) {
+			e.printStackTrace();
+			result = new ModelAndView("administrator/config/brand/edit");
+			result.addObject("action", "administrator/config/brand/edit.do");
+
+			result.addObject("brand", brand);
+			result.addObject("index", index);
+
+			result.addObject("message", "config.field.error");
+
+			return result;
+		}
+
+		return this.brandList();
+	}
+
+	// Remove Brand ------------------------------------------------------------------
+	@RequestMapping(value = "/config/brand/remove", method = RequestMethod.GET)
+	public ModelAndView removeBrand(@RequestParam("word") final String word) {
+
+		this.administratorService.removeBrand(word);
+
+		return this.brandList();
+	}
 
 }

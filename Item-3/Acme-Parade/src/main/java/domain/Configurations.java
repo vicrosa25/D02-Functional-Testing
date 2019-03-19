@@ -30,6 +30,8 @@ public class Configurations extends DomainEntity {
 	private String				countryCode;
 	private String 				title;
 	private String 				logo;
+	private Collection<String>	brandName;
+	private double				vat;
 
 
 	@Range(min = 1, max = 24)
@@ -96,7 +98,7 @@ public class Configurations extends DomainEntity {
 
 	@NotEmpty
 	public String getTitle() {
-		return title;
+		return this.title;
 	}
 
 	
@@ -107,7 +109,7 @@ public class Configurations extends DomainEntity {
 	@NotEmpty
 	@URL
 	public String getLogo() {
-		return logo;
+		return this.logo;
 	}
 
 	
@@ -118,7 +120,7 @@ public class Configurations extends DomainEntity {
 	
 	@NotBlank
 	public String getSpanishMessage() {
-		return spanishMessage;
+		return this.spanishMessage;
 	}
 
 	public void setSpanishMessage(String spanishMessage) {
@@ -127,7 +129,7 @@ public class Configurations extends DomainEntity {
 
 	@NotBlank
 	public String getEnglishMessage() {
-		return englishMessage;
+		return this.englishMessage;
 	}
 
 	public void setEnglishMessage(String englishMessage) {
@@ -136,6 +138,24 @@ public class Configurations extends DomainEntity {
 
 	public void setFinderMaxResult(int finderMaxResult) {
 		this.finderMaxResult = finderMaxResult;
+	}
+	
+	@NotNull
+	@NotEmpty
+	@ElementCollection
+	public Collection<String> getBrandName() {
+		return this.brandName;
+	}
+	public void setBrandName(final Collection<String> brandName) {
+		this.brandName = brandName;
+	}
+	
+	public double getVat() {
+		return this.vat;
+	}
+
+	public void setVat(final double vat) {
+		this.vat = vat;
 	}
 
 	

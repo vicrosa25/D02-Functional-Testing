@@ -44,6 +44,7 @@
 					<li><a href="administrator/config/cache/edit.do"><spring:message code="master.page.cache" /></a></li>
 					<li><a href="administrator/config/aliveConfig/edit.do"><spring:message code="master.page.settings" /></a></li>
 					<li><a href="administrator/config/spam/list.do"><spring:message code="master.page.spam.words" /></a></li>
+					<li><a href="administrator/config/brand/list.do"><spring:message code="master.page.config.brand" /></a></li>
 				</ul>
 			</li>
 		</security:authorize>

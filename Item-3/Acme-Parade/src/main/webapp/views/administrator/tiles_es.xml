@@ -103,4 +103,20 @@
 		<put-attribute name="body" value="/views/administrator/config/sponsorship/list.jsp" />
 	</definition>
 	
+	<!-- BRAND -->
+	<definition name="administrator/config/brand/list" extends="master.page">
+		<put-attribute name="title" value="List de Marcas de Tarjetas" />
+		<put-attribute name="body" value="/views/administrator/config/brand/list.jsp" />
+	</definition>
+	
+	<definition name="administrator/config/brand/add" extends="master.page">
+		<put-attribute name="title" value="Añadir Marca" />
+		<put-attribute name="body" value="/views/administrator/config/brand/add.jsp" />
+	</definition>
+	
+	<definition name="administrator/config/brand/edit" extends="master.page">
+		<put-attribute name="title" value="Editar Marca" />
+		<put-attribute name="body" value="/views/administrator/config/brand/edit.jsp" />
+	</definition>
+	
 </tiles-definitions>

@@ -1269,6 +1269,7 @@
 	<bean id="configurations" class="domain.Configurations">
 		<property name="cacheTime" value="1" />
 		<property name="finderMaxResult" value="10" />
+		<property name="vat" value="0.21"/>
 		<property name="countryCode" value="+34" />
 		<property name="title" value="Acme Madruga Co., Inc." />
 		<property name="logo" value="https://tinyurl.com/acme-madruga" />
@@ -1316,6 +1317,14 @@
 				<value>mediocre</value>
 				<value>disaster</value>
 				<value>desastre</value>
+			</list>
+		</property>
+		<property name="brandName">
+			<list>
+				<value>VISA</value>
+				<value>MCARD</value>
+				<value>DINNERS</value>
+				<value>AMEX</value>
 			</list>
 		</property>
 	</bean>
