@@ -1177,6 +1177,7 @@
 	<bean id="sponsorship1" class="domain.Sponsorship">
 		<property name="banner" value="https://goo.gl/mR1tJ6" />
 		<property name="targetPage" value="http://www.targetPage.com" />
+		<property name="active" value="true" />
 		<property name="creditCard" ref="creditCard1" />
 		<property name="sponsor" ref="sponsor1" />
 		<property name="procession" ref="procession1" />
@@ -1185,6 +1186,7 @@
 	<bean id="sponsorship2" class="domain.Sponsorship">
 		<property name="banner" value="https://goo.gl/IrU3gD" />
 		<property name="targetPage" value="http://www.targetPage.com" />
+		<property name="active" value="true" />
 		<property name="creditCard" ref="creditCard2" />
 		<property name="sponsor" ref="sponsor2" />
 		<property name="procession" ref="procession1" />
