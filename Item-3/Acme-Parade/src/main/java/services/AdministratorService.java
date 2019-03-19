@@ -283,6 +283,21 @@ public class AdministratorService {
 		return this.adminRepository.query21();
 	}
 	
+	public Collection<Object> query22(int top) {
+		Collection<Object> queryResult = this.adminRepository.query22();
+		Collection<Object> result = new ArrayList<Object>();
+
+		int count = 0;
+		for (Object o : queryResult)
+			if (count <= top) {
+				result.add(o);
+				count++;
+			} else
+				break;
+
+		return result;
+	}
+	
 	
 
 	// 28.2 Spammers procedure--------------------------------------------------------------------

@@ -102,6 +102,9 @@ public interface AdministratorRepository extends JpaRepository<Administrator, In
 	@Query("select avg(s.sponsorships.size), min(s.sponsorships.size), max(s.sponsorships.size), stddev(s.sponsorships.size) from Sponsor s join s.sponsorships ss where ss.active = true")
 	Object[] query21();
 	
+	@Query("select s.name, s.sponsorships.size from Sponsor s join s.sponsorships ss where ss.active = true group by ss order by sum(s.sponsorships.size) desc")
+	Collection<Object> query22();
+	
 	
 	
 	

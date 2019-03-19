@@ -35,6 +35,7 @@
 <spring:message code="administrator.approved.request" var="aprovedRequestHeader" />
 <spring:message code="administrator.total.request"    var="totalRequestHeader" />
 <spring:message code="administrator.chapter"    	  var="chapterHeader" />
+<spring:message code="administrator.sponsorships"     var="sponsorshipsHeader" />
 
 <spring:message code="administrator.dashboard.query1" var="query1Header" />
 <spring:message code="administrator.dashboard.query2" var="query2Header" />
@@ -248,6 +249,26 @@
 		<td><jstl:out value="${query21[2]}"></jstl:out></td>
 		<td><jstl:out value="${query21[3]}"></jstl:out></td>
 	</tr>
+</table>
+<br />
+
+
+<!-- Query 22  -->
+
+<table>
+	<caption>
+		<jstl:out value="${query22Header}"></jstl:out>
+	</caption>
+	<tr>
+		<th><jstl:out value="${nameHeader}"></jstl:out></th>
+		<th><jstl:out value="${sponsorshipsHeader}"></jstl:out></th>
+	</tr>
+	<jstl:forEach items="${query22}" var="row">
+      <tr>
+        <td><jstl:out value="${row[0]}"></jstl:out></td>
+        <td><jstl:out value="${row[1]}"></jstl:out></td>
+      </tr>
+   </jstl:forEach>
 </table>
 <br />
 
