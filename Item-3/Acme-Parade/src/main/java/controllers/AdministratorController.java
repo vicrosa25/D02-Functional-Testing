@@ -34,12 +34,13 @@ import domain.Brotherhood;
 import domain.Chapter;
 import domain.Configurations;
 import domain.Procession;
+import domain.Sponsorship;
 import services.ActorService;
 import services.AdministratorService;
 import services.ConfigurationsService;
 import services.MessageBoxService;
+import services.SponsorshipService;
 import utilities.Md5;
-
 
 @Controller
 @RequestMapping("/administrator")
@@ -51,14 +52,14 @@ public class AdministratorController extends AbstractController {
 	@Autowired
 	private ActorService			actorService;
 
-//	@Autowired
-//	private PositionService			positionService;
-
 	@Autowired
 	private MessageBoxService		messageBoxService;
 
 	@Autowired
 	private ConfigurationsService	configurationsService;
+
+	@Autowired
+	private SponsorshipService		sponsorshipService;
 
 
 	@ExceptionHandler(TypeMismatchException.class)
@@ -169,34 +170,33 @@ public class AdministratorController extends AbstractController {
 		final ModelAndView result;
 
 		// Queries level C
-		Object[] query1 	     	   	 = this.administratorService.query1();
-		Collection<Brotherhood> query2	 = this.administratorService.query2();
-		Collection<Brotherhood> query3	 = this.administratorService.query3();
-		Collection<Double> query4 	  	 = this.administratorService.query4();
-		Collection<Procession> query5 	 = this.administratorService.query5();
-		Collection<Object> query7 	  	 = this.administratorService.query7();
-		Collection<Object> query8 	  	 = this.administratorService.query8();
-		
+		Object[] query1 = this.administratorService.query1();
+		Collection<Brotherhood> query2 = this.administratorService.query2();
+		Collection<Brotherhood> query3 = this.administratorService.query3();
+		Collection<Double> query4 = this.administratorService.query4();
+		Collection<Procession> query5 = this.administratorService.query5();
+		Collection<Object> query7 = this.administratorService.query7();
+		Collection<Object> query8 = this.administratorService.query8();
+
 		// Queries level B
-		Object[] query9 	   			 = this.administratorService.query9();
-		Object[] query10 	  		     = this.administratorService.query10();
-		Double query11	 	   		     = this.administratorService.query11();
-		
+		Object[] query9 = this.administratorService.query9();
+		Object[] query10 = this.administratorService.query10();
+		Double query11 = this.administratorService.query11();
+
 		// ACME PARADE level C
-		Object[] query12			     = this.administratorService.query12();
-		Brotherhood query13			     = this.administratorService.query13();
-		Collection<Brotherhood> query14  = this.administratorService.query14();
-		
+		Object[] query12 = this.administratorService.query12();
+		Brotherhood query13 = this.administratorService.query13();
+		Collection<Brotherhood> query14 = this.administratorService.query14();
+
 		// ACME PARADE level B
-		Double query15				     = this.administratorService.query15();
-		Object[] query16			     = this.administratorService.query16();
-		Collection<Chapter> query17	     = this.administratorService.query17();
-		Double query18				     = this.administratorService.query18();
-		Object[] query19			     = this.administratorService.query19();
+		Double query15 = this.administratorService.query15();
+		Object[] query16 = this.administratorService.query16();
+		Collection<Chapter> query17 = this.administratorService.query17();
+		Double query18 = this.administratorService.query18();
+		Object[] query19 = this.administratorService.query19();
 
 		result = new ModelAndView("administrator/dashboard");
 
-		
 		result.addObject("query1", query1);
 		result.addObject("query2", query2);
 		result.addObject("query3", query3);
@@ -215,25 +215,18 @@ public class AdministratorController extends AbstractController {
 		result.addObject("query17", query17);
 		result.addObject("query18", query18);
 		result.addObject("query19", query19);
-		
-		
+
 		int spammers = this.administratorService.queryGetSpammers();
 		int notSpammers = this.administratorService.queryGetNotSpammers();
 		Double averagePolarity = this.administratorService.getAveragePolarity();
-		
-		
+
 		result.addObject("spammers", spammers);
 		result.addObject("notSpammers", notSpammers);
 		result.addObject("averagePolarity", averagePolarity);
 
 		return result;
 	}
-	
-	
-	
-	
-	
-	
+
 	/**
 	 * 
 	 * SPAM
@@ -542,7 +535,7 @@ public class AdministratorController extends AbstractController {
 		this.administratorService.removeNegativeWord(word);
 		return this.wordList();
 	}
-	
+
 	/**
 	 * 
 	 * Manage CACHE ****************************************************************************
@@ -583,7 +576,7 @@ public class AdministratorController extends AbstractController {
 
 		return result;
 	}
-	
+
 	/**
 	 * 
 	 * Settings ****************************************************************************
@@ -623,7 +616,7 @@ public class AdministratorController extends AbstractController {
 
 		return result;
 	}
-	
+
 	/**
 	 * 
 	 * Manage Spam Word ****************************************************************************
@@ -720,6 +713,39 @@ public class AdministratorController extends AbstractController {
 
 		this.administratorService.removeSpamWord(word);
 		return this.spamWordList();
+	}
+
+	/**
+	 * 
+	 * Process to deactivate Sponsorships **********************************************************************
+	 */
+
+	// List -------------------------------------------------------------
+	@RequestMapping(value = "/sponsorship/list", method = RequestMethod.GET)
+	public ModelAndView sponsorList() {
+		ModelAndView result;
+		Collection<Sponsorship> sponsorships;
+		try {
+			sponsorships = this.sponsorshipService.findAll();
+
+			result = new ModelAndView("administrator/sponsorship/list");
+			result.addObject("sponsorships", sponsorships);
+		} catch (final Throwable oops) {
+			result = this.forbiddenOpperation();
+		}
+		return result;
+	}
+	
+	
+	// Launch process
+	@RequestMapping(value = "/computeSponsorship", method = RequestMethod.GET)
+	public ModelAndView computeSponsorship() {
+		ModelAndView result;
+
+		this.administratorService.deactivateSponsorships();
+
+		result = this.sponsorList();
+		return result;
 	}
 
 }

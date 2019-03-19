@@ -1198,7 +1198,7 @@
 		<property name="holderName" value="sponsor1" />
 		<property name="brandName" value="VISA" />
 		<property name="number" value="4414856614566419" />
-		<property name="expiration" value="02/02/23" />
+		<property name="expiration" value="12/02/15" />
 		<property name="cvvCode" value="123" />
 	</bean>
 	
@@ -1206,7 +1206,7 @@
 		<property name="holderName" value="sponsor2" />
 		<property name="brandName" value="VISA" />
 		<property name="number" value="4877161530824285" />
-		<property name="expiration" value="01/01/23" />
+		<property name="expiration" value="12/04/23" />
 		<property name="cvvCode" value="123" />
 	</bean>
 	

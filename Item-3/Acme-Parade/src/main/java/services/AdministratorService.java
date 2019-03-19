@@ -16,9 +16,11 @@ import domain.Actor;
 import domain.Administrator;
 import domain.Brotherhood;
 import domain.Chapter;
+import domain.CreditCard;
 import domain.Message;
 import domain.MessageBox;
 import domain.Procession;
+import domain.Sponsorship;
 import repositories.AdministratorRepository;
 import security.Authority;
 import security.LoginService;
@@ -44,6 +46,9 @@ public class AdministratorService {
 
 	@Autowired
 	private MessageService			messageService;
+	
+	@Autowired
+	private SponsorshipService		sponsorshipService;
 
 
 	/*************************************
@@ -564,6 +569,30 @@ public class AdministratorService {
 
 		this.configurationsService.getConfiguration().getSpamWords().remove(word);
 		this.configurationsService.update(this.configurationsService.getConfiguration());
+	}
+	
+	
+	/**
+	 * 
+	 * Process to deactivate Sponsorships **********************************************************************
+	 */
+	public void deactivateSponsorships() {
+		Collection<Sponsorship> sponsorships;
+		CreditCard card;
+		Date expiration;
+		Date now = new Date();
+		sponsorships = this.sponsorshipService.findAll();
+		
+		for (Sponsorship sponsorship : sponsorships) {
+			card = sponsorship.getCreditCard();
+			expiration = card.getExpiration();
+			
+			if(expiration.after(now)) {
+				sponsorship.setActive(false);
+				this.sponsorshipService.save(sponsorship);
+			}
+			
+		}
 	}
 
 }

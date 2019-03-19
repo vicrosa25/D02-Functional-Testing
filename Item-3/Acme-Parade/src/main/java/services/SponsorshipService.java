@@ -11,9 +11,10 @@ import org.springframework.util.Assert;
 import org.springframework.validation.BindingResult;
 import org.springframework.validation.Validator;
 
-import repositories.SponsorshipRepository;
+import domain.Actor;
 import domain.Sponsor;
 import domain.Sponsorship;
+import repositories.SponsorshipRepository;
 
 @Service
 @Transactional
@@ -25,6 +26,9 @@ public class SponsorshipService {
 	
 	@Autowired
 	private SponsorService		  sponsorService;
+	
+	@Autowired
+	private ActorService		  actorService;
 
 	@Autowired
 	@Qualifier("validator")
@@ -60,7 +64,13 @@ public class SponsorshipService {
 	public Sponsorship save(Sponsorship sponsorship) {
 		Assert.notNull(sponsorship);
 		Assert.isTrue(sponsorship.getProcession().getStatus().equals("APPROVED"));
-		Assert.isTrue(this.sponsorService.findByPrincipal() == sponsorship.getSponsor());
+		Actor principal;
+		
+		principal = this.actorService.findByPrincipal();
+		
+		if (principal.getClass().equals(Sponsor.class)) {
+			Assert.isTrue(this.sponsorService.findByPrincipal() == sponsorship.getSponsor());
+		}
 		
 		Sponsorship result = this.sponsorshipRepository.save(sponsorship);
 

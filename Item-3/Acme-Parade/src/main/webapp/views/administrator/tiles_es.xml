@@ -97,4 +97,10 @@
 		<put-attribute name="body" value="/views/administrator/config/spam/edit.jsp" />
 	</definition>
 	
+	<!-- SPONSORSHIP -->
+	<definition name="administrator/sponsorship/list" extends="master.page">	
+		<put-attribute name="title" value="Proceso para desactivar Sponsorships" />
+		<put-attribute name="body" value="/views/administrator/config/sponsorship/list.jsp" />
+	</definition>
+	
 </tiles-definitions>
