@@ -86,6 +86,12 @@
 	<!-- brotherhood -->
 	<spring:message code="procession.brotherhood" var="brotherhoodHeader" />
 	<display:column property="brotherhood.title" title="${brotherhoodHeader}" class="${css}"/>
+		
+	<!-- Display -->
+	<spring:message code="procession.display" var="displayHeader" />
+	<display:column title="${displayHeader}" class="${css}">
+		<a href="procession/display.do?processionId=${row.id}"> <spring:message code="procession.display" /></a>
+	</display:column>
 	
 	<!-- draftMode -->
 <%-- 	<spring:message code="procession.draftMode" var="draftModeHeader" /> --%>

@@ -4,6 +4,7 @@
 <%@taglib prefix="form" uri="http://www.springframework.org/tags/form"%>
 <%@taglib prefix="security" uri="http://www.springframework.org/security/tags"%>
 <%@taglib prefix="display" uri="http://displaytag.sf.net"%>
+<%@ taglib prefix="acme" tagdir="/WEB-INF/tags" %>
 
 <display:table name="procession" id="row" requestURI="procession/display.do" class="displaytag">>
 	<!-- Ticker -->
@@ -29,6 +30,10 @@
 </display:table>
 
 <jstl:if test="${not empty sponsorship}"><div>
-	<a href="/sponsorship/charge.do"><img src="${sponsorship.banner}" alt="${sponsorship.targetPage}"
+	<a href="sponsorship/charge.do?sponsorshipId=${sponsorship.id}&processionId=${procession.id}"><img src="${sponsorship.banner}" alt="${sponsorship.targetPage}"
 		width="500" height="120" /></a>
 </div></jstl:if>
+<jstl:if test="${not empty charged}">
+	<spring:message code="sponsorship.charged"/>${sponsorship.targetPage}<br>
+</jstl:if>
+<acme:cancel code="member.goback" url="/procession/brotherhoodList.do?brotherhoodId=${procession.brotherhood.id }" />
