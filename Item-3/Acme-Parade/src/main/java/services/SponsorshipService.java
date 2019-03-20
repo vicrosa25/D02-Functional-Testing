@@ -1,6 +1,7 @@
 
 package services;
 
+import java.util.ArrayList;
 import java.util.Collection;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -11,10 +12,11 @@ import org.springframework.util.Assert;
 import org.springframework.validation.BindingResult;
 import org.springframework.validation.Validator;
 
+import repositories.SponsorshipRepository;
 import domain.Actor;
+import domain.Procession;
 import domain.Sponsor;
 import domain.Sponsorship;
-import repositories.SponsorshipRepository;
 
 @Service
 @Transactional
@@ -108,6 +110,15 @@ public class SponsorshipService {
 		}
 
 		this.validator.validate(result, binding);
+
+		return result;
+	}
+
+	public ArrayList<Sponsorship> findByProcession(Procession procession) {
+		Assert.notNull(procession);
+		ArrayList<Sponsorship> result = new ArrayList<Sponsorship>
+			(this.sponsorshipRepository.findByProcession(procession.getId()));
+		Assert.notNull(result);
 
 		return result;
 	}

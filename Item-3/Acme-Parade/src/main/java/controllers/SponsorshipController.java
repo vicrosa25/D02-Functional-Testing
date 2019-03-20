@@ -21,11 +21,12 @@ import org.springframework.web.servlet.ModelAndView;
 import services.ProcessionService;
 import services.SponsorService;
 import services.SponsorshipService;
+import domain.Procession;
 import domain.Sponsor;
 import domain.Sponsorship;
 
 @Controller
-@RequestMapping("/sponsorship/sponsor/")
+@RequestMapping("/sponsorship")
 public class SponsorshipController extends AbstractController {
 
 	@Autowired
@@ -45,7 +46,7 @@ public class SponsorshipController extends AbstractController {
 	}
 
 	// List -------------------------------------------------------------
-	@RequestMapping(value = "/list", method = RequestMethod.GET)
+	@RequestMapping(value = "/sponsor/list", method = RequestMethod.GET)
 	public ModelAndView list() {
 		ModelAndView result;
 		Collection<Sponsorship> sponsorships;
@@ -63,7 +64,7 @@ public class SponsorshipController extends AbstractController {
 	}
 
 	// Create ---------------------------------------------------------------
-	@RequestMapping(value = "/create", method = RequestMethod.GET)
+	@RequestMapping(value = "/sponsor/create", method = RequestMethod.GET)
 	public ModelAndView create() {
 		ModelAndView result;
 		Sponsorship sponsorship;
@@ -78,7 +79,7 @@ public class SponsorshipController extends AbstractController {
 	}
 
 	// Edit -------------------------------------------------------------
-	@RequestMapping(value = "/edit", method = RequestMethod.GET)
+	@RequestMapping(value = "/sponsor/edit", method = RequestMethod.GET)
 	public ModelAndView edit(@RequestParam final int sponsorshipId) {
 		ModelAndView result;
 		Sponsorship sponsorship;
@@ -95,7 +96,7 @@ public class SponsorshipController extends AbstractController {
 	}
 
 	// Save -------------------------------------------------------------
-	@RequestMapping(value = "/edit", method = RequestMethod.POST, params = "save")
+	@RequestMapping(value = "/sponsor/edit", method = RequestMethod.POST, params = "save")
 	public ModelAndView save(final Sponsorship prune, final BindingResult binding) {
 		ModelAndView result;
 		Sponsorship sponsorship;
@@ -128,7 +129,7 @@ public class SponsorshipController extends AbstractController {
 	}
 
 	// Deactivate ------------------------------------------------------
-	@RequestMapping(value = "/deactivate", method = RequestMethod.GET)
+	@RequestMapping(value = "/sponsor/deactivate", method = RequestMethod.GET)
 	public ModelAndView deactivate(@RequestParam final int sponsorshipId) {
 		ModelAndView result;
 		Sponsorship sponsorship;
@@ -148,7 +149,7 @@ public class SponsorshipController extends AbstractController {
 	}
 
 	// Activate ------------------------------------------------------
-	@RequestMapping(value = "/activate", method = RequestMethod.GET)
+	@RequestMapping(value = "/sponsor/activate", method = RequestMethod.GET)
 	public ModelAndView activate(@RequestParam final int sponsorshipId) {
 		ModelAndView result;
 		Sponsorship sponsorship;
@@ -164,6 +165,30 @@ public class SponsorshipController extends AbstractController {
 			result = this.forbiddenOpperation();
 		}
 
+		return result;
+	}
+
+	// charge -------------------------------------------------------------
+	@RequestMapping(value = "/charge", method = RequestMethod.GET)
+	public ModelAndView charge(@RequestParam final int sponsorshipId, @RequestParam final int processionId) {
+		ModelAndView result;
+		Sponsorship sponsorship;
+		Procession procession;
+
+		try {
+			sponsorship = this.sponsorshipService.findOne(sponsorshipId);
+			result = this.createEditModelAndView(sponsorship);
+			procession = this.processionService.findOne(processionId);
+
+			Assert.isTrue(sponsorship.getProcession() == procession);
+
+			result = new ModelAndView("procession/display");
+			result.addObject("procession", procession);
+			result.addObject("charged", "sponsorship.charged");
+			result.addObject("sponsorship", sponsorship);
+		} catch (final Throwable oops) {
+			result = this.forbiddenOpperation();
+		}
 		return result;
 	}
 

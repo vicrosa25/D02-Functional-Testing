@@ -1,7 +1,9 @@
 
 package controllers;
 
+import java.util.ArrayList;
 import java.util.Collection;
+import java.util.Random;
 
 import org.springframework.beans.TypeMismatchException;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -16,8 +18,10 @@ import org.springframework.web.servlet.ModelAndView;
 
 import services.BrotherhoodService;
 import services.ProcessionService;
+import services.SponsorshipService;
 import domain.Brotherhood;
 import domain.Procession;
+import domain.Sponsorship;
 
 @Controller
 @RequestMapping("/procession")
@@ -29,10 +33,40 @@ public class ProcessionController extends AbstractController {
 	@Autowired
 	private BrotherhoodService	brotherhoodService;
 
+	@Autowired
+	private SponsorshipService	sponsorshipService;
+
 
 	@ExceptionHandler(TypeMismatchException.class)
 	public ModelAndView handleMismatchException(final TypeMismatchException oops) {
 		return new ModelAndView("redirect:/");
+	}
+
+	// Display ------------------------------------------------------------------------------------
+	@RequestMapping(value = "/display", method = RequestMethod.GET)
+	public ModelAndView display(@RequestParam final int processionId) {
+		ModelAndView result;
+		Procession procession;
+
+		try {
+			procession = this.processionService.findOne(processionId);
+			ArrayList<Sponsorship> sponsorships = sponsorshipService.findByProcession(procession);
+
+			result = new ModelAndView("procession/display");
+			result.addObject("procession", procession);
+			if (!sponsorships.isEmpty()) {
+				Random rand = new Random();
+				result.addObject("sponsorship", sponsorships.get(rand.nextInt(sponsorships.size())));
+			}
+
+		} catch (final Throwable oops) {
+			System.out.println(oops.getMessage());
+			System.out.println(oops.getClass());
+			System.out.println(oops.getCause());
+			result = this.forbiddenOpperation();
+		}
+
+		return result;
 	}
 
 	// List
