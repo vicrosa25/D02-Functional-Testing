@@ -56,16 +56,6 @@
 	</jstl:if>
 	
 	
-	
-	
-	<security:authorize access="hasRole('BROTHERHOOD')">
-	<jstl:if test="${not empty bro}">
-		<spring:message code="procession.edit" var="editHeader" />
-		<display:column title="${editHeader}" class="${css}">
-			<a href="procession/brotherhood/edit.do?processionId=${row.id}"> <spring:message code="procession.edit" /></a>
-		</display:column>
-	</jstl:if>
-	</security:authorize>
 
 	<!-- title -->
 	<spring:message code="procession.title" var="titleHeader" />
@@ -99,16 +89,23 @@
 
 	<security:authorize access="hasRole('BROTHERHOOD')">
 	<jstl:if test="${not empty bro}">
-		<spring:message code="procession.delete" var="deleteHeader" />
-		<spring:message code="path.manage" var="pathHeader" />
 		<spring:message code="procession.status" var="statusHeader" />
-		
 		<display:column property="status" title="${statusHeader}" class="${css}"/>
 		
-		<display:column title="${pathHeader}" class="${css}">
-			<a href="path/brotherhood/list.do?processionId=${row.id}"> <spring:message code="path.list" /></a>
-		</display:column>
+		<jstl:if test="${row.draftMode}">
+			<spring:message code="procession.delete" var="deleteHeader" />
+			<spring:message code="path.manage" var="pathHeader" />
+			<spring:message code="procession.edit" var="editHeader" />
+			
+			<display:column title="${editHeader}" class="${css}">
+				<a href="procession/brotherhood/edit.do?processionId=${row.id}"> <spring:message code="procession.edit" /></a>
+			</display:column>
+		</jstl:if>
 		
+		<display:column title="${pathHeader}" class="${css}">
+			<a href="path/brotherhood/display.do?processionId=${row.id}"> <spring:message code="path.display" /></a>
+		</display:column>
+			
 		<display:column title="${copyHeader}" class="${css}">
 			<a href="procession/brotherhood/copy.do?processionId=${row.id}"> <spring:message code="procession.copy" /></a>
 		</display:column>

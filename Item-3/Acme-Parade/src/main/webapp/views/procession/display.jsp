@@ -36,4 +36,30 @@
 <jstl:if test="${not empty charged}">
 	<spring:message code="sponsorship.charged"/>${sponsorship.targetPage}<br>
 </jstl:if>
+
+
+<jstl:if test="${not empty procession.path}">
+<display:table name="procession.path.segments" id="row" requestURI="procession/display.do" class="displaytag">
+
+	<spring:message code="segment.origin.coordinates" var="originHeader" />
+	<display:column title="${originHeader}" sortable="false" >
+		${row.originLatitude} : ${row.originLongitude}
+	</display:column>
+	
+	<spring:message code="segment.originTime" var="originTimeHeader" />
+	<display:column property="originTime" title="${originTimeHeader}" sortable="false" format="{0,date,dd/MM/yyyy HH:mm}" />
+	
+	
+	<spring:message code="segment.destination.coordinates" var="destinationHeader" />
+	<display:column title="${destinationHeader}" sortable="false" >
+		${row.destinationLatitude} : ${row.destinationLongitude}
+	</display:column>
+	
+	<spring:message code="segment.destinationTime" var="destinationTimeHeader" />
+	<display:column property="destinationTime" title="${destinationTimeHeader}" sortable="false" format="{0,date,dd/MM/yyyy HH:mm}" />
+	
+	<display:caption><spring:message code="path.segments"/></display:caption>
+</display:table>
+<br>
+</jstl:if>
 <acme:cancel code="member.goback" url="/procession/brotherhoodList.do?brotherhoodId=${procession.brotherhood.id }" />

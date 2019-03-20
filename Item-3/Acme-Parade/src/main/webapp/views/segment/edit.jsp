@@ -16,10 +16,10 @@
 
 	<%-- Origin--%>
 	<spring:message code="segment.origin.form"/>
-	<acme:numberbox code="segment.latitude" path="originLatitude" readonly="true"/>
+	<acme:numberbox code="segment.latitude" path="originLatitude" readonly="${readOnly}"/>
 	<br>
 	
-	<acme:numberbox code="segment.longitude" path="originLongitude"  readonly="true"/>
+	<acme:numberbox code="segment.longitude" path="originLongitude"  readonly="${readOnly}"/>
 	<br>
 
 		<%-- time --%>
@@ -43,5 +43,6 @@
 	<br><br>
 	
 	<input type="submit" name="save" value="<spring:message code="path.save"/>" />	
-	<acme:cancel code="path.cancel" url="/path/brotherhood/display.do?pathId=${segment.path.id}" />
+	<acme:cancel code="path.cancel" 
+		url="/path/brotherhood/display.do?processionId=${segment.path.procession.id}" />
 </form:form>
