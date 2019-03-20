@@ -38,7 +38,7 @@ public class PathController extends AbstractController {
 	private BrotherhoodService	brotherhoodService;
 
 	@Autowired
-	private ProcessionService	procesionService;
+	private ProcessionService	processionService;
 
 	@Autowired
 	private SegmentService		segmentService;
@@ -51,46 +51,25 @@ public class PathController extends AbstractController {
 
 	// Display ------------------------------------------------------------------------------------
 	@RequestMapping(value = "/display", method = RequestMethod.GET)
-	public ModelAndView display(@RequestParam final int pathId) {
+	public ModelAndView display(@RequestParam final int processionId) {
 		ModelAndView result;
 		Brotherhood brotherhood;
 		Path path;
-
-		try {
-			brotherhood = this.brotherhoodService.findByPrincipal();
-			path = this.pathService.findOne(pathId);
-
-			Assert.isTrue(brotherhood.getProcessions().contains(path.getProcession()));
-
-			result = new ModelAndView("path/brotherhood/display");
-			result.addObject("path", path);
-
-		} catch (final Throwable oops) {
-			System.out.println(oops.getMessage());
-			System.out.println(oops.getClass());
-			System.out.println(oops.getCause());
-			result = this.forbiddenOpperation();
-
-		}
-
-		return result;
-	}
-
-	// List ------------------------------------------------------------------------------------
-	@RequestMapping(value = "/list", method = RequestMethod.GET)
-	public ModelAndView list(@RequestParam final int processionId) {
-		ModelAndView result;
-		Brotherhood brotherhood;
 		Procession procession;
 
 		try {
 			brotherhood = this.brotherhoodService.findByPrincipal();
-			procession = this.procesionService.findOne(processionId);
+			procession = this.processionService.findOne(processionId);
+			path = procession.getPath();
 
-			Assert.isTrue(brotherhood.getProcessions().contains(procession));
+			if (path == null) {
+				result = new ModelAndView("redirect:/path/brotherhood/create.do?");
+			} else {
+				Assert.isTrue(brotherhood.getProcessions().contains(path.getProcession()));
 
-			result = new ModelAndView("path/brotherhood/list");
-			result.addObject("paths", procession.getPaths());
+				result = new ModelAndView("path/brotherhood/display");
+				result.addObject("path", path);
+			}
 
 		} catch (final Throwable oops) {
 			System.out.println(oops.getMessage());
@@ -154,7 +133,7 @@ public class PathController extends AbstractController {
 				segment.setPath(path);
 				this.segmentService.save(segment);
 
-				result = new ModelAndView("redirect:/path/brotherhood/list.do?processionId=" + path.getProcession().getId());
+				result = new ModelAndView("redirect:/path/brotherhood/display.do?processionId=" + path.getProcession().getId());
 			} catch (final Throwable oops) {
 				System.out.println(oops.getMessage());
 				System.out.println(oops.getClass());
@@ -179,7 +158,7 @@ public class PathController extends AbstractController {
 			Assert.isTrue(this.brotherhoodService.findByPrincipal().getProcessions().contains(path.getProcession()));
 
 			this.pathService.delete(path);
-			result = new ModelAndView("redirect:/path/brotherhood/list.do?processionId=" + path.getProcession().getId());
+			result = new ModelAndView("redirect:/");
 
 		} catch (final Throwable oops) {
 			System.out.println(oops.getMessage());

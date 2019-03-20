@@ -3,6 +3,11 @@ package forms;
 
 import java.util.Date;
 
+import javax.persistence.Temporal;
+import javax.persistence.TemporalType;
+
+import org.springframework.format.annotation.DateTimeFormat;
+
 import domain.Procession;
 
 public class PathForm {
@@ -44,14 +49,18 @@ public class PathForm {
 	public void setDestinationLongitude(final Double destinationLongitude) {
 		this.destinationLongitude = destinationLongitude;
 	}
-	
+
+	@Temporal(TemporalType.TIMESTAMP)
+	@DateTimeFormat(pattern = "dd/MM/yyyy HH:mm")
 	public Date getOriginTime() {
 		return this.originTime;
 	}
 	public void setOriginTime(final Date originTime) {
 		this.originTime = originTime;
 	}
-	
+
+	@Temporal(TemporalType.TIMESTAMP)
+	@DateTimeFormat(pattern = "dd/MM/yyyy HH:mm")
 	public Date getDestinationTime() {
 		return this.destinationTime;
 	}

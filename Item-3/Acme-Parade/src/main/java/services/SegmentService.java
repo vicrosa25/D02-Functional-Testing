@@ -65,6 +65,13 @@ public class SegmentService {
 		
 		if(nuevo){
 			result.getPath().getSegments().add(result);
+		} else {
+			if (result.getNumber() < result.getPath().getSegments().size() - 1) {
+				Segment next = this.findByNumber(result.getPath(), result.getNumber() + 1);
+				next.setOriginLatitude(result.getDestinationLatitude());
+				next.setOriginLongitude(result.getDestinationLongitude());
+				this.segmentRepository.save(next);
+			}
 		}
 		
 		return result;

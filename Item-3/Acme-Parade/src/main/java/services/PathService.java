@@ -64,15 +64,13 @@ public class PathService {
 		final Brotherhood principal = this.brotherhoodService.findByPrincipal();
 		Assert.notNull(path);
 		Assert.isTrue(principal.getProcessions().contains(path.getProcession()));
+		if (path.getId() != 0) {
+			Assert.isTrue(path.getProcession().getPath() == path);
+		}
 
 		final Path result = this.pathRepository.save(path);
 
-		if (path.getId() == 0) {
-			if (result.getProcession().getPaths() == null) {
-				result.getProcession().setPaths(new ArrayList<Path>());
-			}
-			result.getProcession().getPaths().add(result);
-		}
+		result.getProcession().setPath(result);
 
 		return result;
 	}
@@ -81,8 +79,9 @@ public class PathService {
 		Assert.notNull(path);
 		final Brotherhood principal = this.brotherhoodService.findByPrincipal();
 		Assert.isTrue(principal.getProcessions().contains(path.getProcession()));
+		Assert.isTrue(path.getProcession().getPath() == path);
 
-		path.getProcession().getPaths().remove(path);
+		path.getProcession().setPath(null);
 		final ArrayList<Segment> segments = new ArrayList<Segment>(path.getSegments());
 		for (final Segment seg : segments) {
 			this.segmentService.delete(seg);
@@ -98,6 +97,12 @@ public class PathService {
 		final Segment segment = this.reconstructSegment(form, binding);
 		path.setProcession(form.getProcession());
 		segment.setPath(path);
+
+		if (segment.getOriginTime() != null && segment.getDestinationTime() != null) {
+			if (segment.getOriginTime().after(segment.getDestinationTime())) {
+				binding.rejectValue("destinationTime", "segment.error.destinationTime", "Arrival must be after departure");
+			}
+		}
 
 		this.validator.validate(segment, binding);
 		return path;

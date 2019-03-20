@@ -24,7 +24,6 @@ import domain.Brotherhood;
 import domain.Enrol;
 import domain.Member;
 import domain.Message;
-import domain.Path;
 import domain.Procession;
 import domain.Request;
 
@@ -58,7 +57,6 @@ public class ProcessionService {
 
 		result = new Procession();
 		result.setTicker(this.generateTicker());
-		result.setPaths(new ArrayList<Path>());
 		result.setRequests(new ArrayList<Request>());
 
 		return result;

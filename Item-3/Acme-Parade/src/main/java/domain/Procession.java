@@ -10,6 +10,7 @@ import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.ManyToOne;
 import javax.persistence.OneToMany;
+import javax.persistence.OneToOne;
 import javax.persistence.Temporal;
 import javax.persistence.TemporalType;
 import javax.validation.Valid;
@@ -119,7 +120,7 @@ public class Procession extends DomainEntity {
 	// Relationships ----------------------------------------------------------
 	private Brotherhood 		brotherhood;
 	private Collection<Request> requests;
-	private Collection<Path>	paths;
+	private Path				path;
 
 
 	@ManyToOne(optional = false)
@@ -144,12 +145,12 @@ public class Procession extends DomainEntity {
 	}
 
 	@Valid
-	@OneToMany
-	public Collection<Path> getPaths() {
-		return this.paths;
+	@OneToOne(optional = true)
+	public Path getPath() {
+		return this.path;
 	}
 
-	public void setPaths(final Collection<Path> paths) {
-		this.paths = paths;
+	public void setPath(final Path path) {
+		this.path = path;
 	}
 }

@@ -101,9 +101,10 @@ public class SegmentController extends AbstractController {
 			if (segment.getOriginTime().after(segment.getDestinationTime())) {
 				binding.rejectValue("destinationTime", "segment.error.destinationTime", "Arrival must be after departure");
 			}
-
-			if (segment.getOriginTime().before(this.segmentService.findByNumber(segment.getPath(), segment.getNumber() - 1).getDestinationTime())) {
-				binding.rejectValue("originTime", "segment.error.originTime", "Departure must be after the previous segment end");
+			if (segment.getNumber() > 0) {
+				if (segment.getOriginTime().before(this.segmentService.findByNumber(segment.getPath(), segment.getNumber() - 1).getDestinationTime())) {
+					binding.rejectValue("originTime", "segment.error.originTime", "Departure must be after the previous segment end");
+				}
 			}
 		}
 
@@ -119,7 +120,7 @@ public class SegmentController extends AbstractController {
 				segment = this.segmentService.save(segment);
 				segment.getPath().getSegments().add(segment);
 
-				result = new ModelAndView("redirect:/path/brotherhood/display.do?pathId=" + segment.getPath().getId());
+				result = new ModelAndView("redirect:/path/brotherhood/display.do?processionId=" + segment.getPath().getProcession().getId());
 			} catch (final Throwable oops) {
 				System.out.println(oops.getMessage());
 				System.out.println(oops.getClass());
@@ -176,6 +177,9 @@ public class SegmentController extends AbstractController {
 		result.addObject("segment", segment);
 		result.addObject("message", message);
 
+		if (segment.getNumber() > 0) {
+			result.addObject("readOnly", true);
+		}
 		return result;
 	}
 	private ModelAndView forbiddenOpperation() {
