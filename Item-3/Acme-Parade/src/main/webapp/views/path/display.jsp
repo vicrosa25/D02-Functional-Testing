@@ -39,5 +39,5 @@
 </display:table>
 
 <%-- Buttons --%>
-<acme:cancel code="member.goback" url="path/brotherhood/list.do?processionId=${path.procession.id }" />
+<acme:cancel code="member.goback" url="procession/list.do" />
 <a href="segment/brotherhood/create.do?pathId=${path.id}"><spring:message code="segment.create" /></a>

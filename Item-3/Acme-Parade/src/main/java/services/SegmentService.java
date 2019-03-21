@@ -51,34 +51,22 @@ public class SegmentService {
 	}
 
 	public Segment save(final Segment segment) {
-		boolean nuevo = false;
 		Brotherhood principal = this.brotherhoodService.findByPrincipal();
 		Assert.notNull(segment);
-		
-		if(segment.getId() == 0){
-			nuevo = true;
-		}else{
-			Assert.isTrue(principal.getProcessions().contains(segment.getPath().getProcession()));
-		}
-		
+		Assert.isTrue(principal.getProcessions().contains(segment.getPath().getProcession()));
+
 		final Segment result = this.segmentRepository.save(segment);
 		
-		if(nuevo){
-			result.getPath().getSegments().add(result);
-		} else {
-			if (result.getNumber() < result.getPath().getSegments().size() - 1) {
+		if (result.getNumber() < result.getPath().getSegments().size() - 1) {
 				Segment next = this.findByNumber(result.getPath(), result.getNumber() + 1);
 				next.setOriginLatitude(result.getDestinationLatitude());
 				next.setOriginLongitude(result.getDestinationLongitude());
 				this.segmentRepository.save(next);
-			}
 		}
-		
 		return result;
 	}
 
-	public boolean delete(final Segment segment) {
-		boolean result = false;
+	public void delete(final Segment segment) {
 		Assert.notNull(segment);
 		Path path = segment.getPath();
 		final Brotherhood principal = this.brotherhoodService.findByPrincipal();
@@ -86,24 +74,17 @@ public class SegmentService {
 		
 		path.getSegments().remove(segment);
 
-		if (path.getSegments().isEmpty()) {
-			this.segmentRepository.delete(segment);
-			this.pathService.delete(path);
-			result = true;
-		} else {
-			for (Segment s : new ArrayList<Segment>(path.getSegments())) {
-				if (s.getNumber() - 1 == segment.getNumber()) {
-					s.setOriginLatitude(segment.getOriginLatitude());
-					s.setOriginLongitude(segment.getOriginLongitude());
-					s.setOriginTime(segment.getOriginTime());
-					s.setNumber(segment.getNumber());
-				} else if (s.getNumber() > segment.getNumber()) {
-					s.setNumber(s.getNumber() - 1);
-				}
+		for (Segment s : new ArrayList<Segment>(path.getSegments())) {
+			if (s.getNumber() - 1 == segment.getNumber()) {
+				s.setOriginLatitude(segment.getOriginLatitude());
+				s.setOriginLongitude(segment.getOriginLongitude());
+				s.setOriginTime(segment.getOriginTime());
+				s.setNumber(segment.getNumber());
+			} else if (s.getNumber() > segment.getNumber()) {
+				s.setNumber(s.getNumber() - 1);
 			}
-			this.segmentRepository.delete(segment);
 		}
-		return result;
+		this.segmentRepository.delete(segment);
 	}
 	/*** Other methods ***/
 

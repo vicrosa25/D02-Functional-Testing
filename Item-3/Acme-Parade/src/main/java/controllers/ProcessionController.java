@@ -135,13 +135,15 @@ public class ProcessionController extends AbstractController {
 	@RequestMapping(value = "brotherhood/edit", method = RequestMethod.GET)
 	public ModelAndView edit(@RequestParam final int processionId) {
 		ModelAndView result;
-		Procession procession = null;
-		Brotherhood principal = this.brotherhoodService.findByPrincipal();
+		Procession procession;
 
 		try {
+			Brotherhood principal = this.brotherhoodService.findByPrincipal();
 			procession = this.processionService.findOne(processionId);
+
 			Assert.notNull(procession);
 			Assert.isTrue(principal.getProcessions().contains(procession));
+			Assert.isTrue(procession.getDraftMode());
 			
 		} catch (final Throwable oops) {
 			result = this.forbiddenOpperation();
@@ -191,10 +193,12 @@ public class ProcessionController extends AbstractController {
 			this.processionService.delete(procession);
 			result = new ModelAndView("redirect:../list.do");
 		} catch (final Throwable oops) {
+			System.out.println(oops.getMessage());
+			System.out.println(oops.getClass());
+			System.out.println(oops.getCause());
+			oops.printStackTrace();
 			result = this.forbiddenOpperation();
-			return result;
 		}
-
 		return result;
 	}
 
@@ -214,7 +218,6 @@ public class ProcessionController extends AbstractController {
 			copy.setDescription(procession.getDescription());
 			copy.setDraftMode(true);
 			copy.setMoment(procession.getMoment());
-			copy.setStatus("SUBMITTED");
 			copy.setTitle(procession.getTitle());
 			
 			copy = this.processionService.save(copy);

@@ -81,6 +81,7 @@ public class SponsorshipService {
 
 	public void delete(final Sponsorship sponsorship) {
 		Assert.notNull(sponsorship);
+		sponsorship.getSponsor().getSponsorships().remove(sponsorship);
 
 		this.sponsorshipRepository.delete(sponsorship);
 	}

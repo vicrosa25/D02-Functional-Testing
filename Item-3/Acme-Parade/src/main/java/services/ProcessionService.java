@@ -26,6 +26,7 @@ import domain.Member;
 import domain.Message;
 import domain.Procession;
 import domain.Request;
+import domain.Sponsorship;
 
 @Service
 @Transactional
@@ -44,6 +45,12 @@ public class ProcessionService {
 
 	@Autowired
 	private MemberService			memberService;
+
+	@Autowired
+	private SponsorshipService		sponsorshipService;
+
+	@Autowired
+	private PathService				pathService;
 
 	// Validator
 	@Autowired
@@ -129,6 +136,13 @@ public class ProcessionService {
 		final Brotherhood brotherhood = (Brotherhood) principal;
 		Assert.isTrue(brotherhood.getProcessions().contains(procession));
 
+		for (Sponsorship s : this.sponsorshipService.findByProcession(procession)) {
+			this.sponsorshipService.delete(s);
+		}
+		if (procession.getPath() != null) {
+			this.pathService.delete(procession.getPath());
+		}
+
 		this.processionRepository.delete(procession);
 
 	}
@@ -152,6 +166,9 @@ public class ProcessionService {
 			result.setDescription(pruned.getDescription());
 			result.setMoment(pruned.getMoment());
 			result.setDraftMode(pruned.getDraftMode());
+			if (!pruned.getDraftMode()) {
+				result.setStatus("SUBMITTED");
+			}
 
 			this.validator.validate(result, binding);
 		}

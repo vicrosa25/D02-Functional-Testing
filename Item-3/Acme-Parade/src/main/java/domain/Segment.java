@@ -5,7 +5,6 @@ import java.util.Date;
 
 import javax.persistence.Access;
 import javax.persistence.AccessType;
-import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.ManyToOne;
 import javax.persistence.Temporal;
@@ -97,7 +96,6 @@ public class Segment extends DomainEntity {
 
 	@NotNull
 	@Min(0)
-	@Column(unique = true)
 	public int getNumber() {
 		return this.number;
 	}

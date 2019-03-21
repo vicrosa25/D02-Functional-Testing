@@ -63,7 +63,7 @@ public class PathController extends AbstractController {
 			path = procession.getPath();
 
 			if (path == null) {
-				result = new ModelAndView("redirect:/path/brotherhood/create.do?");
+				result = new ModelAndView("redirect:/path/brotherhood/create.do?processionId=" + processionId);
 			} else {
 				Assert.isTrue(brotherhood.getProcessions().contains(path.getProcession()));
 
@@ -84,24 +84,24 @@ public class PathController extends AbstractController {
 
 	// Create ------------------------------------------------------------------------------------
 	@RequestMapping(value = "/create", method = RequestMethod.GET)
-	public ModelAndView create() {
+	public ModelAndView create(@RequestParam final int processionId) {
 		ModelAndView result;
 
 		try {
 			final PathForm pathForm = new PathForm();
+			Procession procession = this.processionService.findOne(processionId);
+			Assert.isTrue(this.brotherhoodService.findByPrincipal().getProcessions().contains(procession));
 
+			pathForm.setProcession(procession);
 			result = new ModelAndView("path/brotherhood/create");
 			result.addObject("pathForm", pathForm);
-			result.addObject("parades", this.brotherhoodService.findByPrincipal().getProcessions());
 
 		} catch (final Throwable oops) {
 			System.out.println(oops.getMessage());
 			System.out.println(oops.getClass());
 			System.out.println(oops.getCause());
 			result = this.forbiddenOpperation();
-
 		}
-
 		return result;
 	}
 

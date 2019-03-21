@@ -143,11 +143,15 @@ public class SegmentController extends AbstractController {
 
 			Assert.isTrue(this.brotherhoodService.findByPrincipal().getProcessions().contains(segment.getPath().getProcession()));
 
-			if (this.segmentService.delete(segment)) {
-				result = new ModelAndView("redirect:/procession/list.do");
+			if (path.getSegments().size() > 1) {
+				this.segmentService.delete(segment);
+				result = new ModelAndView("redirect:/path/brotherhood/display.do?processionId=" + path.getProcession().getId());
 			} else {
-				result = new ModelAndView("redirect:/path/brotherhood/display.do?pathId=" + path.getId());
+				this.pathService.delete(path);
+				result = new ModelAndView("redirect:/procession/list.do");
 			}
+
+
 
 		} catch (final Throwable oops) {
 			System.out.println(oops.getMessage());
