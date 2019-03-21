@@ -52,9 +52,11 @@ public class InceptionRecordService {
 
 	public InceptionRecord save(final InceptionRecord inceptionRecord) {
 		Assert.notNull(inceptionRecord);
-		final Brotherhood principal = this.brotherhoodService.findByPrincipal();
-		Assert.isTrue(principal.getHistory().getInceptionRecord().getId() == inceptionRecord.getId());
 
+		if (inceptionRecord.getId() != 0) {
+			final Brotherhood principal = this.brotherhoodService.findByPrincipal();
+			Assert.isTrue(principal.getHistory().getInceptionRecord().getId() == inceptionRecord.getId());
+		}
 		final InceptionRecord result = this.inceptionRecordRepository.save(inceptionRecord);
 
 		return result;

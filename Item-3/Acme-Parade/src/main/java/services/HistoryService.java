@@ -64,8 +64,9 @@ public class HistoryService {
 		if (history.getId() != 0) {
 			final Brotherhood principal = this.brotherhoodService.findByPrincipal();
 			Assert.isTrue(principal.getHistory().getId() == history.getId());
+		} else {
+			history.setInceptionRecord(this.inceptionRecordService.save(history.getInceptionRecord()));
 		}
-		
 		return this.historyRepository.save(history);
 	}
 

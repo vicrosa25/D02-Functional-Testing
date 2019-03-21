@@ -64,7 +64,6 @@ public class BrotherhoodService {
 		result.setCoaches(new ArrayList<Coach>());
 		result.setProcessions(new ArrayList<Procession>());
 		result.setMessageBoxes(boxes);
-		result.setHistory(this.historyService.create());
 
 		return result;
 	}
@@ -86,6 +85,9 @@ public class BrotherhoodService {
 
 	public Brotherhood save(final Brotherhood brotherhood) {
 		Assert.notNull(brotherhood);
+		if (brotherhood.getId() == 0) {
+			brotherhood.setHistory(this.historyService.save(brotherhood.getHistory()));
+		}
 		final Brotherhood result = this.brotherhoodRepository.save(brotherhood);
 
 		return result;
@@ -114,7 +116,7 @@ public class BrotherhoodService {
 		bro.setTitle(form.getTitle());
 		bro.setArea(form.getArea());
 		bro.getEstablishment().setTime(bro.getEstablishment().getTime() - 1000);
-		bro.setHistory(this.historyService.save(bro.getHistory()));
+		bro.setHistory(this.historyService.create());
 
 		// Default attributes from Actor
 		bro.setUsername(form.getUserAccount().getUsername());
