@@ -1270,6 +1270,7 @@
 		<property name="cacheTime" value="1" />
 		<property name="finderMaxResult" value="10" />
 		<property name="vat" value="0.21"/>
+		<property name="fare" value="10.0"/>
 		<property name="countryCode" value="+34" />
 		<property name="title" value="Acme Madruga Co., Inc." />
 		<property name="logo" value="https://tinyurl.com/acme-madruga" />

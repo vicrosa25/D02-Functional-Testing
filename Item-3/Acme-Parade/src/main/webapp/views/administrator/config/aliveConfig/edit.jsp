@@ -28,6 +28,7 @@
 	<form:hidden path="SpamWords" />
 	<form:hidden path="positiveWords" />
 	<form:hidden path="negativeWords" />
+	<form:hidden path="brandName" />
 
 
 	<%-- Title --%>
@@ -68,7 +69,24 @@
 	</form:label>
 	<form:input path="countryCode" />
 	<form:errors class="error" path="countryCode" />
-	<br><br>	
+	<br><br>
+	
+	<%-- vat --%>
+	<form:label path="vat">
+		<spring:message code="config.vat" />
+	</form:label>
+	<form:input path="vat" />
+	<form:errors class="error" path="vat" />
+	<br><br>
+	
+	<%-- fare --%>
+	<form:label path="fare">
+		<spring:message code="config.fare" />
+	</form:label>
+	<form:input path="fare" />
+	<form:errors class="error" path="fare" />
+	<br><br>
+		
 
 
 	<acme:submit name="update" code="administrator.save" />

@@ -31,7 +31,8 @@ public class Configurations extends DomainEntity {
 	private String 				title;
 	private String 				logo;
 	private Collection<String>	brandName;
-	private double				vat;
+	private Double				vat;
+	private Double				fare;
 
 
 	@Range(min = 1, max = 24)
@@ -150,13 +151,25 @@ public class Configurations extends DomainEntity {
 		this.brandName = brandName;
 	}
 	
-	public double getVat() {
+	public Double getVat() {
 		return this.vat;
 	}
-
-	public void setVat(final double vat) {
+	
+	
+	public void setVat(Double vat) {
 		this.vat = vat;
 	}
+
+	
+	public Double getFare() {
+		return this.fare;
+	}
+
+	
+	public void setFare(Double fare) {
+		this.fare = fare;
+	}
+
 
 	
 
