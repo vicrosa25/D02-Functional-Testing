@@ -13,9 +13,16 @@ import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
 import services.BrotherhoodService;
 import services.HistoryService;
 import services.InceptionRecordService;
+import services.LegalRecordService;
+import services.LinkRecordService;
+import services.MiscellaneousRecordService;
 import services.PeriodRecordService;
 import utilities.AbstractTest;
+import domain.Brotherhood;
 import domain.InceptionRecord;
+import domain.LegalRecord;
+import domain.LinkRecord;
+import domain.MiscellaneousRecord;
 import domain.PeriodRecord;
 
 @ContextConfiguration(locations = {
@@ -27,13 +34,19 @@ public class ManageHistoryTest extends AbstractTest {
 
 	// Systems under test ------------------------------------------------------
 	@Autowired
-	private HistoryService			historyService;
+	private InceptionRecordService		inceptionRecordService;
 
 	@Autowired
-	private InceptionRecordService	inceptionRecordService;
+	private PeriodRecordService			periodRecordService;
 
 	@Autowired
-	private PeriodRecordService		periodRecordService;
+	private LinkRecordService			linkRecordService;
+
+	@Autowired
+	private LegalRecordService			legalRecordService;
+
+	@Autowired
+	private MiscellaneousRecordService	miscellaneousRecordService;
 
 	// Supporting services
 	@Autowired
@@ -47,8 +60,8 @@ public class ManageHistoryTest extends AbstractTest {
 	/*
 	 * Brotherhoods can manage their histories: Inception record
 	 * 
-	 * 01- Change title and description, Correct
-	 * 02- Change title and description, blank title; Erroe
+	 * 01- Change title and description; 				-> Correct
+	 * 02- Change title and description, blank title; 	-> Error
 	 */
 
 	@Test
@@ -71,9 +84,9 @@ public class ManageHistoryTest extends AbstractTest {
 	/*
 	 * Brotherhoods can manage their histories: Period record
 	 * 
-	 * 01- Change title, description, start year and end year; Correct
-	 * 02- blank title; Error
-	 * 03- End before star; Error
+	 * 01- Change title, description, start year and end year;	-> Correct
+	 * 02- blank title;											-> Error
+	 * 03- End before start;									-> Error
 	 */
 
 	@Test
@@ -83,9 +96,9 @@ public class ManageHistoryTest extends AbstractTest {
 			{
 				null, "Test title", "Test description", 2010, 2011
 			}, {
-				ConstraintViolationException.class, null, "Test description", 2010, 2011
+				ConstraintViolationException.class, "", "Test description", 2010, 2011
 			}, {
-				ConstraintViolationException.class, null, "Test description", 2011, 2010
+				ConstraintViolationException.class, "Test title", "Test description", 2011, 2010
 			}
 		};
 
@@ -94,7 +107,170 @@ public class ManageHistoryTest extends AbstractTest {
 				(Integer) testingData[i][3], (Integer) testingData[i][4]);
 	}
 
-	// Ancillary methods ------------------------------------------------------
+	/*
+	 * Brotherhoods can manage their histories: Legal record
+	 * 
+	 * 01- Change title, description, legal name, vat and laws; -> Correct
+	 * 02- blank legal name;									-> Error
+	 */
+
+	@Test
+	public void driverLegal() {
+		final Object testingData[][] = {
+			// exception, title, description, legal name, VAT, laws
+			{
+				null, "Test title", "Test description", "Test name", 9.5, "Test law"
+			}, {
+				ConstraintViolationException.class, "Test title", "Test description", "", 9.5, "Test law"
+			}
+		};
+
+		for (int i = 0; i < testingData.length; i++)
+			this.templateLegal((Class<?>) testingData[i][0], (String) testingData[i][1], (String) testingData[i][2],
+				(String) testingData[i][3], (Double) testingData[i][4], (String) testingData[i][5]);
+	}
+
+	/*
+	 * Brotherhoods can manage their histories: Link record
+	 * 
+	 * 01- Change title, description, and link brotherhood; -> Correct
+	 * 02- Null link;										-> Error
+	 */
+
+	@Test
+	public void driverLink() {
+		final Object testingData[][] = {
+			// exception, title, description, link name
+			{
+				null, "Test title", "Test description", "brotherhood2"
+			}, {
+				ConstraintViolationException.class, "Test title", "Test description", null
+			}
+		};
+
+		for (int i = 0; i < testingData.length; i++)
+			this.templateLink((Class<?>) testingData[i][0], (String) testingData[i][1], (String) testingData[i][2], (String) testingData[i][3]);
+	}
+
+	/*
+	 * Brotherhoods can manage their histories: Miscellaneous record
+	 * 
+	 * 01- Change title and description; 							-> Correct
+	 * 02- Null title; 												-> Error
+	 * 03- Not autenticated; 										-> Error
+	 * 04- Autenticated but saving to another brotherhood history; 	-> Error
+	 */
+
+	@Test
+	public void driverMiscellaneous() {
+		final Object testingData[][] = {
+			// exception, title, description, autentication name, other brotherhood name
+			{
+				null, "Test title", "Test description", "brotherhood1", "brotherhood1"
+			}, {
+				IllegalArgumentException.class, "Test title", "Test description", null, null
+			}, {
+				IllegalArgumentException.class, "Test title", "Test description", "brotherhood2", "brotherhood1"
+			}
+		};
+
+		for (int i = 0; i < testingData.length; i++)
+			this.templateMiscellaneous((Class<?>) testingData[i][0], (String) testingData[i][1], (String) testingData[i][2],
+				(String) testingData[i][3], (String) testingData[i][4]);
+	}
+
+	// TEMPLATES ------------------------------------------------------------------------------------------------------------------
+
+	protected void templateMiscellaneous(Class<?> expected, String title, String description, String principal, String otherBro) {
+		Class<?> caught;
+		caught = null;
+
+		try {
+			// Authentication
+			authenticate(principal);
+
+			// Creating a legal record
+			MiscellaneousRecord record = this.miscellaneousRecordService.create();
+
+			// Applying the changes
+			record.setTitle(title);
+			record.setDescription(description);
+
+			// Saving to the principal
+			record = this.miscellaneousRecordService.save(record);
+			this.miscellaneousRecordService.flush();
+
+			if (otherBro != null) {
+				// Editing by the other
+				unauthenticate();
+				authenticate(otherBro);
+
+				record.setTitle("now this is mine");
+
+				//Saving again
+				record = this.miscellaneousRecordService.save(record);
+				this.miscellaneousRecordService.flush();
+			}
+		} catch (Throwable oops) {
+			caught = oops.getClass();
+		}
+		super.checkExceptions(expected, caught);
+	}
+
+	protected void templateLink(Class<?> expected, String title, String description, String linkName) {
+		Class<?> caught;
+		caught = null;
+
+		try {
+			// Authentication
+			authenticate("brotherhood1");
+
+			// Creating a legal record
+			LinkRecord record = this.linkRecordService.create();
+
+			// Applying the changes
+			record.setTitle(title);
+			record.setDescription(description);
+			for (Brotherhood bro : this.brotherhoodService.findAll()) {
+				if (bro.getName().equals(linkName)) {
+					record.setLink(bro);
+				}
+			}
+
+			this.linkRecordService.save(record);
+			this.linkRecordService.flush();
+		} catch (Throwable oops) {
+			caught = oops.getClass();
+		}
+		super.checkExceptions(expected, caught);
+	}
+
+	protected void templateLegal(Class<?> expected, String title, String description, String legalName, Double vat, String laws) {
+		Class<?> caught;
+		caught = null;
+
+		try {
+			// Authentication
+			authenticate("brotherhood1");
+
+			// Creating a legal record
+			LegalRecord record = this.legalRecordService.create();
+
+			// Applying the changes
+			record.setTitle(title);
+			record.setDescription(description);
+			record.setLaws(laws);
+			record.setLegalName(legalName);
+			record.setVat(vat);
+
+			this.legalRecordService.save(record);
+			this.legalRecordService.flush();
+		} catch (Throwable oops) {
+			caught = oops.getClass();
+		}
+		super.checkExceptions(expected, caught);
+	}
+
 	protected void templatePeriod(Class<?> expected, String title, String description, Integer startYear, Integer endYear) {
 		Class<?> caught;
 		caught = null;
@@ -120,7 +296,6 @@ public class ManageHistoryTest extends AbstractTest {
 		super.checkExceptions(expected, caught);
 	}
 
-	// Ancillary methods ------------------------------------------------------
 	protected void templateInception(Class<?> expected, String title, String description) {
 		Class<?> caught;
 		caught = null;
@@ -148,7 +323,7 @@ public class ManageHistoryTest extends AbstractTest {
 }
 /*
  * 
- * System.out.println(oops.getMessage());
- * System.out.println(oops.getClass());
- * System.out.println(oops.getCause());
+   System.out.println(oops.getMessage());
+   System.out.println(oops.getClass());
+   System.out.println(oops.getCause());
  */
