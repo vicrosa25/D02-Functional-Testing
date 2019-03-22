@@ -33,14 +33,15 @@ public class RegisterAChapterTest extends AbstractTest {
 	 * Register to the system as a Chapter. As of the time of registering,
 	 * 
 	 * 01- All ok
-	 * 02- Blank username; Error
-	 * 03- Blank name; Error
-	 * 04- Blank middlename; Error
-	 * 05- Blank suername; Error
-	 * 06- Blank photo; Error
-	 * 07- Blank mail; Error
-	 * 08- Blank phoneNumber; Error
-	 * 09- Blank title; Error
+	 * 02- Blank password; Error
+	 * 03- Blank username; Error
+	 * 04- Blank name; Error
+	 * 05- Blank middlename; Error
+	 * 06- Blank suername; Error
+	 * 07- Blank photo; Error
+	 * 08- Blank mail; Error
+	 * 09- Blank phoneNumber; Error
+	 * 10- Blank title; Error
 	 */
 
 	@Test
