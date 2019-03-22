@@ -10,20 +10,19 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.test.context.ContextConfiguration;
 import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
 
-import services.BrotherhoodService;
-import services.HistoryService;
-import services.InceptionRecordService;
-import services.LegalRecordService;
-import services.LinkRecordService;
-import services.MiscellaneousRecordService;
-import services.PeriodRecordService;
-import utilities.AbstractTest;
 import domain.Brotherhood;
 import domain.InceptionRecord;
 import domain.LegalRecord;
 import domain.LinkRecord;
 import domain.MiscellaneousRecord;
 import domain.PeriodRecord;
+import services.BrotherhoodService;
+import services.InceptionRecordService;
+import services.LegalRecordService;
+import services.LinkRecordService;
+import services.MiscellaneousRecordService;
+import services.PeriodRecordService;
+import utilities.AbstractTest;
 
 @ContextConfiguration(locations = {
 	"classpath:spring/junit.xml"
@@ -187,7 +186,7 @@ public class ManageHistoryTest extends AbstractTest {
 
 		try {
 			// Authentication
-			authenticate(principal);
+			this.authenticate(principal);
 
 			// Creating a legal record
 			MiscellaneousRecord record = this.miscellaneousRecordService.create();
@@ -202,8 +201,8 @@ public class ManageHistoryTest extends AbstractTest {
 
 			if (otherBro != null) {
 				// Editing by the other
-				unauthenticate();
-				authenticate(otherBro);
+				this.unauthenticate();
+				this.authenticate(otherBro);
 
 				record.setTitle("now this is mine");
 
@@ -223,7 +222,7 @@ public class ManageHistoryTest extends AbstractTest {
 
 		try {
 			// Authentication
-			authenticate("brotherhood1");
+			this.authenticate("brotherhood1");
 
 			// Creating a legal record
 			LinkRecord record = this.linkRecordService.create();
@@ -251,7 +250,7 @@ public class ManageHistoryTest extends AbstractTest {
 
 		try {
 			// Authentication
-			authenticate("brotherhood1");
+			this.authenticate("brotherhood1");
 
 			// Creating a legal record
 			LegalRecord record = this.legalRecordService.create();
@@ -277,7 +276,7 @@ public class ManageHistoryTest extends AbstractTest {
 
 		try {
 			// Authentication
-			authenticate("brotherhood1");
+			this.authenticate("brotherhood1");
 
 			// Creating a period record
 			PeriodRecord record = this.periodRecordService.create();
@@ -302,7 +301,7 @@ public class ManageHistoryTest extends AbstractTest {
 
 		try {
 			// Authentication
-			authenticate("brotherhood1");
+			this.authenticate("brotherhood1");
 
 			// Getting the inception record
 			InceptionRecord record = this.brotherhoodService.findByPrincipal()

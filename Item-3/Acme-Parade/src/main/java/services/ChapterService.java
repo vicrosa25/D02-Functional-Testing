@@ -64,8 +64,10 @@ public class ChapterService {
 		// MessageBox
 		Collection<MessageBox> boxes = this.messageBoxService.createSystemMessageBox();
 
-		// Default settings
+		
 		result = new Chapter();
+		
+		// Default settings
 		result.setUserAccount(userAccount);
 		result.setMessageBoxes(boxes);
 

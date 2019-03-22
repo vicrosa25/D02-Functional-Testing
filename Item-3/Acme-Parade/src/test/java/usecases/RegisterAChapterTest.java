@@ -28,44 +28,42 @@ public class RegisterAChapterTest extends AbstractTest {
 	private ChapterService chapterService;
 
 	// Test ------------------------------------------------------
-
-
 	/*
 	 * An actor who is not authenticated must be able to:
 	 * Register to the system as a Chapter. As of the time of registering,
 	 * 
 	 * 01- All ok
 	 * 02- Blank username; Error
-	 * 04- Blank name; Error
-	 * 05- Blank middlename; Error
-	 * 06- Blank suername; Error
-	 * 07- Blank photo; Error
-	 * 08- Blank mail; Error
-	 * 09- Blank phoneNumber; Error
-	 * 10- Blank title; Error
+	 * 03- Blank name; Error
+	 * 04- Blank middlename; Error
+	 * 05- Blank suername; Error
+	 * 06- Blank photo; Error
+	 * 07- Blank mail; Error
+	 * 08- Blank phoneNumber; Error
+	 * 09- Blank title; Error
 	 */
 
 	@Test
 	public void driver() {
 		final Object testingData[][] = {
 			{
-				null, "pass", "userName", "name", "middleName", "surname", "http://pictureTest.com", "chapter@gmail.com", "123456789", "Chapter1"
+				null, "password", "userName", "name", "middleName", "surname", "http://pictureTest.com", "chapter@gmail.com", "+341234", "Chapter1"
 			}, {
-				ConstraintViolationException.class, "pass", "", "name", "middleName", "surname", "http://pictureTest.com", "chapter@gmail.com", "123456789", "Chapter1"
+				ConstraintViolationException.class, "password", "", "name", "middleName", "surname", "http://pictureTest.com", "chapter@gmail.com", "+341234", "Chapter1"
 			}, {
-				ConstraintViolationException.class, "pass", "userName", "", "middleName", "surname", "http://pictureTest.com", "chapter@gmail.com", "123456789", "Chapter1"
+				ConstraintViolationException.class, "password", "userName", "", "middleName", "surname", "http://pictureTest.com", "chapter@gmail.com", "+341234", "Chapter1"
 			}, {
-				ConstraintViolationException.class, "pass", "userName", "name", "", "surname", "http://pictureTest.com", "chapter@gmail.com", "123456789", "Chapter1"
+				ConstraintViolationException.class, "password", "userName", "name", "", "surname", "http://pictureTest.com", "chapter@gmail.com", "+341234", "Chapter1"
 			}, {
-				ConstraintViolationException.class, "pass", "userName", "name", "middleName", "", "http://pictureTest.com", "chapter@gmail.com", "123456789", "Chapter1"
+				ConstraintViolationException.class, "password", "userName", "name", "middleName", "", "http://pictureTest.com", "chapter@gmail.com", "+341234", "Chapter1"
 			}, {
-				ConstraintViolationException.class, "pass", "userName", "name", "middleName", "surname", "", "chapter@gmail.com", "123456789", "Chapter1"
+				ConstraintViolationException.class, "password", "userName", "name", "middleName", "surname", "", "chapter@gmail.com", "+341234", "Chapter1"
 			}, {
-				ConstraintViolationException.class, "pass", "userName", "name", "middleName", "surname", "http://pictureTest.com", "", "123456789", "Chapter1"
+				ConstraintViolationException.class, "password", "userName", "name", "middleName", "surname", "http://pictureTest.com", "", "+341234", "Chapter1"
 			}, {
-				ConstraintViolationException.class, "pass", "userName", "name", "middleName", "surname", "http://pictureTest.com", "chapter@gmail.com", "", "Chapter1"
+				ConstraintViolationException.class, "password", "userName", "name", "middleName", "surname", "http://pictureTest.com", "chapter@gmail.com", "", "Chapter1"
 			}, {
-				ConstraintViolationException.class, "pass", "userName", "name", "middleName", "surname", "http://pictureTest.com", "chapter@gmail.com", "123456789", ""
+				ConstraintViolationException.class, "password", "userName", "name", "middleName", "surname", "http://pictureTest.com", "chapter@gmail.com", "+341234", ""
 			}
 		};
 
@@ -88,35 +86,38 @@ public class RegisterAChapterTest extends AbstractTest {
 			int i;
 			i = this.chapterService.findAll().size();
 
-			this.authenticate(null);
+			super.authenticate(null);
 
 			// Create new Chapter
 			Chapter chapter = this.chapterService.create();
 			
-			
-			// Chapter Attributes
+			// Chapter userAccount
 			password = Md5.encodeMd5(pass);
 			chapter.getUserAccount().setPassword(password);
 			chapter.getUserAccount().setUsername(userName);
+			
+			// Actor attributes
 			chapter.setName(name);
 			chapter.setEmail(middleName);
 			chapter.setPhoneNumber(surname);
 			chapter.setPhoto(photo);
 			chapter.setSurname(email);
 			chapter.setPhoneNumber(phoneNumber);
+			chapter.setIsBanned(false);
+			
+			// Chapter attributes
 			chapter.setTitle(title);
 			
 			// Chapter Relatioships
 			chapter.setProclaims(null);
 			chapter.setAddress(null);
 			
-			
-			chapter.setIsBanned(false);
-			
-			// Save new Chorbi
+			// Save new Chapter
 			this.chapterService.save(chapter);
 
 			Assert.isTrue(this.chapterService.findAll().size() > i);
+			
+			super.unauthenticate();
 		} catch (Throwable oops) {
 			caught = oops.getClass();
 		}
