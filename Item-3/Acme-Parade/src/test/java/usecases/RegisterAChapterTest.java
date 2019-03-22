@@ -2,11 +2,11 @@
 package usecases;
 
 import javax.transaction.Transactional;
-import javax.validation.ConstraintViolationException;
 
 import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.dao.DataIntegrityViolationException;
 import org.springframework.test.context.ContextConfiguration;
 import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
 import org.springframework.util.Assert;
@@ -47,23 +47,25 @@ public class RegisterAChapterTest extends AbstractTest {
 	public void driver() {
 		final Object testingData[][] = {
 			{
-				null, "password", "userName", "name", "middleName", "surname", "http://pictureTest.com", "chapter@gmail.com", "+341234", "Chapter1"
+				null, "password", "userName", "name", "middleName", "surname", "http://pictureTest.com", "test@gmail.com", "+341234", "Chapter1"
 			}, {
-				ConstraintViolationException.class, "password", "", "name", "middleName", "surname", "http://pictureTest.com", "chapter@gmail.com", "+341234", "Chapter1"
+				DataIntegrityViolationException.class, "", "userName", "name", "middleName", "surname", "http://pictureTest.com", "test@gmail.com", "+341234", "Chapter1"
 			}, {
-				ConstraintViolationException.class, "password", "userName", "", "middleName", "surname", "http://pictureTest.com", "chapter@gmail.com", "+341234", "Chapter1"
+				DataIntegrityViolationException.class, "password", "", "name", "middleName", "surname", "http://pictureTest.com", "test@gmail.com", "+341234", "Chapter1"
 			}, {
-				ConstraintViolationException.class, "password", "userName", "name", "", "surname", "http://pictureTest.com", "chapter@gmail.com", "+341234", "Chapter1"
+				DataIntegrityViolationException.class, "password", "userName", "", "middleName", "surname", "http://pictureTest.com", "test@gmail.com", "+341234", "Chapter1"
 			}, {
-				ConstraintViolationException.class, "password", "userName", "name", "middleName", "", "http://pictureTest.com", "chapter@gmail.com", "+341234", "Chapter1"
+				DataIntegrityViolationException.class, "password", "userName", "name", "", "surname", "http://pictureTest.com", "test@gmail.com", "+341234", "Chapter1"
 			}, {
-				ConstraintViolationException.class, "password", "userName", "name", "middleName", "surname", "", "chapter@gmail.com", "+341234", "Chapter1"
+				DataIntegrityViolationException.class, "password", "userName", "name", "middleName", "", "http://pictureTest.com", "test@gmail.com", "+341234", "Chapter1"
 			}, {
-				ConstraintViolationException.class, "password", "userName", "name", "middleName", "surname", "http://pictureTest.com", "", "+341234", "Chapter1"
+				DataIntegrityViolationException.class, "password", "userName", "name", "middleName", "surname", "", "test@gmail.com", "+341234", "Chapter1"
 			}, {
-				ConstraintViolationException.class, "password", "userName", "name", "middleName", "surname", "http://pictureTest.com", "chapter@gmail.com", "", "Chapter1"
+				DataIntegrityViolationException.class, "password", "userName", "name", "middleName", "surname", "http://pictureTest.com", "", "+341234", "Chapter1"
 			}, {
-				ConstraintViolationException.class, "password", "userName", "name", "middleName", "surname", "http://pictureTest.com", "chapter@gmail.com", "+341234", ""
+				DataIntegrityViolationException.class, "password", "userName", "name", "middleName", "surname", "http://pictureTest.com", "test@gmail.com", "", "Chapter1"
+			}, {
+				DataIntegrityViolationException.class, "password", "userName", "name", "middleName", "surname", "http://pictureTest.com", "test@gmail.com", "+341234", ""
 			}
 		};
 
@@ -98,10 +100,10 @@ public class RegisterAChapterTest extends AbstractTest {
 			
 			// Actor attributes
 			chapter.setName(name);
-			chapter.setEmail(middleName);
-			chapter.setPhoneNumber(surname);
+			chapter.setMiddleName(middleName);
+			chapter.setSurname(surname);
 			chapter.setPhoto(photo);
-			chapter.setSurname(email);
+			chapter.setEmail(email);
 			chapter.setPhoneNumber(phoneNumber);
 			chapter.setIsBanned(false);
 			
@@ -120,6 +122,9 @@ public class RegisterAChapterTest extends AbstractTest {
 			super.unauthenticate();
 		} catch (Throwable oops) {
 			caught = oops.getClass();
+//			System.out.println(oops.getMessage());
+//			System.out.println(oops.getClass());
+//			System.out.println(oops.getCause());
 		}
 		super.checkExceptions(expected, caught);
 	}
