@@ -76,4 +76,8 @@ public class LinkRecordService {
 	}
 	/*** Other methods ***/
 	
+	public void flush() {
+		this.linkRecordRepository.flush();
+	}
+
 }

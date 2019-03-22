@@ -71,4 +71,7 @@ public class InceptionRecordService {
 	}
 	/*** Other methods ***/
 	
+	public void flush() {
+		this.inceptionRecordRepository.flush();
+	}
 }

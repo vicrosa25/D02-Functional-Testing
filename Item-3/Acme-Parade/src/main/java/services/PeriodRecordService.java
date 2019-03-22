@@ -80,4 +80,8 @@ public class PeriodRecordService {
 	}
 	/*** Other methods ***/
 	
+	public void flush() {
+		this.periodRecordRepository.flush();
+	}
+
 }

@@ -77,4 +77,8 @@ public class LegalRecordService {
 	}
 	/*** Other methods ***/
 	
+	public void flush() {
+		this.legalRecordRepository.flush();
+	}
+
 }

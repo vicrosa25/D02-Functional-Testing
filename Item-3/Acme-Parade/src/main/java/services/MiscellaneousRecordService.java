@@ -77,4 +77,8 @@ public class MiscellaneousRecordService {
 	}
 	/*** Other methods ***/
 	
+	public void flush() {
+		this.miscellaneousRecordRepository.flush();
+	}
+
 }
