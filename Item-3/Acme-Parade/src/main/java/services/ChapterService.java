@@ -11,6 +11,7 @@ import org.springframework.validation.BindingResult;
 import org.springframework.validation.Validator;
 
 import domain.Actor;
+import domain.Area;
 import domain.Chapter;
 import domain.MessageBox;
 import domain.Procession;
@@ -44,6 +45,9 @@ public class ChapterService {
 	
 	@Autowired
 	private ActorService			actorService;
+	
+	@Autowired
+	private AreaService 			areaService;
 	
 	
 	/*************************************
@@ -228,6 +232,30 @@ public class ChapterService {
 		this.validator.validate(result, binding);
 
 		return result;
+	}
+	
+	
+	
+	
+	// AddArea Principal
+	public void addAreaPrincipal(int areaId) {
+		Assert.isTrue(areaId != 0);
+		
+		Chapter chapter;
+		Area area;
+		
+		chapter = this.findByPrincipal();
+		Assert.notNull(chapter);
+		
+		area = this.areaService.findOne(areaId);
+		Assert.notNull(area);
+		
+		chapter.setArea(area);
+		area.setChapter(chapter);
+		
+		this.chapterRepository.save(chapter);
+		this.areaService.save(area);
+		
 	}
 		
 

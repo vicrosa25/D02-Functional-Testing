@@ -335,7 +335,7 @@ public class ChapterController extends AbstractController {
 		return result;
 	}
 
-	// Accepting parade --------------------------------------------------------------------------------------
+	// Aprove parade --------------------------------------------------------------------------------------
 	@RequestMapping(value = "/parade/aprove", method = RequestMethod.GET)
 	public ModelAndView aproveParade(@RequestParam int processionId) {
 		ModelAndView result = null;
@@ -364,7 +364,7 @@ public class ChapterController extends AbstractController {
 	}
 
 
-	// Self-assign an area GET ------------------------------------------------------------------------------------
+	// Rejecting parade GET ------------------------------------------------------------------------------------
 	@RequestMapping(value = "/parade/reject/reasson", method = RequestMethod.GET)
 	public ModelAndView reason(@RequestParam int processionId) {
 		ModelAndView result;
