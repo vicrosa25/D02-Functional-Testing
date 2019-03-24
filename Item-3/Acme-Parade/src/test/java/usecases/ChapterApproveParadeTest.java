@@ -38,7 +38,7 @@ public class ChapterApproveParadeTest extends AbstractTest {
 	 *  
 	 **/
 	@Test
-	public void selfAssignaAnArea(){
+	public void selfAssignaAnAreaPositive(){
 		int processionId;
 		Procession procession;
 		
@@ -61,7 +61,7 @@ public class ChapterApproveParadeTest extends AbstractTest {
 	 *  
 	 **/
 	@Test(expected = IllegalArgumentException.class)
-	public void testBanRequestNotAadmin(){
+	public void selfAssignaAnAreaNegative(){
 		int processionId;
 		Procession procession;
 		
