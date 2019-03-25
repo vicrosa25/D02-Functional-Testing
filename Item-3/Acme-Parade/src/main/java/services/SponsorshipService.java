@@ -33,6 +33,9 @@ public class SponsorshipService {
 	private ActorService		  actorService;
 
 	@Autowired
+	private ConfigurationsService	configurationsService;
+
+	@Autowired
 	@Qualifier("validator")
 	private Validator				validator;
 
@@ -109,6 +112,12 @@ public class SponsorshipService {
 			result.setActive(sponsorship.getActive());
 			result.setSponsor(this.sponsorService.findByPrincipal());
 		}
+		// credit card brand validation
+		if (sponsorship.getCreditCard().getBrandName() == null) {
+			binding.rejectValue("creditCard.brandName", "creditCard.error.brand", "Incorrect brand name");
+		} else if (!this.configurationsService.getConfiguration().getBrandName().contains(sponsorship.getCreditCard().getBrandName())) {
+			binding.rejectValue("creditCard.brandName", "creditCard.error.brand", "Incorrect brand name");
+		}
 
 		this.validator.validate(result, binding);
 
@@ -122,5 +131,16 @@ public class SponsorshipService {
 		Assert.notNull(result);
 
 		return result;
+	}
+
+	public Sponsorship updateCharge(Sponsorship sponsorship) {
+		Assert.notNull(sponsorship);
+		sponsorship.setCharge(sponsorship.getCharge() +
+			this.configurationsService.getConfiguration().getFare()*this.configurationsService.getConfiguration().getVat());
+		return this.sponsorshipRepository.save(sponsorship);
+	}
+
+	public void flush() {
+		this.sponsorshipRepository.flush();
 	}
 }

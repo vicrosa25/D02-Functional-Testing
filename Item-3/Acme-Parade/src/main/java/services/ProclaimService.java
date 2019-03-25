@@ -9,6 +9,7 @@ import org.springframework.transaction.annotation.Transactional;
 import org.springframework.util.Assert;
 
 import repositories.ProclaimRepository;
+import domain.Chapter;
 import domain.Proclaim;
 
 @Service
@@ -47,11 +48,15 @@ public class ProclaimService {
 	
 	
 	public Proclaim save(Proclaim proclaim) {
+		Proclaim result;
 		Assert.notNull(proclaim);
 		Assert.isTrue(proclaim.getId() == 0);
-		this.chapterService.findByPrincipal();
+		Chapter principal = this.chapterService.findByPrincipal();
 
-		return this.proclaimRepository.save(proclaim);
+		result = this.proclaimRepository.save(proclaim);
+		principal.getProclaims().add(result);
+
+		return result;
 	}
 	
 	
@@ -59,5 +64,10 @@ public class ProclaimService {
 	
 	public Collection<Proclaim> findByChapter(int chapterId) {
 		return this.proclaimRepository.findByChapter(chapterId);
+	}
+
+	public void flush() {
+		this.proclaimRepository.flush();
+
 	}
 }

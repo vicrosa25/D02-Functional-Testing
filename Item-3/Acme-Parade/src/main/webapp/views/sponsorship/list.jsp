@@ -43,12 +43,12 @@
 	</display:column>
 	
 	<!-- de/activate -->
-	<jstl:if test="${not row.active}">
+<%-- 	<jstl:if test="${not row.active}">
 		<display:column>
 			<a href="sponsorship/sponsor/activate.do?sponsorshipId=${row.id}">
 				<spring:message code="sponsorship.activate" /></a>
 		</display:column>
-	</jstl:if>
+	</jstl:if> --%>
 	
 	<jstl:if test="${row.active}">
 		<display:column>

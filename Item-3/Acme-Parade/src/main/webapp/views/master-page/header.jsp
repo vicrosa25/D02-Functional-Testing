@@ -119,7 +119,14 @@
 					<li><a href="chapter/parade/list.do"><spring:message code="master.page.chapter.myParades" /></a></li>
 				</ul>
 			</li>
-			<li><a href="proclaim/chapter/publish.do" class="fNiv"><spring:message	code="master.page.proclaim.publish" /></a></li>
+			
+			<li><a class="fNiv"><spring:message	code="master.page.proclaims" /></a>
+				<ul>
+					<li class="arrow"></li>
+					<li><a href="proclaim/chapter/publish.do" class="fNiv"><spring:message	code="master.page.proclaim.publish" /></a></li>
+					<li><a href="proclaim/chapter/list.do" class="fNiv"><spring:message	code="master.page.proclaim.list" /></a></li>
+				</ul>
+			</li>
 		</security:authorize>
 		
 		<!-- An actor who is authenticated as a SPONSOR -->
@@ -167,6 +174,12 @@
 						<li><a href="brotherhood/member/dropped.do	"><spring:message code="master.page.brotherhood.member.list.dropped" /></a></li>
 						<li><a href="enrol/member/create.do"><spring:message code="master.page.member.enrol" /></a></li>		
 					</security:authorize>
+				</ul>
+			</li>
+			<li><a class="fNiv"><spring:message	code="master.page.chapter" /></a>
+				<ul>
+					<li class="arrow"></li>
+					<li><a href="chapter/list.do"><spring:message code="master.page.chapter.list" /></a></li>				
 				</ul>
 			</li>
 			<li>

@@ -56,7 +56,10 @@ public class ProcessionController extends AbstractController {
 			result.addObject("procession", procession);
 			if (!sponsorships.isEmpty()) {
 				Random rand = new Random();
-				result.addObject("sponsorship", sponsorships.get(rand.nextInt(sponsorships.size())));
+				Sponsorship sponsorship = sponsorships.get(rand.nextInt(sponsorships.size()));
+
+				sponsorship = this.sponsorshipService.updateCharge(sponsorship);
+				result.addObject("sponsorship", sponsorship);
 			}
 
 		} catch (final Throwable oops) {
@@ -79,7 +82,7 @@ public class ProcessionController extends AbstractController {
 
 		try {
 			principal = this.brotherhoodService.findByPrincipal();
-			processions = this.processionService.getProcessionsSortedByStatus(principal.getId()); // TODO probar con mas processions
+			processions = this.processionService.getProcessionsSortedByStatus(principal.getId());
 			result = new ModelAndView("procession/list");
 			result.addObject("processions", processions);
 			result.addObject("uri", "procession/list");
@@ -206,22 +209,8 @@ public class ProcessionController extends AbstractController {
 	@RequestMapping(value = "brotherhood/copy", method = RequestMethod.GET)
 	public ModelAndView copy(@RequestParam final int processionId) {
 		ModelAndView result;
-		Procession procession;
 		try {
-			procession = this.processionService.findOne(processionId);
-			Brotherhood principal = this.brotherhoodService.findByPrincipal();
-			
-			Assert.isTrue(principal.getProcessions().contains(procession));
-			
-			Procession copy = this.processionService.create();
-			copy.setBrotherhood(principal);
-			copy.setDescription(procession.getDescription());
-			copy.setDraftMode(true);
-			copy.setMoment(procession.getMoment());
-			copy.setTitle(procession.getTitle());
-			
-			copy = this.processionService.save(copy);
-			principal.getProcessions().add(copy);
+			this.processionService.copy(processionId);
 			
 			result = new ModelAndView("redirect:../list.do");
 		} catch (final Throwable oops) {

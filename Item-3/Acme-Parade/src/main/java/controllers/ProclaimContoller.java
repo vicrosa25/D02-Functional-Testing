@@ -1,6 +1,7 @@
 
 package controllers;
 
+import java.util.Collection;
 import java.util.List;
 
 import javax.swing.JOptionPane;
@@ -16,7 +17,9 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.servlet.ModelAndView;
 
+import services.ChapterService;
 import services.ProclaimService;
+import domain.Chapter;
 import domain.Proclaim;
 
 @Controller
@@ -26,6 +29,9 @@ public class ProclaimContoller extends AbstractController {
 	@Autowired
 	private ProclaimService	proclaimService;
 
+	@Autowired
+	private ChapterService	chapterService;
+
 
 	@ExceptionHandler(TypeMismatchException.class)
 	public ModelAndView handleMismatchException(final TypeMismatchException oops) {
@@ -33,6 +39,24 @@ public class ProclaimContoller extends AbstractController {
 		return new ModelAndView("redirect:/");
 	}
 
+	// list ------------------------------------------------------------------------------------
+	@RequestMapping(value = "/chapter/list", method = RequestMethod.GET)
+	public ModelAndView proclaimList() {
+		ModelAndView result;
+		Chapter chapter;
+		Collection<Proclaim> proclaims;
+		try {
+			chapter = this.chapterService.findByPrincipal();
+			proclaims = chapter.getProclaims();
+
+			result = new ModelAndView("chapter/proclaim/list");
+			result.addObject("requestURI", "chapter/proclaim/list.do");
+			result.addObject("proclaims", proclaims);
+		} catch (final Throwable oops) {
+			result = this.forbiddenOpperation();
+		}
+		return result;
+	}
 	// Publish ---------------------------------------------------------------
 	@RequestMapping(value = "/chapter/publish", method = RequestMethod.GET)
 	public ModelAndView publish() {

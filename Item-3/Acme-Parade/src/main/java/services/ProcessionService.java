@@ -41,6 +41,9 @@ public class ProcessionService {
 	private ActorService			actorService;
 
 	@Autowired
+	private BrotherhoodService		brotherhoodService;
+
+	@Autowired
 	private MessageService			messageService;
 
 	@Autowired
@@ -268,5 +271,23 @@ public class ProcessionService {
 	public Collection<Procession> findAllAccepted() {
 		Collection<Procession> result = this.processionRepository.findAllAccepted();
 		return result;
+	}
+
+	public Procession copy(int processionId) {
+		Procession procession = this.findOne(processionId);
+		Brotherhood principal = this.brotherhoodService.findByPrincipal();
+
+		Assert.isTrue(principal.getProcessions().contains(procession));
+
+		Procession copy = this.create();
+		copy.setBrotherhood(principal);
+		copy.setDescription(procession.getDescription());
+		copy.setDraftMode(true);
+		copy.setMoment(procession.getMoment());
+		copy.setTitle(procession.getTitle());
+
+		copy = this.save(copy);
+		principal.getProcessions().add(copy);
+		return copy;
 	}
 }

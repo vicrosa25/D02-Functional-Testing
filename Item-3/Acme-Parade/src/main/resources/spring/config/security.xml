@@ -105,6 +105,7 @@
 		<!-- PROCLAIM -->
 		<security:intercept-url pattern="/proclaim/list.do" access="isAnonymous()" />
 		<security:intercept-url pattern="/proclaim/chapter/publish.do" access="hasRole('CHAPTER')" />
+		<security:intercept-url pattern="/proclaim/chapter/list.do" access="hasRole('CHAPTER')" />
 		
 		
 		<!-- PROCESSION -->
