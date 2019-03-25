@@ -139,4 +139,8 @@ public class SponsorshipService {
 			this.configurationsService.getConfiguration().getFare()*this.configurationsService.getConfiguration().getVat());
 		return this.sponsorshipRepository.save(sponsorship);
 	}
+
+	public void flush() {
+		this.sponsorshipRepository.flush();
+	}
 }
