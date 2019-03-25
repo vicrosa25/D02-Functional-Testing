@@ -65,4 +65,9 @@ public class ProclaimService {
 	public Collection<Proclaim> findByChapter(int chapterId) {
 		return this.proclaimRepository.findByChapter(chapterId);
 	}
+
+	public void flush() {
+		this.proclaimRepository.flush();
+
+	}
 }
