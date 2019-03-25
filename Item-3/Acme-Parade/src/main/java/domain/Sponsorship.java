@@ -6,6 +6,7 @@ import javax.persistence.AccessType;
 import javax.persistence.Entity;
 import javax.persistence.ManyToOne;
 import javax.validation.Valid;
+import javax.validation.constraints.DecimalMin;
 import javax.validation.constraints.NotNull;
 
 import org.hibernate.validator.constraints.NotBlank;
@@ -21,6 +22,7 @@ public class Sponsorship extends DomainEntity {
 	private String		targetPage;
 	private CreditCard	creditCard;
 	private Boolean 	active;
+	private double		charge;
 
 
 	@NotBlank
@@ -57,6 +59,16 @@ public class Sponsorship extends DomainEntity {
 	
 	public void setActive(Boolean active) {
 		this.active = active;
+	}
+
+	@NotNull
+	@DecimalMin("0.0")
+	public double getCharge() {
+		return this.charge;
+	}
+
+	public void setCharge(double charge) {
+		this.charge = charge;
 	}
 
 

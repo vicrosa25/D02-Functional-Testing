@@ -56,7 +56,10 @@ public class ProcessionController extends AbstractController {
 			result.addObject("procession", procession);
 			if (!sponsorships.isEmpty()) {
 				Random rand = new Random();
-				result.addObject("sponsorship", sponsorships.get(rand.nextInt(sponsorships.size())));
+				Sponsorship sponsorship = sponsorships.get(rand.nextInt(sponsorships.size()));
+
+				sponsorship = this.sponsorshipService.updateCharge(sponsorship);
+				result.addObject("sponsorship", sponsorship);
 			}
 
 		} catch (final Throwable oops) {

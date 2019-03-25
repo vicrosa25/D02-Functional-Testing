@@ -30,12 +30,9 @@
 </display:table>
 
 <jstl:if test="${not empty sponsorship}"><div>
-	<a href="sponsorship/charge.do?sponsorshipId=${sponsorship.id}&processionId=${procession.id}"><img src="${sponsorship.banner}" alt="${sponsorship.targetPage}"
+	<a href="${sponsorship.targetPage}"><img src="${sponsorship.banner}" alt="${sponsorship.targetPage}"
 		width="500" height="120" /></a>
 </div></jstl:if>
-<jstl:if test="${not empty charged}">
-	<spring:message code="sponsorship.charged"/>${sponsorship.targetPage}<br>
-</jstl:if>
 
 
 <jstl:if test="${not empty procession.path}">

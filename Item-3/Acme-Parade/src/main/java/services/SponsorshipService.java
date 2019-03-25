@@ -33,6 +33,9 @@ public class SponsorshipService {
 	private ActorService		  actorService;
 
 	@Autowired
+	private ConfigurationsService	configurationsService;
+
+	@Autowired
 	@Qualifier("validator")
 	private Validator				validator;
 
@@ -122,5 +125,12 @@ public class SponsorshipService {
 		Assert.notNull(result);
 
 		return result;
+	}
+
+	public Sponsorship updateCharge(Sponsorship sponsorship) {
+		Assert.notNull(sponsorship);
+		sponsorship.setCharge(sponsorship.getCharge() +
+			this.configurationsService.getConfiguration().getFare()*this.configurationsService.getConfiguration().getVat());
+		return this.sponsorshipRepository.save(sponsorship);
 	}
 }
