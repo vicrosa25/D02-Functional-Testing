@@ -48,8 +48,8 @@ public class AdminDashBoardTest extends AbstractTest {
 	 * 1. Query 1: The average, the minimum, the maximum, and the standard deviation of the number
 	 * of records per history
 	 * 
-	 * 1. Negative test.
-	 * 2. Business rule that is intended to broke: The actor is not authenticated as an Admin
+	 * 2. Negative test.
+	 * 3. Business rule that is intended to broke: The actor is not authenticated as an Admin
 	 * 
 	 **/
 	@Test
@@ -80,8 +80,8 @@ public class AdminDashBoardTest extends AbstractTest {
 	 * 
 	 * 1. Query 2: The brotherhood with the largest history
 	 * 
-	 * 1. Negative test.
-	 * 2. Business rule that is intended to broke: The actor is not authenticated as an Admin
+	 * 2. Negative test.
+	 * 3. Business rule that is intended to broke: The actor is not authenticated as an Admin
 	 * 
 	 **/
 	@Test
@@ -112,8 +112,8 @@ public class AdminDashBoardTest extends AbstractTest {
 	 * 
 	 * 1. Query 3: The brotherhoods whose history is larger than the average.
 	 * 
-	 * 1. Negative test.
-	 * 2. Business rule that is intended to broke: The actor is not authenticated as an Admin
+	 * 2. Negative test.
+	 * 3. Business rule that is intended to broke: The actor is not authenticated as an Admin
 	 * 
 	 **/
 	@Test
@@ -145,8 +145,8 @@ public class AdminDashBoardTest extends AbstractTest {
 	 * 
 	 * 1. Query 4: The ratio of areas that are not co-ordinated by any chapters.
 	 * 
-	 * 1. Negative test.
-	 * 2. Business rule that is intended to broke: The actor is not authenticated as an Admin
+	 * 2. Negative test.
+	 * 3. Business rule that is intended to broke: The actor is not authenticated as an Admin
 	 * 
 	 **/
 	@Test
@@ -211,8 +211,8 @@ public class AdminDashBoardTest extends AbstractTest {
 	 * 
 	 * 1. Query 6: The chapters that co-ordinate at least 10% more parades than the average.
 	 * 
-	 * 1. Negative test.
-	 * 2. Business rule that is intended to broke: The actor is not authenticated as an Admin
+	 * 2. Negative test.
+	 * 3. Business rule that is intended to broke: The actor is not authenticated as an Admin
 	 * 
 	 **/
 	@Test
@@ -243,8 +243,8 @@ public class AdminDashBoardTest extends AbstractTest {
 	 * 
 	 * 1. Query 7: The ratio of parades in draft mode versus parades in final mode.
 	 * 
-	 * 1. Negative test.
-	 * 2. Business rule that is intended to broke: The actor is not authenticated as an Admin
+	 * 2. Negative test.
+	 * 3. Business rule that is intended to broke: The actor is not authenticated as an Admin
 	 * 
 	 **/
 	@Test
@@ -275,8 +275,8 @@ public class AdminDashBoardTest extends AbstractTest {
 	 * 
 	 * 1. Query8: The ratio of parades in final mode grouped by status.
 	 * 
-	 * 1. Negative test.
-	 * 2. Business rule that is intended to broke: The actor is not authenticated as an Admin
+	 * 2. Negative test.
+	 * 3. Business rule that is intended to broke: The actor is not authenticated as an Admin
 	 * 
 	 **/
 	@Test
@@ -308,8 +308,8 @@ public class AdminDashBoardTest extends AbstractTest {
 	 * 
 	 * 1. Query 9: The ratio of active sponsorships.
 	 * 
-	 * 1. Negative test.
-	 * 2. Business rule that is intended to broke: The actor is not authenticated as an Admin
+	 * 2. Negative test.
+	 * 3. Business rule that is intended to broke: The actor is not authenticated as an Admin
 	 * 
 	 **/
 	@Test
@@ -342,8 +342,8 @@ public class AdminDashBoardTest extends AbstractTest {
 	 * 1. Query 10: The average, the minimum, the maximum, and the standard deviation of active sponsorships
 	 * per sponsor
 	 * 
-	 * 1. Negative test.
-	 * 2. Business rule that is intended to broke: The actor is not authenticated as an Admin
+	 * 2. Negative test.
+	 * 3. Business rule that is intended to broke: The actor is not authenticated as an Admin
 	 * 
 	 **/
 	@Test
@@ -374,8 +374,8 @@ public class AdminDashBoardTest extends AbstractTest {
 	 * 
 	 * 1. Query 11: The top-5 sponsors in terms of number of active sponsorships.
 	 * 
-	 * 1. Negative test.
-	 * 2. Business rule that is intended to broke: The actor is not authenticated as an Admin
+	 * 2. Negative test.
+	 * 3. Business rule that is intended to broke: The actor is not authenticated as an Admin
 	 * 
 	 **/
 	@Test
