@@ -104,6 +104,10 @@ public class PathService {
 			}
 		}
 
+		if (form.getProcession() == null) {
+			binding.rejectValue("procession", "path.error.procession", "A procession must be selected");
+		}
+
 		this.validator.validate(segment, binding);
 		return path;
 	}

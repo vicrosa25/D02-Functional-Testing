@@ -111,10 +111,6 @@ public class PathController extends AbstractController {
 		ModelAndView result;
 		Path path;
 
-		if (pathForm.getProcession() == null) {
-			binding.rejectValue("procession", "path.error.procession", "A procession must be selected");
-		}
-
 		path = this.pathService.reconstruct(pathForm, binding);
 
 		if (binding.hasErrors()) {
