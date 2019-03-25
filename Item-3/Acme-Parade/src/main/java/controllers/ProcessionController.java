@@ -206,22 +206,8 @@ public class ProcessionController extends AbstractController {
 	@RequestMapping(value = "brotherhood/copy", method = RequestMethod.GET)
 	public ModelAndView copy(@RequestParam final int processionId) {
 		ModelAndView result;
-		Procession procession;
 		try {
-			procession = this.processionService.findOne(processionId);
-			Brotherhood principal = this.brotherhoodService.findByPrincipal();
-			
-			Assert.isTrue(principal.getProcessions().contains(procession));
-			
-			Procession copy = this.processionService.create();
-			copy.setBrotherhood(principal);
-			copy.setDescription(procession.getDescription());
-			copy.setDraftMode(true);
-			copy.setMoment(procession.getMoment());
-			copy.setTitle(procession.getTitle());
-			
-			copy = this.processionService.save(copy);
-			principal.getProcessions().add(copy);
+			this.processionService.copy(processionId);
 			
 			result = new ModelAndView("redirect:../list.do");
 		} catch (final Throwable oops) {
