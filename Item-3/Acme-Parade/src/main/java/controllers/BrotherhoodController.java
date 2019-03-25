@@ -18,16 +18,16 @@ import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.servlet.ModelAndView;
 
-import services.AreaService;
-import services.BrotherhoodService;
-import services.DropoutService;
-import services.MemberService;
-import utilities.Md5;
 import domain.Brotherhood;
 import domain.Dropout;
 import domain.Member;
 import domain.Url;
 import forms.BrotherhoodForm;
+import services.AreaService;
+import services.BrotherhoodService;
+import services.DropoutService;
+import services.MemberService;
+import utilities.Md5;
 
 @Controller
 @RequestMapping("/brotherhood")
@@ -68,6 +68,7 @@ public class BrotherhoodController extends AbstractController {
 			System.out.println(oops.getCause());
 			result = this.forbiddenOpperation();
 		}
+		
 
 		return result;
 	}
