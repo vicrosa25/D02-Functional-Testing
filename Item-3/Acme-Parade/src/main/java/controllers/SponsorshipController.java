@@ -152,14 +152,14 @@ public class SponsorshipController extends AbstractController {
 	@RequestMapping(value = "/sponsor/activate", method = RequestMethod.GET)
 	public ModelAndView activate(@RequestParam final int sponsorshipId) {
 		ModelAndView result;
-		Sponsorship sponsorship;
+		//Sponsorship sponsorship;
 
 		try {
-			sponsorship = this.sponsorshipService.findOne(sponsorshipId);
-			Assert.isTrue(this.sponsorService.findByPrincipal() == sponsorship.getSponsor());
-			Assert.isTrue(!sponsorship.getActive());
-			sponsorship.setActive(true);
-			this.sponsorshipService.save(sponsorship);
+			//			sponsorship = this.sponsorshipService.findOne(sponsorshipId);
+			//			Assert.isTrue(this.sponsorService.findByPrincipal() == sponsorship.getSponsor());
+			//			Assert.isTrue(!sponsorship.getActive());
+			//			sponsorship.setActive(true);
+			//			this.sponsorshipService.save(sponsorship);
 			result = new ModelAndView("redirect:/sponsorship/sponsor/list.do");
 		} catch (final Throwable oops) {
 			result = this.forbiddenOpperation();
