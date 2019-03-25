@@ -11,13 +11,13 @@ import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 import org.springframework.util.Assert;
 
-import repositories.MessageRepository;
-import security.LoginService;
-import security.UserAccount;
 import domain.Actor;
 import domain.Configurations;
 import domain.Message;
 import domain.MessageBox;
+import repositories.MessageRepository;
+import security.LoginService;
+import security.UserAccount;
 
 @Service
 @Transactional
@@ -55,6 +55,14 @@ public class MessageService {
 		final Message result = this.messageRepository.findOne(messageID);
 		Assert.notNull(result);
 
+		return result;
+	}
+	
+	
+	public Collection<Message> findAll() {
+		Collection<Message> result;
+		
+		result = this.messageRepository.findAll();
 		return result;
 	}
 

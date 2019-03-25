@@ -55,7 +55,7 @@ public class AreaService {
 	public Collection<Area> findAll() {
 		final Collection<Area> result = this.areaRepository.findAll();
 
-		Assert.notNull(result);
+		//Assert.notNull(result);
 
 		return result;
 	}
