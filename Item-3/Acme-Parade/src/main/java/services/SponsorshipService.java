@@ -112,6 +112,12 @@ public class SponsorshipService {
 			result.setActive(sponsorship.getActive());
 			result.setSponsor(this.sponsorService.findByPrincipal());
 		}
+		// credit card brand validation
+		if (sponsorship.getCreditCard().getBrandName() == null) {
+			binding.rejectValue("creditCard.brandName", "creditCard.error.brand", "Incorrect brand name");
+		} else if (!this.configurationsService.getConfiguration().getBrandName().contains(sponsorship.getCreditCard().getBrandName())) {
+			binding.rejectValue("creditCard.brandName", "creditCard.error.brand", "Incorrect brand name");
+		}
 
 		this.validator.validate(result, binding);
 
