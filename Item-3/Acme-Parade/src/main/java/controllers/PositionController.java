@@ -12,14 +12,15 @@ import org.springframework.stereotype.Controller;
 import org.springframework.util.Assert;
 import org.springframework.validation.BindingResult;
 import org.springframework.validation.ObjectError;
+import org.springframework.web.bind.annotation.CookieValue;
 import org.springframework.web.bind.annotation.ExceptionHandler;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.servlet.ModelAndView;
 
-import domain.Position;
 import services.PositionService;
+import domain.Position;
 
 @Controller
 @RequestMapping("position/admin")
@@ -36,14 +37,14 @@ public class PositionController extends AbstractController {
 
 	// List -------------------------------------------------------------
 	@RequestMapping(value = "/list", method = RequestMethod.GET)
-	public ModelAndView list() {
+	public ModelAndView list(@CookieValue(value = "language", defaultValue = "") String language) {
 		final ModelAndView result;
 		Collection<Position> positions;
-
 		positions = this.positionService.findAll();
 
 		result = new ModelAndView("position/admin/list");
 		result.addObject("positions", positions);
+		result.addObject("language", language);
 		result.addObject("requestURI", "position/admin/list.do");
 
 		return result;
