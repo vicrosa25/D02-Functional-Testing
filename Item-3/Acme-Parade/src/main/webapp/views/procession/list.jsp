@@ -36,14 +36,17 @@
 	<jstl:choose>
 		<jstl:when test="${row.status == 'SUBMITTED'}">
 			<jstl:set var="css" value="tableColumnSubmitted" />
+			<spring:message code="procession.submitted" var="statusValue" />
 		</jstl:when>
 
 		<jstl:when test="${row.status == 'APPROVED'}">
 			<jstl:set var="css" value="tableColumnAccepted" />
+			<spring:message code="procession.approved" var="statusValue" />
 		</jstl:when>
 
 		<jstl:when test="${row.status == 'REJECTED'}">
 			<jstl:set var="css" value="tableColumnRejected" />
+			<spring:message code="procession.rejected" var="statusValue" />
 		</jstl:when>
 
 		<jstl:otherwise>
@@ -90,7 +93,10 @@
 	<security:authorize access="hasRole('BROTHERHOOD')">
 	<jstl:if test="${not empty bro}">
 		<spring:message code="procession.status" var="statusHeader" />
-		<display:column property="status" title="${statusHeader}" class="${css}"/>
+		<display:column title="${statusHeader}" class="${css}">
+			<jstl:if test="${not row.draftMode}">${statusValue}</jstl:if>
+			<jstl:if test="${row.draftMode}"><spring:message code="procession.draftMode"/></jstl:if>
+		</display:column>
 			
 		<!-- Hacer copia -->
 		<display:column title="${copyHeader}" class="${css}">
