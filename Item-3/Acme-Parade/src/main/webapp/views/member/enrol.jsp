@@ -15,7 +15,7 @@
 	<form:hidden path="moment" />
 	
 	<%-- Brotherhood --%>
-	<acme:select2 code="enrol.brotherhood" path="brotherhood" items="${brotherhoods}" itemLabel="title" />
+	<acme:select code="enrol.brotherhood" path="brotherhood" items="${brotherhoods}" itemLabel="title" />
 	<br>
 
 	
