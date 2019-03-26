@@ -18,6 +18,8 @@
 
 	<properties>
 		<project.build.sourceEncoding>ISO-8859-1</project.build.sourceEncoding>
+		<maven.compiler.source>1.5</maven.compiler.source>
+		<maven.compiler.target>1.5</maven.compiler.target>
 	</properties>
 
 	<!-- Indexing information -->
@@ -25,9 +27,35 @@
 	<name>Acme Parade</name>
 	<url>http://www.acme-parade.com</url>
 
+
+	<!-- Sonar Profile section -->
+<!-- 	<profiles> -->
+<!-- 		<profile> -->
+<!-- 			<id>sonar</id> -->
+<!-- 			<properties> -->
+<!-- 				<sonar.host.url>https://sonarcloud.io</sonar.host.url> -->
+<!-- 				<sonar.organization>vicrosa25-github</sonar.organization> -->
+<!-- 			</properties> -->
+<!-- 			<build> -->
+<!-- 				<plugins> -->
+<!-- 					<plugin> -->
+<!-- 						<groupId>org.jacoco</groupId> -->
+<!-- 						<artifactId>jacoco-maven-plugin</artifactId> -->
+<!-- 					</plugin> -->
+<!-- 					<plugin> -->
+<!-- 						<groupId>org.sonarsource.scanner.maven</groupId> -->
+<!-- 						<artifactId>sonar-maven-plugin</artifactId> -->
+<!-- 					</plugin> -->
+<!-- 				</plugins> -->
+<!-- 			</build> -->
+<!-- 		</profile> -->
+<!-- 	</profiles> -->
+
+
 	<!-- Build commands -->
 
 	<build>
+
 		<plugins>
 
 			<!-- Java compiler -->
@@ -85,8 +113,58 @@
 				<artifactId>maven-surefire-plugin</artifactId>
 				<version>2.22.1</version>
 				<configuration>
-					<skipTests>true</skipTests>
+					<!-- Sets the VM argument line used when unit tests are run. -->
+					<argLine>${surefireArgLine}</argLine>
+					<!-- Skips unit tests if the value of skip.unit.tests property is true -->
+					<skipTests>${skip.unit.tests}</skipTests>
+					<!-- Excludes integration tests when unit tests are run. -->
+					<excludes>
+						<exclude>**/IT*.java</exclude>
+					</excludes>
 				</configuration>
+			</plugin>
+
+
+
+
+			<!-- Jacoco -->
+
+			<plugin>
+				<groupId>org.jacoco</groupId>
+				<artifactId>jacoco-maven-plugin</artifactId>
+				<version>0.7.5.201505241946</version>
+				<executions>
+					<!-- Prepares the property pointing to the JaCoCo runtime agent which 
+						is passed as VM argument when Maven the Surefire plugin is executed. -->
+					<execution>
+						<id>pre-unit-test</id>
+						<goals>
+							<goal>prepare-agent</goal>
+						</goals>
+						<configuration>
+							<!-- Sets the path to the file which contains the execution data. -->
+							<destFile>${project.build.directory}/coverage-reports/jacoco-ut.exec</destFile>
+							<!-- Sets the name of the property containing the settings for JaCoCo 
+								runtime agent. -->
+							<propertyName>surefireArgLine</propertyName>
+						</configuration>
+					</execution>
+					<!-- Ensures that the code coverage report for unit tests is created 
+						after unit tests have been run. -->
+					<execution>
+						<id>post-unit-test</id>
+						<phase>test</phase>
+						<goals>
+							<goal>report</goal>
+						</goals>
+						<configuration>
+							<!-- Sets the path to the file which contains the execution data. -->
+							<dataFile>${project.build.directory}/coverage-reports/jacoco-ut.exec</dataFile>
+							<!-- Sets the output directory for the code coverage report. -->
+							<outputDirectory>${project.reporting.outputDirectory}/jacoco-ut</outputDirectory>
+						</configuration>
+					</execution>
+				</executions>
 			</plugin>
 
 		</plugins>
@@ -292,7 +370,7 @@
 			<artifactId>junit</artifactId>
 			<version>4.11</version>
 		</dependency>
-		
+
 		<!-- Mockito -->
 
 		<dependency>
@@ -339,12 +417,9 @@
 			<artifactId>chart</artifactId>
 			<version>2.3.1</version>
 		</dependency>
-
-
-
-
-
 	</dependencies>
 
 	<description>This system allows people share their favourite Shouts.</description>
+
 </project> 
+
