@@ -16,12 +16,16 @@
 	<form:hidden path="moment" />
 	
 	<%-- Position --%>
-	<jstl:if test="${pageContext.response.locale == 'en'}">
-		<acme:select2 code="enrol.position" path="positions" items="${positions}" itemLabel="englishName" />
+	<jstl:if test="${language=='en'}">
+		<acme:select code="enrol.position" path="positions" items="${positions}" itemLabel="englishName" />
 	</jstl:if>
 		
-	<jstl:if test="${pageContext.response.locale == 'es'}">
-		<acme:select2 code="enrol.position" path="positions" items="${positions}" itemLabel="spanishName" />
+	<jstl:if test="${language=='es'}">
+		<acme:select code="enrol.position" path="positions" items="${positions}" itemLabel="spanishName" />
+	</jstl:if>
+	
+	<jstl:if test="${empty language}">
+		<acme:select code="enrol.position" path="positions" items="${positions}" itemLabel="englishName" />
 	</jstl:if>
 	
 	<br>

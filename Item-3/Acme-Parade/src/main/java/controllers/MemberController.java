@@ -9,6 +9,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.validation.BindingResult;
 import org.springframework.validation.ObjectError;
+import org.springframework.web.bind.annotation.CookieValue;
 import org.springframework.web.bind.annotation.ExceptionHandler;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
@@ -41,7 +42,7 @@ public class MemberController extends AbstractController {
 
 	// List ------------------------------------------------------------------------------------
 	@RequestMapping(value = "/list", method = RequestMethod.GET)
-	public ModelAndView list(@RequestParam final int brotherhoodId) {
+	public ModelAndView list(@RequestParam final int brotherhoodId, @CookieValue(value = "language", defaultValue = "") String language) {
 		ModelAndView result;
 		Collection<Enrol> enrols;
 		Brotherhood brotherhood;
@@ -50,6 +51,7 @@ public class MemberController extends AbstractController {
 			brotherhood = this.brotherhoodService.findOne(brotherhoodId);
 			enrols = brotherhood.getEnrols();
 			result = new ModelAndView("member/list");
+			result.addObject("language", language);
 			result.addObject("enrols", enrols);
 		} catch (final Throwable oops) {
 			System.out.println(oops.getMessage());

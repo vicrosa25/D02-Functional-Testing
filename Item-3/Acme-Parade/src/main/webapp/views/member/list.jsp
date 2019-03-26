@@ -54,20 +54,38 @@
 	<!-- Positions -->
 	<spring:message code="enrol.position" var="positionsHeader" />
 	
-		<jstl:if test="${pageContext.response.locale == 'en'}">
+		<jstl:if test="${language=='es'}">
+		<!-- Spanish Name -->
+		<display:column title="${positionsHeader}" sortable="false">
+			<jstl:forEach var="position" items="${row.positions}" varStatus="loop">
+					${position.spanishName}${!loop.last ? ',' : ''}&nbsp
+			</jstl:forEach>
+		</display:column>
+		</jstl:if>
+		
+		<jstl:if test="${language=='en'}">
+		<!-- English Name -->
 		<display:column title="${positionsHeader}" sortable="false">
 			<jstl:forEach var="position" items="${row.positions}" varStatus="loop">
 					${position.englishName}${!loop.last ? ',' : ''}&nbsp
 			</jstl:forEach>
 		</display:column>
 		</jstl:if>
-		
-		<jstl:if test="${pageContext.response.locale == 'es'}">
-		<display:column title="${positionsHeader}" sortable="false">
-			<jstl:forEach var="position" items="${row.positions}" varStatus="loop">
-					${position.spanishName}${!loop.last ? ',' : ''}&nbsp
-			</jstl:forEach>
-		</display:column>
+	
+		<jstl:if test="${empty language}">
+			<!-- Spanish Name -->
+			<display:column title="${positionsHeader}" sortable="false">
+				<jstl:forEach var="position" items="${row.positions}" varStatus="loop">
+						${position.englishName}${!loop.last ? ',' : ''}&nbsp
+				</jstl:forEach>
+			</display:column>
+			
+			<!-- English Name -->
+			<display:column title="${positionsHeader}" sortable="false">
+				<jstl:forEach var="position" items="${row.positions}" varStatus="loop">
+						${position.spanishName}${!loop.last ? ',' : ''}&nbsp
+				</jstl:forEach>
+			</display:column>
 		</jstl:if>
 		
 	<jstl:choose>
@@ -83,9 +101,9 @@
         	</display:column>
 	   </jstl:if>
 	   </security:authorize>
-		</jstl:when>
+	</jstl:when>
 	
-		<jstl:otherwise>
+	<jstl:otherwise>
 		<security:authorize access="hasRole('BROTHERHOOD')">
 		<jstl:if test="${not empty bro}">
 			<display:column>
@@ -93,7 +111,7 @@
         			<spring:message code="brotherhood.selectPosition"/>
 	        	</a>
 	        </display:column>
-	   </jstl:if>
+		  </jstl:if>
 	   </security:authorize>
 	</jstl:otherwise>
 	</jstl:choose>
