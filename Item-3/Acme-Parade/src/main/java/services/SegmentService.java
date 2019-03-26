@@ -25,9 +25,6 @@ public class SegmentService {
 	@Autowired
 	private BrotherhoodService	brotherhoodService;
 
-	@Autowired
-	private PathService			pathService;
-
 
 	// CRUD methods
 	public Segment create() {
