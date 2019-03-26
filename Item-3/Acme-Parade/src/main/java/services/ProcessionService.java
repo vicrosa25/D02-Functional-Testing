@@ -68,6 +68,7 @@ public class ProcessionService {
 		result = new Procession();
 		result.setTicker(this.generateTicker());
 		result.setRequests(new ArrayList<Request>());
+		result.setStatus("SUBMITTED");
 
 		return result;
 	}

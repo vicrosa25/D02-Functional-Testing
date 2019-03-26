@@ -3,6 +3,7 @@ package controllers;
 
 import java.util.ArrayList;
 import java.util.Collection;
+import java.util.List;
 import java.util.Random;
 
 import org.springframework.beans.TypeMismatchException;
@@ -10,6 +11,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.util.Assert;
 import org.springframework.validation.BindingResult;
+import org.springframework.validation.ObjectError;
 import org.springframework.web.bind.annotation.ExceptionHandler;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
@@ -167,12 +169,19 @@ public class ProcessionController extends AbstractController {
 		constructed = this.processionService.reconstruct(pruned, binding);
 
 		if (binding.hasErrors()) {
+			final List<ObjectError> errors = binding.getAllErrors();
+			for (final ObjectError e : errors) {
+				System.out.println(e.toString());
+			}
 			result = this.createEditModelAndView(pruned);
 		} else {
 			try {
 				this.processionService.save(constructed);
 				result = new ModelAndView("redirect:../list.do");
 			} catch (final Throwable oops) {
+				System.out.println(oops.getMessage());
+				System.out.println(oops.getClass());
+				System.out.println(oops.getCause());
 				oops.printStackTrace();
 				result = this.createEditModelAndView(pruned, "procession.registration.error");
 			}
