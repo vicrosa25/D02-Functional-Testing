@@ -13,6 +13,7 @@ import org.springframework.stereotype.Controller;
 import org.springframework.util.Assert;
 import org.springframework.validation.BindingResult;
 import org.springframework.validation.ObjectError;
+import org.springframework.web.bind.annotation.CookieValue;
 import org.springframework.web.bind.annotation.ExceptionHandler;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
@@ -53,7 +54,7 @@ public class MemberBrotherhoodController extends AbstractController {
 	/******** MAIN METHODS *********/
 	// List ------------------------------------------------------------------------------------
 	@RequestMapping(value = "/list", method = RequestMethod.GET)
-	public ModelAndView list() {
+	public ModelAndView list(@CookieValue(value = "language", defaultValue = "") String language) {
 		ModelAndView result;
 		Collection<Enrol> enrols;
 		Brotherhood brotherhood;
@@ -63,6 +64,7 @@ public class MemberBrotherhoodController extends AbstractController {
 			enrols = brotherhood.getEnrols();
 			result = new ModelAndView("member/list");
 			result.addObject("enrols", enrols);
+			result.addObject("language", language);
 			result.addObject("bro", 1);
 		} catch (final Throwable oops) {
 			System.out.println(oops.getMessage());
@@ -102,7 +104,7 @@ public class MemberBrotherhoodController extends AbstractController {
 
 	// Select Position ------------------------------------------------------------------------------------
 	@RequestMapping(value = "/selectPosition", method = RequestMethod.GET)
-	public ModelAndView selectPosition(@RequestParam final int enrolId) {
+	public ModelAndView selectPosition(@RequestParam final int enrolId, @CookieValue(value = "language", defaultValue = "") String language) {
 		ModelAndView result;
 		Enrol enrol;
 		Brotherhood brotherhood;
@@ -118,6 +120,7 @@ public class MemberBrotherhoodController extends AbstractController {
 
 			result = new ModelAndView("member/brotherhood/selectPosition");
 			result.addObject("positions", positions);
+			result.addObject("language", language);
 			result.addObject("enrol", enrol);
 
 		} catch (final Throwable oops) {
@@ -133,7 +136,7 @@ public class MemberBrotherhoodController extends AbstractController {
 
 	// Save enrol ------------------------------------------------------------------------------------
 	@RequestMapping(value = "/selectPosition", method = RequestMethod.POST, params = "save")
-	public ModelAndView save(@Valid final Enrol enrol, final BindingResult binding) {
+	public ModelAndView save(@Valid final Enrol enrol, final BindingResult binding, @CookieValue(value = "language", defaultValue = "") String language) {
 		ModelAndView result;
 		ArrayList<Position> positions = new ArrayList<Position>(enrol.getPositions());
 		
@@ -147,6 +150,7 @@ public class MemberBrotherhoodController extends AbstractController {
 
 			result = new ModelAndView("member/brotherhood/selectPosition");
 			result.addObject("positions", this.positionService.findAll());
+			result.addObject("language", language);
 			result.addObject("enrol", enrol);
 		} else {
 			try {
@@ -162,6 +166,7 @@ public class MemberBrotherhoodController extends AbstractController {
 				System.out.println(oops.getCause());
 				result = new ModelAndView("member/brotherhood/selectPosition");
 				result.addObject("positions", this.positionService.findAll());
+				result.addObject("language", language);
 				result.addObject("enrol", enrol);
 			}
 		}

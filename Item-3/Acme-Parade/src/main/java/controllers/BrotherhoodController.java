@@ -12,6 +12,7 @@ import org.springframework.dao.DataIntegrityViolationException;
 import org.springframework.stereotype.Controller;
 import org.springframework.validation.BindingResult;
 import org.springframework.validation.ObjectError;
+import org.springframework.web.bind.annotation.CookieValue;
 import org.springframework.web.bind.annotation.ExceptionHandler;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
@@ -38,7 +39,7 @@ public class BrotherhoodController extends AbstractController {
 
 	@Autowired
 	private MemberService		memberService;
-	
+
 	@Autowired
 	private DropoutService		dropoutService;
 	
@@ -74,7 +75,7 @@ public class BrotherhoodController extends AbstractController {
 
 	// List ------------------------------------------------------------------------------------
 	@RequestMapping(value = "/member/list", method = RequestMethod.GET)
-	public ModelAndView memberList() {
+	public ModelAndView memberList(@CookieValue(value = "language", defaultValue = "") String language) {
 		ModelAndView result;
 		Collection<Brotherhood> brotherhoods;
 		Member member ;
@@ -85,6 +86,7 @@ public class BrotherhoodController extends AbstractController {
 
 			result = new ModelAndView("brotherhood/member/list");
 			result.addObject("requestUri", "brotherhood/member/list.do");
+			result.addObject("language", language);
 			result.addObject("brotherhoods", brotherhoods);
 		} catch (final Throwable oops) {
 			System.out.println(oops.getMessage());
@@ -98,7 +100,7 @@ public class BrotherhoodController extends AbstractController {
 
 	// List droppped  ------------------------------------------------------------------------------------
 	@RequestMapping(value = "/member/dropped", method = RequestMethod.GET)
-	public ModelAndView droppedList() {
+	public ModelAndView droppedList(@CookieValue(value = "language", defaultValue = "") String language) {
 		ModelAndView result;
 		Collection<Brotherhood> brotherhoods;
 		Member member ;
@@ -108,6 +110,7 @@ public class BrotherhoodController extends AbstractController {
 			brotherhoods = this.brotherhoodService.findAllMemberBelonged(member);
 
 			result = new ModelAndView("brotherhood/member/list");
+			result.addObject("language", language);
 			result.addObject("requestUri", "brotherhood/member/dropped.do");
 			result.addObject("brotherhoods", brotherhoods);
 		} catch (final Throwable oops) {
@@ -320,7 +323,7 @@ public class BrotherhoodController extends AbstractController {
 			drop.setBrotherhood(this.brotherhoodService.findOne(brotherhoodId));
 			this.dropoutService.save(drop);
 			
-			result = this.memberList();
+			result = new ModelAndView("redirect:/brotherhood/member/list.do");
 
 		} catch (final Throwable oops) {
 			System.out.println(oops.getMessage());
