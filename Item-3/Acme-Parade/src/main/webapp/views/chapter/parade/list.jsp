@@ -81,13 +81,17 @@
 		
 	
 	<!-- manage status -->
-	<jstl:if test="${ row.status == 'SUBMITTED' }">
-		<display:column  class="${css}">
+	
+	<display:column  class="${css}">
+		<jstl:if test="${row.status == 'SUBMITTED'}">
 			<a href="chapter/parade/aprove.do?processionId=${row.id}"><spring:message code="chapter.parade.accept" /></a>
-		</display:column>
-		<display:column  class="${css}">
+		</jstl:if>
+	</display:column>
+	<display:column  class="${css}">
+		<jstl:if test="${row.status == 'SUBMITTED'}">
 			<a href="chapter/parade/reject/reasson.do?processionId=${row.id}"><spring:message code="chapter.parade.reject" /></a>
-		</display:column>
-	</jstl:if>
+		</jstl:if>
+	</display:column>
+	
 	
 </display:table>
