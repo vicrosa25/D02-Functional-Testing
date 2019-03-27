@@ -131,6 +131,18 @@
 			</list>
 		</property>
 	</bean>
+	
+	<bean id="userAccount11" class="security.UserAccount">
+		<property name="username" value="chapter3" />
+		<property name="password" value="4cf7b4e4bb6d429f0f08bc498e397d81" />
+		<property name="authorities">
+			<list>
+				<bean class="security.Authority">
+					<property name="authority" value="SPONSOR" />
+				</bean>
+			</list>
+		</property>
+	</bean>
 
 
 	<!-- Administrators *************************************************************************** -->
@@ -347,6 +359,7 @@
 		<property name="phoneNumber" value="+34656256697" />
 		<property name="address" value="chapter2 18" />
 		<property name="UserAccount" ref="userAccount8" />
+		<property name="area" ref="area2" />
 		<property name="messageBoxes">
 			<list>
 				<ref bean="chapter2-spam" />
@@ -360,6 +373,31 @@
 			<list>
 				<ref bean="proclaim3" />
 				<ref bean="proclaim4" />
+			</list>
+		</property>
+	</bean>
+	
+	<bean id="chapter3" class="domain.Chapter">
+		<property name="name" value="chapter3" />
+		<property name="title" value="chapter3" />
+		<property name="username" value="chapter3" />
+		<property name="middleName" value="chapter3" />
+		<property name="surname" value="chapter3" />
+		<property name="email" value="chapter3@gmail.com" />
+		<property name="phoneNumber" value="+34656256697" />
+		<property name="address" value="chapter3 18" />
+		<property name="UserAccount" ref="userAccount11" />
+		<property name="messageBoxes">
+			<list>
+				<ref bean="chapter3-spam" />
+				<ref bean="chapter3-in" />
+				<ref bean="chapter3-out" />
+				<ref bean="chapter3-trash" />
+				<ref bean="chapter3-notification" />
+			</list>
+		</property>
+		<property name="proclaims">
+			<list>
 			</list>
 		</property>
 	</bean>
@@ -848,6 +886,52 @@
 		</property>
 	</bean>
 	
+	<!-- Chapter3 MessageBoxes -->
+	<bean id="chapter3-in" class="domain.MessageBox">
+		<property name="name" value="in" />
+		<property name="isSystemBox" value="true" />
+		<property name="messages">
+			<list>
+			</list>
+		</property>
+	</bean>
+
+	<bean id="chapter3-out" class="domain.MessageBox">
+		<property name="name" value="out" />
+		<property name="isSystemBox" value="true" />
+		<property name="messages">
+			<list>
+			</list>
+		</property>
+	</bean>
+
+	<bean id="chapter3-spam" class="domain.MessageBox">
+		<property name="name" value="spam" />
+		<property name="isSystemBox" value="true" />
+		<property name="messages">
+			<list>
+			</list>
+		</property>
+	</bean>
+
+	<bean id="chapter3-notification" class="domain.MessageBox">
+		<property name="name" value="notification" />
+		<property name="isSystemBox" value="true" />
+		<property name="messages">
+			<list>
+			</list>
+		</property>
+	</bean>
+
+	<bean id="chapter3-trash" class="domain.MessageBox">
+		<property name="name" value="trash" />
+		<property name="isSystemBox" value="true" />
+		<property name="messages">
+			<list>
+			</list>
+		</property>
+	</bean>
+	
 	
 	<!-- Sponsor1 MessageBoxes -->
 	<bean id="sponsor1-in" class="domain.MessageBox">
@@ -1287,6 +1371,7 @@
 				<ref bean="picture6" />
 			</list>
 		</property>
+		<property name="chapter" ref="chapter2" />
 	</bean>
 	
 	<bean id="area3" class="domain.Area">
