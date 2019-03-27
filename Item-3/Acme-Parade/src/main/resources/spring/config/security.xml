@@ -88,6 +88,7 @@
 		<!-- CHAPTER -->
 		<security:intercept-url pattern="/chapter/create.do" access="isAnonymous()" />
 		<security:intercept-url pattern="/chapter/edit.do" access="hasRole('CHAPTER')" />
+		<security:intercept-url pattern="/chapter/delete.do" access="hasRole('CHAPTER')" />
 		<security:intercept-url pattern="/chapter/area/assign.do" access="hasRole('CHAPTER')" />
 		<security:intercept-url pattern="/chapter/area/display.do" access="permitAll" />
 		<security:intercept-url pattern="/chapter/parade/list.do" access="hasRole('CHAPTER')" />
@@ -127,6 +128,7 @@
 		<!--  MEMBER -->
 		<security:intercept-url pattern="/member/create.do" access="isAnonymous()" />
 		<security:intercept-url pattern="/member/edit.do" access="hasRole('MEMBER')" />
+		<security:intercept-url pattern="/member/delete.do" access="hasRole('MEMBER')" />
 		<security:intercept-url pattern="/member/enrol.do" access="hasRole('MEMBER')" />
 		<security:intercept-url pattern="/enrol/member/create.do" access="hasRole('MEMBER')" />
 		<security:intercept-url pattern="/member/list.do" access="permitAll" />

@@ -337,7 +337,7 @@ public class BrotherhoodController extends AbstractController {
 		return result;
 	}
 
-	// Register ------------------------------------------------------------------------------------
+	// Delete ------------------------------------------------------------------------------------
 	@RequestMapping(value = "/delete", method = RequestMethod.GET)
 	public ModelAndView delete() {
 		ModelAndView result;

@@ -3,6 +3,7 @@ package services;
 
 import java.util.ArrayList;
 import java.util.Collection;
+import java.util.Iterator;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -11,17 +12,18 @@ import org.springframework.util.Assert;
 import org.springframework.validation.BindingResult;
 import org.springframework.validation.Validator;
 
+import repositories.MemberRepository;
+import security.Authority;
+import security.LoginService;
+import security.UserAccount;
 import domain.Brotherhood;
 import domain.Dropout;
 import domain.Enrol;
 import domain.Member;
 import domain.MessageBox;
 import domain.Request;
+import domain.SocialIdentity;
 import forms.MemberForm;
-import repositories.MemberRepository;
-import security.Authority;
-import security.LoginService;
-import security.UserAccount;
 
 @Service
 @Transactional
@@ -36,10 +38,22 @@ public class MemberService {
 	// -------------------------------------------------------------
 
 	@Autowired
-	private MessageBoxService	messageBoxService;
+	private MessageBoxService		messageBoxService;
 
 	@Autowired
-	private FinderService		finderService;
+	private FinderService			finderService;
+
+	@Autowired
+	private DropoutService			dropoutService;
+
+	@Autowired
+	private EnrolService			enrolService;
+
+	@Autowired
+	private SocialIdentityService	socialIdentityService;
+
+	@Autowired
+	private RequestService			requestService;
 
 
 	// CRUD methods
@@ -92,8 +106,42 @@ public class MemberService {
 	}
 
 	public void delete(final Member member) {
+		Assert.isTrue(this.findByPrincipal() == member);
 		Assert.notNull(member);
 
+		Iterator<Dropout> drops				= new ArrayList<Dropout>(member.getDropouts()).iterator();
+		Iterator<Enrol> enrols				= new ArrayList<Enrol>(member.getEnrols()).iterator();
+		Iterator<Request> requests = new ArrayList<Request>(member.getRequests()).iterator();
+		Iterator<SocialIdentity> socialIs 	= new ArrayList<SocialIdentity>
+												(member.getSocialIdentities()).iterator();
+
+		while (drops.hasNext()) {
+			Dropout next = drops.next();
+			this.dropoutService.delete(next);
+			member.getDropouts().remove(next);
+			drops.remove();
+		}
+		while (enrols.hasNext()) {
+			Enrol next = enrols.next();
+			this.enrolService.delete(next);
+			member.getEnrols().remove(next);
+			enrols.remove();
+		}
+		while (socialIs.hasNext()) {
+			SocialIdentity si = socialIs.next();
+			this.socialIdentityService.delete(si);
+			member.getSocialIdentities().remove(si);
+			socialIs.remove();
+		}
+		while (requests.hasNext()) {
+			Request request = requests.next();
+			this.requestService.deleteMember(request.getId());
+			member.getRequests().remove(request);
+			requests.remove();
+		}
+		member.setMessageBoxes(new ArrayList<MessageBox>());
+		this.messageBoxService.deleteAll(member);
+		
 		this.memberRepository.delete(member);
 
 	}

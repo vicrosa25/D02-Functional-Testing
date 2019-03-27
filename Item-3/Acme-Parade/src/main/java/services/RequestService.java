@@ -103,6 +103,24 @@ public class RequestService {
 
 	}
 
+	public void deleteMember(final int requestId) {
+		Assert.isTrue(requestId != 0);
+		final Request request = this.findOne(requestId);
+
+		Assert.notNull(request);
+		Actor principal;
+
+		// Principal must be a Member
+		principal = this.actorService.findByPrincipal();
+		Assert.isInstanceOf(Member.class, principal);
+
+		final Member member = (Member) principal;
+		Assert.isTrue(member.getRequests().contains(request));
+
+		this.requestRepository.delete(request);
+
+	}
+
 	/************************************* Other business methods ********************************/
 
 	public void checkRequest(final Request request) {
