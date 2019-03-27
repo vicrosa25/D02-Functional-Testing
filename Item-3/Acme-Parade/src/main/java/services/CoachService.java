@@ -91,16 +91,13 @@ public class CoachService {
 		final Coach coach = this.findOne(coachId);
 
 		Assert.notNull(coach);
-		Actor principal;
+		Brotherhood principal;
 
 		// Principal must be a Brotherhood
-		principal = this.actorService.findByPrincipal();
-		Assert.isInstanceOf(Brotherhood.class, principal);
+		principal = this.brotherhoodService.findByPrincipal();
+		Assert.isTrue(principal.getCoaches().contains(coach));
 
-		final Brotherhood brotherhood = (Brotherhood) principal;
-		Assert.isTrue(brotherhood.getCoaches().contains(coach));
-
-		brotherhood.getCoaches().remove(coach);
+		principal.getCoaches().remove(coach);
 
 		this.coachRepository.delete(coach);
 

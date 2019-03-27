@@ -4,6 +4,7 @@ package services;
 import java.util.ArrayList;
 import java.util.Collection;
 import java.util.Date;
+import java.util.Iterator;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Qualifier;
@@ -20,9 +21,11 @@ import security.UserAccount;
 import domain.Area;
 import domain.Brotherhood;
 import domain.Coach;
+import domain.Enrol;
 import domain.Member;
 import domain.MessageBox;
 import domain.Procession;
+import domain.SocialIdentity;
 import domain.Url;
 import forms.BrotherhoodForm;
 
@@ -39,6 +42,18 @@ public class BrotherhoodService {
 
 	@Autowired
 	private HistoryService			historyService;
+
+	@Autowired
+	private CoachService			coachService;
+
+	@Autowired
+	private EnrolService			enrolService;
+
+	@Autowired
+	private ProcessionService		processionService;
+
+	@Autowired
+	private SocialIdentityService	socialIdentityService;
 
 	@Autowired
 	@Qualifier("validator")
@@ -62,6 +77,7 @@ public class BrotherhoodService {
 		result.setEstablishment(new Date());
 		result.setPictures(new ArrayList<Url>());
 		result.setCoaches(new ArrayList<Coach>());
+		result.setEnrols(new ArrayList<Enrol>());
 		result.setProcessions(new ArrayList<Procession>());
 		result.setMessageBoxes(boxes);
 
@@ -95,6 +111,39 @@ public class BrotherhoodService {
 
 	public void delete(final Brotherhood brotherhood) {
 		Assert.notNull(brotherhood);
+		Assert.isTrue(this.findByPrincipal() == brotherhood);
+
+		brotherhood.getArea().getBrotherhoods().remove(brotherhood);
+
+		Iterator<Coach> coaches 			= new ArrayList<Coach>(brotherhood.getCoaches()).iterator();
+		Iterator<Enrol> enrols 				= new ArrayList<Enrol>(brotherhood.getEnrols()).iterator();
+		Iterator<Procession> processions 	= new ArrayList<Procession>(brotherhood.getProcessions()).iterator();
+		Iterator<SocialIdentity> socialIs 	= new ArrayList<SocialIdentity>
+												(brotherhood.getSocialIdentities()).iterator();
+
+		while (coaches.hasNext()) {
+			Coach next = coaches.next();
+			this.coachService.delete(next.getId());
+			coaches.remove();
+		}
+		while (enrols.hasNext()) {
+			Enrol next = enrols.next();
+			this.enrolService.delete(next);
+			enrols.remove();
+		}
+		while (processions.hasNext()) {
+			Procession p = processions.next();
+			this.processionService.delete(p);
+			processions.remove();
+		}
+		while (socialIs.hasNext()) {
+			SocialIdentity si = socialIs.next();
+			this.socialIdentityService.delete(si);
+			socialIs.remove();
+		}
+		this.historyService.delete(brotherhood.getHistory());
+		this.messageBoxService.deleteAll(brotherhood);
+
 
 		this.brotherhoodRepository.delete(brotherhood);
 	}

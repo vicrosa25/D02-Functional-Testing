@@ -19,16 +19,16 @@ import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.servlet.ModelAndView;
 
-import domain.Brotherhood;
-import domain.Dropout;
-import domain.Member;
-import domain.Url;
-import forms.BrotherhoodForm;
 import services.AreaService;
 import services.BrotherhoodService;
 import services.DropoutService;
 import services.MemberService;
 import utilities.Md5;
+import domain.Brotherhood;
+import domain.Dropout;
+import domain.Member;
+import domain.Url;
+import forms.BrotherhoodForm;
 
 @Controller
 @RequestMapping("/brotherhood")
@@ -334,6 +334,26 @@ public class BrotherhoodController extends AbstractController {
 			result = this.forbiddenOpperation();
 		}
 
+		return result;
+	}
+
+	// Register ------------------------------------------------------------------------------------
+	@RequestMapping(value = "/delete", method = RequestMethod.GET)
+	public ModelAndView delete() {
+		ModelAndView result;
+		Brotherhood brotherhood;
+
+		try {
+			brotherhood = this.brotherhoodService.findByPrincipal();
+			this.brotherhoodService.delete(brotherhood);
+			result = new ModelAndView("redirect:/j_spring_security_logout");
+		} catch (final Throwable oops) {
+			System.out.println(oops.getMessage());
+			System.out.println(oops.getClass());
+			System.out.println(oops.getCause());
+			oops.printStackTrace();
+			result = this.forbiddenOpperation();
+		}
 		return result;
 	}
 
