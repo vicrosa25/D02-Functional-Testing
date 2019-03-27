@@ -392,12 +392,12 @@ public class AdministratorService {
 		Double positiveWordsValue = 0.0;
 		Double negativeWordsValue = 0.0;
 
-		for (final Message message : messages) {
+		for (Message message : messages) {
 
-			for (final String positiveWord : positiveWords)
+			for (String positiveWord : positiveWords)
 				if (message.getBody().contains(positiveWord) || message.getSubject().contains(positiveWord))
 					positiveWordsValue += 1.0;
-			for (final String negativeWord : negativeWords)
+			for (String negativeWord : negativeWords)
 				if (message.getBody().contains(negativeWord) || message.getSubject().contains(negativeWord))
 
 					negativeWordsValue += 1.0;

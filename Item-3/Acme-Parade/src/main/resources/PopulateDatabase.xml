@@ -569,6 +569,7 @@
 		<property name="isSystemBox" value="true" />
 		<property name="messages">
 			<list>
+				<ref bean="message3" />
 			</list>
 		</property>
 	</bean>
@@ -626,6 +627,7 @@
 		<property name="isSystemBox" value="true" />
 		<property name="messages">
 			<list>
+				<ref bean="message3" />
 			</list>
 		</property>
 	</bean>
@@ -656,7 +658,7 @@
 		<property name="isSystemBox" value="true" />
 		<property name="messages">
 			<list>
-
+				<ref bean="message5" />
 			</list>
 		</property>
 	</bean>
@@ -716,6 +718,7 @@
 		<property name="isSystemBox" value="true" />
 		<property name="messages">
 			<list>
+				<ref bean="message5" />
 			</list>
 		</property>
 	</bean>
@@ -764,6 +767,7 @@
 		<property name="isSystemBox" value="true" />
 		<property name="messages">
 			<list>
+				<ref bean="message4" />
 			</list>
 		</property>
 	</bean>
@@ -803,6 +807,7 @@
 		<property name="messages">
 			<list>
 				<ref bean="message1" />
+				<ref bean="message4" />
 			</list>
 		</property>
 	</bean>
@@ -859,6 +864,7 @@
 		<property name="isSystemBox" value="true" />
 		<property name="messages">
 			<list>
+				<ref bean="message2" />
 			</list>
 		</property>
 	</bean>
@@ -916,6 +922,7 @@
 		<property name="isSystemBox" value="true" />
 		<property name="messages">
 			<list>
+				<ref bean="message2" />
 			</list>
 		</property>
 	</bean>
@@ -959,8 +966,82 @@
 			</list>
 		</property>
 	</bean>
-
-
+	
+	<bean id="message2" class="domain.Message">
+		<property name="sender" ref="sponsor1" />
+		<property name="recipients">
+			<list>
+				<ref bean="sponsor2" />
+			</list>
+		</property>
+		<property name="moment" value="2019/02/12 00:00" />
+		<property name="subject" value="subject example" />
+		<property name="body" value="You have to use cialis" />
+		<property name="priority" value="LOW" />
+		<property name="messageBoxes">
+			<list>
+				<ref bean="sponsor1-out" />
+				<ref bean="sponsor2-spam" />
+			</list>
+		</property>
+	</bean>
+	
+	<bean id="message3" class="domain.Message">
+		<property name="sender" ref="member1" />
+		<property name="recipients">
+			<list>
+				<ref bean="member2" />
+			</list>
+		</property>
+		<property name="moment" value="2019/02/12 00:00" />
+		<property name="subject" value="subject example" />
+		<property name="body" value="You have to use viagra" />
+		<property name="priority" value="LOW" />
+		<property name="messageBoxes">
+			<list>
+				<ref bean="member1-out" />
+				<ref bean="member2-spam" />
+			</list>
+		</property>
+	</bean>
+	
+	<bean id="message4" class="domain.Message">
+		<property name="sender" ref="chapter1" />
+		<property name="recipients">
+			<list>
+				<ref bean="chapter2" />
+			</list>
+		</property>
+		<property name="moment" value="2019/02/12 00:00" />
+		<property name="subject" value="subject example" />
+		<property name="body" value="This is fantastic, amazing" />
+		<property name="priority" value="LOW" />
+		<property name="messageBoxes">
+			<list>
+				<ref bean="chapter1-out" />
+				<ref bean="chapter2-in" />
+			</list>
+		</property>
+	</bean>
+	
+	<bean id="message5" class="domain.Message">
+		<property name="sender" ref="brotherhood2" />
+		<property name="recipients">
+			<list>
+				<ref bean="brotherhood1" />
+			</list>
+		</property>
+		<property name="moment" value="2019/02/12 00:00" />
+		<property name="subject" value="subject example" />
+		<property name="body" value="This is bad, horrible" />
+		<property name="priority" value="LOW" />
+		<property name="messageBoxes">
+			<list>
+				<ref bean="brotherhood2-out" />
+				<ref bean="brotherhood1-in" />
+			</list>
+		</property>
+	</bean>
 
 	<!-- Coaches ******************************************************** -->
 	<bean id="coach1" class="domain.Coach">
@@ -1209,7 +1290,7 @@
 	</bean>
 	
 	<bean id="area3" class="domain.Area">
-		<property name="name" value="area2" />
+		<property name="name" value="area3" />
 		<property name="brotherhoods">
 			<list>
 			</list>
@@ -1377,6 +1458,4 @@
 			</list>
 		</property>
 	</bean>
-
-
 </beans>
