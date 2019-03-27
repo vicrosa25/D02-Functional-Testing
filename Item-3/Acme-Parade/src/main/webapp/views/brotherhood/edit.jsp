@@ -94,4 +94,5 @@
 		onClick="javascript: return phoneNumberValidator()" />
 	
 	<acme:cancel code="brotherhood.cancel" url="/" />
+	<acme:cancel code="brotherhood.delete" url="/brotherhood/delete.do" />
 </form:form>
