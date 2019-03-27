@@ -150,7 +150,7 @@
 		</property>
 		<property name="messageBoxes">
 			<list>
-				<ref bean="admin1-Spam" />
+				<ref bean="admin1-spam" />
 				<ref bean="admin1-in" />
 				<ref bean="admin1-out" />
 				<ref bean="admin1-trash" />
@@ -522,7 +522,7 @@
 		</property>
 	</bean>
 
-	<bean id="admin1-Spam" class="domain.MessageBox">
+	<bean id="admin1-spam" class="domain.MessageBox">
 		<property name="name" value="spam" />
 		<property name="isSystemBox" value="true" />
 		<property name="messages">
@@ -1202,6 +1202,18 @@
 				<ref bean="picture4" />
 				<ref bean="picture5" />
 				<ref bean="picture6" />
+			</list>
+		</property>
+	</bean>
+	
+	<bean id="area3" class="domain.Area">
+		<property name="name" value="area2" />
+		<property name="brotherhoods">
+			<list>
+			</list>
+		</property>
+		<property name="pictures">
+			<list>
 			</list>
 		</property>
 	</bean>

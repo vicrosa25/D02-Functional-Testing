@@ -123,18 +123,21 @@ public class MessageController extends AbstractController {
 
 		mesage = this.messageService.create();
 		mesage.setIsNotification(true);
+		System.out.println(mesage);
 
 		result = new ModelAndView("message/broadcast");
 		result.addObject("mesage", mesage);
+		System.out.println(result.getModel().get("mesage"));
 
 		return result;
 	}
 
-	// Send Broadcast
+	// Send Broadcast @ModelAttribute("mesage")
 	// -------------------------------------------------------------
 	@RequestMapping(value = "/broadcast", method = RequestMethod.POST, params = "send")
-	public ModelAndView sendBroadcast(@ModelAttribute("mesage") @Valid Message mesage, BindingResult binding) {
+	public ModelAndView sendBroadcast(@Valid Message mesage, BindingResult binding) {
 		ModelAndView result;
+		System.out.println(mesage.getId());
 
 		if (binding.hasErrors()) {
 			List<ObjectError> errors = binding.getAllErrors();
@@ -160,7 +163,7 @@ public class MessageController extends AbstractController {
 
 	// Send -------------------------------------------------------------
 	@RequestMapping(value = "/create", method = RequestMethod.POST, params = "save")
-	public ModelAndView save(@ModelAttribute("mesage") @Valid final Message mesage, final BindingResult binding) {
+	public ModelAndView save(@ModelAttribute("mesage") @Valid Message mesage, BindingResult binding) {
 		ModelAndView result;
 
 		if (binding.hasErrors()) {	

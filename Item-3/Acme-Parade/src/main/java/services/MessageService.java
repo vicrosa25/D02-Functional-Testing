@@ -89,13 +89,12 @@ public class MessageService {
 
 			String box;
 
-			if (spam) {
-				box = "spam";
-				//message.getSender().setIsSpammer(true);
-			}
+			
 
 			if (notification) {
 				box = "notification";
+			} else if (spam) {
+				box = "spam";
 			} else {
 				box = "in";
 			}

@@ -46,7 +46,7 @@ public class AdministratorService {
 
 	@Autowired
 	private MessageService			messageService;
-	
+
 	@Autowired
 	private SponsorshipService		sponsorshipService;
 
@@ -156,16 +156,12 @@ public class AdministratorService {
 		return this.adminRepository.save(admin);
 	}
 
-	// 12.2 Manage the catalogue of positions
-	// ---------------------------------------------------
 
-	
-	
 	/**
 	 * 
 	 * Admin Dashboard Queries ****************************************************************************
 	 */
-	
+
 	// 12.3 Display a dashboard with the following information-------------------------------
 	public Object[] query1() {
 		return this.adminRepository.query1();
@@ -236,22 +232,19 @@ public class AdministratorService {
 	public Double getAveragePolarity() {
 		return this.adminRepository.getAveragePolarity();
 	}
-	
-	
-	
+
 	// ACME PARADE queries level C, requeriment 4 ----------------------------------------------
 	public Object[] query12() {
 		return this.adminRepository.query12();
 	}
-	
+
 	public Brotherhood query13() {
 		return this.adminRepository.query13();
 	}
-	
+
 	public Collection<Brotherhood> query14() {
 		return this.adminRepository.query14();
 	}
-	
 
 	// ACME PARADE queries level B -------------------------------------------------------------
 	public Double query15() {
@@ -273,16 +266,16 @@ public class AdministratorService {
 	public Collection<Object> query19() {
 		return this.adminRepository.query19();
 	}
-	
+
 	// ACME PARADE queries level B -------------------------------------------------------------
 	public Double query20() {
 		return this.adminRepository.query20();
 	}
-	
+
 	public Object[] query21() {
 		return this.adminRepository.query21();
 	}
-	
+
 	public Collection<Object> query22(int top) {
 		Collection<Object> queryResult = this.adminRepository.query22();
 		Collection<Object> result = new ArrayList<Object>();
@@ -297,8 +290,6 @@ public class AdministratorService {
 
 		return result;
 	}
-	
-	
 
 	// 28.2 Spammers procedure--------------------------------------------------------------------
 	public void computeSpammers() {
@@ -596,8 +587,7 @@ public class AdministratorService {
 		this.configurationsService.getConfiguration().getSpamWords().remove(word);
 		this.configurationsService.update(this.configurationsService.getConfiguration());
 	}
-	
-	
+
 	/**
 	 * 
 	 * Process to deactivate Sponsorships **********************************************************************
@@ -608,20 +598,19 @@ public class AdministratorService {
 		Date expiration;
 		Date now = new Date();
 		sponsorships = this.sponsorshipService.findAll();
-		
+
 		for (Sponsorship sponsorship : sponsorships) {
 			card = sponsorship.getCreditCard();
 			expiration = card.getExpiration();
-			
-			if(expiration.after(now)) {
+
+			if (expiration.after(now)) {
 				sponsorship.setActive(false);
 				this.sponsorshipService.save(sponsorship);
 			}
-			
+
 		}
 	}
-	
-	
+
 	/**
 	 * 
 	 * Manage Brands ****************************************************************************

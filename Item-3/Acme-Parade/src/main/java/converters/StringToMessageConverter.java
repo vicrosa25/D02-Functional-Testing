@@ -7,8 +7,8 @@ import org.springframework.stereotype.Component;
 import org.springframework.transaction.annotation.Transactional;
 import org.springframework.util.StringUtils;
 
-import repositories.MessageRepository;
 import domain.Message;
+import repositories.MessageRepository;
 
 @Component
 @Transactional
@@ -19,7 +19,7 @@ public class StringToMessageConverter implements Converter<String, Message> {
 
 
 	@Override
-	public Message convert(final String text) {
+	public Message convert(String text) {
 		Message result;
 		int id;
 
