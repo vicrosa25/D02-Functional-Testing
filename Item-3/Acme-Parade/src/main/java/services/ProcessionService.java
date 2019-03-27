@@ -222,7 +222,6 @@ public class ProcessionService {
 	private void automaticNotification(final Procession procession) {
 		if (!procession.getBrotherhood().getEnrols().isEmpty()) {
 			final Message message = this.messageService.create();
-			Message saved;
 			message.setBody("The brotherhood " + procession.getBrotherhood().getTitle() + " has published a procession called " + procession.getTitle() + ".");
 
 			message.setIsNotification(true);
@@ -230,12 +229,13 @@ public class ProcessionService {
 			message.setSubject("New procession by " + procession.getBrotherhood().getTitle());
 			Collection<Actor> recipients = new ArrayList<Actor>(this.memberService.findByBrotherhood(procession.getBrotherhood()));
 			message.setRecipients(recipients);
-			saved = this.messageService.save(message);
+			
 			
 			for (Actor actor : recipients) {
-				saved.getMessageBoxes().add(actor.getMessageBox("in"));
-				//saved.getRecipients().add(m);
+				message.getMessageBoxes().add(actor.getMessageBox("in"));
 			}
+			
+			this.messageService.save(message);
 		}
 	}
 

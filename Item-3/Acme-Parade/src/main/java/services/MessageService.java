@@ -29,10 +29,6 @@ public class MessageService {
 
 	// Supporting devices
 	@Autowired
-	private MessageBoxService		messageBoxServive;
-	
-	
-	@Autowired
 	private ConfigurationsService	configurationsService;
 
 	@Autowired
@@ -43,11 +39,11 @@ public class MessageService {
 	public Message create() {
 		final Message result = new Message();
 		final Calendar calendar = new GregorianCalendar();
-		//final Collection<MessageBox> messageBox = new ArrayList<MessageBox>();
+		final Collection<MessageBox> messageBox = new ArrayList<MessageBox>();
 		final Collection<Actor> recipients = new ArrayList<Actor>();
 		final Collection<String> tags = new ArrayList<String>();
 
-		result.setMessageBoxes(this.messageBoxServive.createSystemMessageBox());
+		result.setMessageBoxes(messageBox);
 		result.setRecipients(recipients);
 		result.setTags(tags);
 		result.setMoment(calendar.getTime());
