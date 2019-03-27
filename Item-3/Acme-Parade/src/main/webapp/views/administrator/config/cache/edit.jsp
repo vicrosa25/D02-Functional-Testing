@@ -27,6 +27,9 @@
 	<form:hidden path="negativeWords" />
 	<form:hidden path="vat" />
 	<form:hidden path="countryCode" />
+	<form:hidden path="brandName" />
+	<form:hidden path="englishMessage" />
+	<form:hidden path="spanishMessage" />
 
 
 	<%-- cacheTime --%>
