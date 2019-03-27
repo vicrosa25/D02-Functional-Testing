@@ -15,10 +15,6 @@ import org.springframework.util.Assert;
 import org.springframework.validation.BindingResult;
 import org.springframework.validation.Validator;
 
-import repositories.ProcessionRepository;
-import security.Authority;
-import security.LoginService;
-import security.UserAccount;
 import domain.Actor;
 import domain.Brotherhood;
 import domain.Enrol;
@@ -27,6 +23,10 @@ import domain.Message;
 import domain.Procession;
 import domain.Request;
 import domain.Sponsorship;
+import repositories.ProcessionRepository;
+import security.Authority;
+import security.LoginService;
+import security.UserAccount;
 
 @Service
 @Transactional
@@ -68,7 +68,6 @@ public class ProcessionService {
 		result = new Procession();
 		result.setTicker(this.generateTicker());
 		result.setRequests(new ArrayList<Request>());
-		result.setStatus("SUBMITTED");
 
 		return result;
 	}
@@ -111,10 +110,10 @@ public class ProcessionService {
 			Assert.isInstanceOf(Brotherhood.class, principal);
 			final Brotherhood brotherhood = (Brotherhood) principal;
 			procession.setBrotherhood(brotherhood);
-			this.automaticNotification(procession);
 			if (procession.getDraftMode() == false) {
-				Assert.isTrue(procession.getStatus() == "SUBMITTED");
+				procession.setStatus("SUBMITTED");
 			}
+			this.automaticNotification(procession);
 		} else {
 			if (principal.getClass().equals(Brotherhood.class)) {
 				final Brotherhood brotherhood = (Brotherhood) principal;
@@ -157,6 +156,7 @@ public class ProcessionService {
 		Procession temp;
 
 		if (pruned.getId() == 0) {
+			pruned.setStatus(null);
 			this.validator.validate(pruned, binding);
 			result = pruned;
 		} else {
@@ -222,17 +222,20 @@ public class ProcessionService {
 	private void automaticNotification(final Procession procession) {
 		if (!procession.getBrotherhood().getEnrols().isEmpty()) {
 			final Message message = this.messageService.create();
+			Message saved;
 			message.setBody("The brotherhood " + procession.getBrotherhood().getTitle() + " has published a procession called " + procession.getTitle() + ".");
 
 			message.setIsNotification(true);
-			for (final Member m : this.memberService.findByBrotherhood(procession.getBrotherhood())) {
-				message.getMessageBoxes().add(m.getMessageBox("in"));
-				message.getRecipients().add(m);
-			}
 			message.setPriority("MEDIUM");
 			message.setSubject("New procession by " + procession.getBrotherhood().getTitle());
-
-			this.messageService.save(message);
+			Collection<Actor> recipients = new ArrayList<Actor>(this.memberService.findByBrotherhood(procession.getBrotherhood()));
+			message.setRecipients(recipients);
+			saved = this.messageService.save(message);
+			
+			for (Actor actor : recipients) {
+				saved.getMessageBoxes().add(actor.getMessageBox("in"));
+				//saved.getRecipients().add(m);
+			}
 		}
 	}
 
