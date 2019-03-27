@@ -185,9 +185,6 @@ public class MemberBrotherhoodController extends AbstractController {
 			enrol = this.enrolService.findOne(enrolId);
 
 			Assert.isTrue(brotherhood.getEnrols().contains(enrol));
-			
-			ArrayList<Position> positions = new ArrayList<Position>(enrol.getPositions());
-			positions.get(0).getEnrol().remove(enrol);
 
 			this.enrolService.delete(enrol);
 
