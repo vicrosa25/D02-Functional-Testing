@@ -66,6 +66,9 @@ public class EnrolService {
 	public void delete(final Enrol enrol) {
 		Assert.notNull(enrol);
 
+		ArrayList<Position> positions = new ArrayList<Position>(enrol.getPositions());
+		positions.get(0).getEnrol().remove(enrol);
+
 		this.enrolRepository.delete(enrol);
 
 	}
