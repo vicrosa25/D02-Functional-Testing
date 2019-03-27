@@ -2,6 +2,7 @@ package services;
 
 import java.util.ArrayList;
 import java.util.Collection;
+import java.util.Iterator;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -10,16 +11,17 @@ import org.springframework.util.Assert;
 import org.springframework.validation.BindingResult;
 import org.springframework.validation.Validator;
 
+import repositories.ChapterRepository;
+import security.Authority;
+import security.LoginService;
+import security.UserAccount;
 import domain.Actor;
 import domain.Area;
 import domain.Chapter;
 import domain.MessageBox;
 import domain.Procession;
+import domain.SocialIdentity;
 import forms.ChapterForm;
-import repositories.ChapterRepository;
-import security.Authority;
-import security.LoginService;
-import security.UserAccount;
 
 @Service
 @Transactional
@@ -48,6 +50,9 @@ public class ChapterService {
 	
 	@Autowired
 	private AreaService 			areaService;
+
+	@Autowired
+	private SocialIdentityService	socialIdentityService;
 	
 	
 	/*************************************
@@ -120,7 +125,20 @@ public class ChapterService {
 	
 	public void delete(Chapter chapter) {
 		Assert.notNull(chapter);
-		Assert.isTrue(chapter.getId() != 0);
+		Assert.isTrue(this.findByPrincipal() == chapter);
+		
+		chapter.getArea().setChapter(null);
+
+		Iterator<SocialIdentity> socialIs = new ArrayList<SocialIdentity>(chapter.getSocialIdentities()).iterator();
+		while (socialIs.hasNext()) {
+			SocialIdentity si = socialIs.next();
+			this.socialIdentityService.delete(si);
+			chapter.getSocialIdentities().remove(si);
+			socialIs.remove();
+		}
+		chapter.setMessageBoxes(new ArrayList<MessageBox>());
+		this.messageBoxService.deleteAll(chapter);
+		
 		this.chapterRepository.delete(chapter);
 	}
 	

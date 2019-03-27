@@ -19,16 +19,16 @@ import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.servlet.ModelAndView;
 
+import services.AreaService;
+import services.ChapterService;
+import services.ProcessionService;
+import utilities.Md5;
 import domain.Area;
 import domain.Brotherhood;
 import domain.Chapter;
 import domain.Procession;
 import domain.Proclaim;
 import forms.ChapterForm;
-import services.AreaService;
-import services.ChapterService;
-import services.ProcessionService;
-import utilities.Md5;
 
 @Controller
 @RequestMapping("/chapter")
@@ -411,6 +411,26 @@ public class ChapterController extends AbstractController {
 			return result;
 		}
 
+		return result;
+	}
+
+	// Delete ------------------------------------------------------------------------------------
+	@RequestMapping(value = "/delete", method = RequestMethod.GET)
+	public ModelAndView delete() {
+		ModelAndView result;
+		Chapter chapter;
+
+		try {
+			chapter = this.chapterService.findByPrincipal();
+			this.chapterService.delete(chapter);
+			result = new ModelAndView("redirect:/j_spring_security_logout");
+		} catch (final Throwable oops) {
+			System.out.println(oops.getMessage());
+			System.out.println(oops.getClass());
+			System.out.println(oops.getCause());
+			oops.printStackTrace();
+			result = this.forbiddenOpperation();
+		}
 		return result;
 	}
 

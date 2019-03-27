@@ -73,11 +73,5 @@
 		onClick="javascript: return phoneNumberValidator()" />
 	
 	<acme:cancel code="chapter.cancel" url="/" />
+	<acme:cancel code="brotherhood.delete" url="/chapter/delete.do" />
 </form:form>
-
-
-
-
-
-
-
