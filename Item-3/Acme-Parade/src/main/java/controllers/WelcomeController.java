@@ -15,6 +15,7 @@ import java.util.Date;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
+import org.springframework.web.bind.annotation.CookieValue;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.servlet.ModelAndView;
 
@@ -41,7 +42,7 @@ public class WelcomeController extends AbstractController {
 	// Index ------------------------------------------------------------------		
 
 	@RequestMapping(value = "/index")
-	public ModelAndView index() {
+	public ModelAndView index(@CookieValue(value = "language", defaultValue = "") String language) {
 		ModelAndView result;
 		SimpleDateFormat formatter;
 		String moment;
@@ -64,12 +65,14 @@ public class WelcomeController extends AbstractController {
 			result.addObject("name", name);
 			result.addObject("englishMessage", englishMessage);
 			result.addObject("spanishMessage", spanishMessage);
+			result.addObject("language", language);
 			return result;
 		} catch (final Exception e) {
 			result = new ModelAndView("welcome/index");
 			result.addObject("moment", moment);
 			result.addObject("englishMessage", englishMessage);
 			result.addObject("spanishMessage", spanishMessage);
+			result.addObject("language", language);
 		}
 
 		return result;

@@ -57,10 +57,10 @@
 		</security:authorize>
 		<spring:message code="welcome.greeting.suffix" /></p>
 		
-		<jstl:if test="${pageContext.response.locale == 'en'}">
+		<jstl:if test="${language == 'en'}">
 			<p>${englishMessage} ${moment}</p> 
 		</jstl:if>
-		<jstl:if test="${pageContext.response.locale == 'es'}">
+		<jstl:if test="${language == 'es'}">
 			<p>${spanishMessage} ${moment}</p> 
 		</jstl:if>
 		
