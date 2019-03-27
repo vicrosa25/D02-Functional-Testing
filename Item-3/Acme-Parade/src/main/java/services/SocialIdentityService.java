@@ -8,9 +8,9 @@ import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 import org.springframework.util.Assert;
 
+import repositories.SocialIdentityRepository;
 import domain.Actor;
 import domain.SocialIdentity;
-import repositories.SocialIdentityRepository;
 
 @Service
 @Transactional
@@ -78,7 +78,6 @@ public class SocialIdentityService {
 		Assert.isTrue(this.socialIdentityRepository.findByActor(principal.getId()).contains(socialIdentity));
 		
 		principal.getSocialIdentities().remove(socialIdentity);
-		this.actorService.save(principal);
 		
 		this.socialIdentityRepository.delete(socialIdentity);
 	}
