@@ -12,16 +12,13 @@ import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.
 
 import java.util.ArrayList;
 
-import javax.transaction.Transactional;
-
 import org.junit.Before;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.mockito.InjectMocks;
 import org.mockito.Mock;
 import org.mockito.MockitoAnnotations;
-import org.springframework.test.context.ContextConfiguration;
-import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
+import org.mockito.runners.MockitoJUnitRunner;
 import org.springframework.test.web.servlet.MockMvc;
 import org.springframework.test.web.servlet.setup.MockMvcBuilders;
 
@@ -31,11 +28,7 @@ import services.BrotherhoodService;
 import services.ConfigurationsService;
 
 
-@ContextConfiguration(locations = {
-	"classpath:spring/junit.xml"
-})
-@RunWith(SpringJUnit4ClassRunner.class)
-@Transactional
+@RunWith(MockitoJUnitRunner.class)
 public class BrotherhoodControllerTest {
 	
 	@Mock
@@ -58,11 +51,9 @@ public class BrotherhoodControllerTest {
         this.mockMvc = MockMvcBuilders.standaloneSetup(this.brotherhoodController).build();
         
 	}
-	
 	/**
 	 * 
-	 * Prueba que la lista de mensajes que crea el servicio es la que se le pasa
-	 * y utiliza el controllador.
+	 * Prueba que la lista de Brotherhoods que crea el servicio y utiliza el controllador.
 	 */
 	
 	@Test
