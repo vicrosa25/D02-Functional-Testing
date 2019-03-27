@@ -9,12 +9,12 @@ import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 import org.springframework.util.Assert;
 
-import domain.Actor;
-import domain.Message;
-import domain.MessageBox;
 import repositories.MessageBoxRepository;
 import security.LoginService;
 import security.UserAccount;
+import domain.Actor;
+import domain.Message;
+import domain.MessageBox;
 
 @Service
 @Transactional
@@ -145,5 +145,13 @@ public class MessageBoxService {
 		this.messageBoxRepository.save(notification);
 
 		return result;
+	}
+
+	public void deleteAll(Actor actor) {
+		Assert.notNull(actor);
+		Assert.isTrue(this.actorService.findByPrincipal() == actor);
+		for (MessageBox mb : this.findAllByActor(actor.getId())) {
+			this.messageBoxRepository.delete(mb.getId());
+		}
 	}
 }
