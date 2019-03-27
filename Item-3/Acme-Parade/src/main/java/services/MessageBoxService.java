@@ -28,6 +28,9 @@ public class MessageBoxService {
 	@Autowired
 	private ActorService			actorService;
 
+	@Autowired
+	private MessageService			messageService;
+
 
 	// CRUD methods
 	public MessageBox create() {
@@ -83,6 +86,9 @@ public class MessageBoxService {
 		final UserAccount userAccount = LoginService.getPrincipal();
 
 		this.actorService.findOneByUsername(userAccount.getUsername()).getMessageBoxes().remove(messageBox);
+		for (Message message : this.messageService.findAll()) {
+			message.getMessageBoxes().remove(messageBox);
+		}
 
 		this.messageBoxRepository.delete(messageBox);
 	}
@@ -151,6 +157,9 @@ public class MessageBoxService {
 		Assert.notNull(actor);
 		Assert.isTrue(this.actorService.findByPrincipal() == actor);
 		for (MessageBox mb : this.findAllByActor(actor.getId())) {
+			for (Message message : this.messageService.findAll()) {
+				message.getMessageBoxes().remove(mb);
+			}
 			this.messageBoxRepository.delete(mb.getId());
 		}
 	}

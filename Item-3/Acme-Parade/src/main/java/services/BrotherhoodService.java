@@ -124,26 +124,29 @@ public class BrotherhoodService {
 		while (coaches.hasNext()) {
 			Coach next = coaches.next();
 			this.coachService.delete(next.getId());
+			brotherhood.getCoaches().remove(next);
 			coaches.remove();
 		}
 		while (enrols.hasNext()) {
 			Enrol next = enrols.next();
 			this.enrolService.delete(next);
+			brotherhood.getEnrols().remove(next);
 			enrols.remove();
 		}
 		while (processions.hasNext()) {
 			Procession p = processions.next();
 			this.processionService.delete(p);
+			brotherhood.getProcessions().remove(p);
 			processions.remove();
 		}
 		while (socialIs.hasNext()) {
 			SocialIdentity si = socialIs.next();
 			this.socialIdentityService.delete(si);
+			brotherhood.getSocialIdentities().remove(si);
 			socialIs.remove();
 		}
-		this.historyService.delete(brotherhood.getHistory());
+		brotherhood.setMessageBoxes(new ArrayList<MessageBox>());
 		this.messageBoxService.deleteAll(brotherhood);
-
 
 		this.brotherhoodRepository.delete(brotherhood);
 	}
