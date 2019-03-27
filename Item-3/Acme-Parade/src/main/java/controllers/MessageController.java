@@ -123,21 +123,18 @@ public class MessageController extends AbstractController {
 
 		mesage = this.messageService.create();
 		mesage.setIsNotification(true);
-		System.out.println(mesage);
 
 		result = new ModelAndView("message/broadcast");
 		result.addObject("mesage", mesage);
-		System.out.println(result.getModel().get("mesage"));
 
 		return result;
 	}
 
-	// Send Broadcast @ModelAttribute("mesage")
+	// Send Broadcast 
 	// -------------------------------------------------------------
 	@RequestMapping(value = "/broadcast", method = RequestMethod.POST, params = "send")
-	public ModelAndView sendBroadcast(@Valid Message mesage, BindingResult binding) {
+	public ModelAndView sendBroadcast(@ModelAttribute("mesage") @Valid Message mesage, BindingResult binding) {
 		ModelAndView result;
-		System.out.println(mesage.getId());
 
 		if (binding.hasErrors()) {
 			List<ObjectError> errors = binding.getAllErrors();
@@ -154,9 +151,13 @@ public class MessageController extends AbstractController {
 				int messageBoxID = this.actorService.findByPrincipal().getMessageBox("out").getId();
 				result = new ModelAndView("redirect:list.do?messageBoxID=" + messageBoxID + "");
 			} catch (final Throwable oops) {
+				System.out.println(oops.getMessage());
+				System.out.println(oops.getClass());
+				System.out.println(oops.getCause());
+				oops.printStackTrace();
 				result = new ModelAndView("message/broadcast");
 				result.addObject("mesage", mesage);
-				result.addObject("mesage", "message.commit.error");
+				result.addObject("message", "message.commit.error");
 			}
 		return result;
 	}

@@ -381,6 +381,7 @@
 				<ref bean="sponsor1-in" />
 				<ref bean="sponsor1-out" />
 				<ref bean="sponsor1-trash" />
+				<ref bean="sponsor1-notification" />
 			</list>
 		</property>
 		<property name="sponsorships">
@@ -404,6 +405,7 @@
 				<ref bean="sponsor2-in" />
 				<ref bean="sponsor2-out" />
 				<ref bean="sponsor2-trash" />
+				<ref bean="sponsor2-notification" />
 			</list>
 		</property>
 		<property name="sponsorships">
