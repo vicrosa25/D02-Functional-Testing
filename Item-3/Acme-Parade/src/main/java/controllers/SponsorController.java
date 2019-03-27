@@ -16,10 +16,10 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.servlet.ModelAndView;
 
-import domain.Sponsor;
-import forms.SponsorForm;
 import services.SponsorService;
 import utilities.Md5;
+import domain.Sponsor;
+import forms.SponsorForm;
 
 @Controller
 @RequestMapping("/sponsor")
@@ -163,6 +163,7 @@ public class SponsorController extends AbstractController {
 
 	// Delete ------------------------------------------------------
 	@RequestMapping(value = "/edit", method = RequestMethod.POST, params = "delete")
+	// TODO y esto?
 	public ModelAndView delete(final Sponsor sponsor, final BindingResult binding) {
 		ModelAndView result;
 
@@ -173,6 +174,26 @@ public class SponsorController extends AbstractController {
 			result = this.editModelAndView(sponsor, "sponsor.commit.error");
 		}
 
+		return result;
+	}
+
+	// Delete ------------------------------------------------------------------------------------
+	@RequestMapping(value = "/delete", method = RequestMethod.GET)
+	public ModelAndView delete() {
+		ModelAndView result;
+		Sponsor sponsor;
+
+		try {
+			sponsor = this.sponsorService.findByPrincipal();
+			this.sponsorService.delete(sponsor);
+			result = new ModelAndView("redirect:/j_spring_security_logout");
+		} catch (final Throwable oops) {
+			System.out.println(oops.getMessage());
+			System.out.println(oops.getClass());
+			System.out.println(oops.getCause());
+			oops.printStackTrace();
+			result = this.forbiddenOpperation();
+		}
 		return result;
 	}
 

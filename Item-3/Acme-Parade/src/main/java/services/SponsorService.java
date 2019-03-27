@@ -3,6 +3,7 @@ package services;
 
 import java.util.ArrayList;
 import java.util.Collection;
+import java.util.Iterator;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -11,15 +12,15 @@ import org.springframework.util.Assert;
 import org.springframework.validation.BindingResult;
 import org.springframework.validation.Validator;
 
+import repositories.SponsorRepository;
+import security.Authority;
+import security.LoginService;
+import security.UserAccount;
 import domain.MessageBox;
 import domain.SocialIdentity;
 import domain.Sponsor;
 import domain.Sponsorship;
 import forms.SponsorForm;
-import repositories.SponsorRepository;
-import security.Authority;
-import security.LoginService;
-import security.UserAccount;
 
 @Service
 @Transactional
@@ -35,6 +36,12 @@ public class SponsorService {
 
 	@Autowired
 	private ConfigurationsService	configurationsService;
+
+	@Autowired
+	private SocialIdentityService	socialIdentityService;
+
+	@Autowired
+	private SponsorshipService		sponsorshipService;
 
 	@Autowired
 	private Validator				validator;
@@ -103,6 +110,26 @@ public class SponsorService {
 
 	public void delete(final Sponsor sponsor) {
 		Assert.notNull(sponsor);
+		Assert.isTrue(this.findByPrincipal() == sponsor);
+
+		Iterator<Sponsorship> sponsorships = new ArrayList<Sponsorship>(sponsor.getSponsorships()).iterator();
+		Iterator<SocialIdentity> socialIs = new ArrayList<SocialIdentity>(sponsor.getSocialIdentities()).iterator();
+
+		while (sponsorships.hasNext()) {
+			Sponsorship ss = sponsorships.next();
+			this.sponsorshipService.delete(ss);
+			sponsor.getSocialIdentities().remove(ss);
+			sponsorships.remove();
+		}
+
+		while (socialIs.hasNext()) {
+			SocialIdentity si = socialIs.next();
+			this.socialIdentityService.delete(si);
+			sponsor.getSocialIdentities().remove(si);
+			socialIs.remove();
+		}
+		sponsor.setMessageBoxes(new ArrayList<MessageBox>());
+		this.messageBoxService.deleteAll(sponsor);
 
 		this.sponsorRepository.delete(sponsor);
 	}

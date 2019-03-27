@@ -68,4 +68,5 @@
 		onClick="javascript: return phoneNumberValidator()" />
 	
 	<acme:cancel code="sponsor.cancel" url="/" />
+	<acme:cancel code="brotherhood.delete" url="/sponsor/delete.do" />
 </form:form>
