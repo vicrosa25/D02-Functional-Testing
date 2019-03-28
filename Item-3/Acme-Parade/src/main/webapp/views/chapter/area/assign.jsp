@@ -14,7 +14,7 @@
 	<!-- Select Area -->
 <%-- 	<acme:select items="${areas}" itemLabel="name" code="chapter.area" path="area"/> --%>
 <!-- 	<br> -->
-	<form:label path="area"><spring:message code="procession.draftMode" /></form:label>
+	<form:label path="area"><spring:message code="chapter.link.area" /></form:label>
 	<form:select id="areaDropdown" path="area">
 		<form:option value="">--</form:option>
 		<form:options items="${areas}" itemLabel="name" itemValue="id" />
