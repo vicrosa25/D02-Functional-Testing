@@ -201,6 +201,14 @@
 	<!-- Dependencies -->
 
 	<dependencies>
+	
+		<!-- Itext - generating pdf -->
+		
+		<dependency>
+			<groupId>com.itextpdf</groupId>
+			<artifactId>itextpdf</artifactId>
+			<version>5.0.6</version>
+		</dependency>
 
 		<!-- Spring Framework -->
 
