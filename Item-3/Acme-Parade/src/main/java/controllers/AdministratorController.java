@@ -28,6 +28,12 @@ import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.servlet.ModelAndView;
 
+import services.ActorService;
+import services.AdministratorService;
+import services.ConfigurationsService;
+import services.MessageBoxService;
+import services.SponsorshipService;
+import utilities.Md5;
 import domain.Actor;
 import domain.Administrator;
 import domain.Brotherhood;
@@ -35,12 +41,6 @@ import domain.Chapter;
 import domain.Configurations;
 import domain.Procession;
 import domain.Sponsorship;
-import services.ActorService;
-import services.AdministratorService;
-import services.ConfigurationsService;
-import services.MessageBoxService;
-import services.SponsorshipService;
-import utilities.Md5;
 
 @Controller
 @RequestMapping("/administrator")
@@ -852,6 +852,21 @@ public class AdministratorController extends AbstractController {
 		this.administratorService.removeBrand(word);
 
 		return this.brandList();
+	}
+
+	// Inform security breach -------------------------------------------------------------
+	@RequestMapping(value = "/securityBreach", method = RequestMethod.GET)
+	public ModelAndView informBreach() {
+		ModelAndView result;
+
+		try {
+		this.administratorService.informSecurityBreach();
+		} catch (final Exception e) {
+			e.printStackTrace();
+		}
+
+		result = new ModelAndView("redirect:/");
+		return result;
 	}
 
 }

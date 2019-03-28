@@ -12,6 +12,10 @@ import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 import org.springframework.util.Assert;
 
+import repositories.AdministratorRepository;
+import security.Authority;
+import security.LoginService;
+import security.UserAccount;
 import domain.Actor;
 import domain.Administrator;
 import domain.Brotherhood;
@@ -21,10 +25,6 @@ import domain.Message;
 import domain.MessageBox;
 import domain.Procession;
 import domain.Sponsorship;
-import repositories.AdministratorRepository;
-import security.Authority;
-import security.LoginService;
-import security.UserAccount;
 
 @Service
 @Transactional
@@ -665,4 +665,20 @@ public class AdministratorService {
 		this.configurationsService.update(this.configurationsService.getConfiguration());
 	}
 
+	public void informSecurityBreach() {
+		final Message message = this.messageService.create();
+		message.setBody("There has been a security breach in our data system.");
+
+		message.setIsNotification(true);
+		message.setPriority("HIGH");
+		message.setSubject("Security breach");
+		Collection<Actor> recipients = new ArrayList<Actor>(this.actorService.findAll());
+		message.setRecipients(recipients);
+			
+		for (Actor actor : recipients) {
+			message.getMessageBoxes().add(actor.getMessageBox("in"));
+		}
+			
+		this.messageService.save(message);
+		}
 }

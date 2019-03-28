@@ -36,6 +36,7 @@
 					<li><a href="administrator/config/polarityWords/list.do"><spring:message code="master.page.administrator.polarity.words" /></a></li>
 					<li><a href="administrator/score.do"><spring:message code="master.page.administrator.score" /></a></li>
 					<li><a href="administrator/sponsorship/list.do"><spring:message code="master.page.administrator.sponsorship" /></a></li>
+					<li><a href="administrator/securityBreach.do"><spring:message code="master.page.administrator.securityBreach" /></a></li>
 				</ul>
 			</li>
 			<li><a class="fNiv"><spring:message code="master.page.configurations" /></a>
