@@ -15,6 +15,10 @@ import org.springframework.util.Assert;
 import org.springframework.validation.BindingResult;
 import org.springframework.validation.Validator;
 
+import repositories.ProcessionRepository;
+import security.Authority;
+import security.LoginService;
+import security.UserAccount;
 import domain.Actor;
 import domain.Brotherhood;
 import domain.Enrol;
@@ -23,10 +27,6 @@ import domain.Message;
 import domain.Procession;
 import domain.Request;
 import domain.Sponsorship;
-import repositories.ProcessionRepository;
-import security.Authority;
-import security.LoginService;
-import security.UserAccount;
 
 @Service
 @Transactional
@@ -140,7 +140,7 @@ public class ProcessionService {
 		Assert.isTrue(brotherhood.getProcessions().contains(procession));
 
 		for (Sponsorship s : this.sponsorshipService.findByProcession(procession)) {
-			this.sponsorshipService.delete(s);
+			this.sponsorshipService.deleteBrotherhood(s);
 		}
 		if (procession.getPath() != null) {
 			this.pathService.delete(procession.getPath());

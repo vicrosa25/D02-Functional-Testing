@@ -36,6 +36,9 @@ public class SponsorshipService {
 	private ConfigurationsService	configurationsService;
 
 	@Autowired
+	private BrotherhoodService		brotherhoodService;
+
+	@Autowired
 	@Qualifier("validator")
 	private Validator				validator;
 
@@ -85,6 +88,14 @@ public class SponsorshipService {
 	public void delete(final Sponsorship sponsorship) {
 		Assert.notNull(sponsorship);
 		Assert.isTrue(sponsorship.getSponsor() == this.sponsorService.findByPrincipal());
+
+		sponsorship.getSponsor().getSponsorships().remove(sponsorship);
+
+		this.sponsorshipRepository.delete(sponsorship);
+	}
+	public void deleteBrotherhood(final Sponsorship sponsorship) {
+		Assert.notNull(sponsorship);
+		Assert.isTrue(this.brotherhoodService.findByPrincipal().getProcessions().contains(sponsorship.getProcession()));
 
 		sponsorship.getSponsor().getSponsorships().remove(sponsorship);
 
