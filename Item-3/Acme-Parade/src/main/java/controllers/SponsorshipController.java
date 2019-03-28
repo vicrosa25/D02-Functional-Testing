@@ -18,12 +18,12 @@ import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.servlet.ModelAndView;
 
-import services.ProcessionService;
-import services.SponsorService;
-import services.SponsorshipService;
 import domain.Procession;
 import domain.Sponsor;
 import domain.Sponsorship;
+import services.ProcessionService;
+import services.SponsorService;
+import services.SponsorshipService;
 
 @Controller
 @RequestMapping("/sponsorship")
@@ -147,14 +147,14 @@ public class SponsorshipController extends AbstractController {
 	@RequestMapping(value = "/sponsor/activate", method = RequestMethod.GET)
 	public ModelAndView activate(@RequestParam final int sponsorshipId) {
 		ModelAndView result;
-		//Sponsorship sponsorship;
+		Sponsorship sponsorship;
 
 		try {
-			//			sponsorship = this.sponsorshipService.findOne(sponsorshipId);
-			//			Assert.isTrue(this.sponsorService.findByPrincipal() == sponsorship.getSponsor());
-			//			Assert.isTrue(!sponsorship.getActive());
-			//			sponsorship.setActive(true);
-			//			this.sponsorshipService.save(sponsorship);
+			sponsorship = this.sponsorshipService.findOne(sponsorshipId);
+			Assert.isTrue(this.sponsorService.findByPrincipal() == sponsorship.getSponsor());
+			Assert.isTrue(!sponsorship.getActive());
+			sponsorship.setActive(true);
+			this.sponsorshipService.save(sponsorship);
 			result = new ModelAndView("redirect:/sponsorship/sponsor/list.do");
 		} catch (final Throwable oops) {
 			result = this.forbiddenOpperation();
