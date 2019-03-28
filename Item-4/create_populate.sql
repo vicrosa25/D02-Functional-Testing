@@ -56,7 +56,7 @@ CREATE TABLE `actor_message_boxes` (
 
 LOCK TABLES `actor_message_boxes` WRITE;
 /*!40000 ALTER TABLE `actor_message_boxes` DISABLE KEYS */;
-INSERT INTO `actor_message_boxes` (`actor`, `message_boxes`) VALUES (3284,3285),(3284,3286),(3284,3287),(3284,3288),(3284,3289),(3291,3292),(3291,3293),(3291,3294),(3291,3295),(3291,3296),(3297,3298),(3297,3299),(3297,3300),(3297,3301),(3297,3302),(3303,3304),(3303,3305),(3303,3306),(3303,3307),(3308,3309),(3308,3310),(3308,3311),(3308,3312),(3364,3321),(3364,3322),(3364,3323),(3364,3324),(3364,3325),(3365,3326),(3365,3327),(3365,3328),(3365,3329),(3365,3330),(3368,3331),(3368,3332),(3368,3333),(3368,3334),(3368,3335),(3369,3336),(3369,3337),(3369,3338),(3369,3339),(3369,3340);
+INSERT INTO `actor_message_boxes` (`actor`, `message_boxes`) VALUES (3715,3716),(3715,3717),(3715,3718),(3715,3719),(3715,3720),(3722,3723),(3722,3724),(3722,3725),(3722,3726),(3722,3727),(3728,3729),(3728,3730),(3728,3731),(3728,3732),(3728,3733),(3734,3735),(3734,3736),(3734,3737),(3734,3738),(3734,3739),(3740,3741),(3740,3742),(3740,3743),(3740,3744),(3740,3745),(3746,3747),(3746,3748),(3746,3749),(3746,3750),(3746,3751),(3806,3760),(3806,3761),(3806,3762),(3806,3763),(3806,3764),(3807,3765),(3807,3766),(3807,3767),(3807,3768),(3807,3769),(3810,3770),(3810,3771),(3810,3772),(3810,3773),(3810,3774),(3811,3775),(3811,3776),(3811,3777),(3811,3778),(3811,3779);
 /*!40000 ALTER TABLE `actor_message_boxes` ENABLE KEYS */;
 UNLOCK TABLES;
 
@@ -94,7 +94,7 @@ CREATE TABLE `administrator` (
 
 LOCK TABLES `administrator` WRITE;
 /*!40000 ALTER TABLE `administrator` DISABLE KEYS */;
-INSERT INTO `administrator` (`id`, `version`, `address`, `email`, `is_banned`, `is_spammer`, `middle_name`, `name`, `phone_number`, `photo`, `score`, `surname`, `username`, `user_account`) VALUES (3284,0,'admin1 18','admin1@gmail.com',NULL,NULL,'middlename1','admin','+34656256697',NULL,NULL,'surname1','admin',3274);
+INSERT INTO `administrator` (`id`, `version`, `address`, `email`, `is_banned`, `is_spammer`, `middle_name`, `name`, `phone_number`, `photo`, `score`, `surname`, `username`, `user_account`) VALUES (3715,0,'admin1 18','admin1@gmail.com',NULL,NULL,'middlename1','admin','+34656256697',NULL,NULL,'surname1','admin',3704);
 /*!40000 ALTER TABLE `administrator` ENABLE KEYS */;
 UNLOCK TABLES;
 
@@ -122,7 +122,7 @@ CREATE TABLE `area` (
 
 LOCK TABLES `area` WRITE;
 /*!40000 ALTER TABLE `area` DISABLE KEYS */;
-INSERT INTO `area` (`id`, `version`, `name`, `chapter`) VALUES (3357,0,'area1',3291),(3358,0,'area2',NULL);
+INSERT INTO `area` (`id`, `version`, `name`, `chapter`) VALUES (3798,0,'area1',3722),(3799,0,'area2',3728),(3800,0,'area3',NULL);
 /*!40000 ALTER TABLE `area` ENABLE KEYS */;
 UNLOCK TABLES;
 
@@ -148,7 +148,7 @@ CREATE TABLE `area_pictures` (
 
 LOCK TABLES `area_pictures` WRITE;
 /*!40000 ALTER TABLE `area_pictures` DISABLE KEYS */;
-INSERT INTO `area_pictures` (`area`, `link`, `target_id`) VALUES (3357,'https://www.herramientasbricolaje.org/wp-content/uploads/2018/10/Taladro.jpg',0),(3357,'https://i.blogs.es/556f4e/madrid-central-restricciones-trafico/1366_2000.jpg',0),(3357,'https://i.blogs.es/b9d04b/madrid-central-restricciones-trafico/1366_2000.jpg',0),(3358,'http://pointti.info/wp-content/uploads/2018/04/fixing-door-frame-how-to-repair-a-gouge-nick-or-dent-in-a-door-or-frame-view-this-quick-video-tip-demonstrating-how-to-fix-a-gouge-or-dent-in-a-door-easily-fixing-door-frame-to-breeze-block.jpg',0),(3358,'https://cdn.pixabay.com/photo/2013/12/13/21/13/plumber-228010_960_720.jpg',0),(3358,'https://image.shutterstock.com/image-photo/closeup-male-plumber-fixing-white-450w-1005704569.jpg',0);
+INSERT INTO `area_pictures` (`area`, `link`, `target_id`) VALUES (3798,'https://www.visitasevilla.es/sites/default/files/styles/card_extended_page/public/extended_page/img_card_right/altozano_triana.jpg?itok=9W4ZVUUd',0),(3798,'https://ep01.epimg.net/elviajero/imagenes/2017/10/25/actualidad/1508938430_500364_1508945034_noticia_normal_recorte1.jpg',0),(3798,'https://sevillasecreta.co/wp-content/uploads/2016/08/triana.jpg',0),(3799,'https://i1.wp.com/bartapassevilla.com/wp-content/uploads/2017/10/centro-historico-de-sevilla-aerea.jpg?w=800',0),(3799,'https://i2.wp.com/bartapassevilla.com/wp-content/uploads/2015/11/Bares-de-tapas-en-el-centro-de-Sevilla.png?w=1024',0),(3799,'https://espanafascinante.com/wp-content/uploads/galeria_andalucia_sevilla_centro_setas-plaza_bi.jpeg',0);
 /*!40000 ALTER TABLE `area_pictures` ENABLE KEYS */;
 UNLOCK TABLES;
 
@@ -194,7 +194,7 @@ CREATE TABLE `brotherhood` (
 
 LOCK TABLES `brotherhood` WRITE;
 /*!40000 ALTER TABLE `brotherhood` DISABLE KEYS */;
-INSERT INTO `brotherhood` (`id`, `version`, `address`, `email`, `is_banned`, `is_spammer`, `middle_name`, `name`, `phone_number`, `photo`, `score`, `surname`, `username`, `user_account`, `establishment`, `title`, `area`, `history`) VALUES (3368,0,NULL,'broterhood1@mail.com',NULL,NULL,NULL,'brotherhood1',NULL,NULL,NULL,'brotherhood1','brotherhood1',3275,'2019-01-30 00:00:00','brotherhood1',3357,3366),(3369,0,NULL,'broterhood2@mail.com',NULL,NULL,NULL,'brotherhood2',NULL,NULL,NULL,'brotherhood2','brotherhood2',3277,'2019-02-10 00:00:00','brotherhood2',3358,3367);
+INSERT INTO `brotherhood` (`id`, `version`, `address`, `email`, `is_banned`, `is_spammer`, `middle_name`, `name`, `phone_number`, `photo`, `score`, `surname`, `username`, `user_account`, `establishment`, `title`, `area`, `history`) VALUES (3810,0,NULL,'broterhood1@mail.com',NULL,NULL,NULL,'brotherhood1',NULL,NULL,NULL,'brotherhood1','brotherhood1',3705,'2019-01-30 00:00:00','brotherhood1',3798,3808),(3811,0,NULL,'broterhood2@mail.com',NULL,NULL,NULL,'brotherhood2',NULL,NULL,NULL,'brotherhood2','brotherhood2',3707,'2019-02-10 00:00:00','brotherhood2',3799,3809);
 /*!40000 ALTER TABLE `brotherhood` ENABLE KEYS */;
 UNLOCK TABLES;
 
@@ -221,7 +221,7 @@ CREATE TABLE `brotherhood_coaches` (
 
 LOCK TABLES `brotherhood_coaches` WRITE;
 /*!40000 ALTER TABLE `brotherhood_coaches` DISABLE KEYS */;
-INSERT INTO `brotherhood_coaches` (`brotherhood`, `coaches`) VALUES (3368,3344),(3369,3345);
+INSERT INTO `brotherhood_coaches` (`brotherhood`, `coaches`) VALUES (3810,3785),(3811,3786);
 /*!40000 ALTER TABLE `brotherhood_coaches` ENABLE KEYS */;
 UNLOCK TABLES;
 
@@ -285,7 +285,7 @@ CREATE TABLE `chapter` (
 
 LOCK TABLES `chapter` WRITE;
 /*!40000 ALTER TABLE `chapter` DISABLE KEYS */;
-INSERT INTO `chapter` (`id`, `version`, `address`, `email`, `is_banned`, `is_spammer`, `middle_name`, `name`, `phone_number`, `photo`, `score`, `surname`, `username`, `user_account`, `title`) VALUES (3291,0,'chapter1 18','chapter1@gmail.com',NULL,NULL,'chapter1','chapter1','+34656256697',NULL,NULL,'chapter1','chapter1',3280,'chapter1'),(3297,0,'chapter2 18','chapter2@gmail.com',NULL,NULL,'chapter2','chapter2','+34656256697',NULL,NULL,'chapter2','chapter2',3281,'chapter2');
+INSERT INTO `chapter` (`id`, `version`, `address`, `email`, `is_banned`, `is_spammer`, `middle_name`, `name`, `phone_number`, `photo`, `score`, `surname`, `username`, `user_account`, `title`) VALUES (3722,0,'chapter1 18','chapter1@gmail.com',NULL,NULL,'chapter1','chapter1','+34656256697',NULL,NULL,'chapter1','chapter1',3710,'chapter1'),(3728,0,'chapter2 18','chapter2@gmail.com',NULL,NULL,'chapter2','chapter2','+34656256697',NULL,NULL,'chapter2','chapter2',3711,'chapter2'),(3734,0,'chapter3 18','chapter3@gmail.com',NULL,NULL,'chapter3','chapter3','+34656256697',NULL,NULL,'chapter3','chapter3',3714,'chapter3');
 /*!40000 ALTER TABLE `chapter` ENABLE KEYS */;
 UNLOCK TABLES;
 
@@ -312,7 +312,7 @@ CREATE TABLE `chapter_proclaims` (
 
 LOCK TABLES `chapter_proclaims` WRITE;
 /*!40000 ALTER TABLE `chapter_proclaims` DISABLE KEYS */;
-INSERT INTO `chapter_proclaims` (`chapter`, `proclaims`) VALUES (3291,3359),(3291,3360),(3297,3361),(3297,3362);
+INSERT INTO `chapter_proclaims` (`chapter`, `proclaims`) VALUES (3722,3801),(3722,3802),(3728,3803),(3728,3804);
 /*!40000 ALTER TABLE `chapter_proclaims` ENABLE KEYS */;
 UNLOCK TABLES;
 
@@ -338,7 +338,7 @@ CREATE TABLE `coach` (
 
 LOCK TABLES `coach` WRITE;
 /*!40000 ALTER TABLE `coach` DISABLE KEYS */;
-INSERT INTO `coach` (`id`, `version`, `description`, `title`) VALUES (3344,0,'Description Coach 1','Title Coach 1'),(3345,0,'Description Coach 2','Title Coach 2'),(3346,0,'Description Coach 3','Title Coach 3'),(3347,0,'Description Coach 4','Title Coach 4');
+INSERT INTO `coach` (`id`, `version`, `description`, `title`) VALUES (3785,0,'Description Coach 1','Title Coach 1'),(3786,0,'Description Coach 2','Title Coach 2'),(3787,0,'Description Coach 3','Title Coach 3'),(3788,0,'Description Coach 4','Title Coach 4');
 /*!40000 ALTER TABLE `coach` ENABLE KEYS */;
 UNLOCK TABLES;
 
@@ -396,7 +396,7 @@ CREATE TABLE `configurations` (
 
 LOCK TABLES `configurations` WRITE;
 /*!40000 ALTER TABLE `configurations` DISABLE KEYS */;
-INSERT INTO `configurations` (`id`, `version`, `cache_time`, `country_code`, `english_message`, `fare`, `finder_max_result`, `logo`, `spanish_message`, `title`, `vat`) VALUES (3363,0,1,'+34','Welcome to Acme Parade, the site to organise your parades.',10,10,'https://tinyurl.com/acme-madruga','¡Bienvenidos a Acme Parade! Tu sitio para organizar desfiles.','Acme Madruga Co., Inc.',0.21);
+INSERT INTO `configurations` (`id`, `version`, `cache_time`, `country_code`, `english_message`, `fare`, `finder_max_result`, `logo`, `spanish_message`, `title`, `vat`) VALUES (3805,0,1,'+34','Welcome to Acme Parade, the site to organise your parades.',10,10,'https://tinyurl.com/acme-madruga','¡Bienvenidos a Acme Parade! Tu sitio para organizar desfiles.','Acme Madruga Co., Inc.',0.21);
 /*!40000 ALTER TABLE `configurations` ENABLE KEYS */;
 UNLOCK TABLES;
 
@@ -421,7 +421,7 @@ CREATE TABLE `configurations_brand_name` (
 
 LOCK TABLES `configurations_brand_name` WRITE;
 /*!40000 ALTER TABLE `configurations_brand_name` DISABLE KEYS */;
-INSERT INTO `configurations_brand_name` (`configurations`, `brand_name`) VALUES (3363,'VISA'),(3363,'MCARD'),(3363,'DINNERS'),(3363,'AMEX');
+INSERT INTO `configurations_brand_name` (`configurations`, `brand_name`) VALUES (3805,'VISA'),(3805,'MCARD'),(3805,'DINNERS'),(3805,'AMEX');
 /*!40000 ALTER TABLE `configurations_brand_name` ENABLE KEYS */;
 UNLOCK TABLES;
 
@@ -446,7 +446,7 @@ CREATE TABLE `configurations_negative_words` (
 
 LOCK TABLES `configurations_negative_words` WRITE;
 /*!40000 ALTER TABLE `configurations_negative_words` DISABLE KEYS */;
-INSERT INTO `configurations_negative_words` (`configurations`, `negative_words`) VALUES (3363,'not'),(3363,'no'),(3363,'bad'),(3363,'malo'),(3363,'horrible'),(3363,'average'),(3363,'mediocre'),(3363,'disaster'),(3363,'desastre');
+INSERT INTO `configurations_negative_words` (`configurations`, `negative_words`) VALUES (3805,'not'),(3805,'no'),(3805,'bad'),(3805,'malo'),(3805,'horrible'),(3805,'average'),(3805,'mediocre'),(3805,'disaster'),(3805,'desastre');
 /*!40000 ALTER TABLE `configurations_negative_words` ENABLE KEYS */;
 UNLOCK TABLES;
 
@@ -471,7 +471,7 @@ CREATE TABLE `configurations_positive_words` (
 
 LOCK TABLES `configurations_positive_words` WRITE;
 /*!40000 ALTER TABLE `configurations_positive_words` DISABLE KEYS */;
-INSERT INTO `configurations_positive_words` (`configurations`, `positive_words`) VALUES (3363,'good'),(3363,'fantastic'),(3363,'excellent'),(3363,'great'),(3363,'amazing'),(3363,'terrific'),(3363,'beautiful'),(3363,'bueno'),(3363,'fantástico'),(3363,'excelente'),(3363,'gran'),(3363,'asombroso'),(3363,'terrible'),(3363,'bonito');
+INSERT INTO `configurations_positive_words` (`configurations`, `positive_words`) VALUES (3805,'good'),(3805,'fantastic'),(3805,'excellent'),(3805,'great'),(3805,'amazing'),(3805,'terrific'),(3805,'beautiful'),(3805,'bueno'),(3805,'fantástico'),(3805,'excelente'),(3805,'gran'),(3805,'asombroso'),(3805,'terrible'),(3805,'bonito');
 /*!40000 ALTER TABLE `configurations_positive_words` ENABLE KEYS */;
 UNLOCK TABLES;
 
@@ -496,7 +496,7 @@ CREATE TABLE `configurations_spam_words` (
 
 LOCK TABLES `configurations_spam_words` WRITE;
 /*!40000 ALTER TABLE `configurations_spam_words` DISABLE KEYS */;
-INSERT INTO `configurations_spam_words` (`configurations`, `spam_words`) VALUES (3363,'sex'),(3363,'viagra'),(3363,'cialis'),(3363,'one million'),(3363,'you\'ve been selected'),(3363,'Nigeria'),(3363,'sexo'),(3363,'un millón'),(3363,'ha sido seleccionado');
+INSERT INTO `configurations_spam_words` (`configurations`, `spam_words`) VALUES (3805,'sex'),(3805,'viagra'),(3805,'cialis'),(3805,'one million'),(3805,'you\'ve been selected'),(3805,'Nigeria'),(3805,'sexo'),(3805,'un millón'),(3805,'ha sido seleccionado');
 /*!40000 ALTER TABLE `configurations_spam_words` ENABLE KEYS */;
 UNLOCK TABLES;
 
@@ -557,7 +557,7 @@ CREATE TABLE `enrol` (
 
 LOCK TABLES `enrol` WRITE;
 /*!40000 ALTER TABLE `enrol` DISABLE KEYS */;
-INSERT INTO `enrol` (`id`, `version`, `moment`, `brotherhood`, `member`) VALUES (3379,0,'2019-01-19 00:00:00',3368,3364),(3380,0,'2019-01-19 00:00:00',3369,3365),(3381,0,'2019-02-15 00:00:00',3368,3365);
+INSERT INTO `enrol` (`id`, `version`, `moment`, `brotherhood`, `member`) VALUES (3821,0,'2019-01-19 00:00:00',3810,3806),(3822,0,'2019-01-19 00:00:00',3811,3807),(3823,0,'2019-02-15 00:00:00',3810,3807);
 /*!40000 ALTER TABLE `enrol` ENABLE KEYS */;
 UNLOCK TABLES;
 
@@ -588,7 +588,7 @@ CREATE TABLE `finder` (
 
 LOCK TABLES `finder` WRITE;
 /*!40000 ALTER TABLE `finder` DISABLE KEYS */;
-INSERT INTO `finder` (`id`, `version`, `keyword`, `last_update`, `max_date`, `min_date`, `area`) VALUES (3348,0,NULL,'2000-01-01 00:00:00',NULL,NULL,NULL),(3349,0,NULL,'2000-01-01 00:00:00',NULL,NULL,NULL);
+INSERT INTO `finder` (`id`, `version`, `keyword`, `last_update`, `max_date`, `min_date`, `area`) VALUES (3789,0,NULL,'2000-01-01 00:00:00',NULL,NULL,NULL),(3790,0,NULL,'2000-01-01 00:00:00',NULL,NULL,NULL);
 /*!40000 ALTER TABLE `finder` ENABLE KEYS */;
 UNLOCK TABLES;
 
@@ -637,7 +637,7 @@ CREATE TABLE `hibernate_sequences` (
 
 LOCK TABLES `hibernate_sequences` WRITE;
 /*!40000 ALTER TABLE `hibernate_sequences` DISABLE KEYS */;
-INSERT INTO `hibernate_sequences` (`sequence_name`, `sequence_next_hi_value`) VALUES ('domain_entity',2);
+INSERT INTO `hibernate_sequences` (`sequence_name`, `sequence_next_hi_value`) VALUES ('domain_entity',1);
 /*!40000 ALTER TABLE `hibernate_sequences` ENABLE KEYS */;
 UNLOCK TABLES;
 
@@ -665,7 +665,7 @@ CREATE TABLE `history` (
 
 LOCK TABLES `history` WRITE;
 /*!40000 ALTER TABLE `history` DISABLE KEYS */;
-INSERT INTO `history` (`id`, `version`, `record_number`, `inception_record`) VALUES (3366,0,3,3313),(3367,0,1,3314);
+INSERT INTO `history` (`id`, `version`, `record_number`, `inception_record`) VALUES (3808,0,3,3752),(3809,0,1,3753);
 /*!40000 ALTER TABLE `history` ENABLE KEYS */;
 UNLOCK TABLES;
 
@@ -692,7 +692,7 @@ CREATE TABLE `history_legal_records` (
 
 LOCK TABLES `history_legal_records` WRITE;
 /*!40000 ALTER TABLE `history_legal_records` DISABLE KEYS */;
-INSERT INTO `history_legal_records` (`history`, `legal_records`) VALUES (3366,3315),(3366,3316);
+INSERT INTO `history_legal_records` (`history`, `legal_records`) VALUES (3808,3754),(3808,3755);
 /*!40000 ALTER TABLE `history_legal_records` ENABLE KEYS */;
 UNLOCK TABLES;
 
@@ -796,7 +796,7 @@ CREATE TABLE `inception_record` (
 
 LOCK TABLES `inception_record` WRITE;
 /*!40000 ALTER TABLE `inception_record` DISABLE KEYS */;
-INSERT INTO `inception_record` (`id`, `version`, `description`, `title`) VALUES (3313,0,'Inception record','Inception bro 1'),(3314,0,'Inception record','Inception bro 2');
+INSERT INTO `inception_record` (`id`, `version`, `description`, `title`) VALUES (3752,0,'Inception record','Inception bro 1'),(3753,0,'Inception record','Inception bro 2');
 /*!40000 ALTER TABLE `inception_record` ENABLE KEYS */;
 UNLOCK TABLES;
 
@@ -850,7 +850,7 @@ CREATE TABLE `legal_record` (
 
 LOCK TABLES `legal_record` WRITE;
 /*!40000 ALTER TABLE `legal_record` DISABLE KEYS */;
-INSERT INTO `legal_record` (`id`, `version`, `description`, `title`, `laws`, `legal_name`, `vat`) VALUES (3315,0,'Legal record','Legal bro 1','Laws','Legal name 1',0.21),(3316,0,'Legal record','Legal bro 2','Laws','Legal name 2',0.21);
+INSERT INTO `legal_record` (`id`, `version`, `description`, `title`, `laws`, `legal_name`, `vat`) VALUES (3754,0,'Legal record','Legal bro 1','Laws','Legal name 1',0.21),(3755,0,'Legal record','Legal bro 2','Laws','Legal name 2',0.21);
 /*!40000 ALTER TABLE `legal_record` ENABLE KEYS */;
 UNLOCK TABLES;
 
@@ -919,7 +919,7 @@ CREATE TABLE `member` (
 
 LOCK TABLES `member` WRITE;
 /*!40000 ALTER TABLE `member` DISABLE KEYS */;
-INSERT INTO `member` (`id`, `version`, `address`, `email`, `is_banned`, `is_spammer`, `middle_name`, `name`, `phone_number`, `photo`, `score`, `surname`, `username`, `user_account`, `finder`) VALUES (3364,0,NULL,'member1@mail.com',NULL,NULL,NULL,'member1',NULL,NULL,NULL,'member1','member1',3278,3348),(3365,0,NULL,'member2@mail.com',NULL,NULL,NULL,'member2',NULL,NULL,NULL,'member2','member2',3279,3349);
+INSERT INTO `member` (`id`, `version`, `address`, `email`, `is_banned`, `is_spammer`, `middle_name`, `name`, `phone_number`, `photo`, `score`, `surname`, `username`, `user_account`, `finder`) VALUES (3806,0,NULL,'member1@mail.com',NULL,NULL,NULL,'member1',NULL,NULL,NULL,'member1','member1',3708,3789),(3807,0,NULL,'member2@mail.com',NULL,NULL,NULL,'member2',NULL,NULL,NULL,'member2','member2',3709,3790);
 /*!40000 ALTER TABLE `member` ENABLE KEYS */;
 UNLOCK TABLES;
 
@@ -949,7 +949,7 @@ CREATE TABLE `message` (
 
 LOCK TABLES `message` WRITE;
 /*!40000 ALTER TABLE `message` DISABLE KEYS */;
-INSERT INTO `message` (`id`, `version`, `body`, `is_notification`, `moment`, `priority`, `subject`, `sender`) VALUES (3343,1,'body example',NULL,'2019-02-12 00:00:00','LOW','subject example',3368);
+INSERT INTO `message` (`id`, `version`, `body`, `is_notification`, `moment`, `priority`, `subject`, `sender`) VALUES (3780,1,'body example',NULL,'2019-02-12 00:00:00','LOW','subject example',3810),(3781,0,'You have to use cialis',NULL,'2019-02-12 00:00:00','LOW','subject example',3740),(3782,1,'You have to use viagra',NULL,'2019-02-12 00:00:00','LOW','subject example',3806),(3783,0,'This is fantastic, amazing',NULL,'2019-02-12 00:00:00','LOW','subject example',3722),(3784,1,'This is bad, horrible',NULL,'2019-02-12 00:00:00','LOW','subject example',3811);
 /*!40000 ALTER TABLE `message` ENABLE KEYS */;
 UNLOCK TABLES;
 
@@ -975,7 +975,7 @@ CREATE TABLE `message_box` (
 
 LOCK TABLES `message_box` WRITE;
 /*!40000 ALTER TABLE `message_box` DISABLE KEYS */;
-INSERT INTO `message_box` (`id`, `version`, `is_system_box`, `name`) VALUES (3285,0,'','spam'),(3286,0,'','in'),(3287,0,'','out'),(3288,0,'','trash'),(3289,0,'','notification'),(3292,0,'','spam'),(3293,0,'','in'),(3294,0,'','out'),(3295,0,'','trash'),(3296,0,'','notification'),(3298,0,'','spam'),(3299,0,'','in'),(3300,0,'','out'),(3301,0,'','trash'),(3302,0,'','notification'),(3304,0,'','spam'),(3305,0,'','in'),(3306,0,'','out'),(3307,0,'','trash'),(3309,0,'','spam'),(3310,0,'','in'),(3311,0,'','out'),(3312,0,'','trash'),(3321,0,'','in'),(3322,0,'','out'),(3323,0,'','spam'),(3324,0,'','notification'),(3325,0,'','trash'),(3326,0,'','in'),(3327,0,'','out'),(3328,0,'','spam'),(3329,0,'','notification'),(3330,0,'','trash'),(3331,0,'','in'),(3332,0,'','out'),(3333,0,'','spam'),(3334,0,'','notification'),(3335,0,'','trash'),(3336,0,'','in'),(3337,0,'','out'),(3338,0,'','spam'),(3339,0,'','notification'),(3340,0,'','trash'),(3341,0,'','notification'),(3342,0,'','notification');
+INSERT INTO `message_box` (`id`, `version`, `is_system_box`, `name`) VALUES (3716,0,'','spam'),(3717,0,'','in'),(3718,0,'','out'),(3719,0,'','trash'),(3720,0,'','notification'),(3723,0,'','spam'),(3724,0,'','in'),(3725,0,'','out'),(3726,0,'','trash'),(3727,0,'','notification'),(3729,0,'','spam'),(3730,0,'','in'),(3731,0,'','out'),(3732,0,'','trash'),(3733,0,'','notification'),(3735,0,'','spam'),(3736,0,'','in'),(3737,0,'','out'),(3738,0,'','trash'),(3739,0,'','notification'),(3741,0,'','spam'),(3742,0,'','in'),(3743,0,'','out'),(3744,0,'','trash'),(3745,0,'','notification'),(3747,0,'','spam'),(3748,0,'','in'),(3749,0,'','out'),(3750,0,'','trash'),(3751,0,'','notification'),(3760,0,'','in'),(3761,0,'','out'),(3762,0,'','spam'),(3763,0,'','notification'),(3764,0,'','trash'),(3765,0,'','in'),(3766,0,'','out'),(3767,0,'','spam'),(3768,0,'','notification'),(3769,0,'','trash'),(3770,0,'','in'),(3771,0,'','out'),(3772,0,'','spam'),(3773,0,'','notification'),(3774,0,'','trash'),(3775,0,'','in'),(3776,0,'','out'),(3777,0,'','spam'),(3778,0,'','notification'),(3779,0,'','trash');
 /*!40000 ALTER TABLE `message_box` ENABLE KEYS */;
 UNLOCK TABLES;
 
@@ -1002,7 +1002,7 @@ CREATE TABLE `message_box_messages` (
 
 LOCK TABLES `message_box_messages` WRITE;
 /*!40000 ALTER TABLE `message_box_messages` DISABLE KEYS */;
-INSERT INTO `message_box_messages` (`message_box`, `messages`) VALUES (3293,3343),(3299,3343),(3332,3343),(3336,3343);
+INSERT INTO `message_box_messages` (`message_box`, `messages`) VALUES (3724,3780),(3725,3783),(3730,3780),(3730,3783),(3743,3781),(3747,3781),(3761,3782),(3767,3782),(3770,3784),(3771,3780),(3775,3780),(3776,3784);
 /*!40000 ALTER TABLE `message_box_messages` ENABLE KEYS */;
 UNLOCK TABLES;
 
@@ -1029,7 +1029,7 @@ CREATE TABLE `message_message_boxes` (
 
 LOCK TABLES `message_message_boxes` WRITE;
 /*!40000 ALTER TABLE `message_message_boxes` DISABLE KEYS */;
-INSERT INTO `message_message_boxes` (`message`, `message_boxes`) VALUES (3343,3332),(3343,3336);
+INSERT INTO `message_message_boxes` (`message`, `message_boxes`) VALUES (3780,3771),(3780,3775),(3781,3743),(3781,3747),(3782,3761),(3782,3767),(3783,3725),(3783,3730),(3784,3776),(3784,3770);
 /*!40000 ALTER TABLE `message_message_boxes` ENABLE KEYS */;
 UNLOCK TABLES;
 
@@ -1054,7 +1054,7 @@ CREATE TABLE `message_recipients` (
 
 LOCK TABLES `message_recipients` WRITE;
 /*!40000 ALTER TABLE `message_recipients` DISABLE KEYS */;
-INSERT INTO `message_recipients` (`message`, `recipients`) VALUES (3343,3369);
+INSERT INTO `message_recipients` (`message`, `recipients`) VALUES (3780,3811),(3781,3746),(3782,3807),(3783,3728),(3784,3810);
 /*!40000 ALTER TABLE `message_recipients` ENABLE KEYS */;
 UNLOCK TABLES;
 
@@ -1130,7 +1130,7 @@ CREATE TABLE `path` (
 
 LOCK TABLES `path` WRITE;
 /*!40000 ALTER TABLE `path` DISABLE KEYS */;
-INSERT INTO `path` (`id`, `version`, `procession`) VALUES (3376,0,3370);
+INSERT INTO `path` (`id`, `version`, `procession`) VALUES (3818,0,3812);
 /*!40000 ALTER TABLE `path` ENABLE KEYS */;
 UNLOCK TABLES;
 
@@ -1208,7 +1208,7 @@ CREATE TABLE `position` (
 
 LOCK TABLES `position` WRITE;
 /*!40000 ALTER TABLE `position` DISABLE KEYS */;
-INSERT INTO `position` (`id`, `version`, `english_name`, `spanish_name`) VALUES (3350,0,'President','Presidente'),(3351,0,'Vice President','Vicepresidente'),(3352,0,'Secretary','Secretario'),(3353,0,'Treasurer','Tesorero'),(3354,0,'Historian','Historiador'),(3355,0,'Fundraiser','Promotor'),(3356,0,'Officer','Vocal');
+INSERT INTO `position` (`id`, `version`, `english_name`, `spanish_name`) VALUES (3791,0,'President','Presidente'),(3792,0,'Vice President','Vicepresidente'),(3793,0,'Secretary','Secretario'),(3794,0,'Treasurer','Tesorero'),(3795,0,'Historian','Historiador'),(3796,0,'Fundraiser','Promotor'),(3797,0,'Officer','Vocal');
 /*!40000 ALTER TABLE `position` ENABLE KEYS */;
 UNLOCK TABLES;
 
@@ -1235,7 +1235,7 @@ CREATE TABLE `position_enrol` (
 
 LOCK TABLES `position_enrol` WRITE;
 /*!40000 ALTER TABLE `position_enrol` DISABLE KEYS */;
-INSERT INTO `position_enrol` (`positions`, `enrol`) VALUES (3350,3379),(3350,3380),(3352,3381);
+INSERT INTO `position_enrol` (`positions`, `enrol`) VALUES (3791,3821),(3791,3822),(3793,3823);
 /*!40000 ALTER TABLE `position_enrol` ENABLE KEYS */;
 UNLOCK TABLES;
 
@@ -1273,7 +1273,7 @@ CREATE TABLE `procession` (
 
 LOCK TABLES `procession` WRITE;
 /*!40000 ALTER TABLE `procession` DISABLE KEYS */;
-INSERT INTO `procession` (`id`, `version`, `description`, `draft_mode`, `moment`, `reasson`, `status`, `ticker`, `title`, `brotherhood`, `path`) VALUES (3370,1,'procession1 description','\0','2019-04-01 00:00:00',NULL,'APPROVED','190210-AAAAA','procession1',3368,3376),(3373,0,'procession2 description','\0','2019-06-15 00:00:00',NULL,'SUBMITTED','190215-BBBBB','procession2',3369,NULL);
+INSERT INTO `procession` (`id`, `version`, `description`, `draft_mode`, `moment`, `reasson`, `status`, `ticker`, `title`, `brotherhood`, `path`) VALUES (3812,1,'procession1 description','\0','2019-04-01 00:00:00',NULL,'APPROVED','190210-AAAAA','procession1',3810,3818),(3815,0,'procession2 description','\0','2019-06-15 00:00:00',NULL,'SUBMITTED','190215-BBBBB','procession2',3811,NULL);
 /*!40000 ALTER TABLE `procession` ENABLE KEYS */;
 UNLOCK TABLES;
 
@@ -1299,7 +1299,7 @@ CREATE TABLE `proclaim` (
 
 LOCK TABLES `proclaim` WRITE;
 /*!40000 ALTER TABLE `proclaim` DISABLE KEYS */;
-INSERT INTO `proclaim` (`id`, `version`, `moment`, `text`) VALUES (3359,0,'2019-03-12 00:00:00','New proclaim1'),(3360,0,'2019-01-12 00:00:00','New proclaim2'),(3361,0,'2019-02-20 00:00:00','New proclaim3'),(3362,0,'2019-01-09 00:00:00','New proclaim4');
+INSERT INTO `proclaim` (`id`, `version`, `moment`, `text`) VALUES (3801,0,'2019-03-12 00:00:00','New proclaim1'),(3802,0,'2019-01-12 00:00:00','New proclaim2'),(3803,0,'2019-02-20 00:00:00','New proclaim3'),(3804,0,'2019-01-09 00:00:00','New proclaim4');
 /*!40000 ALTER TABLE `proclaim` ENABLE KEYS */;
 UNLOCK TABLES;
 
@@ -1358,7 +1358,7 @@ CREATE TABLE `request` (
 
 LOCK TABLES `request` WRITE;
 /*!40000 ALTER TABLE `request` DISABLE KEYS */;
-INSERT INTO `request` (`id`, `version`, `assigned_column`, `assigned_row`, `reason`, `status`, `member`, `procession`) VALUES (3371,0,2,2,NULL,'APPROVED',3364,3370),(3372,0,NULL,NULL,NULL,'PENDING',3365,3370),(3374,0,NULL,NULL,'Es demasiado gordo, ocuparía dos puestos','REJECTED',3364,3373),(3375,0,1,1,NULL,'APPROVED',3365,3373);
+INSERT INTO `request` (`id`, `version`, `assigned_column`, `assigned_row`, `reason`, `status`, `member`, `procession`) VALUES (3813,0,2,2,NULL,'APPROVED',3806,3812),(3814,0,NULL,NULL,NULL,'PENDING',3807,3812),(3816,0,NULL,NULL,'Es demasiado gordo, ocuparía dos puestos','REJECTED',3806,3815),(3817,0,1,1,NULL,'APPROVED',3807,3815);
 /*!40000 ALTER TABLE `request` ENABLE KEYS */;
 UNLOCK TABLES;
 
@@ -1392,7 +1392,7 @@ CREATE TABLE `segment` (
 
 LOCK TABLES `segment` WRITE;
 /*!40000 ALTER TABLE `segment` DISABLE KEYS */;
-INSERT INTO `segment` (`id`, `version`, `destination_latitude`, `destination_longitude`, `destination_time`, `number`, `origin_latitude`, `origin_longitude`, `origin_time`, `path`) VALUES (3377,0,10.5,10.5,'2019-06-19 19:00:00',0,0.5,0.5,'2019-06-19 18:00:00',3376),(3378,0,20.5,20.5,'2019-06-19 20:00:00',1,10.5,10.5,'2019-06-19 19:05:00',3376);
+INSERT INTO `segment` (`id`, `version`, `destination_latitude`, `destination_longitude`, `destination_time`, `number`, `origin_latitude`, `origin_longitude`, `origin_time`, `path`) VALUES (3819,0,10.5,10.5,'2019-06-19 19:00:00',0,0.5,0.5,'2019-06-19 18:00:00',3818),(3820,0,20.5,20.5,'2019-06-19 20:00:00',1,10.5,10.5,'2019-06-19 19:05:00',3818);
 /*!40000 ALTER TABLE `segment` ENABLE KEYS */;
 UNLOCK TABLES;
 
@@ -1420,7 +1420,7 @@ CREATE TABLE `social_identity` (
 
 LOCK TABLES `social_identity` WRITE;
 /*!40000 ALTER TABLE `social_identity` DISABLE KEYS */;
-INSERT INTO `social_identity` (`id`, `version`, `link`, `nick`, `social_network`, `actor`) VALUES (3290,0,'http://www.facebook/admin1','admin','facebook',3284),(3317,1,'http://www.facebook/member1','member1','facebook',3364),(3318,1,'http://www.facebook/member2','member2','facebook',3365),(3319,1,'http://www.facebook/brotherhood1','brotherhood1','facebook',3368),(3320,1,'http://www.facebook/brotherhood2','brotherhood2','facebook',3369);
+INSERT INTO `social_identity` (`id`, `version`, `link`, `nick`, `social_network`, `actor`) VALUES (3721,0,'http://www.facebook/admin1','admin','facebook',3715),(3756,1,'http://www.facebook/member1','member1','facebook',3806),(3757,1,'http://www.facebook/member2','member2','facebook',3807),(3758,1,'http://www.facebook/brotherhood1','brotherhood1','facebook',3810),(3759,1,'http://www.facebook/brotherhood2','brotherhood2','facebook',3811);
 /*!40000 ALTER TABLE `social_identity` ENABLE KEYS */;
 UNLOCK TABLES;
 
@@ -1458,7 +1458,7 @@ CREATE TABLE `sponsor` (
 
 LOCK TABLES `sponsor` WRITE;
 /*!40000 ALTER TABLE `sponsor` DISABLE KEYS */;
-INSERT INTO `sponsor` (`id`, `version`, `address`, `email`, `is_banned`, `is_spammer`, `middle_name`, `name`, `phone_number`, `photo`, `score`, `surname`, `username`, `user_account`) VALUES (3303,0,'sponsor1 7474','sponsor1@gmail.com',NULL,NULL,'middlename1','sponsor1','656278997',NULL,NULL,'surname1','sponsor1',3282),(3308,0,'sponsor2 7474','sponsor2@gmail.com',NULL,NULL,'mddlnm2','sponsor2','656274521',NULL,NULL,'surname2',NULL,3283);
+INSERT INTO `sponsor` (`id`, `version`, `address`, `email`, `is_banned`, `is_spammer`, `middle_name`, `name`, `phone_number`, `photo`, `score`, `surname`, `username`, `user_account`) VALUES (3740,0,'sponsor1 7474','sponsor1@gmail.com',NULL,NULL,'middlename1','sponsor1','656278997',NULL,NULL,'surname1','sponsor1',3712),(3746,0,'sponsor2 7474','sponsor2@gmail.com',NULL,NULL,'mddlnm2','sponsor2','656274521',NULL,NULL,'surname2',NULL,3713);
 /*!40000 ALTER TABLE `sponsor` ENABLE KEYS */;
 UNLOCK TABLES;
 
@@ -1497,7 +1497,7 @@ CREATE TABLE `sponsorship` (
 
 LOCK TABLES `sponsorship` WRITE;
 /*!40000 ALTER TABLE `sponsorship` DISABLE KEYS */;
-INSERT INTO `sponsorship` (`id`, `version`, `active`, `banner`, `charge`, `brand_name`, `cvv_code`, `expiration`, `holder_name`, `number`, `target_page`, `procession`, `sponsor`) VALUES (3382,0,'','https://goo.gl/mR1tJ6',0,'VISA',123,'2015-12-02 00:00:00','sponsor1','4414856614566419','http://www.targetPage.com',3370,3303),(3383,0,'','https://goo.gl/IrU3gD',0,'VISA',123,'2023-12-04 00:00:00','sponsor2','4877161530824285','http://www.targetPage.com',3370,3308);
+INSERT INTO `sponsorship` (`id`, `version`, `active`, `banner`, `charge`, `brand_name`, `cvv_code`, `expiration`, `holder_name`, `number`, `target_page`, `procession`, `sponsor`) VALUES (3824,0,'','https://goo.gl/mR1tJ6',0,'VISA',123,'2015-12-02 00:00:00','sponsor1','4414856614566419','http://www.targetPage.com',3812,3740),(3825,0,'','https://goo.gl/IrU3gD',0,'VISA',123,'2023-12-04 00:00:00','sponsor2','4877161530824285','http://www.targetPage.com',3812,3746);
 /*!40000 ALTER TABLE `sponsorship` ENABLE KEYS */;
 UNLOCK TABLES;
 
@@ -1524,7 +1524,7 @@ CREATE TABLE `user_account` (
 
 LOCK TABLES `user_account` WRITE;
 /*!40000 ALTER TABLE `user_account` DISABLE KEYS */;
-INSERT INTO `user_account` (`id`, `version`, `password`, `username`) VALUES (3274,0,'21232f297a57a5a743894a0e4a801fc3','admin'),(3275,0,'479e3180a45b21ea8e88beb0c45aa8ed','brotherhood1'),(3276,0,'1b3231655cebb7a1f783eddf27d254ca','super'),(3277,0,'88f1b810c40cd63107fb758fef4d77db','brotherhood2'),(3278,0,'c7764cfed23c5ca3bb393308a0da2306','member1'),(3279,0,'88ed421f060aadcacbd63f28d889797f','member2'),(3280,0,'178494d73a41f7d68e80f685324d3662','chapter1'),(3281,0,'07a29f2348d728fad16c5260823f93ef','chapter2'),(3282,0,'42c63ad66d4dc07ed17753772bef96d6','sponsor1'),(3283,0,'3dc67f80a03324e01b1640f45d107485','sponsor2');
+INSERT INTO `user_account` (`id`, `version`, `password`, `username`) VALUES (3704,0,'21232f297a57a5a743894a0e4a801fc3','admin'),(3705,0,'479e3180a45b21ea8e88beb0c45aa8ed','brotherhood1'),(3706,0,'1b3231655cebb7a1f783eddf27d254ca','super'),(3707,0,'88f1b810c40cd63107fb758fef4d77db','brotherhood2'),(3708,0,'c7764cfed23c5ca3bb393308a0da2306','member1'),(3709,0,'88ed421f060aadcacbd63f28d889797f','member2'),(3710,0,'178494d73a41f7d68e80f685324d3662','chapter1'),(3711,0,'07a29f2348d728fad16c5260823f93ef','chapter2'),(3712,0,'42c63ad66d4dc07ed17753772bef96d6','sponsor1'),(3713,0,'3dc67f80a03324e01b1640f45d107485','sponsor2'),(3714,0,'4cf7b4e4bb6d429f0f08bc498e397d81','chapter3');
 /*!40000 ALTER TABLE `user_account` ENABLE KEYS */;
 UNLOCK TABLES;
 
@@ -1549,7 +1549,7 @@ CREATE TABLE `user_account_authorities` (
 
 LOCK TABLES `user_account_authorities` WRITE;
 /*!40000 ALTER TABLE `user_account_authorities` DISABLE KEYS */;
-INSERT INTO `user_account_authorities` (`user_account`, `authority`) VALUES (3274,'ADMIN'),(3275,'BROTHERHOOD'),(3276,'BROTHERHOOD'),(3277,'BROTHERHOOD'),(3278,'MEMBER'),(3279,'MEMBER'),(3280,'CHAPTER'),(3281,'CHAPTER'),(3282,'SPONSOR'),(3283,'SPONSOR');
+INSERT INTO `user_account_authorities` (`user_account`, `authority`) VALUES (3704,'ADMIN'),(3705,'BROTHERHOOD'),(3706,'BROTHERHOOD'),(3707,'BROTHERHOOD'),(3708,'MEMBER'),(3709,'MEMBER'),(3710,'CHAPTER'),(3711,'CHAPTER'),(3712,'SPONSOR'),(3713,'SPONSOR'),(3714,'CHAPTER');
 /*!40000 ALTER TABLE `user_account_authorities` ENABLE KEYS */;
 UNLOCK TABLES;
 /*!40103 SET TIME_ZONE=@OLD_TIME_ZONE */;
@@ -1562,6 +1562,5 @@ UNLOCK TABLES;
 /*!40101 SET COLLATION_CONNECTION=@OLD_COLLATION_CONNECTION */;
 /*!40111 SET SQL_NOTES=@OLD_SQL_NOTES */;
 
--- Dump completed on 2019-03-26 18:45:40
-
+-- Dump completed on 2019-03-28 18:06:42
 commit;
