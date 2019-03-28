@@ -5,7 +5,6 @@ import java.io.ByteArrayOutputStream;
 import java.io.File;
 import java.io.IOException;
 import java.io.OutputStream;
-import java.util.ArrayList;
 import java.util.Collection;
 import java.util.List;
 
@@ -26,17 +25,18 @@ import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.servlet.ModelAndView;
 
-import services.ActorService;
-import services.AreaService;
-import services.ChapterService;
-import services.ProcessionService;
-import utilities.Md5;
 import domain.Area;
 import domain.Brotherhood;
 import domain.Chapter;
 import domain.Procession;
 import domain.Proclaim;
+import domain.Url;
 import forms.ChapterForm;
+import services.ActorService;
+import services.AreaService;
+import services.ChapterService;
+import services.ProcessionService;
+import utilities.Md5;
 
 @Controller
 @RequestMapping("/chapter")
@@ -249,14 +249,18 @@ public class ChapterController extends AbstractController {
 	public ModelAndView areaList(@RequestParam int areaId) {
 		ModelAndView result;
 		Area area;
+		Collection<Url> pictures;
 
 		area = this.areaService.findOne(areaId);
-		Collection<Area> areas = new ArrayList<Area>();
-		areas.add(area);
+		//Collection<Area> areas = new ArrayList<Area>();
+		//areas.add(area);
+		
+		pictures = area.getPictures();
 
 		result = new ModelAndView("chapter/area/list");
 		result.addObject("requestURI", "chapter/area/list.do");
-		result.addObject("areas", areas);
+		result.addObject("pictures", pictures);
+		result.addObject("area", area);
 
 		return result;
 	}
@@ -332,7 +336,7 @@ public class ChapterController extends AbstractController {
 
 			this.actorService.generatePersonalInformationPDF(chapter, temperotyFilePath + "\\" + fileName);
 			ByteArrayOutputStream baos = new ByteArrayOutputStream();
-			baos = convertPDFToByteArrayOutputStream(temperotyFilePath + "\\" + fileName);
+			baos = this.convertPDFToByteArrayOutputStream(temperotyFilePath + "\\" + fileName);
 			OutputStream os = response.getOutputStream();
 			baos.writeTo(os);
 			os.flush();

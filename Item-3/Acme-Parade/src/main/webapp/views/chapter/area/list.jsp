@@ -7,9 +7,9 @@
 <%@taglib prefix="display" uri="http://displaytag.sf.net"%>
 <%@taglib prefix="acme" tagdir="/WEB-INF/tags" %>
 
-<display:table name="areas" id="row" requestURI="${ requestUri }" pagesize="5" class="displaytag">
 
-	
+<display:table name="area" id="row" requestURI="${ requestUri }" pagesize="5" class="displaytag">
+
 	<!-- Title -->
 	<spring:message code="area.name" var="nameHeader" />
 	<display:column property="name" title="${nameHeader}" />
@@ -27,6 +27,23 @@
 	</display:column>
      
 </display:table>
+
+<jstl:if test="${not empty area.pictures}">
+<display:table name="pictures" id="row" requestURI="chapter/area/display.do" class="displaytag">	
+	
+	<!-- Picture -->
+	<spring:message code="area.picture" var="pictureHeader" />
+	<display:column title="${pictureHeader}" >
+		<img src="${row.link}" width="50%" height="200"/>
+	</display:column>
+	
+</display:table>
+</jstl:if>
+
+
+
+
+
 
 <acme:back code="chapter.back"/>
 

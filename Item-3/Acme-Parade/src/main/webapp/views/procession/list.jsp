@@ -142,5 +142,5 @@
 </security:authorize>
 
 <security:authorize access="isAnonymous()">
-	<acme:cancel code="member.goback" url="/brotherhood/list.do" />
+	<acme:back code="member.goback"/>
 </security:authorize>

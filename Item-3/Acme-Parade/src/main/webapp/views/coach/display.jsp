@@ -32,9 +32,9 @@
 </jstl:if>
 
 <security:authorize access="isAnonymous()">
-	<acme:cancel code="member.goback" url="/brotherhood/list.do" />
+	<acme:back code="member.goback"/>
 </security:authorize>
 
 <security:authorize access="hasRole('BROTHERHOOD')">
-	<acme:cancel code="member.goback" url="/coach/brotherhood/list.do" />
+	<acme:cancel code="member.goback" url="/brotherhood/list.do" />
 </security:authorize>

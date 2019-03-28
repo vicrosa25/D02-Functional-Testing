@@ -6,6 +6,7 @@
 <%@taglib prefix="form" uri="http://www.springframework.org/tags/form"%>
 <%@taglib prefix="security"	uri="http://www.springframework.org/security/tags"%>
 <%@taglib prefix="display" uri="http://displaytag.sf.net"%>
+<%@taglib prefix="acme" tagdir="/WEB-INF/tags" %>
 
 <spring:message code="history.title" var="titleHeader" />
 <spring:message code="history.description" var="descriptionHeader" />
@@ -217,3 +218,8 @@
 	</a>
 	<br>
 </jstl:if>
+
+
+<security:authorize access="isAnonymous()">
+	<acme:back code="member.goback"/>
+</security:authorize>
