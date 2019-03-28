@@ -388,7 +388,7 @@ CREATE TABLE `configurations` (
 
 LOCK TABLES `configurations` WRITE;
 /*!40000 ALTER TABLE `configurations` DISABLE KEYS */;
-INSERT INTO `configurations` (`id`, `version`, `cache_time`, `country_code`, `english_message`, `fare`, `finder_max_result`, `logo`, `spanish_message`, `title`, `vat`) VALUES (30,0,1,'+34','Welcome to Acme Parade, the site to organise your parades.',10,10,'https://tinyurl.com/acme-madruga','¡Bienvenidos a Acme Parade! Tu sitio para organizar desfiles.','Acme Madruga Co., Inc.',0.21);
+INSERT INTO `configurations` (`id`, `version`, `cache_time`, `country_code`, `english_message`, `fare`, `finder_max_result`, `logo`, `spanish_message`, `title`, `vat`) VALUES (30,0,1,'+34','Welcome to Acme Parade, the site to organise your parades.',10,10,'https://www.irishtimes.com/polopoly_fs/1.3426916.1521040386!/image/image.jpg_gen/derivatives/box_620_330/image.jpg','¡Bienvenidos a Acme Parade! Tu sitio para organizar desfiles.','Acme Madruga Co., Inc.',0.21);
 /*!40000 ALTER TABLE `configurations` ENABLE KEYS */;
 UNLOCK TABLES;
 

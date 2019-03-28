@@ -1,22 +1,9 @@
 start transaction;
 
-CREATE DATABASE  IF NOT EXISTS `acme-parade` /*!40100 DEFAULT CHARACTER SET latin1 */;
-USE `acme-parade`;
-
-create user 'acme-user'@'%' 
-	identified by password '*4F10007AADA9EE3DBB2CC36575DFC6F4FDE27577';
-
-create user 'acme-manager'@'%' 
-	identified by password '*FDB8CD304EB2317D10C95D797A4BD7492560F55F';
+CREATE DATABASE  IF NOT EXISTS `bcstcbgxaybanzceaoss` /*!40100 DEFAULT CHARACTER SET latin1 */;
+USE `bcstcbgxaybanzceaoss`;
 
 
-grant select, insert, update, delete 
-	on `acme-parade`.* to 'acme-user'@'%';
-
-grant select, insert, update, delete, create, drop, references, index, alter, 
-        create temporary tables, lock tables, create view, create routine, 
-        alter routine, execute, trigger, show view
-    on `acme-parade`.* to 'acme-manager'@'%';
 -- MySQL dump 10.13  Distrib 5.5.16, for Win32 (x86)
 --
 -- Host: localhost    Database: acme-parade
@@ -388,7 +375,7 @@ CREATE TABLE `configurations` (
 
 LOCK TABLES `configurations` WRITE;
 /*!40000 ALTER TABLE `configurations` DISABLE KEYS */;
-INSERT INTO `configurations` (`id`, `version`, `cache_time`, `country_code`, `english_message`, `fare`, `finder_max_result`, `logo`, `spanish_message`, `title`, `vat`) VALUES (30,0,1,'+34','Welcome to Acme Parade, the site to organise your parades.',10,10,'https://tinyurl.com/acme-madruga','¡Bienvenidos a Acme Parade! Tu sitio para organizar desfiles.','Acme Madruga Co., Inc.',0.21);
+INSERT INTO `configurations` (`id`, `version`, `cache_time`, `country_code`, `english_message`, `fare`, `finder_max_result`, `logo`, `spanish_message`, `title`, `vat`) VALUES (30,0,1,'+34','Welcome to Acme Parade, the site to organise your parades.',10,10,'https://www.irishtimes.com/polopoly_fs/1.3426916.1521040386!/image/image.jpg_gen/derivatives/box_620_330/image.jpg','¡Bienvenidos a Acme Parade! Tu sitio para organizar desfiles.','Acme Madruga Co., Inc.',0.21);
 /*!40000 ALTER TABLE `configurations` ENABLE KEYS */;
 UNLOCK TABLES;
 

@@ -1,15 +1,15 @@
 start transaction;
 
-use `acme-madruga`;
+use `acme-parade`;
 
-revoke all privileges on `acme-madruga`.* from 'acme-user'@'%';
+revoke all privileges on `acme-parade`.* from 'acme-user'@'%';
 
-revoke all privileges on `acme-madruga`.* from 'acme-manager'@'%';
+revoke all privileges on `acme-parade`.* from 'acme-manager'@'%';
 
 drop user 'acme-user'@'%';
 
 drop user 'acme-manager'@'%';
 
-drop database `acme-madruga`;
+drop database `acme-parade`;
 
 commit;
