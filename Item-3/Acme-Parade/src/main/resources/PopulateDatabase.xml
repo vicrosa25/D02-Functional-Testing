@@ -1491,7 +1491,7 @@
 		<property name="fare" value="10.0" />
 		<property name="countryCode" value="+34" />
 		<property name="title" value="Acme Madruga Co., Inc." />
-		<property name="logo" value="https://tinyurl.com/acme-madruga" />
+		<property name="logo" value="https://www.irishtimes.com/polopoly_fs/1.3426916.1521040386!/image/image.jpg_gen/derivatives/box_620_330/image.jpg" />
 		<property name="spanishMessage"
 			value="¡Bienvenidos a Acme Parade! Tu sitio para organizar desfiles." />
 		<property name="englishMessage"
