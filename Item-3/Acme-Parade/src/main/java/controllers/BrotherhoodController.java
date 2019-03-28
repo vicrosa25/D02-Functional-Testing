@@ -3,10 +3,7 @@ package controllers;
 
 import java.io.ByteArrayOutputStream;
 import java.io.File;
-import java.io.FileInputStream;
-import java.io.FileNotFoundException;
 import java.io.IOException;
-import java.io.InputStream;
 import java.io.OutputStream;
 import java.util.Collection;
 import java.util.List;
@@ -371,7 +368,7 @@ public class BrotherhoodController extends AbstractController {
 		return result;
 	}
 
-	// Delete ------------------------------------------------------------------------------------
+	// Generate pdf ------------------------------------------------------------------------------------
 	@RequestMapping(value = "/generatePDF")
 	public void generatePDF(HttpServletRequest request, HttpServletResponse response) throws IOException {
 		Brotherhood brotherhood;
@@ -398,37 +395,6 @@ public class BrotherhoodController extends AbstractController {
 			System.out.println(oops.getCause());
 			oops.printStackTrace();
 		}
-	}
-
-	private ByteArrayOutputStream convertPDFToByteArrayOutputStream(String fileName) {
-
-		InputStream inputStream = null;
-		ByteArrayOutputStream baos = new ByteArrayOutputStream();
-		try {
-
-			inputStream = new FileInputStream(fileName);
-			byte[] buffer = new byte[1024];
-			baos = new ByteArrayOutputStream();
-
-			int bytesRead;
-			while ((bytesRead = inputStream.read(buffer)) != -1) {
-				baos.write(buffer, 0, bytesRead);
-			}
-
-		} catch (FileNotFoundException e) {
-			e.printStackTrace();
-		} catch (IOException e) {
-			e.printStackTrace();
-		} finally {
-			if (inputStream != null) {
-				try {
-					inputStream.close();
-				} catch (IOException e) {
-					e.printStackTrace();
-				}
-			}
-		}
-		return baos;
 	}
 
 	// Ancillary methods -----------------------------------------------------------------------

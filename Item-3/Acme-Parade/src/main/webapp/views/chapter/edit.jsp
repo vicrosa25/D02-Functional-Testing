@@ -74,4 +74,5 @@
 	
 	<acme:cancel code="chapter.cancel" url="/" />
 	<acme:cancel code="brotherhood.delete" url="/chapter/delete.do" />
+	<acme:cancel code="brotherhood.export" url="/chapter/generatePDF.do" />
 </form:form>

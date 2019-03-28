@@ -1,9 +1,16 @@
 
 package controllers;
 
+import java.io.ByteArrayOutputStream;
+import java.io.File;
+import java.io.IOException;
+import java.io.OutputStream;
 import java.util.Collection;
 import java.util.List;
 
+import javax.servlet.ServletContext;
+import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpServletResponse;
 import javax.swing.JOptionPane;
 
 import org.springframework.beans.TypeMismatchException;
@@ -16,6 +23,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.servlet.ModelAndView;
 
+import services.ActorService;
 import services.SponsorService;
 import utilities.Md5;
 import domain.Sponsor;
@@ -27,6 +35,9 @@ public class SponsorController extends AbstractController {
 
 	@Autowired
 	private SponsorService sponsorService;
+
+	@Autowired
+	private ActorService	actorService;
 
 
 	@ExceptionHandler(TypeMismatchException.class)
@@ -195,6 +206,35 @@ public class SponsorController extends AbstractController {
 			result = this.forbiddenOpperation();
 		}
 		return result;
+	}
+
+	// Generate pdf ------------------------------------------------------------------------------------
+	@RequestMapping(value = "/generatePDF")
+	public void generatePDF(HttpServletRequest request, HttpServletResponse response) throws IOException {
+		Sponsor sponsor;
+
+		try {
+			final ServletContext servletContext = request.getSession().getServletContext();
+			final File tempDirectory = (File) servletContext.getAttribute("javax.servlet.context.tempdir");
+			final String temperotyFilePath = tempDirectory.getAbsolutePath();
+			sponsor = this.sponsorService.findByPrincipal();
+
+			String fileName = sponsor.getName() + ".pdf";
+			response.setContentType("application/pdf");
+			response.setHeader("Content-disposition", "attachment; filename=" + fileName);
+
+			this.actorService.generatePersonalInformationPDF(sponsor, temperotyFilePath + "\\" + fileName);
+			ByteArrayOutputStream baos = new ByteArrayOutputStream();
+			baos = convertPDFToByteArrayOutputStream(temperotyFilePath + "\\" + fileName);
+			OutputStream os = response.getOutputStream();
+			baos.writeTo(os);
+			os.flush();
+		} catch (final Throwable oops) {
+			System.out.println(oops.getMessage());
+			System.out.println(oops.getClass());
+			System.out.println(oops.getCause());
+			oops.printStackTrace();
+		}
 	}
 
 	// Ancillary methods ------------------------------------------------------

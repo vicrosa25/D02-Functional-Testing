@@ -89,6 +89,7 @@
 		<!-- CHAPTER -->
 		<security:intercept-url pattern="/chapter/create.do" access="isAnonymous()" />
 		<security:intercept-url pattern="/chapter/edit.do" access="hasRole('CHAPTER')" />
+		<security:intercept-url pattern="/chapter/generatePDF.do" access="hasRole('CHAPTER')" />
 		<security:intercept-url pattern="/chapter/delete.do" access="hasRole('CHAPTER')" />
 		<security:intercept-url pattern="/chapter/area/assign.do" access="hasRole('CHAPTER')" />
 		<security:intercept-url pattern="/chapter/area/display.do" access="permitAll" />
@@ -104,6 +105,7 @@
 		<!-- SPONSOR -->
 		<security:intercept-url pattern="/sponsor/create.do" access="isAnonymous()" />
 		<security:intercept-url pattern="/sponsor/edit.do" access="hasRole('SPONSOR')" />
+		<security:intercept-url pattern="/sponsor/generatePDF.do" access="hasRole('SPONSOR')" />
 		<security:intercept-url pattern="/sponsor/delete.do" access="hasRole('SPONSOR')" />
 		
 		<!-- PROCLAIM -->
@@ -130,6 +132,7 @@
 		<!--  MEMBER -->
 		<security:intercept-url pattern="/member/create.do" access="isAnonymous()" />
 		<security:intercept-url pattern="/member/edit.do" access="hasRole('MEMBER')" />
+		<security:intercept-url pattern="/member/generatePDF.do" access="hasRole('MEMBER')" />
 		<security:intercept-url pattern="/member/delete.do" access="hasRole('MEMBER')" />
 		<security:intercept-url pattern="/member/enrol.do" access="hasRole('MEMBER')" />
 		<security:intercept-url pattern="/enrol/member/create.do" access="hasRole('MEMBER')" />
