@@ -1450,32 +1450,32 @@
 	<!-- pictures *************************************************************************** -->
 	<bean id="picture1" class="domain.Url">
 		<property name="link"
-			value="https://www.herramientasbricolaje.org/wp-content/uploads/2018/10/Taladro.jpg" />
+			value="https://www.visitasevilla.es/sites/default/files/styles/card_extended_page/public/extended_page/img_card_right/altozano_triana.jpg?itok=9W4ZVUUd" />
 	</bean>
 
 	<bean id="picture2" class="domain.Url">
 		<property name="link"
-			value="https://i.blogs.es/556f4e/madrid-central-restricciones-trafico/1366_2000.jpg" />
+			value="https://ep01.epimg.net/elviajero/imagenes/2017/10/25/actualidad/1508938430_500364_1508945034_noticia_normal_recorte1.jpg" />
 	</bean>
 
 	<bean id="picture3" class="domain.Url">
 		<property name="link"
-			value="https://i.blogs.es/b9d04b/madrid-central-restricciones-trafico/1366_2000.jpg" />
+			value="https://sevillasecreta.co/wp-content/uploads/2016/08/triana.jpg" />
 	</bean>
 
 	<bean id="picture4" class="domain.Url">
 		<property name="link"
-			value="http://pointti.info/wp-content/uploads/2018/04/fixing-door-frame-how-to-repair-a-gouge-nick-or-dent-in-a-door-or-frame-view-this-quick-video-tip-demonstrating-how-to-fix-a-gouge-or-dent-in-a-door-easily-fixing-door-frame-to-breeze-block.jpg" />
+			value="https://i1.wp.com/bartapassevilla.com/wp-content/uploads/2017/10/centro-historico-de-sevilla-aerea.jpg?w=800" />
 	</bean>
 
 	<bean id="picture5" class="domain.Url">
 		<property name="link"
-			value="https://cdn.pixabay.com/photo/2013/12/13/21/13/plumber-228010_960_720.jpg" />
+			value="https://i2.wp.com/bartapassevilla.com/wp-content/uploads/2015/11/Bares-de-tapas-en-el-centro-de-Sevilla.png?w=1024" />
 	</bean>
 
 	<bean id="picture6" class="domain.Url">
 		<property name="link"
-			value="https://image.shutterstock.com/image-photo/closeup-male-plumber-fixing-white-450w-1005704569.jpg" />
+			value="https://espanafascinante.com/wp-content/uploads/galeria_andalucia_sevilla_centro_setas-plaza_bi.jpeg" />
 	</bean>
 
 

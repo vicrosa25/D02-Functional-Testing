@@ -71,25 +71,27 @@
 	
 	<!-- status -->
 	<spring:message code="procession.status" var="statusHeader" />
-	<display:column property="status" title="${statusHeader}"  class="${css}"/>
-	
-	<!-- reasson -->
-	<jstl:if test="${ row.status == 'REJECTED' }">
-		<spring:message code="procession.reasson" var="reassonHeader" />
-		<display:column property="reasson" title="${reassonHeader}"  class="${css}"/>
-	</jstl:if>
-		
+	<display:column property="status" title="${statusHeader}"  class="${css}"/>	
 	
 	<!-- manage status -->
-	
-	<display:column  class="${css}">
+	<spring:message code="chapter.parade.accept" var="acceptHeader"/>
+	<display:column  title="${ acceptHeader }" class="${css}">
 		<jstl:if test="${row.status == 'SUBMITTED'}">
 			<a href="chapter/parade/aprove.do?processionId=${row.id}"><spring:message code="chapter.parade.accept" /></a>
 		</jstl:if>
 	</display:column>
-	<display:column  class="${css}">
+	<spring:message code="chapter.parade.reject" var="rejectHeader" />
+	<display:column  title="${ rejectHeader }" class="${css}">
 		<jstl:if test="${row.status == 'SUBMITTED'}">
 			<a href="chapter/parade/reject/reasson.do?processionId=${row.id}"><spring:message code="chapter.parade.reject" /></a>
+		</jstl:if>
+	</display:column>
+	
+	<!-- reasson -->	
+	<spring:message code="parade.reject.reasson" var="reassonHeader" />
+	<display:column title="${reassonHeader}"  class="${css}">
+		<jstl:if test="${ row.status == 'REJECTED' }">
+			<jstl:out value="${ row.reasson }" />
 		</jstl:if>
 	</display:column>
 	
