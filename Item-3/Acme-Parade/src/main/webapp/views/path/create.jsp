@@ -13,7 +13,8 @@
 	<br>--%>
 
 	<%-- Origin--%>
-	<spring:message code="segment.origin.form"/>:<br><br>
+	<b><spring:message code="segment.origin.form"/>:</b>
+	<br><br>
 	<acme:numberbox code="segment.latitude" path="originLatitude" step="0.5"/>
 	<br>
 	
@@ -27,7 +28,8 @@
 	<br><br><br>
 
 	<%-- Destination--%>
-	<spring:message code="segment.destination.form"/>:<br><br>
+	<b><spring:message code="segment.destination.form"/>:</b>
+	<br><br>
 	<acme:numberbox code="segment.latitude" path="destinationLatitude" step="0.5"/>
 	<br>
 	

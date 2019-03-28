@@ -7,17 +7,17 @@
 <tiles-definitions>
 	
 	<definition name="procession/brotherhood/edit" extends="master.page">	
-		<put-attribute name="title" value="Create/Edit Procesion" />
+		<put-attribute name="title" value="Create/Edit Parade" />
 		<put-attribute name="body" value="/views/procession/edit.jsp" />
 	</definition>
 	
 	<definition name="procession/list" extends="master.page">	
-		<put-attribute name="title" value="Processions List" />
+		<put-attribute name="title" value="Parade List" />
 		<put-attribute name="body" value="/views/procession/list.jsp" />
 	</definition>
 	
 	<definition name="procession/display" extends="master.page">	
-		<put-attribute name="title" value="Procession: " />
+		<put-attribute name="title" value="Parade: " />
 		<put-attribute name="body" value="/views/procession/display.jsp" />
 	</definition>
 	

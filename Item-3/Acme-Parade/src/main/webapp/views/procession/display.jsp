@@ -59,4 +59,11 @@
 </display:table>
 <br>
 </jstl:if>
-<acme:cancel code="member.goback" url="/procession/brotherhoodList.do?brotherhoodId=${procession.brotherhood.id }" />
+<br>
+<acme:back code="member.goback"/>
+
+
+
+
+
+
