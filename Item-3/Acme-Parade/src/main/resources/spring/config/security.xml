@@ -82,6 +82,7 @@
 		<security:intercept-url pattern="/brotherhood/member/dropped.do" access="hasRole('MEMBER')" />
 		<security:intercept-url pattern="/brotherhood/edit.do" access="hasRole('BROTHERHOOD')" />
 		<security:intercept-url pattern="/brotherhood/delete.do" access="hasRole('BROTHERHOOD')" />
+		<security:intercept-url pattern="/brotherhood/generatePDF.do" access="hasRole('BROTHERHOOD')" />
 		<security:intercept-url pattern="/brotherhood/addPicture.do" access="hasRole('BROTHERHOOD')" />
 		<security:intercept-url pattern="/brotherhood/deletePicture.do" access="hasRole('BROTHERHOOD')" />
 		
