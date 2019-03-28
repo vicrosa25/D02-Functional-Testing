@@ -50,10 +50,6 @@
 	<acme:textbox code="chapter.address" path="address" />
 	<br>
 	
-	<!-- Select Area -->
-	<acme:select items="${ area }" itemLabel="name" code="chapter.area" path="area"/>
-	<br>
-	
 	<%-- Accept Legal term --%>
 	<form:label path="accepted">
 		<spring:message code="register.terms.accept" />

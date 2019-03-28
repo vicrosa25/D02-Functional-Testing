@@ -138,7 +138,7 @@
 		<property name="authorities">
 			<list>
 				<bean class="security.Authority">
-					<property name="authority" value="SPONSOR" />
+					<property name="authority" value="CHAPTER" />
 				</bean>
 			</list>
 		</property>

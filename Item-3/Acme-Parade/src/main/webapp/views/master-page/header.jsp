@@ -83,13 +83,6 @@
 		
 		<!-- An actor who is authenticated as a MEMBER -->
 		<security:authorize access="hasRole('MEMBER')">
-<%-- 			<li><a class="fNiv"><spring:message	code="master.page.brotherhood" /></a> --%>
-<!-- 				<ul> -->
-<!-- 					<li class="arrow"></li> -->
-<%-- 					<li><a href="brotherhood/list.do"><spring:message code="master.page.brotherhood.list" /></a></li> --%>
-<%-- 					<li><a href="brotherhood/member/list.do"><spring:message code="master.page.brotherhood.member.list" /></a></li>				 --%>
-<!-- 				</ul> -->
-<!-- 			</li> -->
 			<li><a class="fNiv"><spring:message	code="master.page.request" /></a>
 				<ul>
 					<li class="arrow"></li>
@@ -119,12 +112,11 @@
 					<li><a href="chapter/parade/list.do"><spring:message code="master.page.chapter.myParades" /></a></li>
 				</ul>
 			</li>
-			
 			<li><a class="fNiv"><spring:message	code="master.page.proclaims" /></a>
 				<ul>
 					<li class="arrow"></li>
-					<li><a href="proclaim/chapter/publish.do" class="fNiv"><spring:message	code="master.page.proclaim.publish" /></a></li>
-					<li><a href="proclaim/chapter/list.do" class="fNiv"><spring:message	code="master.page.proclaim.list" /></a></li>
+					<li><a href="proclaim/chapter/publish.do"><spring:message	code="master.page.proclaim.publish" /></a></li>
+					<li><a href="proclaim/chapter/list.do"><spring:message	code="master.page.proclaim.list" /></a></li>
 				</ul>
 			</li>
 		</security:authorize>
