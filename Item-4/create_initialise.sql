@@ -17,7 +17,6 @@ grant select, insert, update, delete, create, drop, references, index, alter,
         create temporary tables, lock tables, create view, create routine, 
         alter routine, execute, trigger, show view
     on `acme-parade`.* to 'acme-manager'@'%';
-    
 -- MySQL dump 10.13  Distrib 5.5.16, for Win32 (x86)
 --
 -- Host: localhost    Database: acme-parade
@@ -1535,5 +1534,6 @@ UNLOCK TABLES;
 /*!40101 SET COLLATION_CONNECTION=@OLD_COLLATION_CONNECTION */;
 /*!40111 SET SQL_NOTES=@OLD_SQL_NOTES */;
 
--- Dump completed on 2019-03-26 19:04:19
+-- Dump completed on 2019-03-28 19:37:44
+
 commit;

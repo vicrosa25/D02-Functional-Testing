@@ -17,7 +17,6 @@ grant select, insert, update, delete, create, drop, references, index, alter,
         create temporary tables, lock tables, create view, create routine, 
         alter routine, execute, trigger, show view
     on `acme-parade`.* to 'acme-manager'@'%';
- 
 -- MySQL dump 10.13  Distrib 5.5.16, for Win32 (x86)
 --
 -- Host: localhost    Database: acme-parade
@@ -396,7 +395,7 @@ CREATE TABLE `configurations` (
 
 LOCK TABLES `configurations` WRITE;
 /*!40000 ALTER TABLE `configurations` DISABLE KEYS */;
-INSERT INTO `configurations` (`id`, `version`, `cache_time`, `country_code`, `english_message`, `fare`, `finder_max_result`, `logo`, `spanish_message`, `title`, `vat`) VALUES (3805,0,1,'+34','Welcome to Acme Parade, the site to organise your parades.',10,10,'https://tinyurl.com/acme-madruga','¡Bienvenidos a Acme Parade! Tu sitio para organizar desfiles.','Acme Madruga Co., Inc.',0.21);
+INSERT INTO `configurations` (`id`, `version`, `cache_time`, `country_code`, `english_message`, `fare`, `finder_max_result`, `logo`, `spanish_message`, `title`, `vat`) VALUES (3805,0,1,'+34','Welcome to Acme Parade, the site to organise your parades.',10,10,'https://www.irishtimes.com/polopoly_fs/1.3426916.1521040386!/image/image.jpg_gen/derivatives/box_620_330/image.jpg','¡Bienvenidos a Acme Parade! Tu sitio para organizar desfiles.','Acme Madruga Co., Inc.',0.21);
 /*!40000 ALTER TABLE `configurations` ENABLE KEYS */;
 UNLOCK TABLES;
 
@@ -1562,5 +1561,5 @@ UNLOCK TABLES;
 /*!40101 SET COLLATION_CONNECTION=@OLD_COLLATION_CONNECTION */;
 /*!40111 SET SQL_NOTES=@OLD_SQL_NOTES */;
 
--- Dump completed on 2019-03-28 18:06:42
+-- Dump completed on 2019-03-28 19:35:57
 commit;
