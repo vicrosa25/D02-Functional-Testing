@@ -214,7 +214,7 @@ public class ParadeService {
 		final DateFormat dateFormat = new SimpleDateFormat("yyMMdd");
 		final Date date = new Date();
 		final String tickerDate = (dateFormat.format(date));
-		final String tickerAlphanumeric = RandomStringUtils.randomAlphanumeric(5).toUpperCase();
+		final String tickerAlphanumeric = RandomStringUtils.randomAlphabetic(5).toUpperCase();
 		ticker = ticker.concat(tickerDate).concat("-").concat(tickerAlphanumeric);
 		return ticker;
 	}
