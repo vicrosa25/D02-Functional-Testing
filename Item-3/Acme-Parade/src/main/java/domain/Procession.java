@@ -14,7 +14,6 @@ import javax.persistence.OneToOne;
 import javax.persistence.Temporal;
 import javax.persistence.TemporalType;
 import javax.validation.Valid;
-import javax.validation.constraints.Future;
 import javax.validation.constraints.NotNull;
 import javax.validation.constraints.Pattern;
 
@@ -24,8 +23,8 @@ import org.springframework.format.annotation.DateTimeFormat;
 @Entity
 @Access(AccessType.PROPERTY)
 public class Procession extends DomainEntity {
-	
-	
+
+
 	// Attributes -------------------------------------------------------------
 	private String 	ticker;
 	private String 	title;
@@ -34,8 +33,8 @@ public class Procession extends DomainEntity {
 	private Boolean draftMode;
 	private String 	status;
 	private String  reasson;
-	
-	
+
+
 	@Pattern(regexp = "^(SUBMITTED|APPROVED|REJECTED)$")
 	public String getStatus() {
 		return this.status;
@@ -44,57 +43,56 @@ public class Procession extends DomainEntity {
 	public void setStatus(final String status) {
 		this.status = status;
 	}
-	
-	
+
+
 	@NotBlank
 	@Column(unique = true)
 	@Pattern(regexp = "^([0-9]{2})(0[1-9]|1[012])(0[1-9]|[12]\\d|3[01])(-)([A-Z0-9]{5})$")
 	public String getTicker() {
 		return this.ticker;
 	}
-	
-	
+
+
 	public void setTicker(String ticker) {
 		this.ticker = ticker;
 	}
-	
-	
+
+
 	@NotBlank
 	public String getTitle() {
 		return this.title;
 	}
-	
-	
+
+
 	public void setTitle(String title) {
 		this.title = title;
 	}
-	
-	
+
+
 	@NotBlank
 	public String getDescription() {
 		return this.description;
 	}
-	
-	
+
+
 	public void setDescription(String description) {
 		this.description = description;
 	}
-	
-	
+
+
 	@NotNull
-	@Future
 	@Temporal(TemporalType.TIMESTAMP)
 	@DateTimeFormat(pattern = "dd/MM/yyyy")
 	public Date getMoment() {
 		return this.moment;
 	}
-	
-	
+
+
 	public void setMoment(Date moment) {
 		this.moment = moment;
 	}
-	
-	
+
+
 	@NotNull
 	public Boolean getDraftMode() {
 		return this.draftMode;
@@ -104,18 +102,18 @@ public class Procession extends DomainEntity {
 	public void setDraftMode(Boolean finalMode) {
 		this.draftMode = finalMode;
 	}
-	
-	
+
+
 	public String getReasson() {
 		return this.reasson;
 	}
 
-	
+
 	public void setReasson(String reasson) {
 		this.reasson = reasson;
 	}
 
-	
+
 
 	// Relationships ----------------------------------------------------------
 	private Brotherhood 		brotherhood;

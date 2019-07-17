@@ -3,6 +3,7 @@ package controllers;
 
 import java.util.ArrayList;
 import java.util.Collection;
+import java.util.Date;
 import java.util.List;
 import java.util.Random;
 
@@ -111,7 +112,7 @@ public class ProcessionController extends AbstractController {
 			result = new ModelAndView("procession/list");
 			result.addObject("processions", processions);
 			result.addObject("uri", "procession/brotherhoodList");
-		
+
 		} catch (final Throwable oops) {
 			System.out.println(oops.getMessage());
 			System.out.println(oops.getClass());
@@ -149,7 +150,7 @@ public class ProcessionController extends AbstractController {
 			Assert.notNull(procession);
 			Assert.isTrue(principal.getProcessions().contains(procession));
 			Assert.isTrue(procession.getDraftMode());
-			
+
 		} catch (final Throwable oops) {
 			result = this.forbiddenOpperation();
 			return result;
@@ -167,6 +168,9 @@ public class ProcessionController extends AbstractController {
 		Procession constructed;
 
 		constructed = this.processionService.reconstruct(pruned, binding);
+		if (pruned.getMoment() != null)
+			if (pruned.getMoment().before(new Date()))
+				binding.rejectValue("moment", "procession.moment.error", "Must be future");
 
 		if (binding.hasErrors()) {
 			final List<ObjectError> errors = binding.getAllErrors();
@@ -196,7 +200,7 @@ public class ProcessionController extends AbstractController {
 	public ModelAndView delete(@RequestParam final int processionId) {
 		ModelAndView result = null;
 		Procession procession;
-		
+
 		try {
 			Brotherhood principal = this.brotherhoodService.findByPrincipal();
 			procession = this.processionService.findOne(processionId);
@@ -220,7 +224,7 @@ public class ProcessionController extends AbstractController {
 		ModelAndView result;
 		try {
 			this.processionService.copy(processionId);
-			
+
 			result = new ModelAndView("redirect:../list.do");
 		} catch (final Throwable oops) {
 			oops.printStackTrace();
