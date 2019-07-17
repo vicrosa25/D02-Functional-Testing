@@ -6,7 +6,7 @@
 <%@taglib prefix="display" uri="http://displaytag.sf.net"%>
 <%@taglib prefix="acme" tagdir="/WEB-INF/tags" %>
 
-<form:form action="chapter/parade/reject/reasson.do" modelAttribute="procession">
+<form:form action="chapter/parade/reject/reasson.do" modelAttribute="parade">
 
 	<%-- Hidden properties --%>
 	<form:hidden path="id" />

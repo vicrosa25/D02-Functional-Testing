@@ -1,3 +1,4 @@
+
 package services;
 
 import java.util.ArrayList;
@@ -11,57 +12,56 @@ import org.springframework.util.Assert;
 import org.springframework.validation.BindingResult;
 import org.springframework.validation.Validator;
 
-import repositories.ChapterRepository;
-import security.Authority;
-import security.LoginService;
-import security.UserAccount;
 import domain.Actor;
 import domain.Area;
 import domain.Chapter;
 import domain.MessageBox;
-import domain.Procession;
+import domain.Parade;
 import domain.SocialIdentity;
 import forms.ChapterForm;
+import repositories.ChapterRepository;
+import security.Authority;
+import security.LoginService;
+import security.UserAccount;
 
 @Service
 @Transactional
 public class ChapterService {
-	
+
 	// Manage Repository
 	@Autowired
 	private ChapterRepository		chapterRepository;
-	
-	
+
 	// Supporting services
 	@Autowired
 	private MessageBoxService		messageBoxService;
-	
+
 	@Autowired
-	private ConfigurationsService 	configurationsService;
-	
+	private ConfigurationsService	configurationsService;
+
 	@Autowired
 	private Validator				validator;
-	
+
 	@Autowired
-	private ProcessionService		processionService;
-	
+	private ParadeService			paradeService;
+
 	@Autowired
 	private ActorService			actorService;
-	
+
 	@Autowired
-	private AreaService 			areaService;
+	private AreaService				areaService;
 
 	@Autowired
 	private SocialIdentityService	socialIdentityService;
-	
-	
+
+
 	/*************************************
 	 * CRUD methods
 	 *************************************/
 	public Chapter create() {
-		
+
 		Chapter result;
-		
+
 		// UserAccount
 		UserAccount userAccount = new UserAccount();
 		Collection<Authority> authorities = new ArrayList<Authority>();
@@ -73,30 +73,29 @@ public class ChapterService {
 		// MessageBox
 		Collection<MessageBox> boxes = this.messageBoxService.createSystemMessageBox();
 
-		
 		result = new Chapter();
-		
+
 		// Default settings
 		result.setUserAccount(userAccount);
 		result.setMessageBoxes(boxes);
 
 		return result;
 	}
-	
+
 	public Collection<Chapter> findAll() {
 		Collection<Chapter> result = this.chapterRepository.findAll();
 		Assert.notNull(result);
-		
+
 		return result;
 	}
-	
+
 	public Chapter findOne(int chapterID) {
 		Chapter result = this.chapterRepository.findOne(chapterID);
 		Assert.notNull(result);
-		
+
 		return result;
 	}
-	
+
 	public Chapter save(Chapter chapter) {
 		Assert.notNull(chapter);
 		UserAccount userAccount;
@@ -114,19 +113,18 @@ public class ChapterService {
 				String phoneNumer = chapter.getPhoneNumber();
 				chapter.setPhoneNumber(countryCode.concat(phoneNumer));
 			}
-			
+
 			userAccount = LoginService.getPrincipal();
 			Assert.isTrue(userAccount.equals(chapter.getUserAccount()));
 		}
-		
-		
+
 		return this.chapterRepository.save(chapter);
 	}
-	
+
 	public void delete(Chapter chapter) {
 		Assert.notNull(chapter);
 		Assert.isTrue(this.findByPrincipal() == chapter);
-		
+
 		chapter.getArea().setChapter(null);
 
 		Iterator<SocialIdentity> socialIs = new ArrayList<SocialIdentity>(chapter.getSocialIdentities()).iterator();
@@ -138,15 +136,13 @@ public class ChapterService {
 		}
 		chapter.setMessageBoxes(new ArrayList<MessageBox>());
 		this.messageBoxService.deleteAll(chapter);
-		
+
 		this.chapterRepository.delete(chapter);
 	}
-	
-	
-	
-	/****************************************************************** 
-	 * Reconstruct form object, check validity and update binding 
-	 * ***************************************************************/
+
+	/******************************************************************
+	 * Reconstruct form object, check validity and update binding
+	 ***************************************************************/
 	public Chapter reconstruct(ChapterForm form, BindingResult binding) {
 		Chapter chapter = this.create();
 
@@ -163,7 +159,6 @@ public class ChapterService {
 		chapter.setTitle(form.getTitle());
 		chapter.setArea(form.getArea());
 
-
 		// Default attributes from Actor
 		chapter.setUsername(form.getUserAccount().getUsername());
 
@@ -173,10 +168,10 @@ public class ChapterService {
 
 		return chapter;
 	}
-	
-	/****************************************************************** 
-	 * Reconstruct pruned object, check validity and update binding 
-	 * ***************************************************************/
+
+	/******************************************************************
+	 * Reconstruct pruned object, check validity and update binding
+	 ***************************************************************/
 	public Chapter reconstruct(Chapter chapter, BindingResult binding) {
 		Chapter result = this.create();
 		Chapter temp = this.findOne(chapter.getId());
@@ -192,7 +187,6 @@ public class ChapterService {
 		result.setPhoneNumber(chapter.getPhoneNumber());
 		result.setPhoto(chapter.getPhoto());
 		result.setSurname(chapter.getSurname());
-		
 
 		// Not updated attributes
 		result.setId(temp.getId());
@@ -207,16 +201,14 @@ public class ChapterService {
 		result.setUserAccount(temp.getUserAccount());
 		result.setSocialIdentities(temp.getSocialIdentities());
 
-		
 		this.validator.validate(result, binding);
 
 		return result;
 	}
-	
-	
-	/****************************************************************** 
+
+	/******************************************************************
 	 * Reconstruct pruned object, Add Area
-	 * ***************************************************************/
+	 ***************************************************************/
 	public Chapter addArea(Chapter prune, BindingResult binding) {
 		Chapter result = this.create();
 		Chapter temp = this.findOne(prune.getId());
@@ -246,74 +238,61 @@ public class ChapterService {
 		result.setUserAccount(temp.getUserAccount());
 		result.setSocialIdentities(temp.getSocialIdentities());
 
-		
 		this.validator.validate(result, binding);
 
 		return result;
 	}
-	
-	
-	
-	
+
 	// AddArea Principal
 	public void addAreaPrincipal(int areaId) {
 		Assert.isTrue(areaId != 0);
-		
+
 		Chapter chapter;
 		Area area;
-		
+
 		chapter = this.findByPrincipal();
 		Assert.notNull(chapter);
-		
+
 		area = this.areaService.findOne(areaId);
 		Assert.notNull(area);
-		
+
 		chapter.setArea(area);
 		area.setChapter(chapter);
-		
+
 		this.chapterRepository.save(chapter);
 		this.areaService.save(area);
-		
+
 	}
-		
 
 	/*************************************
 	 * Aprove/Reject Parade
 	 *************************************/
-	
-	public Procession aproveProcession(Procession procession) {
-		
+
+	public Parade aproveParade(Parade parade) {
+
 		// Check principal is a Chapter
 		Actor principal = this.actorService.findByPrincipal();
 		Assert.isInstanceOf(Chapter.class, principal);
-		
-		
-		procession.setStatus("APPROVED");
-		
-		return this.processionService.save(procession);
+
+		parade.setStatus("APPROVED");
+
+		return this.paradeService.save(parade);
 	}
-	
-	public Procession rejectParade(Procession procession) {
-		
+
+	public Parade rejectParade(Parade parade) {
+
 		// Check principal is a Chapter
 		Actor principal = this.actorService.findByPrincipal();
 		Assert.isInstanceOf(Chapter.class, principal);
-		
-		
-		procession.setStatus("REJECTED");
-		
-		return this.processionService.save(procession);
+
+		parade.setStatus("REJECTED");
+
+		return this.paradeService.save(parade);
 	}
-	
-	
-	
-
-
-
 
 	/*************************************
 	 * Other business methods
-	*************************************/
+	 *************************************/
 	public Chapter findByPrincipal() {
 		Chapter result;
 		UserAccount userAccount;
@@ -336,8 +315,8 @@ public class ChapterService {
 
 		return result;
 	}
-	
-	public Collection<Procession> findAllProcessionByChapter(int chapterId) {
+
+	public Collection<Parade> findAllParadeByChapter(int chapterId) {
 		return this.chapterRepository.findProccesionsByChapter(chapterId);
 	}
 

@@ -18,12 +18,12 @@ import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.servlet.ModelAndView;
 
+import domain.Parade;
+import domain.Request;
 import services.BrotherhoodService;
 import services.MemberService;
-import services.ProcessionService;
+import services.ParadeService;
 import services.RequestService;
-import domain.Procession;
-import domain.Request;
 
 @Controller
 @RequestMapping("/request")
@@ -39,7 +39,7 @@ public class RequestController extends AbstractController {
 	private BrotherhoodService	brotherhoodService;
 
 	@Autowired
-	private ProcessionService	processionService;
+	private ParadeService		paradeService;
 
 
 	@ExceptionHandler(TypeMismatchException.class)
@@ -134,15 +134,15 @@ public class RequestController extends AbstractController {
 
 	protected ModelAndView createEditModelAndView(Request request, String message) {
 		ModelAndView result;
-		Collection<Procession> processions;
-		try{
-			processions = this.processionService.findAllMemberToRequest(this.memberService.findByPrincipal());
+		Collection<Parade> parades;
+		try {
+			parades = this.paradeService.findAllMemberToRequest(this.memberService.findByPrincipal());
 
 			result = new ModelAndView("request/member/create");
 			result.addObject("request", request);
-			result.addObject("processions", processions);
-			if(processions.isEmpty()){
-				result.addObject("empty","procession.empty.list");
+			result.addObject("parades", parades);
+			if (parades.isEmpty()) {
+				result.addObject("empty", "parade.empty.list");
 			}
 			result.addObject("message", message);
 		} catch (final Throwable oops) {

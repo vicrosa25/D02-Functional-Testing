@@ -7,9 +7,9 @@
 <%@ taglib prefix="acme" tagdir="/WEB-INF/tags" %>
 
 <form:form action="path/brotherhood/create.do" modelAttribute="pathForm">
-	<form:hidden path="procession" />
+	<form:hidden path="parade" />
 	<%-- parade
-	<acme:select code="path.parade" path="procession" items="${parades}" itemLabel="title" />
+	<acme:select code="path.parade" path="parade" items="${parades}" itemLabel="title" />
 	<br>--%>
 
 	<%-- Origin--%>
@@ -43,5 +43,5 @@
 	<br><br>
 	
 	<input type="submit" name="save" value="<spring:message code="path.save"/>" />	
-	<acme:cancel code="path.cancel" url="/procession/list.do" />
+	<acme:cancel code="path.cancel" url="/parade/list.do" />
 </form:form>

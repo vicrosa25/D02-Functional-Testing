@@ -81,9 +81,9 @@
 	<spring:message code="request.reason" var="reasonHeader" />
 	<display:column property="reason" title="${reasonHeader}" class="${css}" />
 
-	<!-- Procession -->
-	<spring:message code="request.procession" var="processionHeader" />
-	<display:column property="procession.title" title="${processionHeader}" class="${css}" />
+	<!-- Parade -->
+	<spring:message code="request.parade" var="paradeHeader" />
+	<display:column property="parade.title" title="${paradeHeader}" class="${css}" />
 
 	<!-- MEMBER Delete -->
 	<security:authorize access="hasRole('MEMBER')">

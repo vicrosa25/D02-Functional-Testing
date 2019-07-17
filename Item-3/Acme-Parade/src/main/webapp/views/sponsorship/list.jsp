@@ -19,12 +19,12 @@
 	<spring:message code="sponsorship.creditCard" var="creditCardHeader" />
 	<display:column property="creditCard.number" title="${ creditCardHeader }" />
 
-	<!-- Procession -->
-	<spring:message code="sponsorship.procession" var="processionHeader" />
-	<display:column property="procession.title" title="${processionHeader}" sortable="false" />
+	<!-- Parade -->
+	<spring:message code="sponsorship.parade" var="paradeHeader" />
+	<display:column property="parade.title" title="${paradeHeader}" sortable="false" />
 
 	<!-- Estado -->
-	<spring:message code="procession.status" var="statusHeader" />
+	<spring:message code="parade.status" var="statusHeader" />
 	<display:column title="${statusHeader}" sortable="false">
 	<jstl:if test="${not row.active}">
 		<spring:message code="sponsorship.inactive"/>

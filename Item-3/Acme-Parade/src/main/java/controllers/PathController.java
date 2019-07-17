@@ -17,15 +17,15 @@ import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.servlet.ModelAndView;
 
-import services.BrotherhoodService;
-import services.PathService;
-import services.ProcessionService;
-import services.SegmentService;
 import domain.Brotherhood;
+import domain.Parade;
 import domain.Path;
-import domain.Procession;
 import domain.Segment;
 import forms.PathForm;
+import services.BrotherhoodService;
+import services.ParadeService;
+import services.PathService;
+import services.SegmentService;
 
 @Controller
 @RequestMapping("/path/brotherhood")
@@ -38,7 +38,7 @@ public class PathController extends AbstractController {
 	private BrotherhoodService	brotherhoodService;
 
 	@Autowired
-	private ProcessionService	processionService;
+	private ParadeService		paradeService;
 
 	@Autowired
 	private SegmentService		segmentService;
@@ -51,21 +51,21 @@ public class PathController extends AbstractController {
 
 	// Display ------------------------------------------------------------------------------------
 	@RequestMapping(value = "/display", method = RequestMethod.GET)
-	public ModelAndView display(@RequestParam final int processionId) {
+	public ModelAndView display(@RequestParam final int paradeId) {
 		ModelAndView result;
 		Brotherhood brotherhood;
 		Path path;
-		Procession procession;
+		Parade parade;
 
 		try {
 			brotherhood = this.brotherhoodService.findByPrincipal();
-			procession = this.processionService.findOne(processionId);
-			path = procession.getPath();
+			parade = this.paradeService.findOne(paradeId);
+			path = parade.getPath();
 
 			if (path == null) {
-				result = new ModelAndView("redirect:/path/brotherhood/create.do?processionId=" + processionId);
+				result = new ModelAndView("redirect:/path/brotherhood/create.do?paradeId=" + paradeId);
 			} else {
-				Assert.isTrue(brotherhood.getProcessions().contains(path.getProcession()));
+				Assert.isTrue(brotherhood.getParades().contains(path.getParade()));
 
 				result = new ModelAndView("path/brotherhood/display");
 				result.addObject("path", path);
@@ -84,15 +84,15 @@ public class PathController extends AbstractController {
 
 	// Create ------------------------------------------------------------------------------------
 	@RequestMapping(value = "/create", method = RequestMethod.GET)
-	public ModelAndView create(@RequestParam final int processionId) {
+	public ModelAndView create(@RequestParam final int paradeId) {
 		ModelAndView result;
 
 		try {
 			final PathForm pathForm = new PathForm();
-			Procession procession = this.processionService.findOne(processionId);
-			Assert.isTrue(this.brotherhoodService.findByPrincipal().getProcessions().contains(procession));
+			Parade parade = this.paradeService.findOne(paradeId);
+			Assert.isTrue(this.brotherhoodService.findByPrincipal().getParades().contains(parade));
 
-			pathForm.setProcession(procession);
+			pathForm.setParade(parade);
 			result = new ModelAndView("path/brotherhood/create");
 			result.addObject("pathForm", pathForm);
 
@@ -120,7 +120,7 @@ public class PathController extends AbstractController {
 			}
 			result = new ModelAndView("path/brotherhood/create");
 			result.addObject("pathForm", pathForm);
-			result.addObject("parades", this.brotherhoodService.findByPrincipal().getProcessions());
+			result.addObject("parades", this.brotherhoodService.findByPrincipal().getParades());
 
 		} else {
 			try {
@@ -129,7 +129,7 @@ public class PathController extends AbstractController {
 				segment.setPath(path);
 				this.segmentService.save(segment);
 
-				result = new ModelAndView("redirect:/path/brotherhood/display.do?processionId=" + path.getProcession().getId());
+				result = new ModelAndView("redirect:/path/brotherhood/display.do?paradeId=" + path.getParade().getId());
 			} catch (final Throwable oops) {
 				System.out.println(oops.getMessage());
 				System.out.println(oops.getClass());
@@ -137,7 +137,7 @@ public class PathController extends AbstractController {
 				oops.printStackTrace();
 				result = new ModelAndView("path/brotherhood/create");
 				result.addObject("pathForm", pathForm);
-				result.addObject("parades", this.brotherhoodService.findByPrincipal().getProcessions());
+				result.addObject("parades", this.brotherhoodService.findByPrincipal().getParades());
 			}
 		}
 		return result;
@@ -151,7 +151,7 @@ public class PathController extends AbstractController {
 		try {
 			final Path path = this.pathService.findOne(pathId);
 
-			Assert.isTrue(this.brotherhoodService.findByPrincipal().getProcessions().contains(path.getProcession()));
+			Assert.isTrue(this.brotherhoodService.findByPrincipal().getParades().contains(path.getParade()));
 
 			this.pathService.delete(path);
 			result = new ModelAndView("redirect:/");

@@ -8,41 +8,41 @@ import javax.persistence.TemporalType;
 
 import org.springframework.format.annotation.DateTimeFormat;
 
-import domain.Procession;
+import domain.Parade;
 
 public class PathForm {
 
-	private Double		originLatitude;
-	private Double		destinationLatitude;
-	private Double		originLongitude;
-	private Double		destinationLongitude;
-	private Date		originTime;
-	private Date		destinationTime;
-	private Procession	procession;
+	private Double	originLatitude;
+	private Double	destinationLatitude;
+	private Double	originLongitude;
+	private Double	destinationLongitude;
+	private Date	originTime;
+	private Date	destinationTime;
+	private Parade	parade;
+
 
 	// Getters and Setters
-	
 	public Double getOriginLatitude() {
 		return this.originLatitude;
 	}
 	public void setOriginLatitude(final Double originLatitude) {
 		this.originLatitude = originLatitude;
 	}
-	
+
 	public Double getDestinationLatitude() {
 		return this.destinationLatitude;
 	}
 	public void setDestinationLatitude(final Double destinationLatitude) {
 		this.destinationLatitude = destinationLatitude;
 	}
-	
+
 	public Double getOriginLongitude() {
 		return this.originLongitude;
 	}
 	public void setOriginLongitude(final Double originLongitude) {
 		this.originLongitude = originLongitude;
 	}
-	
+
 	public Double getDestinationLongitude() {
 		return this.destinationLongitude;
 	}
@@ -68,11 +68,11 @@ public class PathForm {
 		this.destinationTime = destinationTime;
 	}
 
-	public Procession getProcession() {
-		return this.procession;
+	public Parade getParade() {
+		return this.parade;
 	}
 
-	public void setProcession(final Procession procession) {
-		this.procession = procession;
+	public void setParade(final Parade parade) {
+		this.parade = parade;
 	}
 }

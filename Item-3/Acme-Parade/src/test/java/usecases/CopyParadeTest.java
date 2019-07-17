@@ -9,9 +9,9 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.test.context.ContextConfiguration;
 import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
 
-import services.ProcessionService;
+import domain.Parade;
+import services.ParadeService;
 import utilities.AbstractTest;
-import domain.Procession;
 
 @ContextConfiguration(locations = {
 	"classpath:spring/junit.xml"
@@ -22,7 +22,7 @@ public class CopyParadeTest extends AbstractTest {
 
 	// Systems under test ------------------------------------------------------
 	@Autowired
-	private ProcessionService	processionService;
+	private ParadeService paradeService;
 
 
 	// Test ------------------------------------------------------
@@ -30,7 +30,7 @@ public class CopyParadeTest extends AbstractTest {
 	/**
 	 * Make a copy of one of their parades. When a parade is copied, a new ticker is generated,
 	 * its status is cleared, the rejection reason is cleared, and it changes to draft mode
-	 * **/
+	 **/
 
 	/*
 	 * Brotherhoods copy parade: We are going to copy all the parades of brotherhood1
@@ -68,9 +68,9 @@ public class CopyParadeTest extends AbstractTest {
 			authenticate(user);
 
 			// Iterate over brotherhood1's parades 
-			for (Procession procession : this.processionService.findAll()) {
-				if (procession.getBrotherhood().getUserAccount().getUsername().equals("brotherhood1")) {
-					this.processionService.copy(procession.getId());
+			for (Parade parade : this.paradeService.findAll()) {
+				if (parade.getBrotherhood().getUserAccount().getUsername().equals("brotherhood1")) {
+					this.paradeService.copy(parade.getId());
 				}
 			}
 

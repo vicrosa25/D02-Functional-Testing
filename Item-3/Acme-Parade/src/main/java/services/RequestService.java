@@ -9,12 +9,12 @@ import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 import org.springframework.util.Assert;
 
-import repositories.RequestRepository;
 import domain.Actor;
 import domain.Brotherhood;
 import domain.Member;
 import domain.Message;
 import domain.Request;
+import repositories.RequestRepository;
 
 @Service
 @Transactional
@@ -160,8 +160,7 @@ public class RequestService {
 
 	public void automaticNotification(final Request request) {
 		final Message message = this.messageService.create();
-		message.setBody("The brotherhood " + request.getProcession().getBrotherhood().getTitle() + " changed the status of your request to march in "
-			+ request.getProcession().getTitle() + " to " + request.getStatus().toString().toLowerCase(Locale.ENGLISH) + ".");
+		message.setBody("The brotherhood " + request.getParade().getBrotherhood().getTitle() + " changed the status of your request to march in " + request.getParade().getTitle() + " to " + request.getStatus().toString().toLowerCase(Locale.ENGLISH) + ".");
 
 		message.setIsNotification(true);
 		message.setPriority("MEDIUM");

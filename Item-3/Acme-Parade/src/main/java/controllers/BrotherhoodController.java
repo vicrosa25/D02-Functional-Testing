@@ -26,17 +26,17 @@ import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.servlet.ModelAndView;
 
+import domain.Brotherhood;
+import domain.Dropout;
+import domain.Member;
+import domain.Url;
+import forms.BrotherhoodForm;
 import services.ActorService;
 import services.AreaService;
 import services.BrotherhoodService;
 import services.DropoutService;
 import services.MemberService;
 import utilities.Md5;
-import domain.Brotherhood;
-import domain.Dropout;
-import domain.Member;
-import domain.Url;
-import forms.BrotherhoodForm;
 
 @Controller
 @RequestMapping("/brotherhood")
@@ -50,7 +50,6 @@ public class BrotherhoodController extends AbstractController {
 
 	@Autowired
 	private DropoutService		dropoutService;
-	
 	@Autowired
 	private AreaService			areaService;
 
@@ -80,7 +79,6 @@ public class BrotherhoodController extends AbstractController {
 			System.out.println(oops.getCause());
 			result = this.forbiddenOpperation();
 		}
-		
 
 		return result;
 	}
@@ -90,7 +88,7 @@ public class BrotherhoodController extends AbstractController {
 	public ModelAndView memberList(@CookieValue(value = "language", defaultValue = "") String language) {
 		ModelAndView result;
 		Collection<Brotherhood> brotherhoods;
-		Member member ;
+		Member member;
 
 		try {
 			member = this.memberService.findByPrincipal();
@@ -115,7 +113,7 @@ public class BrotherhoodController extends AbstractController {
 	public ModelAndView droppedList(@CookieValue(value = "language", defaultValue = "") String language) {
 		ModelAndView result;
 		Collection<Brotherhood> brotherhoods;
-		Member member ;
+		Member member;
 
 		try {
 			member = this.memberService.findByPrincipal();
@@ -160,12 +158,13 @@ public class BrotherhoodController extends AbstractController {
 		ModelAndView result;
 		Brotherhood brotherhood;
 		String password;
-		
+
 		brotherhood = this.brotherhoodService.reconstruct(brotherhoodForm, binding);
-		
-		if(!brotherhoodForm.isAccepted()){
+
+		if (!brotherhoodForm.isAccepted()) {
 			binding.rejectValue("accepted", "register.terms.error", "Service terms must be accepted");
-		}if (binding.hasErrors()) {
+		}
+		if (binding.hasErrors()) {
 			final List<ObjectError> errors = binding.getAllErrors();
 			for (final ObjectError e : errors)
 				System.out.println(e.toString());
@@ -206,7 +205,7 @@ public class BrotherhoodController extends AbstractController {
 			// Set relations to null to use as a prune object
 			bro.setCoaches(null);
 			bro.setEnrols(null);
-			bro.setProcessions(null);
+			bro.setParades(null);
 			bro.setUserAccount(null);
 
 			result = new ModelAndView("brotherhood/edit");
@@ -321,9 +320,7 @@ public class BrotherhoodController extends AbstractController {
 			}
 		return result;
 	}
-	
-	
-	
+
 	// Dropout ------------------------------------------------------------------------------------
 	@RequestMapping(value = "/member/dropout", method = RequestMethod.GET)
 	public ModelAndView dropOut(@RequestParam int brotherhoodId) {
@@ -334,7 +331,7 @@ public class BrotherhoodController extends AbstractController {
 			drop = this.dropoutService.create();
 			drop.setBrotherhood(this.brotherhoodService.findOne(brotherhoodId));
 			this.dropoutService.save(drop);
-			
+
 			result = new ModelAndView("redirect:/brotherhood/member/list.do");
 
 		} catch (final Throwable oops) {

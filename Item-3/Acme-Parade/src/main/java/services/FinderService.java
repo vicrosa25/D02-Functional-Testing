@@ -11,10 +11,10 @@ import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 import org.springframework.util.Assert;
 
-import repositories.FinderRepository;
 import domain.Finder;
 import domain.Member;
-import domain.Procession;
+import domain.Parade;
+import repositories.FinderRepository;
 
 @Service
 @Transactional
@@ -29,7 +29,7 @@ public class FinderService {
 	private MemberService			memberService;
 
 	@Autowired
-	private ProcessionService		processionService;
+	private ParadeService			paradeService;
 
 	@Autowired
 	private ConfigurationsService	configurationsService;
@@ -83,20 +83,19 @@ public class FinderService {
 	// in the specified time
 	public Finder checkChanges(final Finder finder) {
 		final Finder old = this.findOne(finder.getId());
-		if (finder.getArea() != old.getArea() || (finder.getMinDate() != old.getMinDate()) || (finder.getKeyword() != old.getKeyword())
-			|| (finder.getMaxDate() != old.getMaxDate())) {
+		if (finder.getArea() != old.getArea() || (finder.getMinDate() != old.getMinDate()) || (finder.getKeyword() != old.getKeyword()) || (finder.getMaxDate() != old.getMaxDate())) {
 
 			final Finder saved = this.updateResults(finder);
 			return saved;
 
 		} else {
-			finder.setProcessions(this.getResults(finder));
+			finder.setParades(this.getResults(finder));
 			return finder;
 		}
 	}
 
 	// Check if it has passed enough time to update and return the results
-	public Collection<Procession> getResults(final Finder finder) {
+	public Collection<Parade> getResults(final Finder finder) {
 		final Calendar siguienteActualizacion = Calendar.getInstance();
 		siguienteActualizacion.setTime(finder.getLastUpdate());
 		final Calendar actual = Calendar.getInstance();
@@ -106,12 +105,12 @@ public class FinderService {
 		if (actual.after(siguienteActualizacion)) {
 			this.updateResults(finder);
 		}
-		return finder.getProcessions();
+		return finder.getParades();
 	}
 
 	public Finder updateResults(final Finder finder) {
 		Assert.notNull(finder);
-		final ArrayList<Procession> result = new ArrayList<Procession>(this.processionService.findAll());
+		final ArrayList<Parade> result = new ArrayList<Parade>(this.paradeService.findAll());
 
 		if (finder.getMinDate() != null) {
 			result.retainAll(this.finderRepository.filterByMinDate(finder.getMinDate()));
@@ -125,14 +124,14 @@ public class FinderService {
 			result.retainAll(this.finderRepository.filterByKeyword("%" + finder.getKeyword() + "%"));
 		}
 
-		if (finder.getArea() != null){
+		if (finder.getArea() != null) {
 			result.retainAll(this.finderRepository.filterByArea(finder.getArea().getId()));
 		}
 
 		if (result.size() > this.configurationsService.getConfiguration().getFinderMaxResult()) {
-			finder.setProcessions(result.subList(0, this.configurationsService.getConfiguration().getFinderMaxResult() - 1));
+			finder.setParades(result.subList(0, this.configurationsService.getConfiguration().getFinderMaxResult() - 1));
 		} else {
-			finder.setProcessions(result);
+			finder.setParades(result);
 		}
 		finder.setLastUpdate(new Date());
 		return this.save(finder);

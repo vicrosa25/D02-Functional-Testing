@@ -23,9 +23,8 @@
 		<value>/views/area/messages</value>
 		<value>/views/profile/messages</value>
 		<value>/views/brotherhood/messages</value>
-		<value>/views/procession/messages</value>
+		<value>/views/parade/messages</value>
 		<value>/views/coach/messages</value>
-		<value>/views/request/messages</value>
 		<value>/views/position/messages</value>
 		<value>/views/member/messages</value>
 		<value>/views/finder/messages</value>
@@ -37,6 +36,7 @@
 		<value>/views/segment/messages</value>
 		<value>/views/sponsorship/messages</value>
 		<value>/views/proclaim/messages</value>
+		<value>/views/request/messages</value>
 	</util:list>
 
 </beans>

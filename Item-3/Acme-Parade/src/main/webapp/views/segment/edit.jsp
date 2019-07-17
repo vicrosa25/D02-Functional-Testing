@@ -44,5 +44,5 @@
 	
 	<input type="submit" name="save" value="<spring:message code="path.save"/>" />	
 	<acme:cancel code="path.cancel" 
-		url="/path/brotherhood/display.do?processionId=${segment.path.procession.id}" />
+		url="/path/brotherhood/display.do?paradeId=${segment.path.parade.id}" />
 </form:form>

@@ -11,10 +11,10 @@ import domain.Sponsorship;
 
 @Repository
 public interface SponsorshipRepository extends JpaRepository<Sponsorship, Integer> {
-	
+
 	@Query("select s.sponsorships from Sponsor s where s.id = ?1")
 	Collection<Sponsorship> findBySponsor(int sponsorId);
 
-	@Query("select s from Sponsorship s where s.procession.id = ?1")
-	Collection<Sponsorship> findByProcession(int processionId);
+	@Query("select s from Sponsorship s where s.parade.id = ?1")
+	Collection<Sponsorship> findByParade(int paradeId);
 }

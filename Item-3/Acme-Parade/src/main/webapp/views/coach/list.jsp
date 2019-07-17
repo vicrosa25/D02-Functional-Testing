@@ -17,7 +17,7 @@
 	<display:column property="description" title="${descriptionHeader}" />
 	
 	<!-- Brotherhood -->
-	<spring:message code="procession.brotherhood" var="brotherhoodHeader" />
+	<spring:message code="parade.brotherhood" var="brotherhoodHeader" />
 	<display:column title="${brotherhoodHeader}" >${brotherhood.title}</display:column>
 
 	<!-- Display -->

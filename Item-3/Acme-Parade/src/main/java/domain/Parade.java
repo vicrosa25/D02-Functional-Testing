@@ -1,3 +1,4 @@
+
 package domain;
 
 import java.util.Collection;
@@ -22,17 +23,16 @@ import org.springframework.format.annotation.DateTimeFormat;
 
 @Entity
 @Access(AccessType.PROPERTY)
-public class Procession extends DomainEntity {
-
+public class Parade extends DomainEntity {
 
 	// Attributes -------------------------------------------------------------
-	private String 	ticker;
-	private String 	title;
-	private String 	description;
-	private Date 	moment;
-	private Boolean draftMode;
-	private String 	status;
-	private String  reasson;
+	private String	ticker;
+	private String	title;
+	private String	description;
+	private Date	moment;
+	private Boolean	draftMode;
+	private String	status;
+	private String	reasson;
 
 
 	@Pattern(regexp = "^(SUBMITTED|APPROVED|REJECTED)$")
@@ -44,7 +44,6 @@ public class Procession extends DomainEntity {
 		this.status = status;
 	}
 
-
 	@NotBlank
 	@Column(unique = true)
 	@Pattern(regexp = "^([0-9]{2})(0[1-9]|1[012])(0[1-9]|[12]\\d|3[01])(-)([A-Z0-9]{5})$")
@@ -52,33 +51,27 @@ public class Procession extends DomainEntity {
 		return this.ticker;
 	}
 
-
 	public void setTicker(String ticker) {
 		this.ticker = ticker;
 	}
-
 
 	@NotBlank
 	public String getTitle() {
 		return this.title;
 	}
 
-
 	public void setTitle(String title) {
 		this.title = title;
 	}
-
 
 	@NotBlank
 	public String getDescription() {
 		return this.description;
 	}
 
-
 	public void setDescription(String description) {
 		this.description = description;
 	}
-
 
 	@NotNull
 	@Temporal(TemporalType.TIMESTAMP)
@@ -87,37 +80,31 @@ public class Procession extends DomainEntity {
 		return this.moment;
 	}
 
-
 	public void setMoment(Date moment) {
 		this.moment = moment;
 	}
-
 
 	@NotNull
 	public Boolean getDraftMode() {
 		return this.draftMode;
 	}
 
-
 	public void setDraftMode(Boolean finalMode) {
 		this.draftMode = finalMode;
 	}
 
-
 	public String getReasson() {
 		return this.reasson;
 	}
-
 
 	public void setReasson(String reasson) {
 		this.reasson = reasson;
 	}
 
 
-
 	// Relationships ----------------------------------------------------------
-	private Brotherhood 		brotherhood;
-	private Collection<Request> requests;
+	private Brotherhood			brotherhood;
+	private Collection<Request>	requests;
 	private Path				path;
 
 
@@ -126,17 +113,14 @@ public class Procession extends DomainEntity {
 		return this.brotherhood;
 	}
 
-
 	public void setBrotherhood(Brotherhood brotherhood) {
 		this.brotherhood = brotherhood;
 	}
 
-
-	@OneToMany(cascade = CascadeType.ALL, mappedBy="procession")
+	@OneToMany(cascade = CascadeType.ALL, mappedBy = "parade")
 	public Collection<Request> getRequests() {
 		return this.requests;
 	}
-
 
 	public void setRequests(Collection<Request> requests) {
 		this.requests = requests;

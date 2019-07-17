@@ -9,7 +9,7 @@
 <form:form action="request/brotherhood/edit.do" modelAttribute="request">
 
 	<%-- Hidden properties --%>
-	<form:hidden path="procession" />
+	<form:hidden path="parade" />
 	<form:hidden path="id" />
 	<form:hidden path="version"/>
 	<form:hidden path="member" />

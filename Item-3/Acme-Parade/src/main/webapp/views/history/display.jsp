@@ -14,7 +14,7 @@
 <spring:message code="history.pictures.view" var="viewPicturesHeader" />
 <spring:message code="history.edit" var="editHeader" />
 <spring:message code="coach.pictures.delete" var="deleteHeader" />
-<spring:message code="procession.delete" var="deleteHeader" />
+<spring:message code="parade.delete" var="deleteHeader" />
 
 <!-- Inception Record -->
 	<display:table name="history.inceptionRecord"  id="row" >

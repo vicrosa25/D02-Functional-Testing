@@ -23,7 +23,7 @@ import domain.Chapter;
 import domain.CreditCard;
 import domain.Message;
 import domain.MessageBox;
-import domain.Procession;
+import domain.Parade;
 import domain.Sponsorship;
 
 @Service
@@ -182,8 +182,8 @@ public class AdministratorService {
 		return result;
 	}
 
-	public Collection<Procession> query5() {
-		Collection<Procession> result;
+	public Collection<Parade> query5() {
+		Collection<Parade> result;
 		final Calendar c = new GregorianCalendar();
 		c.add(Calendar.DATE, 30);
 		final Date date = c.getTime();

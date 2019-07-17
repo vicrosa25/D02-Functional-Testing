@@ -61,20 +61,20 @@ public class RequestBrotherhoodController extends AbstractController {
 
 		return result;
 	}
-	
+
 	// Edit Request GET------------------------------------------------------------------------------------
 	@RequestMapping(value = "/edit", method = RequestMethod.GET)
 	public ModelAndView edit(@RequestParam final int requestId) {
 		ModelAndView result;
 		Request request;
 		Brotherhood principal;
-		
+
 		try {
 			principal = this.brotherhoodService.findByPrincipal();
 			request = this.requestService.findOne(requestId);
 			Assert.isTrue(request.getStatus().equals("PENDING"));
-			Assert.isTrue(principal.getProcessions().contains(request.getProcession()));
-			
+			Assert.isTrue(principal.getParades().contains(request.getParade()));
+
 			result = this.editModelAndView(request);
 		} catch (final Throwable oops) {
 			result = this.forbiddenOpperation();
@@ -87,16 +87,16 @@ public class RequestBrotherhoodController extends AbstractController {
 	@RequestMapping(value = "/edit", method = RequestMethod.POST, params = "save")
 	public ModelAndView saveEdit(final Request request, final BindingResult binding) {
 		ModelAndView result;
-		
-		if(request.getStatus().equals("APPROVED")){
-			if(request.getAssignedColumn() == null){
+
+		if (request.getStatus().equals("APPROVED")) {
+			if (request.getAssignedColumn() == null) {
 				binding.rejectValue("assignedColumn", "request.error.column", "If the request is approved a valid column number mut be provided");
 			}
-			if(request.getAssignedRow() == null){
+			if (request.getAssignedRow() == null) {
 				binding.rejectValue("assignedRow", "request.error.row", "If the request is approved a valid row number mut be provided");
 			}
-		}else{
-			if(request.getReason() == null || request.getReason().isEmpty() || request.getReason().trim().isEmpty()){
+		} else {
+			if (request.getReason() == null || request.getReason().isEmpty() || request.getReason().trim().isEmpty()) {
 				binding.rejectValue("reason", "request.error.reason", "If the request is rejected a reason must be provided");
 			}
 		}

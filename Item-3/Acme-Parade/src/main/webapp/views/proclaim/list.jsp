@@ -6,14 +6,14 @@
 <%@taglib prefix="display" uri="http://displaytag.sf.net"%>
 
 
-<display:table name="procession.paths" id="row" requestURI="path/brotherhood/list.do" pagesize="5" class="displaytag">
+<display:table name="parade.paths" id="row" requestURI="path/brotherhood/list.do" pagesize="5" class="displaytag">
 
-	<!-- Procession -->
-	<spring:message code="path.parade" var="processionHeader" />
-	<display:column property="procession.title" title="${processionHeader}" sortable="false" />
+	<!-- Parade -->
+	<spring:message code="path.parade" var="paradeHeader" />
+	<display:column property="parade.title" title="${paradeHeader}" sortable="false" />
 	
 	<spring:message code="path.moment" var="momentHeader" />
-	<display:column property="procession.moment" title="${tickerHeader}" sortable="false"  format="{0,date,dd/MM/yyyy HH:mm}"/>
+	<display:column property="parade.moment" title="${tickerHeader}" sortable="false"  format="{0,date,dd/MM/yyyy HH:mm}"/>
 	
 	<!-- Display -->
 	<spring:message code="path.display" var="displayHeader" />

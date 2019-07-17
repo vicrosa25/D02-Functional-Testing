@@ -46,12 +46,12 @@
 	<br>
 	
 		
-	<!-- Select Procession -->
-	<acme:select items="${ processions }" itemLabel="title" code="request.procession" path="procession"/>
+	<!-- Select Parade -->
+	<acme:select items="${ parades }" itemLabel="title" code="request.parade" path="parade"/>
 	<br>
 	
-	<jstl:if test="${empty processions}">
-		<b><spring:message code="procession.empty.list"/></b>
+	<jstl:if test="${empty parades}">
+		<b><spring:message code="parade.empty.list"/></b>
 		<br>
 	</jstl:if>
 	<br>

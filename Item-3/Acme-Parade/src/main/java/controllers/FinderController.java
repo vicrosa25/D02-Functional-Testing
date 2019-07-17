@@ -17,12 +17,12 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.servlet.ModelAndView;
 
+import domain.Finder;
+import domain.Member;
+import domain.Parade;
 import services.AreaService;
 import services.FinderService;
 import services.MemberService;
-import domain.Finder;
-import domain.Member;
-import domain.Procession;
 
 @Controller
 @RequestMapping("/finder/member")
@@ -37,6 +37,7 @@ public class FinderController extends AbstractController {
 	@Autowired
 	private AreaService		areaService;
 
+
 	@ExceptionHandler(TypeMismatchException.class)
 	public ModelAndView handleMismatchException(final TypeMismatchException oops) {
 		return new ModelAndView("redirect:/");
@@ -47,7 +48,7 @@ public class FinderController extends AbstractController {
 	public ModelAndView clear() {
 		ModelAndView result;
 		Finder saved;
-		try{
+		try {
 			final Finder finder = this.memberService.findByPrincipal().getFinder();
 			finder.setArea(null);
 			finder.setKeyword(null);
@@ -56,8 +57,8 @@ public class FinderController extends AbstractController {
 			finder.setMinDate(null);
 			saved = this.finderService.updateResults(finder);
 
-			result = new ModelAndView("procession/list");
-			result.addObject("processions", saved.getProcessions());
+			result = new ModelAndView("parade/list");
+			result.addObject("parades", saved.getParades());
 			result.addObject("requestURI", "finder/member/result.do");
 		} catch (final Throwable oops) {
 			System.out.println(oops.getMessage());
@@ -98,8 +99,8 @@ public class FinderController extends AbstractController {
 			try {
 				saved = this.finderService.checkChanges(finder);
 
-				result = new ModelAndView("procession/list");
-				result.addObject("processions", saved.getProcessions());
+				result = new ModelAndView("parade/list");
+				result.addObject("parades", saved.getParades());
 				result.addObject("requestURI", "finder/member/result.do");
 			} catch (final Throwable oops) {
 				System.out.println(finder);
@@ -121,10 +122,10 @@ public class FinderController extends AbstractController {
 		try {
 			final Member member = this.memberService.findByPrincipal();
 			final Finder finder = member.getFinder();
-			final Collection<Procession> processions = this.finderService.getResults(finder);
+			final Collection<Parade> parades = this.finderService.getResults(finder);
 
-			result = new ModelAndView("procession/list");
-			result.addObject("processions", processions);
+			result = new ModelAndView("parade/list");
+			result.addObject("parades", parades);
 			result.addObject("requestURI", "finder/member/result.do");
 		} catch (final Throwable oops) {
 			System.out.println(oops.getMessage());

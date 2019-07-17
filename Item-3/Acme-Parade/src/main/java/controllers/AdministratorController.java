@@ -39,7 +39,7 @@ import domain.Administrator;
 import domain.Brotherhood;
 import domain.Chapter;
 import domain.Configurations;
-import domain.Procession;
+import domain.Parade;
 import domain.Sponsorship;
 
 @Controller
@@ -174,7 +174,7 @@ public class AdministratorController extends AbstractController {
 		Collection<Brotherhood> query2 = this.administratorService.query2();
 		Collection<Brotherhood> query3 = this.administratorService.query3();
 		Collection<Double> query4 = this.administratorService.query4();
-		Collection<Procession> query5 = this.administratorService.query5();
+		Collection<Parade> query5 = this.administratorService.query5();
 		Collection<Object> query7 = this.administratorService.query7();
 		Collection<Object> query8 = this.administratorService.query8();
 

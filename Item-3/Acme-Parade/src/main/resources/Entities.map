@@ -1,13 +1,11 @@
 #./src/main/resources/Entities.map
-#Wed Jul 17 18:09:11 CEST 2019
+#Wed Jul 17 19:01:41 CEST 2019
 chapter2-spam=3729
 sponsor1-spam=3741
 brotherhood2-trash=3779
 brotherhood2-notification=3778
 chapter2-out=3731
 chapter1-notification=3727
-procession2=3815
-procession1=3812
 admin1-trash=3719
 brotherhood2=3811
 brotherhood1=3810
@@ -39,6 +37,8 @@ member2=3807
 legalRecord2=3755
 member1=3806
 legalRecord1=3754
+parade2=3815
+parade1=3812
 member1-notification=3763
 sponsor1-out=3743
 brotherhood1-spam=3772

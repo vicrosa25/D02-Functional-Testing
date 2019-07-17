@@ -25,16 +25,16 @@ import org.springframework.format.annotation.DateTimeFormat;
 public class Brotherhood extends Actor {
 
 	// Attributes
-	private String					title;
-	private Date					establishment;
-	private Collection<Url>			pictures;
+	private String				title;
+	private Date				establishment;
+	private Collection<Url>		pictures;
 
 	// Relationships ----------------------------------------------------------
-	private Collection<Enrol>		enrols;
-	private Collection<Procession>	processions;
-	private Area					area;
-	private Collection<Coach>		coaches;
-	private History					history;
+	private Collection<Enrol>	enrols;
+	private Collection<Parade>	parades;
+	private Area				area;
+	private Collection<Coach>	coaches;
+	private History				history;
 
 
 	@NotBlank
@@ -82,12 +82,12 @@ public class Brotherhood extends Actor {
 
 	@Valid
 	@OneToMany(mappedBy = "brotherhood")
-	public Collection<Procession> getProcessions() {
-		return this.processions;
+	public Collection<Parade> getParades() {
+		return this.parades;
 	}
 
-	public void setProcessions(final Collection<Procession> processions) {
-		this.processions = processions;
+	public void setParades(final Collection<Parade> parades) {
+		this.parades = parades;
 	}
 
 	@Valid

@@ -13,14 +13,14 @@ import org.springframework.test.context.ContextConfiguration;
 import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
 import org.springframework.validation.BindingResult;
 
+import domain.Parade;
+import domain.Path;
+import domain.Segment;
+import forms.PathForm;
 import services.BrotherhoodService;
 import services.PathService;
 import services.SegmentService;
 import utilities.AbstractTest;
-import domain.Path;
-import domain.Procession;
-import domain.Segment;
-import forms.PathForm;
 
 @ContextConfiguration(locations = {
 	"classpath:spring/junit.xml"
@@ -46,7 +46,7 @@ public class BrotherhoodManagePathTest extends AbstractTest {
 	/**
 	 * Manage the paths of their parades, which includes listing, showing, creating, updating,
 	 * and deleting them.
-	 * **/
+	 **/
 
 	/*
 	 * Brotherhoods can manage paths: Create a path
@@ -114,7 +114,7 @@ public class BrotherhoodManagePathTest extends AbstractTest {
 			PathForm form = new PathForm();
 
 			// Filling the form
-			form.setProcession(new ArrayList<Procession>(this.brotherhoodService.findByPrincipal().getProcessions()).get(0));
+			form.setParade(new ArrayList<Parade>(this.brotherhoodService.findByPrincipal().getParades()).get(0));
 			form.setDestinationLatitude(20.0);
 			form.setOriginLatitude(20.0);
 			form.setDestinationLongitude(20.0);

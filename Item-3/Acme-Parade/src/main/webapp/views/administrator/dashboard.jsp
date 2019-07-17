@@ -28,7 +28,7 @@
 <spring:message code="administrator.brotherhood" 	  var="brotherhoodlHeader" />
 <spring:message code="administrator.member" 		  var="memberHeader" />
 <spring:message code="administrator.status" 		  var="statusHeader" />
-<spring:message code="administrator.procession" 	  var="processionHeader" />
+<spring:message code="administrator.parade" 	  var="paradeHeader" />
 <spring:message code="administrator.moment" 		  var="momentHeader" />
 <spring:message code="administrator.position" 		  var="positionHeader" />
 <spring:message code="administrator.enrols" 		  var="enrolsHeader" />
@@ -385,7 +385,7 @@
 		<jstl:out value="${query5Header}"></jstl:out>
 	</caption>
 	<tr>
-		<th><jstl:out value="${processionHeader}"></jstl:out></th>
+		<th><jstl:out value="${paradeHeader}"></jstl:out></th>
 		<th><jstl:out value="${momentHeader}"></jstl:out></th>
 	</tr>
 	<jstl:forEach items="${query5}" var="row">

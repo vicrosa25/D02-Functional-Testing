@@ -6,25 +6,25 @@
 <%@taglib prefix="display" uri="http://displaytag.sf.net"%>
 <%@ taglib prefix="acme" tagdir="/WEB-INF/tags" %>
 
-<display:table name="procession" id="row" requestURI="procession/display.do" class="displaytag">>
+<display:table name="parade" id="row" requestURI="parade/display.do" class="displaytag">>
 	<!-- Ticker -->
-	<spring:message code="procession.ticker" var="tickerHeader" />
+	<spring:message code="parade.ticker" var="tickerHeader" />
 	<display:column property="ticker" title="${tickerHeader}" sortable="false" />
 	
 	<!-- Title -->
-	<spring:message code="procession.title" var="titleHeader" />
+	<spring:message code="parade.title" var="titleHeader" />
 	<display:column property="title" title="${titleHeader}" sortable="false" />
 	
 	<!-- Title -->
-	<spring:message code="procession.description" var="descriptionHeader" />
+	<spring:message code="parade.description" var="descriptionHeader" />
 	<display:column property="description" title="${descriptionHeader}" sortable="false" />
 	
 	<!-- Moment -->
-	<spring:message code="procession.moment" var="momentHeader" />
+	<spring:message code="parade.moment" var="momentHeader" />
 	<display:column property="moment" title="${momentHeader}" sortable="false" format="{0,date,dd/MM/yyyy HH:mm}" />
 
 	<!-- brotherhood -->
-	<spring:message code="procession.brotherhood" var="brotherhoodHeader" />
+	<spring:message code="parade.brotherhood" var="brotherhoodHeader" />
 	<display:column property="brotherhood.title" title="${brotherhoodHeader}" />
 	
 </display:table>
@@ -35,8 +35,8 @@
 </div></jstl:if>
 
 
-<jstl:if test="${not empty procession.path}">
-<display:table name="procession.path.segments" id="row" requestURI="procession/display.do" class="displaytag">
+<jstl:if test="${not empty parade.path}">
+<display:table name="parade.path.segments" id="row" requestURI="parade/display.do" class="displaytag">
 
 	<spring:message code="segment.origin.coordinates" var="originHeader" />
 	<display:column title="${originHeader}" sortable="false" >

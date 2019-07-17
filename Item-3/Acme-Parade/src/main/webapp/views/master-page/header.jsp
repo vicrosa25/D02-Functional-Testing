@@ -53,10 +53,10 @@
 		
 		<!-- An actor who is authenticated as a BROTHERHOOD -->
 		<security:authorize access="hasRole('BROTHERHOOD')">
-			<li><a class="fNiv"><spring:message	code="master.page.processions" /></a>
+			<li><a class="fNiv"><spring:message	code="master.page.parades" /></a>
 				<ul>
 					<li class="arrow"></li>
-					<li><a href="procession/list.do"><spring:message code="master.page.procession.list" /></a></li>				
+					<li><a href="parade/list.do"><spring:message code="master.page.parade.list" /></a></li>				
 				</ul>
 			</li>
 			<li><a class="fNiv"><spring:message	code="master.page.coach.brotherhood" /></a>

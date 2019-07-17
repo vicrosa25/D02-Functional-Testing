@@ -17,18 +17,18 @@ public class Path extends DomainEntity {
 
 	// Relationships ----------------------------------------------------------
 	private Collection<Segment>	segments;
-	private Procession			procession;
+	private Parade				parade;
 
 
 	@NotNull
 	@Valid
 	@OneToOne(optional = false)
-	public Procession getProcession() {
-		return this.procession;
+	public Parade getParade() {
+		return this.parade;
 	}
 
-	public void setProcession(final Procession procession) {
-		this.procession = procession;
+	public void setParade(final Parade parade) {
+		this.parade = parade;
 	}
 
 	@NotNull

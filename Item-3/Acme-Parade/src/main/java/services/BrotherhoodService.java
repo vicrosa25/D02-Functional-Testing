@@ -14,20 +14,20 @@ import org.springframework.util.Assert;
 import org.springframework.validation.BindingResult;
 import org.springframework.validation.Validator;
 
-import repositories.BrotherhoodRepository;
-import security.Authority;
-import security.LoginService;
-import security.UserAccount;
 import domain.Area;
 import domain.Brotherhood;
 import domain.Coach;
 import domain.Enrol;
 import domain.Member;
 import domain.MessageBox;
-import domain.Procession;
+import domain.Parade;
 import domain.SocialIdentity;
 import domain.Url;
 import forms.BrotherhoodForm;
+import repositories.BrotherhoodRepository;
+import security.Authority;
+import security.LoginService;
+import security.UserAccount;
 
 @Service
 @Transactional
@@ -50,7 +50,7 @@ public class BrotherhoodService {
 	private EnrolService			enrolService;
 
 	@Autowired
-	private ProcessionService		processionService;
+	private ParadeService			paradeService;
 
 	@Autowired
 	private SocialIdentityService	socialIdentityService;
@@ -78,7 +78,7 @@ public class BrotherhoodService {
 		result.setPictures(new ArrayList<Url>());
 		result.setCoaches(new ArrayList<Coach>());
 		result.setEnrols(new ArrayList<Enrol>());
-		result.setProcessions(new ArrayList<Procession>());
+		result.setParades(new ArrayList<Parade>());
 		result.setMessageBoxes(boxes);
 
 		return result;
@@ -115,11 +115,10 @@ public class BrotherhoodService {
 
 		brotherhood.getArea().getBrotherhoods().remove(brotherhood);
 
-		Iterator<Coach> coaches 			= new ArrayList<Coach>(brotherhood.getCoaches()).iterator();
-		Iterator<Enrol> enrols 				= new ArrayList<Enrol>(brotherhood.getEnrols()).iterator();
-		Iterator<Procession> processions 	= new ArrayList<Procession>(brotherhood.getProcessions()).iterator();
-		Iterator<SocialIdentity> socialIs 	= new ArrayList<SocialIdentity>
-												(brotherhood.getSocialIdentities()).iterator();
+		Iterator<Coach> coaches = new ArrayList<Coach>(brotherhood.getCoaches()).iterator();
+		Iterator<Enrol> enrols = new ArrayList<Enrol>(brotherhood.getEnrols()).iterator();
+		Iterator<Parade> parades = new ArrayList<Parade>(brotherhood.getParades()).iterator();
+		Iterator<SocialIdentity> socialIs = new ArrayList<SocialIdentity>(brotherhood.getSocialIdentities()).iterator();
 
 		while (coaches.hasNext()) {
 			Coach next = coaches.next();
@@ -133,11 +132,11 @@ public class BrotherhoodService {
 			brotherhood.getEnrols().remove(next);
 			enrols.remove();
 		}
-		while (processions.hasNext()) {
-			Procession p = processions.next();
-			this.processionService.delete(p);
-			brotherhood.getProcessions().remove(p);
-			processions.remove();
+		while (parades.hasNext()) {
+			Parade p = parades.next();
+			this.paradeService.delete(p);
+			brotherhood.getParades().remove(p);
+			parades.remove();
 		}
 		while (socialIs.hasNext()) {
 			SocialIdentity si = socialIs.next();
@@ -203,19 +202,18 @@ public class BrotherhoodService {
 		result.setIsSpammer(temp.getIsSpammer());
 		result.setIsBanned(temp.getIsBanned());
 		result.setScore(temp.getScore());
-		
 
 		// Relantionships
 		result.setCoaches(temp.getCoaches());
 		result.setEnrols(temp.getEnrols());
 		result.setEstablishment(temp.getEstablishment());
 		result.setPictures(temp.getPictures());
-		result.setProcessions(temp.getProcessions());
+		result.setParades(temp.getParades());
 		result.setUserAccount(temp.getUserAccount());
 		result.setArea(temp.getArea());
 		result.setSocialIdentities(temp.getSocialIdentities());
 		result.setHistory(temp.getHistory());
-		
+
 		this.validator.validate(result, binding);
 
 		return result;

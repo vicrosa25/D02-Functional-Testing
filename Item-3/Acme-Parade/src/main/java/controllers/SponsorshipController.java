@@ -18,10 +18,10 @@ import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.servlet.ModelAndView;
 
-import domain.Procession;
+import domain.Parade;
 import domain.Sponsor;
 import domain.Sponsorship;
-import services.ProcessionService;
+import services.ParadeService;
 import services.SponsorService;
 import services.SponsorshipService;
 
@@ -36,7 +36,7 @@ public class SponsorshipController extends AbstractController {
 	private SponsorService		sponsorService;
 
 	@Autowired
-	private ProcessionService	processionService;
+	private ParadeService		paradeService;
 
 
 	@ExceptionHandler(TypeMismatchException.class)
@@ -108,8 +108,7 @@ public class SponsorshipController extends AbstractController {
 			for (final ObjectError e : errors)
 				System.out.println(e.toString());
 			result = this.createEditModelAndView(prune);
-		}
-		else
+		} else
 			try {
 				this.sponsorshipService.save(sponsorship);
 				result = new ModelAndView("redirect:/sponsorship/sponsor/list.do");
@@ -165,20 +164,20 @@ public class SponsorshipController extends AbstractController {
 
 	// charge -------------------------------------------------------------
 	@RequestMapping(value = "/charge", method = RequestMethod.GET)
-	public ModelAndView charge(@RequestParam final int sponsorshipId, @RequestParam final int processionId) {
+	public ModelAndView charge(@RequestParam final int sponsorshipId, @RequestParam final int paradeId) {
 		ModelAndView result;
 		Sponsorship sponsorship;
-		Procession procession;
+		Parade parade;
 
 		try {
 			sponsorship = this.sponsorshipService.findOne(sponsorshipId);
 			result = this.createEditModelAndView(sponsorship);
-			procession = this.processionService.findOne(processionId);
+			parade = this.paradeService.findOne(paradeId);
 
-			Assert.isTrue(sponsorship.getProcession() == procession);
+			Assert.isTrue(sponsorship.getParade() == parade);
 
-			result = new ModelAndView("procession/display");
-			result.addObject("procession", procession);
+			result = new ModelAndView("parade/display");
+			result.addObject("parade", parade);
 			result.addObject("charged", "sponsorship.charged");
 			result.addObject("sponsorship", sponsorship);
 		} catch (final Throwable oops) {
@@ -201,7 +200,7 @@ public class SponsorshipController extends AbstractController {
 
 		result = new ModelAndView("sponsorship/sponsor/edit");
 		result.addObject("sponsorship", sponsorship);
-		result.addObject("processions", this.processionService.findAllAccepted());
+		result.addObject("parades", this.paradeService.findAllAccepted());
 		result.addObject("message", message);
 
 		return result;

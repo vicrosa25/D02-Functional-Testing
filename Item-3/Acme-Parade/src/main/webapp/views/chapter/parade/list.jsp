@@ -50,40 +50,40 @@
 	</jstl:choose>
 
 	<!-- title -->
-	<spring:message code="procession.title" var="titleHeader" />
+	<spring:message code="parade.title" var="titleHeader" />
 	<display:column property="title" title="${titleHeader}"  class="${css}"/>
 
 	<!-- ticker -->
-	<spring:message code="procession.ticker" var="tickerHeader" />
+	<spring:message code="parade.ticker" var="tickerHeader" />
 	<display:column property="ticker" title="${tickerHeader}"  class="${css}"/>
 
 	<!-- description -->
-	<spring:message code="procession.description" var="descriptionHeader" />
+	<spring:message code="parade.description" var="descriptionHeader" />
 	<display:column property="description" title="${ descriptionHeader }"  class="${css}"/>
 
 	<!-- moment -->
-	<spring:message code="procession.moment" var="momentHeader" />
+	<spring:message code="parade.moment" var="momentHeader" />
 	<display:column property="moment" title="${momentHeader}" format="{0,date,dd/MM/yyyy}"  class="${css}"/>
 
 	<!-- brotherhood -->
-	<spring:message code="procession.brotherhood" var="brotherhoodHeader" />
+	<spring:message code="parade.brotherhood" var="brotherhoodHeader" />
 	<display:column property="brotherhood.title" title="${brotherhoodHeader}"  class="${css}"/>
 	
 	<!-- status -->
-	<spring:message code="procession.status" var="statusHeader" />
+	<spring:message code="parade.status" var="statusHeader" />
 	<display:column property="status" title="${statusHeader}"  class="${css}"/>	
 	
 	<!-- manage status -->
 	<spring:message code="chapter.parade.accept" var="acceptHeader"/>
 	<display:column  title="${ acceptHeader }" class="${css}">
 		<jstl:if test="${row.status == 'SUBMITTED'}">
-			<a href="chapter/parade/aprove.do?processionId=${row.id}"><spring:message code="chapter.parade.accept" /></a>
+			<a href="chapter/parade/aprove.do?paradeId=${row.id}"><spring:message code="chapter.parade.accept" /></a>
 		</jstl:if>
 	</display:column>
 	<spring:message code="chapter.parade.reject" var="rejectHeader" />
 	<display:column  title="${ rejectHeader }" class="${css}">
 		<jstl:if test="${row.status == 'SUBMITTED'}">
-			<a href="chapter/parade/reject/reasson.do?processionId=${row.id}"><spring:message code="chapter.parade.reject" /></a>
+			<a href="chapter/parade/reject/reasson.do?paradeId=${row.id}"><spring:message code="chapter.parade.reject" /></a>
 		</jstl:if>
 	</display:column>
 	

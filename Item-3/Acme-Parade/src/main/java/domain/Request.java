@@ -17,13 +17,13 @@ import org.hibernate.validator.constraints.NotBlank;
 public class Request extends DomainEntity {
 
 	// Attributes ----------------------------------------------------------------------------
-	private String		status;
-	private Integer		assignedRow;
-	private Integer		assignedColumn;
-	private String		reason;
+	private String	status;
+	private Integer	assignedRow;
+	private Integer	assignedColumn;
+	private String	reason;
 	// Relationships --------------------------------------------------------------------------
-	private Member		member;
-	private Procession	procession;
+	private Member	member;
+	private Parade	parade;
 
 
 	// Getters & setters ----------------------------------------------------------------------
@@ -74,15 +74,15 @@ public class Request extends DomainEntity {
 	public void setMember(final Member member) {
 		this.member = member;
 	}
-	
+
 	@NotNull
 	@Valid
 	@ManyToOne(optional = false)
-	public Procession getProcession() {
-		return this.procession;
+	public Parade getParade() {
+		return this.parade;
 	}
 
-	public void setProcession(final Procession procession) {
-		this.procession = procession;
+	public void setParade(final Parade parade) {
+		this.parade = parade;
 	}
 }

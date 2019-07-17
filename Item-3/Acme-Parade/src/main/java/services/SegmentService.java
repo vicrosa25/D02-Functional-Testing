@@ -1,3 +1,4 @@
+
 package services;
 
 import java.util.ArrayList;
@@ -8,10 +9,10 @@ import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 import org.springframework.util.Assert;
 
-import repositories.SegmentRepository;
 import domain.Brotherhood;
 import domain.Path;
 import domain.Segment;
+import repositories.SegmentRepository;
 
 @Service
 @Transactional
@@ -29,7 +30,7 @@ public class SegmentService {
 	// CRUD methods
 	public Segment create() {
 		final Segment result = new Segment();
-		
+
 		return result;
 	}
 
@@ -50,15 +51,15 @@ public class SegmentService {
 	public Segment save(final Segment segment) {
 		Brotherhood principal = this.brotherhoodService.findByPrincipal();
 		Assert.notNull(segment);
-		Assert.isTrue(principal.getProcessions().contains(segment.getPath().getProcession()));
+		Assert.isTrue(principal.getParades().contains(segment.getPath().getParade()));
 
 		final Segment result = this.segmentRepository.save(segment);
-		
+
 		if (result.getNumber() < result.getPath().getSegments().size() - 1) {
-				Segment next = this.findByNumber(result.getPath(), result.getNumber() + 1);
-				next.setOriginLatitude(result.getDestinationLatitude());
-				next.setOriginLongitude(result.getDestinationLongitude());
-				this.segmentRepository.save(next);
+			Segment next = this.findByNumber(result.getPath(), result.getNumber() + 1);
+			next.setOriginLatitude(result.getDestinationLatitude());
+			next.setOriginLongitude(result.getDestinationLongitude());
+			this.segmentRepository.save(next);
 		}
 		return result;
 	}
@@ -67,8 +68,8 @@ public class SegmentService {
 		Assert.notNull(segment);
 		Path path = segment.getPath();
 		final Brotherhood principal = this.brotherhoodService.findByPrincipal();
-		Assert.isTrue(principal.getProcessions().contains(path.getProcession()));
-		
+		Assert.isTrue(principal.getParades().contains(path.getParade()));
+
 		path.getSegments().remove(segment);
 
 		for (Segment s : new ArrayList<Segment>(path.getSegments())) {
@@ -96,7 +97,7 @@ public class SegmentService {
 		}
 		return result;
 	}
-	
+
 	public Segment findByNumber(Path path, int number) {
 		Segment result = this.segmentRepository.findByNumber(path.getId(), number);
 		Assert.notNull(result, "Not segment found with index " + number + " in path " + path.getId());

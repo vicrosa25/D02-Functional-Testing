@@ -70,11 +70,11 @@
 		</a>
 	</display:column>
 
-	<!-- Processions -->
-	<spring:message code="brotherhood.processions" var="processionsHeader" />
+	<!-- Parades -->
+	<spring:message code="brotherhood.parades" var="paradesHeader" />
 	<display:column>
-		<a href="procession/brotherhoodList.do?brotherhoodId=${row.id}"> <spring:message
-				code="brotherhood.processions" /></a>
+		<a href="parade/brotherhoodList.do?brotherhoodId=${row.id}"> <spring:message
+				code="brotherhood.parades" /></a>
 	</display:column>
 
 	<!-- Floats -->

@@ -12,11 +12,11 @@ import org.springframework.util.Assert;
 import org.springframework.validation.BindingResult;
 import org.springframework.validation.Validator;
 
-import repositories.PathRepository;
 import domain.Brotherhood;
 import domain.Path;
 import domain.Segment;
 import forms.PathForm;
+import repositories.PathRepository;
 
 @Service
 @Transactional
@@ -63,14 +63,14 @@ public class PathService {
 	public Path save(final Path path) {
 		final Brotherhood principal = this.brotherhoodService.findByPrincipal();
 		Assert.notNull(path);
-		Assert.isTrue(principal.getProcessions().contains(path.getProcession()));
+		Assert.isTrue(principal.getParades().contains(path.getParade()));
 		if (path.getId() != 0) {
-			Assert.isTrue(path.getProcession().getPath() == path);
+			Assert.isTrue(path.getParade().getPath() == path);
 		}
 
 		final Path result = this.pathRepository.save(path);
 
-		result.getProcession().setPath(result);
+		result.getParade().setPath(result);
 
 		return result;
 	}
@@ -78,10 +78,10 @@ public class PathService {
 	public void delete(final Path path) {
 		Assert.notNull(path);
 		final Brotherhood principal = this.brotherhoodService.findByPrincipal();
-		Assert.isTrue(principal.getProcessions().contains(path.getProcession()));
-		Assert.isTrue(path.getProcession().getPath() == path);
+		Assert.isTrue(principal.getParades().contains(path.getParade()));
+		Assert.isTrue(path.getParade().getPath() == path);
 
-		path.getProcession().setPath(null);
+		path.getParade().setPath(null);
 		final ArrayList<Segment> segments = new ArrayList<Segment>(path.getSegments());
 		for (final Segment seg : segments) {
 			this.segmentService.delete(seg);
@@ -95,7 +95,7 @@ public class PathService {
 	public Path reconstruct(final PathForm form, final BindingResult binding) {
 		final Path path = this.create();
 		final Segment segment = this.reconstructSegment(form, binding);
-		path.setProcession(form.getProcession());
+		path.setParade(form.getParade());
 		segment.setPath(path);
 
 		if (segment.getOriginTime() != null && segment.getDestinationTime() != null) {
@@ -104,8 +104,8 @@ public class PathService {
 			}
 		}
 
-		if (form.getProcession() == null) {
-			binding.rejectValue("procession", "path.error.procession", "A procession must be selected");
+		if (form.getParade() == null) {
+			binding.rejectValue("parade", "path.error.parade", "A parade must be selected");
 		}
 
 		this.validator.validate(segment, binding);

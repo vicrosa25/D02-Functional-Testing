@@ -1,3 +1,4 @@
+
 package controllers;
 
 import java.util.List;
@@ -16,11 +17,11 @@ import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.servlet.ModelAndView;
 
+import domain.Path;
+import domain.Segment;
 import services.BrotherhoodService;
 import services.PathService;
 import services.SegmentService;
-import domain.Path;
-import domain.Segment;
 
 @Controller
 @RequestMapping("/segment/brotherhood")
@@ -48,7 +49,7 @@ public class SegmentController extends AbstractController {
 
 		try {
 			Path path = this.pathService.findOne(pathId);
-			Assert.isTrue(this.brotherhoodService.findByPrincipal().getProcessions().contains(path.getProcession()));
+			Assert.isTrue(this.brotherhoodService.findByPrincipal().getParades().contains(path.getParade()));
 			final Segment segment = this.segmentService.create();
 
 			Segment previous = this.segmentService.getLastSegment(path);
@@ -78,7 +79,7 @@ public class SegmentController extends AbstractController {
 
 		try {
 			Segment segment = this.segmentService.findOne(segmentId);
-			Assert.isTrue(this.brotherhoodService.findByPrincipal().getProcessions().contains(segment.getPath().getProcession()));
+			Assert.isTrue(this.brotherhoodService.findByPrincipal().getParades().contains(segment.getPath().getParade()));
 
 			result = this.createEditModelAndView(segment);
 
@@ -120,7 +121,7 @@ public class SegmentController extends AbstractController {
 				segment = this.segmentService.save(segment);
 				segment.getPath().getSegments().add(segment);
 
-				result = new ModelAndView("redirect:/path/brotherhood/display.do?processionId=" + segment.getPath().getProcession().getId());
+				result = new ModelAndView("redirect:/path/brotherhood/display.do?paradeId=" + segment.getPath().getParade().getId());
 			} catch (final Throwable oops) {
 				System.out.println(oops.getMessage());
 				System.out.println(oops.getClass());
@@ -141,17 +142,15 @@ public class SegmentController extends AbstractController {
 			final Segment segment = this.segmentService.findOne(segmentId);
 			Path path = segment.getPath();
 
-			Assert.isTrue(this.brotherhoodService.findByPrincipal().getProcessions().contains(segment.getPath().getProcession()));
+			Assert.isTrue(this.brotherhoodService.findByPrincipal().getParades().contains(segment.getPath().getParade()));
 
 			if (path.getSegments().size() > 1) {
 				this.segmentService.delete(segment);
-				result = new ModelAndView("redirect:/path/brotherhood/display.do?processionId=" + path.getProcession().getId());
+				result = new ModelAndView("redirect:/path/brotherhood/display.do?paradeId=" + path.getParade().getId());
 			} else {
 				this.pathService.delete(path);
-				result = new ModelAndView("redirect:/procession/list.do");
+				result = new ModelAndView("redirect:/parade/list.do");
 			}
-
-
 
 		} catch (final Throwable oops) {
 			System.out.println(oops.getMessage());

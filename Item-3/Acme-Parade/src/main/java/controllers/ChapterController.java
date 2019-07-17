@@ -28,14 +28,14 @@ import org.springframework.web.servlet.ModelAndView;
 import domain.Area;
 import domain.Brotherhood;
 import domain.Chapter;
-import domain.Procession;
+import domain.Parade;
 import domain.Proclaim;
 import domain.Url;
 import forms.ChapterForm;
 import services.ActorService;
 import services.AreaService;
 import services.ChapterService;
-import services.ProcessionService;
+import services.ParadeService;
 import utilities.Md5;
 
 @Controller
@@ -43,23 +43,23 @@ import utilities.Md5;
 public class ChapterController extends AbstractController {
 
 	@Autowired
-	private ChapterService		chapterService;
+	private ChapterService	chapterService;
 
 	@Autowired
-	private AreaService			areaService;
+	private AreaService		areaService;
 
 	@Autowired
-	private ActorService		actorService;
+	private ActorService	actorService;
 
 	@Autowired
-	private ProcessionService	processionService;
-	
+	private ParadeService	paradeService;
+
+
 	@ExceptionHandler(TypeMismatchException.class)
 	public ModelAndView handleMismatchException(final TypeMismatchException oops) {
 		JOptionPane.showMessageDialog(null, "Forbidden operation");
 		return new ModelAndView("redirect:/");
 	}
-
 
 	// List ------------------------------------------------------------------------------------
 	@RequestMapping(value = "/list", method = RequestMethod.GET)
@@ -254,7 +254,7 @@ public class ChapterController extends AbstractController {
 		area = this.areaService.findOne(areaId);
 		//Collection<Area> areas = new ArrayList<Area>();
 		//areas.add(area);
-		
+
 		pictures = area.getPictures();
 
 		result = new ModelAndView("chapter/area/list");
@@ -298,19 +298,16 @@ public class ChapterController extends AbstractController {
 
 		return result;
 	}
-	
-	
+
 	// Proclaims list ------------------------------------------------------------------------------------
 	@RequestMapping(value = "/proclaim/list", method = RequestMethod.GET)
 	public ModelAndView proclaimList(@RequestParam int chapterId) {
 		ModelAndView result;
 		Chapter chapter;
 		Collection<Proclaim> proclaims;
-		
-		
+
 		chapter = this.chapterService.findOne(chapterId);
 		proclaims = chapter.getProclaims();
-		
 
 		result = new ModelAndView("chapter/proclaim/list");
 		result.addObject("requestURI", "chapter/proclaim/list.do");
@@ -347,9 +344,6 @@ public class ChapterController extends AbstractController {
 			oops.printStackTrace();
 		}
 	}
-	
-	
-	
 
 	/*************************************
 	 * Parades methods
@@ -359,12 +353,12 @@ public class ChapterController extends AbstractController {
 	public ModelAndView list() {
 		ModelAndView result;
 		Chapter principal;
-		Collection<Procession> parades;
+		Collection<Parade> parades;
 
 		principal = this.chapterService.findByPrincipal();
 
 		try {
-			parades = this.chapterService.findAllProcessionByChapter(principal.getId());
+			parades = this.chapterService.findAllParadeByChapter(principal.getId());
 			result = new ModelAndView("chapter/parade/list");
 			result.addObject("uri", "chapter/parade/list");
 			result.addObject("parades", parades);
@@ -381,20 +375,20 @@ public class ChapterController extends AbstractController {
 
 	// Aprove parade --------------------------------------------------------------------------------------
 	@RequestMapping(value = "/parade/aprove", method = RequestMethod.GET)
-	public ModelAndView aproveParade(@RequestParam int processionId) {
+	public ModelAndView aproveParade(@RequestParam int paradeId) {
 		ModelAndView result = null;
-		Procession procession;
+		Parade parade;
 		Chapter principal;
 
-		procession = this.processionService.findOne(processionId);
-		Assert.notNull(procession);
+		parade = this.paradeService.findOne(paradeId);
+		Assert.notNull(parade);
 
 		try {
 			// Check principal manage Area where is Brotherhood
 			principal = this.chapterService.findByPrincipal();
-			Assert.isTrue(principal.getArea().getBrotherhoods().contains(procession.getBrotherhood()), "The chapter don't manage this procession");
+			Assert.isTrue(principal.getArea().getBrotherhoods().contains(parade.getBrotherhood()), "The chapter don't manage this parade");
 
-			this.chapterService.aproveProcession(procession);
+			this.chapterService.aproveParade(parade);
 			result = this.list();
 		} catch (final Throwable oops) {
 			System.out.println(oops.getMessage());
@@ -407,34 +401,33 @@ public class ChapterController extends AbstractController {
 		return result;
 	}
 
-
 	// Rejecting parade GET ------------------------------------------------------------------------------------
 	@RequestMapping(value = "/parade/reject/reasson", method = RequestMethod.GET)
-	public ModelAndView reason(@RequestParam int processionId) {
+	public ModelAndView reason(@RequestParam int paradeId) {
 		ModelAndView result;
-		Procession procession;
+		Parade parade;
 
-		procession = this.processionService.findOne(processionId);
-		Assert.notNull(procession);
+		parade = this.paradeService.findOne(paradeId);
+		Assert.notNull(parade);
 
 		result = new ModelAndView("chapter/parade/reject/reasson");
-		result.addObject("procession", procession);
+		result.addObject("parade", parade);
 		return result;
 	}
 
 	// Rejecting parade POST  --------------------------------------------------------------------------------------
 	@RequestMapping(value = "parade/reject/reasson", method = RequestMethod.POST)
-	public ModelAndView reason(Procession prune, BindingResult binding) {
+	public ModelAndView reason(Parade prune, BindingResult binding) {
 		ModelAndView result = null;
-		Procession procession;
+		Parade parade;
 		Chapter principal;
 
 		try {
 			// Reconstruct rejected parade
-			procession = this.processionService.reconstructRejected(prune, binding);
+			parade = this.paradeService.reconstructRejected(prune, binding);
 
 			// Check reasson is not empty
-			if (procession.getReasson().isEmpty()) {
+			if (parade.getReasson().isEmpty()) {
 				result = this.reason(prune.getId());
 				result.addObject("message", "chapter.parade.reasson.null");
 				return result;
@@ -442,10 +435,10 @@ public class ChapterController extends AbstractController {
 
 			// Check principal manage Area where is Brotherhood
 			principal = this.chapterService.findByPrincipal();
-			Assert.isTrue(principal.getArea().getBrotherhoods().contains(procession.getBrotherhood()), "The chapter don't manage this procession");
+			Assert.isTrue(principal.getArea().getBrotherhoods().contains(parade.getBrotherhood()), "The chapter don't manage this parade");
 
 			// Set status rejected
-			this.chapterService.rejectParade(procession);
+			this.chapterService.rejectParade(parade);
 			result = this.list();
 		} catch (final Throwable oops) {
 			System.out.println(oops.getMessage());

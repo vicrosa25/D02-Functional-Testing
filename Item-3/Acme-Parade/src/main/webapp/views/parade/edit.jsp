@@ -8,7 +8,7 @@
 <%@taglib prefix="display" uri="http://displaytag.sf.net"%>
 <%@ taglib prefix="acme" tagdir="/WEB-INF/tags"%>
 
-<form:form action="procession/brotherhood/edit.do" modelAttribute="procession">
+<form:form action="parade/brotherhood/edit.do" modelAttribute="parade">
 
 	<%-- Hidden properties from handy worker--%>
 	<form:hidden path="id" />
@@ -19,25 +19,25 @@
 
 
 	<%-- Title --%>
-	<acme:textbox code="procession.title" path="title" />
+	<acme:textbox code="parade.title" path="title" />
 	<br>
 
 	<%-- description --%>
-	<acme:textbox code="procession.description" path="description" />
+	<acme:textbox code="parade.description" path="description" />
 	<br>
 
 	<%-- moment --%>
-	<form:label path="moment"><spring:message code="procession.moment" /></form:label>
+	<form:label path="moment"><spring:message code="parade.moment" /></form:label>
 	<form:input path="moment" placeholder="dd/mm/yyyy" format="{0,date,dd/MM/yyyy HH:mm}" />	
 	<form:errors class="error" path="moment" />
 	<br><br>
 
 	<%-- draftMode --%>
-	<form:label path="draftMode"><spring:message code="procession.draftMode" /></form:label>
+	<form:label path="draftMode"><spring:message code="parade.draftMode" /></form:label>
 	<form:select id="modeDropdown" path="draftMode">
 		<form:option value="">--</form:option>
-		<form:option value="0"><spring:message code="procession.true" /></form:option>
-		<form:option value="1"><spring:message code="procession.false" /></form:option>
+		<form:option value="0"><spring:message code="parade.true" /></form:option>
+		<form:option value="1"><spring:message code="parade.false" /></form:option>
 	</form:select>
 	<form:errors class="error" path="draftMode" />
 	<br>
@@ -45,7 +45,7 @@
 
 
 	<%-- Buttons --%>
-	<input type="submit" name="save" value="<spring:message code="procession.save"/>" />
-	<acme:cancel code="procession.cancel" url="procession/list.do" />
+	<input type="submit" name="save" value="<spring:message code="parade.save"/>" />
+	<acme:cancel code="parade.cancel" url="parade/list.do" />
 	
 </form:form>

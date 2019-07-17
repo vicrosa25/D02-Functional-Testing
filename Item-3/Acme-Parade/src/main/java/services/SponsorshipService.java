@@ -12,11 +12,11 @@ import org.springframework.util.Assert;
 import org.springframework.validation.BindingResult;
 import org.springframework.validation.Validator;
 
-import repositories.SponsorshipRepository;
 import domain.Actor;
-import domain.Procession;
+import domain.Parade;
 import domain.Sponsor;
 import domain.Sponsorship;
+import repositories.SponsorshipRepository;
 
 @Service
 @Transactional
@@ -24,13 +24,13 @@ public class SponsorshipService {
 
 	// Manage Repository
 	@Autowired
-	private SponsorshipRepository sponsorshipRepository;
-	
+	private SponsorshipRepository	sponsorshipRepository;
+
 	@Autowired
-	private SponsorService		  sponsorService;
-	
+	private SponsorService			sponsorService;
+
 	@Autowired
-	private ActorService		  actorService;
+	private ActorService			actorService;
 
 	@Autowired
 	private ConfigurationsService	configurationsService;
@@ -42,16 +42,16 @@ public class SponsorshipService {
 	@Qualifier("validator")
 	private Validator				validator;
 
-	
+
 	// CRUD methods
 	public Sponsorship create() {
 		final Sponsorship result = new Sponsorship();
 
 		Sponsor principal = this.sponsorService.findByPrincipal();
-		
+
 		result.setSponsor(principal);
 		result.setActive(true);
-		
+
 		return result;
 	}
 
@@ -71,15 +71,15 @@ public class SponsorshipService {
 
 	public Sponsorship save(Sponsorship sponsorship) {
 		Assert.notNull(sponsorship);
-		Assert.isTrue(sponsorship.getProcession().getStatus().equals("APPROVED"));
+		Assert.isTrue(sponsorship.getParade().getStatus().equals("APPROVED"));
 		Actor principal;
-		
+
 		principal = this.actorService.findByPrincipal();
-		
+
 		if (principal.getClass().equals(Sponsor.class)) {
 			Assert.isTrue(this.sponsorService.findByPrincipal() == sponsorship.getSponsor());
 		}
-		
+
 		Sponsorship result = this.sponsorshipRepository.save(sponsorship);
 
 		return result;
@@ -95,7 +95,7 @@ public class SponsorshipService {
 	}
 	public void deleteBrotherhood(final Sponsorship sponsorship) {
 		Assert.notNull(sponsorship);
-		Assert.isTrue(this.brotherhoodService.findByPrincipal().getProcessions().contains(sponsorship.getProcession()));
+		Assert.isTrue(this.brotherhoodService.findByPrincipal().getParades().contains(sponsorship.getParade()));
 
 		sponsorship.getSponsor().getSponsorships().remove(sponsorship);
 
@@ -111,11 +111,11 @@ public class SponsorshipService {
 
 	public Sponsorship reconstruct(final Sponsorship sponsorship, final BindingResult binding) {
 		final Sponsorship result = this.create();
-		
+
 		// updated atributes
 		result.setBanner(sponsorship.getBanner());
 		result.setCreditCard(sponsorship.getCreditCard());
-		result.setProcession(sponsorship.getProcession());
+		result.setParade(sponsorship.getParade());
 		result.setTargetPage(sponsorship.getTargetPage());
 
 		if (sponsorship.getId() != 0) {
@@ -137,10 +137,9 @@ public class SponsorshipService {
 		return result;
 	}
 
-	public ArrayList<Sponsorship> findByProcession(Procession procession) {
-		Assert.notNull(procession);
-		ArrayList<Sponsorship> result = new ArrayList<Sponsorship>
-			(this.sponsorshipRepository.findByProcession(procession.getId()));
+	public ArrayList<Sponsorship> findByParade(Parade parade) {
+		Assert.notNull(parade);
+		ArrayList<Sponsorship> result = new ArrayList<Sponsorship>(this.sponsorshipRepository.findByParade(parade.getId()));
 		Assert.notNull(result);
 
 		return result;
@@ -148,8 +147,7 @@ public class SponsorshipService {
 
 	public Sponsorship updateCharge(Sponsorship sponsorship) {
 		Assert.notNull(sponsorship);
-		sponsorship.setCharge(sponsorship.getCharge() +
-			this.configurationsService.getConfiguration().getFare()*this.configurationsService.getConfiguration().getVat());
+		sponsorship.setCharge(sponsorship.getCharge() + this.configurationsService.getConfiguration().getFare() * this.configurationsService.getConfiguration().getVat());
 		return this.sponsorshipRepository.save(sponsorship);
 	}
 

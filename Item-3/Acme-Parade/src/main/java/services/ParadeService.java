@@ -15,65 +15,65 @@ import org.springframework.util.Assert;
 import org.springframework.validation.BindingResult;
 import org.springframework.validation.Validator;
 
-import repositories.ProcessionRepository;
-import security.Authority;
-import security.LoginService;
-import security.UserAccount;
 import domain.Actor;
 import domain.Brotherhood;
 import domain.Enrol;
 import domain.Member;
 import domain.Message;
-import domain.Procession;
+import domain.Parade;
 import domain.Request;
 import domain.Sponsorship;
+import repositories.ParadeRepository;
+import security.Authority;
+import security.LoginService;
+import security.UserAccount;
 
 @Service
 @Transactional
-public class ProcessionService {
+public class ParadeService {
 
 	// Manage Repository
 	@Autowired
-	private ProcessionRepository	processionRepository;
+	private ParadeRepository	paradeRepository;
 
 	// Supporting services
 	@Autowired
-	private ActorService			actorService;
+	private ActorService		actorService;
 
 	@Autowired
-	private BrotherhoodService		brotherhoodService;
+	private BrotherhoodService	brotherhoodService;
 
 	@Autowired
-	private MessageService			messageService;
+	private MessageService		messageService;
 
 	@Autowired
-	private MemberService			memberService;
+	private MemberService		memberService;
 
 	@Autowired
-	private SponsorshipService		sponsorshipService;
+	private SponsorshipService	sponsorshipService;
 
 	@Autowired
-	private PathService				pathService;
+	private PathService			pathService;
 
 	// Validator
 	@Autowired
-	private Validator				validator;
+	private Validator			validator;
 
 
 	/************************************* CRUD methods ********************************/
 
-	public Procession create() {
-		Procession result;
+	public Parade create() {
+		Parade result;
 
-		result = new Procession();
+		result = new Parade();
 		result.setTicker(this.generateTicker());
 		result.setRequests(new ArrayList<Request>());
 
 		return result;
 	}
 
-	public Procession findOne(final int id) {
-		final Procession result = this.processionRepository.findOne(id);
+	public Parade findOne(final int id) {
+		final Parade result = this.paradeRepository.findOne(id);
 
 		Assert.notNull(result);
 
@@ -81,15 +81,15 @@ public class ProcessionService {
 	}
 
 	@Transactional
-	public Collection<Procession> findAll() {
-		final Collection<Procession> result = this.processionRepository.findAll();
+	public Collection<Parade> findAll() {
+		final Collection<Parade> result = this.paradeRepository.findAll();
 		Assert.notNull(result);
 
 		return result;
 	}
 
-	public Procession save(final Procession procession) {
-		Assert.notNull(procession);
+	public Parade save(final Parade parade) {
+		Assert.notNull(parade);
 		Actor principal;
 
 		principal = this.actorService.findByPrincipal();
@@ -106,54 +106,54 @@ public class ProcessionService {
 
 		Assert.isTrue(userAccount.getAuthorities().contains(broAuthority) || userAccount.getAuthorities().contains(chapterAuthority));
 
-		if (procession.getId() == 0) {
+		if (parade.getId() == 0) {
 			Assert.isInstanceOf(Brotherhood.class, principal);
 			final Brotherhood brotherhood = (Brotherhood) principal;
-			procession.setBrotherhood(brotherhood);
-			if (procession.getDraftMode() == false) {
-				procession.setStatus("SUBMITTED");
+			parade.setBrotherhood(brotherhood);
+			if (parade.getDraftMode() == false) {
+				parade.setStatus("SUBMITTED");
 			}
-			this.automaticNotification(procession);
+			this.automaticNotification(parade);
 		} else {
 			if (principal.getClass().equals(Brotherhood.class)) {
 				final Brotherhood brotherhood = (Brotherhood) principal;
-				Assert.isTrue(brotherhood.getProcessions().contains(procession));
-				if (procession.getDraftMode() == false) {
-					//Assert.isTrue(procession.getStatus() == "SUBMITTED"); //TODO
+				Assert.isTrue(brotherhood.getParades().contains(parade));
+				if (parade.getDraftMode() == false) {
+					//Assert.isTrue(parade.getStatus() == "SUBMITTED"); //TODO
 				}
 			}
 		}
 
-		return this.processionRepository.save(procession);
+		return this.paradeRepository.save(parade);
 	}
 
-	public void delete(final Procession procession) {
-		Assert.notNull(procession);
+	public void delete(final Parade parade) {
+		Assert.notNull(parade);
 		Actor principal;
 
 		// Principal must be a Brotherhood
 		principal = this.actorService.findByPrincipal();
 		Assert.isInstanceOf(Brotherhood.class, principal);
-		Assert.isTrue(procession.getId() != 0);
+		Assert.isTrue(parade.getId() != 0);
 
 		final Brotherhood brotherhood = (Brotherhood) principal;
-		Assert.isTrue(brotherhood.getProcessions().contains(procession));
+		Assert.isTrue(brotherhood.getParades().contains(parade));
 
-		for (Sponsorship s : this.sponsorshipService.findByProcession(procession)) {
+		for (Sponsorship s : this.sponsorshipService.findByParade(parade)) {
 			this.sponsorshipService.deleteBrotherhood(s);
 		}
-		if (procession.getPath() != null) {
-			this.pathService.delete(procession.getPath());
+		if (parade.getPath() != null) {
+			this.pathService.delete(parade.getPath());
 		}
 
-		this.processionRepository.delete(procession);
+		this.paradeRepository.delete(parade);
 
 	}
 
 	/************************************* Reconstruct ******************************************/
-	public Procession reconstruct(final Procession pruned, final BindingResult binding) {
-		Procession result = this.create();
-		Procession temp;
+	public Parade reconstruct(final Parade pruned, final BindingResult binding) {
+		Parade result = this.create();
+		Parade temp;
 
 		if (pruned.getId() == 0) {
 			pruned.setStatus(null);
@@ -181,9 +181,9 @@ public class ProcessionService {
 	}
 
 	// Reconstruct for rejected parades
-	public Procession reconstructRejected(final Procession pruned, final BindingResult binding) {
-		Procession result = this.create();
-		Procession temp;
+	public Parade reconstructRejected(final Parade pruned, final BindingResult binding) {
+		Parade result = this.create();
+		Parade temp;
 
 		if (pruned.getId() == 0) {
 			this.validator.validate(pruned, binding);
@@ -219,46 +219,45 @@ public class ProcessionService {
 		return ticker;
 	}
 
-	private void automaticNotification(final Procession procession) {
-		if (!procession.getBrotherhood().getEnrols().isEmpty()) {
+	private void automaticNotification(final Parade parade) {
+		if (!parade.getBrotherhood().getEnrols().isEmpty()) {
 			final Message message = this.messageService.create();
-			message.setBody("The brotherhood " + procession.getBrotherhood().getTitle() + " has published a procession called " + procession.getTitle() + ".");
+			message.setBody("The brotherhood " + parade.getBrotherhood().getTitle() + " has published a parade called " + parade.getTitle() + ".");
 
 			message.setIsNotification(true);
 			message.setPriority("MEDIUM");
-			message.setSubject("New procession by " + procession.getBrotherhood().getTitle());
-			Collection<Actor> recipients = new ArrayList<Actor>(this.memberService.findByBrotherhood(procession.getBrotherhood()));
+			message.setSubject("New parade by " + parade.getBrotherhood().getTitle());
+			Collection<Actor> recipients = new ArrayList<Actor>(this.memberService.findByBrotherhood(parade.getBrotherhood()));
 			message.setRecipients(recipients);
-			
-			
+
 			for (Actor actor : recipients) {
 				message.getMessageBoxes().add(actor.getMessageBox("in"));
 			}
-			
+
 			this.messageService.save(message);
 		}
 	}
 
-	public Collection<Procession> findByBrotherhoodNotDraftAndApproved(final int brotherhoodId) {
-		final Collection<Procession> result = this.processionRepository.findByBrotherhoodNotDraftAndApproved(brotherhoodId);
+	public Collection<Parade> findByBrotherhoodNotDraftAndApproved(final int brotherhoodId) {
+		final Collection<Parade> result = this.paradeRepository.findByBrotherhoodNotDraftAndApproved(brotherhoodId);
 		Assert.notNull(result);
 		return result;
 	}
 
-	public Collection<Procession> findByBrotherhoodNotDraft(final int brotherhoodId) {
-		final Collection<Procession> result = this.processionRepository.findByBrotherhoodNotDraft(brotherhoodId);
+	public Collection<Parade> findByBrotherhoodNotDraft(final int brotherhoodId) {
+		final Collection<Parade> result = this.paradeRepository.findByBrotherhoodNotDraft(brotherhoodId);
 		Assert.notNull(result);
 		return result;
 	}
 
-	public Collection<Procession> findAllMemberToRequest(final Member member) {
-		final Collection<Procession> result = new ArrayList<Procession>();
+	public Collection<Parade> findAllMemberToRequest(final Member member) {
+		final Collection<Parade> result = new ArrayList<Parade>();
 		// Todas las brotherhood a las que pertenece, de ahi las que no tenga request suyas
 		for (final Enrol enrol : member.getEnrols()) {
 			result.addAll(this.findByBrotherhoodNotDraft(enrol.getBrotherhood().getId()));
 		}
 		for (final Request r : member.getRequests()) {
-			result.remove(r.getProcession());
+			result.remove(r.getParade());
 		}
 
 		Assert.notNull(result);
@@ -266,32 +265,32 @@ public class ProcessionService {
 		return result;
 	}
 
-	public Collection<Procession> getProcessionsSortedByStatus(int brotherhoodId) {
-		Collection<Procession> result = this.processionRepository.getProcessionsSortedByStatus(brotherhoodId);
+	public Collection<Parade> getParadesSortedByStatus(int brotherhoodId) {
+		Collection<Parade> result = this.paradeRepository.getParadesSortedByStatus(brotherhoodId);
 		Assert.notNull(result);
 		return result;
 	}
 
-	public Collection<Procession> findAllAccepted() {
-		Collection<Procession> result = this.processionRepository.findAllAccepted();
+	public Collection<Parade> findAllAccepted() {
+		Collection<Parade> result = this.paradeRepository.findAllAccepted();
 		return result;
 	}
 
-	public Procession copy(int processionId) {
-		Procession procession = this.findOne(processionId);
+	public Parade copy(int paradeId) {
+		Parade parade = this.findOne(paradeId);
 		Brotherhood principal = this.brotherhoodService.findByPrincipal();
 
-		Assert.isTrue(principal.getProcessions().contains(procession));
+		Assert.isTrue(principal.getParades().contains(parade));
 
-		Procession copy = this.create();
+		Parade copy = this.create();
 		copy.setBrotherhood(principal);
-		copy.setDescription(procession.getDescription());
+		copy.setDescription(parade.getDescription());
 		copy.setDraftMode(true);
-		copy.setMoment(procession.getMoment());
-		copy.setTitle(procession.getTitle());
+		copy.setMoment(parade.getMoment());
+		copy.setTitle(parade.getTitle());
 
 		copy = this.save(copy);
-		principal.getProcessions().add(copy);
+		principal.getParades().add(copy);
 		return copy;
 	}
 }

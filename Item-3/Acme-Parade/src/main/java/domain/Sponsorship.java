@@ -12,8 +12,6 @@ import javax.validation.constraints.NotNull;
 import org.hibernate.validator.constraints.NotBlank;
 import org.hibernate.validator.constraints.URL;
 
-
-
 @Entity
 @Access(AccessType.PROPERTY)
 public class Sponsorship extends DomainEntity {
@@ -21,7 +19,7 @@ public class Sponsorship extends DomainEntity {
 	private String		banner;
 	private String		targetPage;
 	private CreditCard	creditCard;
-	private Boolean 	active;
+	private Boolean		active;
 	private double		charge;
 
 
@@ -51,12 +49,12 @@ public class Sponsorship extends DomainEntity {
 	public void setCreditCard(final CreditCard creditCard) {
 		this.creditCard = creditCard;
 	}
-	
+
 	@NotNull
 	public Boolean getActive() {
 		return this.active;
 	}
-	
+
 	public void setActive(Boolean active) {
 		this.active = active;
 	}
@@ -72,31 +70,29 @@ public class Sponsorship extends DomainEntity {
 	}
 
 
-
-
 	// Relationships ----------------------------------------------------------
-	private Sponsor 	sponsor;
-	private Procession 	procession;
-	
+	private Sponsor	sponsor;
+	private Parade	parade;
+
 
 	@NotNull
-	@ManyToOne(optional=false)
+	@ManyToOne(optional = false)
 	public Sponsor getSponsor() {
 		return this.sponsor;
 	}
-	
+
 	public void setSponsor(Sponsor sponsor) {
 		this.sponsor = sponsor;
 	}
-	
+
 	@NotNull
-	@ManyToOne(optional=false)
-	public Procession getProcession() {
-		return this.procession;
+	@ManyToOne(optional = false)
+	public Parade getParade() {
+		return this.parade;
 	}
-	
-	public void setProcession(Procession procession) {
-		this.procession = procession;
+
+	public void setParade(Parade parade) {
+		this.parade = parade;
 	}
 	@Override
 	public String toString() {
