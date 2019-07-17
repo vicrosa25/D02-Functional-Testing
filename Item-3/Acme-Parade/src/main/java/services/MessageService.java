@@ -4,6 +4,7 @@ package services;
 import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.Collection;
+import java.util.Date;
 import java.util.GregorianCalendar;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -11,13 +12,13 @@ import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 import org.springframework.util.Assert;
 
+import repositories.MessageRepository;
+import security.LoginService;
+import security.UserAccount;
 import domain.Actor;
 import domain.Configurations;
 import domain.Message;
 import domain.MessageBox;
-import repositories.MessageRepository;
-import security.LoginService;
-import security.UserAccount;
 
 @Service
 @Transactional
@@ -46,7 +47,9 @@ public class MessageService {
 		result.setMessageBoxes(messageBox);
 		result.setRecipients(recipients);
 		result.setTags(tags);
-		result.setMoment(calendar.getTime());
+		Date moment = calendar.getTime();
+		moment.setTime(moment.getTime()-1000);
+		result.setMoment(moment);
 
 		return result;
 	}
@@ -57,11 +60,11 @@ public class MessageService {
 
 		return result;
 	}
-	
-	
+
+
 	public Collection<Message> findAll() {
 		Collection<Message> result;
-		
+
 		result = this.messageRepository.findAll();
 		return result;
 	}
@@ -89,7 +92,7 @@ public class MessageService {
 
 			String box;
 
-			
+
 
 			if (notification) {
 				box = "notification";
